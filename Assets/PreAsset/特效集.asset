@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1376ebaf19e8a74f9618f2cce292459, type: 3}
+  m_Name: "\u7279\u6548\u96C6"
+  m_EditorClassIdentifier: 
+  lists:
+  - name: BulletImpact
+    particle: {fileID: 19800002, guid: 99c73c92ac40473459640b165473206f, type: 3}
+    maxLifeTime: 0.3
+    defaultMaxNum: 10
+  - name: BulletTrail
+    particle: {fileID: 6888221559037551921, guid: 1330bccbf4a140140893e0c2aaab8243,
+      type: 3}
+    maxLifeTime: 0
+    defaultMaxNum: 1
+  - name: Explode
+    particle: {fileID: 19800014, guid: 5332791ebce075d4a9e56f4581e7fb47, type: 3}
+    maxLifeTime: 1
+    defaultMaxNum: 2
+  - name: GunFire
+    particle: {fileID: 19800006, guid: c888f0c922d622147bbdbe2ca794142b, type: 3}
+    maxLifeTime: 0
+    defaultMaxNum: 1
