@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,10 +18,9 @@ public class Gun : MonoBehaviour
 
     /// <summary>扩散的屏幕百分比</summary>
     [Header("扩散")]
-    [SerializeField] private float spread,moveSpread;
-    public bool moving;
+    private float spread;
+    [HideInInspector]public bool moving;
     [SerializeField] private float onAimSpread;
-    [SerializeField] private float onMoveSpread,moveSpreadShrinkSpeed;
     [SerializeField] private float minSpread,maxSpread;
     private float baseSpread;
     [SerializeField] private float minSpreadShrinkSpeed, maxSpreadShrinkSpeed, spreadShrinkAcc;
@@ -28,6 +28,8 @@ public class Gun : MonoBehaviour
     [SerializeField] private float aimShrinkWait;
     [SerializeField] private float overUsedShrinkWait;
     private float shrinkWaitTimer;
+
+    private CinemachineImpulseSource cameraShakeSource;
 
     /// <summary>实际的屏幕距离</summary>
     private float sightDistance;
@@ -49,6 +51,8 @@ public class Gun : MonoBehaviour
             float curveTime = i / fullAmmo;
             bulletToRecoil.Add(recoil.Evaluate(curveTime));
         }
+
+        cameraShakeSource = GetComponent<CinemachineImpulseSource>();
     }
 
     private void OnEnable()
@@ -63,12 +67,17 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
-        moveSpread = Mathf.MoveTowards(moveSpread, 0, moveSpreadShrinkSpeed);
-        if (moving) moveSpread = onMoveSpread;
-
         if (aiming)
         {
-            sightDistance = Screen.height * (spread + moveSpread) / 200;
+            if(moving&&spread<onAimSpread)
+            {
+                spread = onAimSpread;
+                spreadShrinkSpeed = minSpreadShrinkSpeed;
+                shrinkWaitTimer = aimShrinkWait;
+            }
+                
+
+            sightDistance = Screen.height * (spread) / 200;
 
             if (shooting)
             {
@@ -82,7 +91,8 @@ public class Gun : MonoBehaviour
         if(shrinkWaitTimer.TimePassBy()<=0)
             if (!shooting||lastSpreadGrow > spreadShrinkSpeed * shootInterval)
             {
-                spread = Mathf.MoveTowards(spread, minSpread, spreadShrinkSpeed * Time.deltaTime);
+                float targetSpread = moving ? onAimSpread : minSpread;
+                spread = Mathf.MoveTowards(spread, targetSpread, spreadShrinkSpeed * Time.deltaTime);
                 spreadShrinkSpeed = Mathf.MoveTowards(spreadShrinkSpeed, maxSpreadShrinkSpeed, spreadShrinkAcc * Time.deltaTime);
             }
     }
@@ -108,13 +118,14 @@ public class Gun : MonoBehaviour
         }
         else
         {
+            TrySetShooting(false);
             GameUI.Instance.SetSightDis(-1);
         }
     }
 
     public bool TrySetShooting(bool value)
     {
-        if (!aiming) return false;
+        if (!aiming&&value) return false;
 
         if(value)
         {
@@ -181,5 +192,9 @@ public class Gun : MonoBehaviour
             Vector3 dir = bulletVector*-1 + randDir * 0.3f;
             ParticleManager.Instance.PlayEffect("BulletImpact" ,hit.point, Quaternion.LookRotation(dir));
         }
+
+        Vector3 shakeVector = cameraShakeSource.m_DefaultVelocity;
+        shakeVector.x = Random.Range(-0.1f, 0.1f);
+        cameraShakeSource.GenerateImpulse(shakeVector*0.1f);
     }
 }

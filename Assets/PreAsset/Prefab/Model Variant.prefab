@@ -4229,8 +4229,17 @@ MonoBehaviour:
   mouseSpeed: 1.5
   curGun: {fileID: 563633573311085840}
   injuryAnimSwitchSpeed: 2
+  minClimbHeight: 0.5
+  maxClimbHeight: 2.5
+  climbStep: 0.4
+  climbCheckDistance: 1
+  climbOverDistance: 0.4
+  climbLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  climbTowardAngle: 45
   TopClamp: 70
-  BottomClamp: -30
+  BottomClamp: -50
   CameraAngleOverride: 0
 --- !u!1 &6319356257871904142
 GameObject:

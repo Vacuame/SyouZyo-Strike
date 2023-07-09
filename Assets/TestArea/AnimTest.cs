@@ -42,12 +42,7 @@ public class AnimTest : MonoBehaviour
         get { return _runing; }
         set { if (aiming) _runing = false; else _runing = value; }
     }
-    private bool _aiming;
-    private bool aiming
-    {
-        get { return _aiming; }
-        set { if (weaponType == 0) return;   _aiming = value; UpdateByAiming(); }
-    }
+    private bool aiming;
     private bool injured;
     [SerializeField] private float injuryAnimSwitchSpeed;
     private float injuryAnimWeight;
@@ -87,7 +82,12 @@ public class AnimTest : MonoBehaviour
         input_move = control.Player.Move.ReadValue<Vector2>();
         runing = control.Player.Run.IsPressed();
 
-        SetAiming();
+        TrySetAiming();
+
+        if (control.Player.Fire.WasPressedThisFrame())
+            curGun.TrySetShooting(true);
+        else if (control.Player.Fire.WasReleasedThisFrame())
+            curGun.TrySetShooting(false);
 
         if (control.Player.Reload.WasPressedThisFrame())
         {
@@ -96,6 +96,9 @@ public class AnimTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
             injured = !injured;
+
+        int a = ClimbCheck();
+        Debug.Log(a);
 
         float injuryAnimTarget = injured? 1.0f : 0.0f;
         injuryAnimWeight = Mathf.MoveTowards(injuryAnimWeight, injuryAnimTarget, injuryAnimSwitchSpeed * Time.deltaTime);
@@ -107,15 +110,51 @@ public class AnimTest : MonoBehaviour
         anim.SetFloat("inputX", input_move.x);
         anim.SetFloat("inputY", input_move.y);
 
-
-        if (aiming && control.Player.Fire.WasPressedThisFrame())
-            curGun.TrySetShooting(true);
-        else if ((!aiming) || control.Player.Fire.WasReleasedThisFrame())
-            curGun.TrySetShooting(false);
-
         SwitchWeapon();
 
         IKChange();
+    }
+
+    [SerializeField]private float minClimbHeight,maxClimbHeight,climbStep;
+    [SerializeField] private float climbCheckDistance, climbOverDistance;
+    [SerializeField]private LayerMask climbLayer;
+    [SerializeField] private float climbTowardAngle;
+    
+
+
+    private int ClimbCheck()
+    {
+        RaycastHit climbHit;
+        if(Physics.Raycast(transform.position+Vector3.up*minClimbHeight,transform.forward,out climbHit, climbCheckDistance, climbLayer))
+        {
+            Vector3 toWallDire = -climbHit.normal;
+            if (Vector3.Angle(transform.forward, toWallDire) > climbTowardAngle) return 0;
+
+            float wallHeight= maxClimbHeight + climbStep;
+
+            RaycastHit lastClimbHit=climbHit;
+
+            for(float height = minClimbHeight+climbStep; height <= maxClimbHeight+climbStep; height+=climbStep)
+            {
+                if (Physics.Raycast(transform.position + Vector3.up * height, toWallDire, out climbHit, climbCheckDistance, climbLayer))
+                {
+                    lastClimbHit = climbHit;
+                }
+                else if (Physics.Raycast(lastClimbHit.point+Vector3.up*climbStep+toWallDire*0.2f,Vector3.down,out climbHit,climbStep))
+                {
+                    wallHeight = height - climbStep + climbHit.point.y-lastClimbHit.point.y;
+                    break;
+                }
+            }
+            if (wallHeight > maxClimbHeight) return 0;
+
+            if (!Physics.Raycast(lastClimbHit.point + Vector3.up * climbStep + toWallDire * climbOverDistance, Vector3.down, climbStep))
+                    return 2;
+            else
+                return 1;
+
+        }
+        return 0;
     }
 
     private void LateUpdate()
@@ -221,30 +260,32 @@ public class AnimTest : MonoBehaviour
         followTarget.rotation = Quaternion.Euler(cameraTargetPitch + CameraAngleOverride,
             cameraTargetYaw, 0.0f);
     }
-    private void UpdateByAiming()
-    {
-        SwitchCamera(aiming ? 1 : 0);
-        if (aiming)
-        {
-            runing = false;
-            chestRig.weight = 1;
-        }
-        else
-        {
-            chestRig.weight = 0;
-        }
-    }
 
-    private void SetAiming()
+    private void TrySetAiming()
     {
+        if (weaponType == 0) return;
+
         bool was=aiming;
         if (control.Player.Aim.WasPressedThisFrame())
             aiming = true;
         if (control.Player.Aim.WasReleasedThisFrame())
             aiming = false;
 
-        if(was!=aiming)
+        if (was != aiming)
+        {
+            SwitchCamera(aiming ? 1 : 0);
+            if (aiming)
+            {
+                runing = false;
+                chestRig.weight = 1;
+            }
+            else
+            {
+                chestRig.weight = 0;
+            }
+
             curGun.SetAiming(aiming);
+        }
     }
 
     void SwitchCamera(int c)
@@ -260,9 +301,7 @@ public class AnimTest : MonoBehaviour
 
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {
-        if (lfAngle < -360f) lfAngle += 360f;
-        if (lfAngle > 360f) lfAngle -= 360f;
-        return Mathf.Clamp(lfAngle, lfMin, lfMax);
+        return Mathf.Clamp(lfAngle%360, lfMin, lfMax);
     }
     private void SetWeapon(int active)
     {
