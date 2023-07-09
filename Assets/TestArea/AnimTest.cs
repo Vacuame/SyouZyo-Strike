@@ -15,6 +15,7 @@ public class AnimTest : MonoBehaviour
     private Vector2 input_move;
     public float moveSpeedX, moveSpeedZ;
     private Rigidbody rd;
+    private CapsuleCollider col;
     private const float walkThres=1.5f,runThres=3.3f;
     private const float injury_walkThres = 0.9f, injury_runThres = 1.47f;
     [SerializeField]private float walkMaxSpeed,runMaxSpeed,xAcc,zAcc;
@@ -48,6 +49,8 @@ public class AnimTest : MonoBehaviour
     private float injuryAnimWeight;
     private int weaponType;
 
+    private int climbType;
+
     private int animLayerIndex_Injury;
     //听说调用transform影响效率，故保存一下
     private Transform playerTransform;
@@ -56,6 +59,7 @@ public class AnimTest : MonoBehaviour
         control=new Control();
         playerTransform = transform;
         rd=GetComponent<Rigidbody>();
+        col = GetComponent<CapsuleCollider>();
 
         animLayerIndex_Injury = anim.GetLayerIndex("Injury");
     }
@@ -94,12 +98,11 @@ public class AnimTest : MonoBehaviour
             curGun.curAmmo = curGun.fullAmmo;
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.H))
             injured = !injured;
 
-        int a = ClimbCheck();
-        Debug.Log(a);
-
+        SetClimbType();
+                
         float injuryAnimTarget = injured? 1.0f : 0.0f;
         injuryAnimWeight = Mathf.MoveTowards(injuryAnimWeight, injuryAnimTarget, injuryAnimSwitchSpeed * Time.deltaTime);
         anim.SetLayerWeight(animLayerIndex_Injury, injuryAnimWeight);
@@ -119,8 +122,23 @@ public class AnimTest : MonoBehaviour
     [SerializeField] private float climbCheckDistance, climbOverDistance;
     [SerializeField]private LayerMask climbLayer;
     [SerializeField] private float climbTowardAngle;
+    private bool climbing;
     
-
+    private void SetClimbType()
+    {
+        int climbable = ClimbCheck();
+        if (climbable != 0)
+        {
+            GameUI.Instance?.SetText("tip", "Press F to climb");
+            if (control.Player.Interact.WasPressedThisFrame())
+            {
+                climbType = climbable;
+                anim.SetInteger("climbType", climbType);
+            }
+        }
+        else
+            GameUI.Instance?.SetText("tip", null);
+    }
 
     private int ClimbCheck()
     {
@@ -162,6 +180,13 @@ public class AnimTest : MonoBehaviour
         CameraRotation();
     }
 
+    private void Climb()
+    {
+        col.enabled = false;
+        rd.useGravity = false;
+        anim.ApplyBuiltinRootMotion();
+    }
+
     private void Move()
     {
         Vector2 targetSpeed = input_move;
@@ -201,8 +226,20 @@ public class AnimTest : MonoBehaviour
 
         if(weaponType !=0 ) curGun.moving = (targetSpeed != Vector2.zero);
     }
+    private void OnAnimatorMove()
+    {
+        if (anim.GetCurrentAnimatorStateInfo(0).IsTag("Climb"))
+            Climb();
+        else
+        {
+            climbType = 0;
+            anim.SetInteger("climbType", climbType);
+            col.enabled = true;
+            rd.useGravity = true;
+            Move();
+        }
+    }
 
-    
     private void RotationInAim()
     {
         Vector3 cameraAngle = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);
@@ -320,10 +357,7 @@ public class AnimTest : MonoBehaviour
         anim.SetInteger("weaponType", weaponType);
     }
 
-    private void OnAnimatorMove()
-    {
-        Move();
-    }
+    
 
     private void IKChange()
     {
