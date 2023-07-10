@@ -14,8 +14,9 @@ public class AnimTest : MonoBehaviour
     public Control control;
     private Vector2 input_move;
     public float moveSpeedX, moveSpeedZ;
-    private Rigidbody rd;
-    private CapsuleCollider col;
+    //private Rigidbody rd;
+    //private CapsuleCollider col;
+    private CharacterController cc;
     private const float walkThres=1.5f,runThres=3.3f;
     private const float injury_walkThres = 0.9f, injury_runThres = 1.47f;
     [SerializeField]private float walkMaxSpeed,runMaxSpeed,xAcc,zAcc;
@@ -35,6 +36,7 @@ public class AnimTest : MonoBehaviour
     private float cameraTargetYaw;
     private float cameraTargetPitch;
     private float mouseLockTimer;
+
 
     [SerializeField] private Gun curGun;
     
@@ -58,8 +60,9 @@ public class AnimTest : MonoBehaviour
     {
         control=new Control();
         playerTransform = transform;
-        rd=GetComponent<Rigidbody>();
-        col = GetComponent<CapsuleCollider>();
+        cc=GetComponent<CharacterController>();//换作characterController
+        //rd=GetComponent<Rigidbody>();
+        //col = GetComponent<CapsuleCollider>();
 
         animLayerIndex_Injury = anim.GetLayerIndex("Injury");
     }
@@ -118,12 +121,15 @@ public class AnimTest : MonoBehaviour
         IKChange();
     }
 
-    [SerializeField]private float minClimbHeight,maxClimbHeight,climbStep;
+    [SerializeField]private float minClimbHeight,midClimbHeight,maxClimbHeight,climbStep;
     [SerializeField] private float climbCheckDistance, climbOverDistance;
     [SerializeField]private LayerMask climbLayer;
     [SerializeField] private float climbTowardAngle;
     private bool climbing;
-    
+    private Vector3 climb_leftHand, climb_rightHand, climb_rightLeg,climb_root, climbDir;
+    private Vector3 climbEdge, toWallDire;
+    private float climbHeight,wallHeight;
+
     private void SetClimbType()
     {
         int climbable = ClimbCheck();
@@ -134,6 +140,23 @@ public class AnimTest : MonoBehaviour
             {
                 climbType = climbable;
                 anim.SetInteger("climbType", climbType);
+                climbDir = toWallDire;
+                climbHeight = wallHeight;
+                switch (climbType)
+                {
+                    case 1:
+                        climb_leftHand = climbEdge + Vector3.Cross(climbDir, Vector3.up) * 0.3f;
+                        transform.position = climbEdge + Vector3.down * climbHeight - climbDir * 0.5f;
+                        break;
+                    case 2:
+                        climb_rightHand = climbEdge;
+                        break;
+                    case 3:
+                        transform.position = climbEdge + Vector3.down * climbHeight - climbDir * 0.8f;
+                        climb_rightHand = climbEdge + Vector3.Cross(climbDir, Vector3.down) * 0.3f;
+                        climb_rightLeg = climbEdge + Vector3.down * 1.2f; 
+                        break;
+                }
             }
         }
         else
@@ -145,10 +168,10 @@ public class AnimTest : MonoBehaviour
         RaycastHit climbHit;
         if(Physics.Raycast(transform.position+Vector3.up*minClimbHeight,transform.forward,out climbHit, climbCheckDistance, climbLayer))
         {
-            Vector3 toWallDire = -climbHit.normal;
+            toWallDire = -climbHit.normal;
             if (Vector3.Angle(transform.forward, toWallDire) > climbTowardAngle) return 0;
 
-            float wallHeight= maxClimbHeight + climbStep;
+            wallHeight= maxClimbHeight + climbStep;
 
             RaycastHit lastClimbHit=climbHit;
 
@@ -158,18 +181,22 @@ public class AnimTest : MonoBehaviour
                 {
                     lastClimbHit = climbHit;
                 }
-                else if (Physics.Raycast(lastClimbHit.point+Vector3.up*climbStep+toWallDire*0.2f,Vector3.down,out climbHit,climbStep))
+                else if (Physics.Raycast(lastClimbHit.point+Vector3.up*climbStep+toWallDire*0.1f,Vector3.down,out climbHit,climbStep))
                 {
                     wallHeight = height - climbStep + climbHit.point.y-lastClimbHit.point.y;
+                    climbEdge = climbHit.point;
                     break;
                 }
             }
             if (wallHeight > maxClimbHeight) return 0;
-
-            if (!Physics.Raycast(lastClimbHit.point + Vector3.up * climbStep + toWallDire * climbOverDistance, Vector3.down, climbStep))
+            if (wallHeight <= midClimbHeight)
+            {
+                if (!Physics.Raycast(lastClimbHit.point + Vector3.up * climbStep + toWallDire * climbOverDistance, Vector3.down, climbStep))
                     return 2;
-            else
                 return 1;
+            }
+            else
+                return 3;
 
         }
         return 0;
@@ -182,9 +209,29 @@ public class AnimTest : MonoBehaviour
 
     private void Climb()
     {
-        col.enabled = false;
-        rd.useGravity = false;
+        //col.enabled = false;
+        //rd.useGravity = false;
+        cc.enabled = false;
         anim.ApplyBuiltinRootMotion();
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(toWallDire), 0.5f);
+
+        MatchTargetWeightMask weightMask = new MatchTargetWeightMask(Vector3.one, 0);
+        switch (climbType)
+        {
+            case 1:
+                anim.MatchTarget(climb_leftHand, Quaternion.identity, AvatarTarget.LeftHand, weightMask, 0, 0.1f);
+                anim.MatchTarget(climb_leftHand + Vector3.up * 0.25f+ climbDir * 0.2f, Quaternion.identity, AvatarTarget.LeftHand, new MatchTargetWeightMask(Vector3.up, 0f), 0.1f, 0.3f);
+                break;
+            case 2:
+                anim.MatchTarget(climb_rightHand, Quaternion.identity, AvatarTarget.RightHand, weightMask, 0.1f, 0.18f);
+                anim.MatchTarget(climb_rightHand+Vector3.up*0.1f, Quaternion.identity, AvatarTarget.RightHand, weightMask, 0.35f, 0.45f);
+                break;
+            case 3:
+                anim.MatchTarget(climb_rightLeg, Quaternion.identity, AvatarTarget.RightFoot, weightMask, 0.01f, 0.13f);
+                anim.MatchTarget(climb_rightHand, Quaternion.identity, AvatarTarget.RightHand, weightMask, 0.2f, 0.32f);
+                anim.MatchTarget(climb_rightHand+climbDir*0.5f, Quaternion.identity, AvatarTarget.RightFoot, weightMask, 0.65f, 1f);
+                break;
+        }
     }
 
     private void Move()
@@ -219,23 +266,24 @@ public class AnimTest : MonoBehaviour
         //动画加速√magni  得到动画的速度后再加速√magni
         anim.SetFloat("moveAnimSpeed", speedMagni);
         Vector3 animVelo = anim.velocity * speedMagni;
-        Vector3 rdVelo = rd.velocity;
-        rdVelo.x = animVelo.x;
-        rdVelo.z=animVelo.z;
-        rd.velocity=rdVelo;
+        cc.SimpleMove(animVelo);
 
         if(weaponType !=0 ) curGun.moving = (targetSpeed != Vector2.zero);
     }
     private void OnAnimatorMove()
     {
-        if (anim.GetCurrentAnimatorStateInfo(0).IsTag("Climb"))
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Climb")&&!anim.IsInTransition(0))
+            climbType = 0;
+
+        if(climbType!=0)
             Climb();
         else
         {
             climbType = 0;
             anim.SetInteger("climbType", climbType);
-            col.enabled = true;
-            rd.useGravity = true;
+            //col.enabled = true;
+            //rd.useGravity = true;
+            cc.enabled = true;
             Move();
         }
     }

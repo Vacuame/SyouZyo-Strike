@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 05dd178a7e30c4a49851695e7737df2d
+guid: c883ffd7f56a72940ab6c9e8b09e2598
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -19,7 +19,7 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Inbetween bone
       rotation in copied configuration does not match rotation in animation file:\n\t'HeadTip'
-      : rotation error = 0.813238 deg\n"
+      : rotation error = 0.927055 deg\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'mixamo.com' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
@@ -38,11 +38,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: LowClimb
+      name: HighClimb
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 13
-      lastFrame: 45
+      firstFrame: 9
+      lastFrame: 54
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -55,9 +55,9 @@ ModelImporter:
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
