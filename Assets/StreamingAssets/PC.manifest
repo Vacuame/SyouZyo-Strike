@@ -1,0 +1,10 @@
+ManifestFileVersion: 0
+CRC: 3631262682
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: action
+      Dependencies: {}
+    Info_1:
+      Name: weapon
+      Dependencies: {}

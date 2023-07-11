@@ -1,0 +1,26 @@
+ManifestFileVersion: 0
+CRC: 1090236590
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 57890a3ba2bcf92059b4dd87eae9ae68
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c72df62a4a696eadd706a4a81a8b71b2
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Art/Action/Climb/LowClimb.fbx
+- Assets/Art/Action/Rig/RifleHold.anim
+- Assets/Art/Action/Arm/Grap Rifle.fbx
+- Assets/Art/Action/Climb/HighClimb.fbx
+- Assets/Art/Action/Climb/LowCross.fbx
+- Assets/Art/Action/Rig/RifleAim.anim
+Dependencies: []
