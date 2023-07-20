@@ -39,8 +39,8 @@ public class ABTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            GameObject o = AssetManager.Instance.LoadAsset("weapon", "UMP-45")as GameObject;
-            GameObject.Instantiate(o, Vector3.zero, Quaternion.identity);
+            AssetManager.Instance.LoadAssetAsync<GameObject>("weapon", "UMP-45", 
+                (o) => { GameObject.Instantiate(o, Vector3.zero, Quaternion.identity); });
         }
             
 
