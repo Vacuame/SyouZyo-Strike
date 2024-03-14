@@ -84,7 +84,7 @@ public class AnimTest : MonoBehaviour
     private void Update()
     {
         mouseLockTimer.TimePassBy();
-
+        
         //control
         input_move = control.Player.Move.ReadValue<Vector2>();
         runing = control.Player.Run.IsPressed();
