@@ -26,6 +26,7 @@ public class PlayerCharacter : Character
     #endregion
 
     #region 运动状态
+    private bool bCanMove = true;
     private bool bRuning;
     private bool bInjured;
     private bool bAiming;
@@ -35,19 +36,30 @@ public class PlayerCharacter : Character
     private float moveSpeedX, moveSpeedZ;
     #endregion
 
+
     protected override void Update()
     {
         base.Update();
+
         if(bControlable && controller != null)
-        {
             input = controller.control.Player;
-            input_move = input.Move.ReadValue<Vector2>();
-        }
         else
             input = new PlayerActions();
 
-        bRuning = input.Run.IsPressed();//TODO 以后改逻辑
+        abilityMgr.Update(input);
 
+
+        if (bCanMove)
+        {
+            input_move = input.Move.ReadValue<Vector2>();
+            bRuning = input.Run.IsPressed();//TODO 以后改逻辑
+        }
+        else
+        {
+            input_move = Vector2.zero;
+            bRuning = false;
+        }
+       
         anim.SetBool("runing", bRuning);
         anim.SetFloat("inputX", input_move.x);
         anim.SetFloat("inputY", input_move.y);

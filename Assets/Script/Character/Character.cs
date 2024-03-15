@@ -13,6 +13,8 @@ public abstract class Character : Pawn
     [HideInInspector] public Animator anim;
     protected CharacterController cc;
     protected HealthComponent healthComp;
+
+    [HideInInspector]public AbilityMgr abilityMgr;
     #endregion
 
     #region 生命周期
@@ -22,6 +24,7 @@ public abstract class Character : Pawn
         cc = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        abilityMgr = new AbilityMgr(this);
 
         //设定helthComp
         healthComp = GetComponent<HealthComponent>();
