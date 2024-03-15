@@ -7,8 +7,8 @@ using UnityEngine;
 /// </summary>
 public class ItemInstance : MonoBehaviour
 {
-    CharacterBase charaBase;
-    public virtual void Init(CharacterBase charaBase)
+    Character charaBase;
+    public virtual void Init(Character charaBase)
     {
         this.charaBase = charaBase;
     }

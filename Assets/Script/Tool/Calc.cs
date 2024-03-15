@@ -12,6 +12,10 @@ public static class Calc
         return w;
     }
 
+    public static float ClampAngle(float lfAngle, float lfMin, float lfMax)
+    {
+        return Mathf.Clamp(lfAngle % 360, lfMin, lfMax);
+    }
 
     public static Vector2 CircleRandomPoint(Vector2 pos,float radius)
     {

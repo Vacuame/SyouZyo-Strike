@@ -1,25 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(HealthComponent))]
-public abstract class CharacterBase : MonoBehaviour
+public abstract class Character : Pawn
 {
-    //需要设置的
-    [SerializeField,Header("资源设置")]
-    public Animator anim;
-
-    //必要组件
+    #region 必要组件
+    [HideInInspector] public Rigidbody rb;
+    [HideInInspector] public Animator anim;
     protected CharacterController cc;
-    public Rigidbody rb;
     protected HealthComponent healthComp;
-    
-    protected virtual void Awake()
+    #endregion
+
+    #region 生命周期
+    protected override void Awake()
     {
+        //先找到常用组件
         cc = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
+
+        //设定helthComp
         healthComp = GetComponent<HealthComponent>();
         healthComp.OnHealthZero += OnDeadStart;
     }
@@ -31,6 +35,9 @@ public abstract class CharacterBase : MonoBehaviour
     {
 
     }
+
+    #endregion
+
     protected virtual void OnHit(HitInfo hitInfo)
     {;
         healthComp.OnHit(ref hitInfo);

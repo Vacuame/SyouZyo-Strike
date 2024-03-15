@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Skill
 {
-    CharacterBase chara;
-    public Skill(CharacterBase chara)
+    Character chara;
+    public Skill(Character chara)
     {
         this.chara = chara;
     }
