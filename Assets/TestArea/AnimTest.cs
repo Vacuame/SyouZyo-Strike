@@ -128,7 +128,7 @@ public class AnimTest : MonoBehaviour
     private bool climbing;
     private Vector3 climb_leftHand, climb_rightHand, climb_rightLeg,climb_root, climbDir;
     private Vector3 climbEdge, toWallDire;
-    private float climbHeight,wallHeight;
+    private float wallHeight;
 
     private void SetClimbType()
     {
@@ -141,7 +141,7 @@ public class AnimTest : MonoBehaviour
                 climbType = climbable;
                 anim.SetInteger("climbType", climbType);
                 climbDir = toWallDire;
-                climbHeight = wallHeight;
+                float climbHeight = wallHeight;
                 switch (climbType)
                 {
                     case 1:

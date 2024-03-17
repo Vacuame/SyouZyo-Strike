@@ -1,6 +1,7 @@
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityParticleSystem;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using static UnityEngine.UI.GridLayoutGroup;
 
@@ -9,30 +10,31 @@ public abstract class AbilitySpec
     protected object[] _abilityArguments;
     public AbilitySpec(AbstractAbility ability, AbilitySystemComponent owner)
     {
-        Ability = ability;
-        Owner = owner;
+        this.ability = ability;
+        this.owner = owner;
     }
-    public AbstractAbility Ability { get; }
-    public AbilitySystemComponent Owner { get; protected set; }
+    public AbstractAbility ability { get; }
+    public AbilitySystemComponent owner { get; protected set; }
     public bool IsActive { get; private set; }
     public virtual bool CanActivate()
     {
         return !IsActive
-               && CheckGameplayTagsValidTpActivate();
+                && CheckOtherCondition()
+               && CheckGameplayTagsValid();
                //&& CheckCost()
                //&& CheckCooldown().TimeRemaining <= 0;
     }
-    private bool CheckGameplayTagsValidTpActivate()
+    private bool CheckGameplayTagsValid()
     {
-        var hasAllTags = Owner.HasAllTags(Ability.Tag.ActivationRequiredTags);
-        var notHasAnyTags = !Owner.HasAnyTags(Ability.Tag.ActivationBlockedTags);
-        var notBlockedByOtherAbility = true;
+        var hasAllTags = owner.HasAllTags(ability.Tag.ActivationRequiredTags);//有条件tag
+        var notHasAnyTags = !owner.HasAnyTags(ability.Tag.ActivationBlockedTags);//没有被tag阻挡
 
-        foreach (var kv in Owner.AbilityContainer.AbilitySpecs)
+        var notBlockedByOtherAbility = true;
+        foreach (var kv in owner.AbilityContainer.AbilitySpecs)
         {
             var abilitySpec = kv.Value;
             if (abilitySpec.IsActive)
-                if (Ability.Tag.AssetTag.HasAnyTags(abilitySpec.Ability.Tag.BlockAbilitiesWithTags))
+                if (ability.Tag.AssetTag.HasAnyTags(abilitySpec.ability.Tag.BlockAbilitiesWithTags))
                 {
                     notBlockedByOtherAbility = false;
                     break;
@@ -40,10 +42,15 @@ public abstract class AbilitySpec
         }
         return hasAllTags && notHasAnyTags && notBlockedByOtherAbility;
     }
+    protected virtual bool CheckOtherCondition()//额外条件，由子类写
+    {
+        return true;
+    }
     public void Tick()
     {
-        if (!IsActive) return;
-        AbilityTick();
+        SustainedTick();
+        if (IsActive)
+            AbilityTick();
     }
     public virtual bool TryActivateAbility(params object[] args)
     {
@@ -51,30 +58,38 @@ public abstract class AbilitySpec
         if (!CanActivate()) return false;
         IsActive = true;
 
-        //Owner.GameplayTagAggregator.ApplyGameplayAbilityDynamicTag(this);
+        owner.GameplayTagAggregator.ApplyAbilityTags(this);
         ActivateAbility(_abilityArguments);
         return true;
     }
+    /// <summary>
+    /// 当被其他动作打断
+    /// </summary>
     public virtual void TryCancelAbility()
     {
         if (!IsActive) return;
         IsActive = false;
 
-        //Owner.GameplayTagAggregator.RestoreGameplayAbilityDynamicTags(this);
+        owner.GameplayTagAggregator.RestoreAbilityTags(this);
         CancelAbility();
     }
+    /// <summary>
+    /// 当主动结束
+    /// </summary>
     public virtual void TryEndAbility()
     {
         if (!IsActive) return;
         IsActive = false;
 
-        //Owner.GameplayTagAggregator.RestoreGameplayAbilityDynamicTags(this);
+        owner.GameplayTagAggregator.RestoreAbilityTags(this);
         EndAbility();
     }
 
+    #region 被Try调用的抽象方法
     protected virtual void AbilityTick(){}
+    protected virtual void SustainedTick() { }//TODO 这是Buff系统的临时代替者，写了Buff系统就不要它了
     public abstract void CancelAbility();
     public abstract void ActivateAbility(params object[] args);
     public abstract void EndAbility();
-
+    #endregion
 }

@@ -9,13 +9,9 @@ public abstract class AbstractAbility
 {
     public readonly string Name;
 
-    public AbstractAbility()
-    {
-
-    }
     public AbstractAbility(AbilityAsset abilityAsset)
     {
-
+       // Tag = new AbilityTagContainer(abilityAsset.);
     }
 
     public AbilityTagContainer Tag;

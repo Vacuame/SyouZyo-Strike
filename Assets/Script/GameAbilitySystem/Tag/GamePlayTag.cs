@@ -22,20 +22,39 @@ public struct GameplayTag
 
         _ancestorNames = new string[tags.Length - 1];
         _ancestorHashCodes = new int[tags.Length - 1];
-        int i = 0;
         string ancestorTag = "";
-        while (i < tags.Length - 1)
+
+        for (int i = 0; i < tags.Length - 1;i++)
         {
             ancestorTag += tags[i];
             _ancestorHashCodes[i] = ancestorTag.GetHashCode();
             _ancestorNames[i] = ancestorTag;
             ancestorTag += ".";
-            i++;
         }
 
         _shortName = tags.Last();
     }
 
+    public GameplayTag(List<string>tags)
+    {
+        _ancestorNames = new string[tags.Count - 1];
+        _ancestorHashCodes = new int[tags.Count - 1];
+        string ancestorTag = "";
+
+        for (int i = 0; i < tags.Count - 1; i++)
+        {
+            ancestorTag += tags[i];
+            _ancestorHashCodes[i] = ancestorTag.GetHashCode();
+            _ancestorNames[i] = ancestorTag;
+            ancestorTag += ".";
+        }
+
+        _shortName = tags.Last();
+        _name = ancestorTag + _shortName;
+        _hashCode = _name.GetHashCode();
+    }
+
+    #region 读取数据
     public string Name => _name;
     public string ShortName => _shortName;
 
@@ -46,6 +65,7 @@ public struct GameplayTag
     public bool Root => _ancestorHashCodes.Length == 0;
 
     public int[] AncestorHashCodes => _ancestorHashCodes;
+    #endregion
 
     public bool IsAncestorOf(GameplayTag other)
     {
@@ -72,12 +92,18 @@ public struct GameplayTag
         return x.HashCode != y.HashCode;
     }
 
-    public bool HasTag(GameplayTag tag)
+    /// <summary>
+    /// 检查是否属于target类，是的话说明有这种tag
+    /// </summary>
+    /// <param name="targetTag"></param>
+    /// <returns></returns>
+    public bool HasTag(GameplayTag targetTag)
     {
-        foreach (var ancestorHashCode in _ancestorHashCodes)
-            if (ancestorHashCode == tag.HashCode)
-                return true;
+        if(targetTag.IsAncestorOf(this)) return true;
+/*        foreach (var ancestorHashCode in _ancestorHashCodes)
+            if (ancestorHashCode == targetTag.HashCode)
+                return true;*/
 
-        return this == tag;
+        return this == targetTag;
     }
 }

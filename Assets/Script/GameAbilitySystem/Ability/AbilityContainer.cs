@@ -18,11 +18,11 @@ public class AbilityContainer
         if (!_abilities.ContainsKey(abilityName)) return false;
         if (!_abilities[abilityName].TryActivateAbility(args)) return false;
 
-        //取消Tag含有该能力的CancleTag的能力
-        var cancleTags = _abilities[abilityName].Ability.Tag.CancelAbilitiesWithTags;
+        //取消在CancleTag里的能力
+        var cancleTags = _abilities[abilityName].ability.Tag.CancelAbilitiesWithTags;
         foreach (var kv in _abilities)
         {
-            var abilityTag = kv.Value.Ability.Tag;
+            var abilityTag = kv.Value.ability.Tag;
             if (abilityTag.AssetTag.HasAnyTags(cancleTags))
             {
                 _abilities[kv.Key].TryCancelAbility();
@@ -31,11 +31,7 @@ public class AbilityContainer
 
         return true;
     }
-    public void EndAbility(string abilityName)
-    {
-        if (!_abilities.ContainsKey(abilityName)) return;
-        _abilities[abilityName].TryEndAbility();
-    }
+
     public void GrantAbility(AbstractAbility ability)
     {
         if (_abilities.ContainsKey(ability.Name)) return;
@@ -48,6 +44,11 @@ public class AbilityContainer
 
         EndAbility(abilityName);
         _abilities.Remove(abilityName);
+    }
+    public void EndAbility(string abilityName)
+    {
+        if (!_abilities.ContainsKey(abilityName)) return;
+        _abilities[abilityName].TryEndAbility();
     }
     public void Tick()
     {

@@ -27,6 +27,17 @@ public class PlayerCharacter : Character
     private const float injury_walkThres = 0.9f, injury_runThres = 1.47f;
     #endregion
 
+/*    [ContextMenuItem("TryFile", "ABC")]
+    public string filePath;
+
+    public void ABC()
+    {
+        GameplayTag g = new GameplayTag(TagManager.Instance.GetTagGeneration(filePath));
+        foreach (var a in g.AncestorNames)
+            Debug.Log(a);
+        Debug.Log(g.Name);
+    }*/
+
     #region ÔË¶¯×´Ì¬
     private bool bCanMove = true;
     private bool bRuning;

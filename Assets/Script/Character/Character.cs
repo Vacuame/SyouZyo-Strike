@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ public abstract class Character : Pawn
     protected CharacterController cc;
     protected HealthComponent healthComp;
 
-    public AbilitySystemComponent ABS;
+    [HideInInspector]public AbilitySystemComponent ABS;
     #endregion
 
     #region 生命周期
@@ -24,14 +25,17 @@ public abstract class Character : Pawn
         cc = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        ABS = GetComponent<AbilitySystemComponent>();
 
         //设定helthComp
         healthComp = GetComponent<HealthComponent>();
         healthComp.OnHealthZero += OnDeadStart;
+
+        ABS.Prepare();
     }
     protected virtual void Start()
     {
-
+        
     }
     protected virtual void Update()
     {

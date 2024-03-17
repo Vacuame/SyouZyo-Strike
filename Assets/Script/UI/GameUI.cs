@@ -36,8 +36,7 @@ public class GameUI : SingletonMono<GameUI>
                 return;
             }
             text.gameObject.SetActive(true);
-            string ammoStr = value;
-            text.text = ammoStr;
+            text.text = value;
         }
 
     }

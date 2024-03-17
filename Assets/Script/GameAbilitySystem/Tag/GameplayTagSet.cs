@@ -24,6 +24,7 @@ public struct GameplayTagSet
         Tags = tags ?? Array.Empty<GameplayTag>();
     }
 
+    #region Tag¼ì²é
     public bool HasTag(GameplayTag tag)
     {
         return Tags.Any(t => t.HasTag(tag));
@@ -58,4 +59,6 @@ public struct GameplayTagSet
     {
         return !tags.Any(HasTag);
     }
+    #endregion
+
 }

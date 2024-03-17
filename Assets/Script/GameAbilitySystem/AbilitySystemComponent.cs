@@ -6,23 +6,21 @@ using UnityEngine;
 public class AbilitySystemComponent : MonoBehaviour
 {
     public AbilityContainer AbilityContainer;
+    public GameplayTagAggregator GameplayTagAggregator;
+    
 
     private bool _ready;
-    private void Prepare()
+    public void Prepare()
     {
         if (_ready) return;
         AbilityContainer = new AbilityContainer(this);
         //GameplayEffectContainer = new GameplayEffectContainer(this);
         //AttributeSetContainer = new AttributeSetContainer(this);
-        //GameplayTagAggregator = new GameplayTagAggregator(this);
+        GameplayTagAggregator = new GameplayTagAggregator(this);
         _ready = true;
     }
-    private void Awake()
-    {
-        Prepare();
-    }
 
-    public void Tick()
+    public void Tick()//暂时让Player调用，以后集中管理
     {
         AbilityContainer.Tick();
         //GameplayEffectContainer.Tick();
@@ -30,6 +28,8 @@ public class AbilitySystemComponent : MonoBehaviour
 
 
     #region 调用成员的函数
+
+    #region AbilityContainer
     public bool TryActivateAbility(string abilityName, params object[] args) => 
         AbilityContainer.TryActivateAbility(abilityName, args);
     public void TryEndAbility(string abilityName)=>
@@ -38,15 +38,16 @@ public class AbilitySystemComponent : MonoBehaviour
         AbilityContainer.GrantAbility(abstractAbility);
     public void RemoveAbility(string abilityName)=>
         AbilityContainer.RemoveAbility(abilityName);
+    #endregion
 
-    internal bool HasAllTags(GameplayTagSet activationRequiredTags)
-    {
-        throw new NotImplementedException();
-    }
+    #region GameplayTagAggregator
+    internal bool HasAllTags(GameplayTagSet activationRequiredTags)=>
+        GameplayTagAggregator.HasAllTags(activationRequiredTags);
+    internal bool HasAnyTags(GameplayTagSet activationBlockedTags)=>
+        GameplayTagAggregator.HasAnyTags(activationBlockedTags);
+    internal void ApplyAbilityTags(AbilitySpec source)=>
+        GameplayTagAggregator.ApplyAbilityTags(source);
+    #endregion
 
-    internal bool HasAnyTags(GameplayTagSet activationBlockedTags)
-    {
-        throw new NotImplementedException();
-    }
     #endregion
 }
