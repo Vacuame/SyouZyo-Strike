@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Windows;
 using static Control;
+using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerCharacter : Character
 {
@@ -36,6 +38,12 @@ public class PlayerCharacter : Character
     private float moveSpeedX, moveSpeedZ;
     #endregion
 
+    public override void SetController(Controller controller)
+    {
+        base.SetController(controller);
+
+        
+    }
 
     protected override void Update()
     {
@@ -46,11 +54,12 @@ public class PlayerCharacter : Character
         else
             input = new PlayerActions();
 
-        abilityMgr.Update(input);
+        //abilityMgr.Update(input);
 
 
         if (bCanMove)
         {
+            //这个可能就是Move动作了，以后把它改到Ability里
             input_move = input.Move.ReadValue<Vector2>();
             bRuning = input.Run.IsPressed();//TODO 以后改逻辑
         }
@@ -149,6 +158,8 @@ public class PlayerCharacter : Character
         Move();
     }
 
+
+    #region Dead周期
     protected override void OnDead()
     {
         
@@ -163,5 +174,5 @@ public class PlayerCharacter : Character
     {
         
     }
-
+    #endregion
 }

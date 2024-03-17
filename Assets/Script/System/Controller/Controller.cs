@@ -6,7 +6,8 @@ using static Control;
 
 public class Controller : MonoBehaviour
 {
-    public Pawn pawn;
+    [SerializeField] private Pawn presetPawn;
+    [HideInInspector]public Pawn pawn;
 
     [SerializeField,Tooltip("相机向上角度限制")]
     private float CamTopClamp = 70.0f;
@@ -25,7 +26,7 @@ public class Controller : MonoBehaviour
     #endregion
 
     #region 绑定变量
-    public PlayCamera playCamera;
+    [HideInInspector]public PlayCamera playCamera;
     public Control control;
     #endregion
 
@@ -49,8 +50,8 @@ public class Controller : MonoBehaviour
             playCamera = Camera.main.GetComponent<PlayCamera>();
         }
 
-        if (pawn != null)
-            ControlPawn(pawn);
+        if (presetPawn != null)
+            ControlPawn(presetPawn);
     }
     protected virtual void Update()
     {
@@ -64,8 +65,12 @@ public class Controller : MonoBehaviour
 
     protected virtual void ControlPawn(Pawn pawn)
     {
+        if (this.pawn == pawn) 
+            return;
+        if (pawn != null)
+            pawn.RemoveController();
         this.pawn = pawn;
-        pawn.controller = this;
+        pawn.SetController(this);
         Yaw = pawn.transform.rotation.eulerAngles.y;
         Pitch = pawn.transform.rotation.eulerAngles.x;
         playCamera.SetCameraTarget(pawn.camTraceTransform);

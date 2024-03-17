@@ -3016,6 +3016,11 @@ PrefabInstance:
         type: 3}
       propertyPath: pawn
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6534941054624829778, guid: a9601494afd31c24c9b9050e946bd6dd,
+        type: 3}
+      propertyPath: presetPawn
+      value: 
       objectReference: {fileID: 8682798440045451960}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
