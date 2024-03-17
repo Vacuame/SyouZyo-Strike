@@ -10,12 +10,12 @@ public struct GameplayTagSet
 
     public bool Empty => Tags.Length == 0;
 
-    public GameplayTagSet(string[] tagNames)
+    public GameplayTagSet(string[] shortNames)
     {
-        Tags = new GameplayTag[tagNames.Length];
-        for (var i = 0; i < tagNames.Length; i++)
+        Tags = new GameplayTag[shortNames.Length];
+        for (var i = 0; i < shortNames.Length; i++)
         {
-            Tags[i] = new GameplayTag(tagNames[i]);
+            Tags[i] = new GameplayTag(TagManager.Instance.GetTagGeneration(shortNames[i]));
         }
     }
 

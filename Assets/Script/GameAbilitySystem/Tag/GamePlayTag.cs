@@ -35,21 +35,21 @@ public struct GameplayTag
         _shortName = tags.Last();
     }
 
-    public GameplayTag(List<string>tags)
+    public GameplayTag(List<string>subTags)
     {
-        _ancestorNames = new string[tags.Count - 1];
-        _ancestorHashCodes = new int[tags.Count - 1];
+        _ancestorNames = new string[subTags.Count - 1];
+        _ancestorHashCodes = new int[subTags.Count - 1];
         string ancestorTag = "";
 
-        for (int i = 0; i < tags.Count - 1; i++)
+        for (int i = 0; i < subTags.Count - 1; i++)
         {
-            ancestorTag += tags[i];
+            ancestorTag += subTags[i];
             _ancestorHashCodes[i] = ancestorTag.GetHashCode();
             _ancestorNames[i] = ancestorTag;
             ancestorTag += ".";
         }
 
-        _shortName = tags.Last();
+        _shortName = subTags.Last();
         _name = ancestorTag + _shortName;
         _hashCode = _name.GetHashCode();
     }

@@ -16,12 +16,12 @@ public struct AbilityTagContainer
     public GameplayTagSet ActivationBlockedTags;//会被这些挡住，不能启用
 
     public AbilityTagContainer(
-        GameplayTag[] assetTags,
-        GameplayTag[] cancelAbilityTags,
-        GameplayTag[] blockAbilityTags,
-        GameplayTag[] activationOwnedTag,
-        GameplayTag[] activationRequiredTags,
-        GameplayTag[] activationBlockedTags)
+         string[] assetTags,
+         string[] cancelAbilityTags,
+         string[] blockAbilityTags,
+         string[] activationOwnedTag,
+         string[] activationRequiredTags,
+         string[] activationBlockedTags)
     {
         AssetTag = new GameplayTagSet(assetTags);
         CancelAbilitiesWithTags = new GameplayTagSet(cancelAbilityTags);

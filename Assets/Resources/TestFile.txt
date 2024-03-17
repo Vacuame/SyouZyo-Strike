@@ -2,10 +2,6 @@ Action
 			Jump
 					TickJump
 	Attack
-	
 Beidong
 	Die
-		//asdasdasda
-		
-		
-			SuperDie
+		SuperDie

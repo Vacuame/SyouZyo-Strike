@@ -2892,7 +2892,7 @@ PrefabInstance:
     - target: {fileID: 1635253662704513946, guid: 078c8994ff1d02848a746d3d7253db8a,
         type: 3}
       propertyPath: filePath
-      value: Resources/TestFile.txt
+      value: TickJump
       objectReference: {fileID: 0}
     - target: {fileID: 3000786658864992704, guid: 078c8994ff1d02848a746d3d7253db8a,
         type: 3}

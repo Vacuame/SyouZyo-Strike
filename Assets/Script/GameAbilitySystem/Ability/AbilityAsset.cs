@@ -5,10 +5,10 @@ using UnityEngine;
 
 public abstract class AbilityAsset : ScriptableObject
 {
-    public GameplayTag[] assetTags;
-    public GameplayTag[] cancelAbilityTags;
-    public GameplayTag[] blockAbilityTags;
-    public GameplayTag[] activationOwnedTag;
-    public GameplayTag[] activationRequiredTags;
-    public GameplayTag[] activationBlockedTags;
+    public string[] assetTags;
+    public string[] cancelAbilityTags;
+    public string[] blockAbilityTags;
+    public string[] activationOwnedTag;
+    public string[] activationRequiredTags;
+    public string[] activationBlockedTags;
 }

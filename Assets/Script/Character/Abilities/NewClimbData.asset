@@ -13,11 +13,7 @@ MonoBehaviour:
   m_Name: NewClimbData
   m_EditorClassIdentifier: 
   assetTags:
-  - _name: 
-    _hashCode: 0
-    _shortName: 
-    _ancestorHashCodes: 
-    _ancestorNames: []
+  - 
   cancelAbilityTags: []
   blockAbilityTags: []
   activationOwnedTag: []

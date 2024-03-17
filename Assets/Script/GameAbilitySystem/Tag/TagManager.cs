@@ -9,6 +9,7 @@ public class TagManager : Singleton<TagManager>
     public List<string> GetTagGeneration(string name)
     {
         List<string> result = new List<string>();
+        if (name == "") return result;
         result.Add(name);
 
         if(TagDict.ContainsKey(name))
