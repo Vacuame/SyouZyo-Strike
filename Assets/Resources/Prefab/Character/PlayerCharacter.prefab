@@ -1986,6 +1986,7 @@ GameObject:
   - component: {fileID: 4397823121929837022}
   - component: {fileID: 5456767337714107097}
   - component: {fileID: 1635253662704513946}
+  - component: {fileID: 4307293862690404262}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -2275,9 +2276,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camTraceTransform: {fileID: 4746127120802066479}
   bControlable: 1
-  controller: {fileID: 0}
   rb: {fileID: 0}
   anim: {fileID: 0}
+  ABS: {fileID: 0}
   itemInHand: {fileID: 0}
   walkMaxSpeed: 2
   runMaxSpeed: 5
@@ -2287,6 +2288,18 @@ MonoBehaviour:
   injury_backMaxSpeed: 1.35
   injury_runMaxSpeed: 2.5
   rotateSpeed: 200
+--- !u!114 &4307293862690404262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3465996693398589475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aba6d98d92dfa04fa07bddfbcfdfde1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3489230257373089807
 GameObject:
   m_ObjectHideFlags: 0

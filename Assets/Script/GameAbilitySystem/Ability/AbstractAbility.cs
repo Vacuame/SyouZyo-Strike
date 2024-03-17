@@ -8,12 +8,12 @@ using UnityEngine;
 public abstract class AbstractAbility
 {
     public readonly string Name;
-
-    public AbstractAbility(AbilityAsset Asset)
+    public AbstractAbility(AbilityAsset setAsset)
     {
-       Tag = new AbilityTagContainer(Asset.assetTags, Asset.cancelAbilityTags,
-           Asset.blockAbilityTags, Asset.activationOwnedTag,
-           Asset.activationRequiredTags,Asset.blockAbilityTags);
+        Name = setAsset.abilityName;
+        Tag = new AbilityTagContainer(setAsset.assetTags, setAsset.cancelAbilityTags,
+           setAsset.blockAbilityTags, setAsset.activationOwnedTag,
+           setAsset.activationRequiredTags,setAsset.blockAbilityTags);
     }
 
     public AbilityTagContainer Tag;

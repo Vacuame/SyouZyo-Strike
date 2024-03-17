@@ -5,6 +5,9 @@ using UnityEngine;
 
 public abstract class AbilityAsset : ScriptableObject
 {
+    [Header("»ù±¾ÉèÖÃ")]
+    public string abilityName;
+
     public string[] assetTags;
     public string[] cancelAbilityTags;
     public string[] blockAbilityTags;

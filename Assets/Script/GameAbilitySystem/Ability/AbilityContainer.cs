@@ -55,4 +55,12 @@ public class AbilityContainer
         foreach(var a in _abilities)
             a.Value.Tick();
     }
+
+    public void AnimatorMove()
+    {
+        foreach (var a in _abilities)
+            if(a.Value.IsActive)
+                a.Value.AnimatorMove();
+    }
+
 }

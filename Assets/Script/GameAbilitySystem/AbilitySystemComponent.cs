@@ -25,7 +25,10 @@ public class AbilitySystemComponent : MonoBehaviour
         AbilityContainer.Tick();
         //GameplayEffectContainer.Tick();
     }
-
+    private void OnAnimatorMove()
+    {
+        AbilityContainer.AnimatorMove();
+    }
 
     #region 调用成员的函数
 

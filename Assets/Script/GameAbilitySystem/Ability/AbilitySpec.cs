@@ -86,6 +86,7 @@ public abstract class AbilitySpec
     }
 
     #region 被Try调用的抽象方法
+    public virtual void AnimatorMove() { }
     protected virtual void AbilityTick(){}
     protected virtual void SustainedTick() { }//TODO 这是Buff系统的临时代替者，写了Buff系统就不要它了
     public abstract void CancelAbility();

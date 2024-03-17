@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -27,17 +28,6 @@ public class PlayerCharacter : Character
     private const float injury_walkThres = 0.9f, injury_runThres = 1.47f;
     #endregion
 
-/*    [ContextMenuItem("TryFile", "ABC")]
-    public string filePath;
-
-    public void ABC()
-    {
-        GameplayTag g = new GameplayTag(TagManager.Instance.GetTagGeneration(filePath));
-        foreach (var a in g.AncestorNames)
-            Debug.Log(a);
-        Debug.Log(g.Name);
-    }*/
-
     #region ÔË¶¯×´Ì¬
     private bool bCanMove = true;
     private bool bRuning;
@@ -53,7 +43,20 @@ public class PlayerCharacter : Character
     {
         base.SetController(controller);
 
-        
+        controller.control.Player.Interact.started += OnInteractPressed;
+    }
+
+    private void OnInteractPressed(CallbackContext context)=>
+        ABS.TryActivateAbility("Climb",anim,cc,transform);
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        Climb_SO so = Resources.Load<Climb_SO>("ScriptObjectData/ClimbData");
+        ABS.GrandAbility(new Climb(so));
+
+
     }
 
     protected override void Update()
@@ -65,7 +68,7 @@ public class PlayerCharacter : Character
         else
             input = new PlayerActions();
 
-        //abilityMgr.Update(input);
+        ABS.Tick();
 
 
         if (bCanMove)
@@ -152,20 +155,6 @@ public class PlayerCharacter : Character
 
     private void OnAnimatorMove()
     {
-/*        if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Climb") && !anim.IsInTransition(0))
-            climbType = 0;
-
-        if (climbType != 0)
-            Climb();
-        else
-        {
-            climbType = 0;
-            anim.SetInteger("climbType", climbType);
-            //col.enabled = true;
-            //rd.useGravity = true;
-            cc.enabled = true;
-            Move();
-        }*/
         Move();
     }
 
