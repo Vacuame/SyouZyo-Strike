@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class AbilitySystemComponent : MonoBehaviour
 {
-    public AbilityContainer AbilityContainer;
-    public GameplayTagAggregator GameplayTagAggregator;
-    
+    public AbilityContainer AbilityContainer { get; private set; }
+    public GameplayTagAggregator GameplayTagAggregator { get; private set; }
+    public AttributeSetContainer AttributeSetContainer { get; private set; }
 
     private bool _ready;
     public void Prepare()
@@ -15,7 +15,7 @@ public class AbilitySystemComponent : MonoBehaviour
         if (_ready) return;
         AbilityContainer = new AbilityContainer(this);
         //GameplayEffectContainer = new GameplayEffectContainer(this);
-        //AttributeSetContainer = new AttributeSetContainer(this);
+        AttributeSetContainer = new AttributeSetContainer(this);
         GameplayTagAggregator = new GameplayTagAggregator(this);
         _ready = true;
     }
@@ -50,6 +50,26 @@ public class AbilitySystemComponent : MonoBehaviour
         GameplayTagAggregator.HasAnyTags(activationBlockedTags);
     internal void ApplyAbilityTags(AbilitySpec source)=>
         GameplayTagAggregator.ApplyAbilityTags(source);
+
+    #endregion
+
+    #region AttributeSetContainer
+    public T AttrSet<T>() where T : AttributeSet
+    {
+        AttributeSetContainer.TryGetAttributeSet<T>(out var attrSet);
+        return attrSet;
+    }
+    public float? GetAttrCurValue(string setName, string shortName)
+    {
+        var value = AttributeSetContainer.GetAttributeCurrentValue(setName, shortName);
+        return value;
+    }
+
+    public float? GetAttrBaseValue(string setName, string shortName)
+    {
+        var value = AttributeSetContainer.GetAttributeBaseValue(setName, shortName);
+        return value;
+    }
     #endregion
 
     #endregion

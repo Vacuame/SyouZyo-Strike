@@ -12,8 +12,8 @@ public struct AbilityTagContainer
     public GameplayTagSet BlockAbilitiesWithTags;//能力之间的互斥，有启用能力包含这些tag，则我不能启用
 
     public GameplayTagSet ActivationOwnedTag;//能力启动时把这些加给角色
-    public GameplayTagSet ActivationRequiredTags;//需要这些才能启用能力
-    public GameplayTagSet ActivationBlockedTags;//会被这些挡住，不能启用
+    public GameplayTagSet ActivationRequiredTags;//需要角色有这些才能启用能力
+    public GameplayTagSet ActivationBlockedTags;//会被角色的这些挡住，不能启用
 
     public AbilityTagContainer(
          string[] assetTags,
