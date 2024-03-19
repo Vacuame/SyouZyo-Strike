@@ -55,7 +55,7 @@ public class Controller : MonoBehaviour
     }
     protected virtual void Update()
     {
-        mouseLockTimer.TimePassBy();
+        mouseLockTimer.TimerTick();
     }
     private void LateUpdate()
     {

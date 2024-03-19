@@ -5,11 +5,11 @@ using UnityEngine;
 public static class Calc
 {
 
-    public static float TimePassBy(ref this float w, bool unscaled = false)
+    public static bool TimerTick(ref this float w, bool unscaled = false)
     {
         float timePass = unscaled ? Time.unscaledDeltaTime : Time.deltaTime;
         if (w > 0) w -= timePass;
-        return w;
+        return w <= 0;
     }
 
     public static float ClampAngle(float lfAngle, float lfMin, float lfMax)

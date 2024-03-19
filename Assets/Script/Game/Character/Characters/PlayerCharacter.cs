@@ -59,7 +59,7 @@ public class PlayerCharacter : Character
         CharaAtrr s = new CharaAtrr(Resources.Load<CharaAttr_SO>("ScriptObjectData/CharaData"));
         ABS.AttributeSetContainer.AddAttributeSet(s);
 
-       
+        ABS.ApplyGameplayEffectToSelf(new TestEffect(Resources.Load<TestEffect_SO>("ScriptObjectData/TestData")));
     }
 
     protected override void Update()

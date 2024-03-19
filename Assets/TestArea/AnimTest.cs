@@ -83,7 +83,7 @@ public class AnimTest : MonoBehaviour
     }
     private void Update()
     {
-        mouseLockTimer.TimePassBy();
+        mouseLockTimer.TimerTick();
         
         //control
         input_move = control.Player.Move.ReadValue<Vector2>();

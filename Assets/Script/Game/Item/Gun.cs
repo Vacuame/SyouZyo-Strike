@@ -81,14 +81,14 @@ public class Gun : MonoBehaviour
 
             if (shooting)
             {
-                if (timeToNextShoot.TimePassBy() <= 0) Shoot();
+                if (timeToNextShoot.TimerTick()) Shoot();
                 ParticleManager.Instance.SetKeep(gunFireId, muzzle.position, muzzle.rotation);
                 ParticleManager.Instance.SetKeep(bulletTrailId, muzzle.position, Quaternion.LookRotation(bulletVector));
             }
         }
 
         //不射击缩小准星 或者 准星扩散大于缩小时才可以缩小（否则准星无法增大）
-        if(shrinkWaitTimer.TimePassBy()<=0)
+        if(shrinkWaitTimer.TimerTick())
             if (!shooting||lastSpreadGrow > spreadShrinkSpeed * shootInterval)
             {
                 float targetSpread = moving ? onAimSpread : minSpread;

@@ -2,28 +2,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class AbilitySystemComponent : MonoBehaviour
 {
     public AbilityContainer AbilityContainer { get; private set; }
     public GameplayTagAggregator GameplayTagAggregator { get; private set; }
     public AttributeSetContainer AttributeSetContainer { get; private set; }
+    public GameplayEffectContainer GameplayEffectContainer { get; private set; }
 
     private bool _ready;
     public void Prepare()
     {
         if (_ready) return;
         AbilityContainer = new AbilityContainer(this);
-        //GameplayEffectContainer = new GameplayEffectContainer(this);
+        GameplayEffectContainer = new GameplayEffectContainer(this);
         AttributeSetContainer = new AttributeSetContainer(this);
         GameplayTagAggregator = new GameplayTagAggregator(this);
         _ready = true;
     }
 
-    public void Tick()//暂时让Player调用，以后集中管理
+    public void Tick()//TODO 暂时让Player调用，以后集中管理
     {
         AbilityContainer.Tick();
-        //GameplayEffectContainer.Tick();
+        GameplayEffectContainer.Tick();
     }
     private void OnAnimatorMove()
     {
@@ -70,6 +72,24 @@ public class AbilitySystemComponent : MonoBehaviour
         var value = AttributeSetContainer.GetAttributeBaseValue(setName, shortName);
         return value;
     }
+    #endregion
+
+    #region GameEffectContainer
+
+    public GameplayEffectSpec ApplyGameplayEffectTo(GameplayEffect gameplayEffect, AbilitySystemComponent target)
+    {
+        if (!target.HasAllTags(gameplayEffect.TagContainer.ApplicationRequiredTags))
+            return null;
+        return target.AddGameplayEffect(gameplayEffect.CreateSpec(this,target));
+    }
+    public GameplayEffectSpec ApplyGameplayEffectToSelf(GameplayEffect gameplayEffect) =>
+        ApplyGameplayEffectTo(gameplayEffect, this);
+    private GameplayEffectSpec AddGameplayEffect(GameplayEffectSpec spec)
+    {
+        var success = GameplayEffectContainer.AddGameplayEffectSpec(spec);
+        return success ? spec : null;
+    }
+
     #endregion
 
     #endregion

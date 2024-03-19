@@ -31,7 +31,7 @@ public class ParticleManager : SingletonMono<ParticleManager>
         {
             MyParticle p = node.Value;
             var nextNode=node.Next;
-            if(p.lifetime.TimePassBy()<=0)
+            if(p.lifetime.TimerTick())
             {
                 p.particle.gameObject.SetActive(false);
                 particleDic[p.name].partis.Push(p);
@@ -118,7 +118,7 @@ public class ParticleGroup
 
     public void Update()
     {
-        if(timeToSub.TimePassBy()<=0)
+        if(timeToSub.TimerTick())
         {
             int sub = Mathf.Min(partis.Count - info.defaultMaxNum, curSub);//使空闲特效保持在defaltMaxNum
             while (sub>0)

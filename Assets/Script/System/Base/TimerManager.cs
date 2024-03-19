@@ -139,7 +139,7 @@ public class Timer
 
         if (!isOver)
         {
-            if (timer.TimePassBy(unscaled) <= 0)
+            if (timer.TimerTick(unscaled))
             {
                 action?.Invoke();
                 if (haveEvent && !updateInvoke)
