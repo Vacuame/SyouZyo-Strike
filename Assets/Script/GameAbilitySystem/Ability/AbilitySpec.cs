@@ -85,6 +85,9 @@ public abstract class AbilitySpec
         EndAbility();
     }
 
+    public virtual void OnGet() { }
+    public virtual void OnRemoved() { }
+
     #region 被Try调用的抽象方法
     public virtual void AnimatorMove() { }
     protected virtual void AbilityTick(){}

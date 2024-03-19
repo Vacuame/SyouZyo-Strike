@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewClimbData", menuName = "Ability/Climb")]
+[CreateAssetMenu(fileName = "NewClimbData", menuName = "ABS/Ability/Climb")]
 public class Climb_SO : AbilityAsset
 {
     [Header(" ˝æ›…Ë÷√")]

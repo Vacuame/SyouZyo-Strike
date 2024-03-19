@@ -36,6 +36,7 @@ public class AbilityContainer
     {
         if (_abilities.ContainsKey(ability.Name)) return;
         var abilitySpec = ability.CreateSpec(_owner);
+        abilitySpec.OnGet();
         _abilities.Add(ability.Name, abilitySpec);
     }
     public void RemoveAbility(string abilityName)
@@ -43,6 +44,7 @@ public class AbilityContainer
         if (!_abilities.ContainsKey(abilityName)) return;
 
         EndAbility(abilityName);
+        _abilities[abilityName].OnRemoved();
         _abilities.Remove(abilityName);
     }
     public void EndAbility(string abilityName)

@@ -53,10 +53,13 @@ public class PlayerCharacter : Character
     {
         base.Awake();
 
+        //之后这些东西都由配置文件写
         Climb_SO so = Resources.Load<Climb_SO>("ScriptObjectData/ClimbData");
         ABS.GrandAbility(new Climb(so));
+        CharaAtrr s = new CharaAtrr(Resources.Load<CharaAttr_SO>("ScriptObjectData/CharaData"));
+        ABS.AttributeSetContainer.AddAttributeSet(s);
 
-
+       
     }
 
     protected override void Update()
@@ -69,7 +72,6 @@ public class PlayerCharacter : Character
             input = new PlayerActions();
 
         ABS.Tick();
-
 
         if (bCanMove)
         {

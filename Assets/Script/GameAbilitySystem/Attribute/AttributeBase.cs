@@ -6,33 +6,26 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class AttributeBase
 {
-    public readonly string Name;
+    public readonly string FullName;
     public readonly string SetName;
     public readonly string ShortName;
-    protected event Action<AttributeBase, float, float> onPostCurrentValueChange;
-    protected event Action<AttributeBase, float, float> onPostBaseValueChange;
-    protected event Func<AttributeBase, float, float> onPreCurrentValueChange;
-    protected event Func<AttributeBase, float, float> onPreBaseValueChange;
+    public event Action<AttributeBase, float, float> onPostCurrentValueChange;
+    public event Action<AttributeBase, float, float> onPostBaseValueChange;
+    public event Func<AttributeBase, float, float> onPreCurrentValueChange;
+    public event Func<AttributeBase, float, float> onPreBaseValueChange;
     private AttributeValue attrValue;
     public AttributeValue Value => attrValue;
     public float BaseValue => attrValue.baseValue;
     public float CurrentValue => attrValue.currentValue;
 
-    public AttributeBase(string attrSetName, string attrName, float baseValue)
+    public AttributeBase(string attrSetName, string attrName, float baseValue = 0)
     {
         SetName = attrSetName;
-        Name = $"{attrSetName}.{attrName}";
+        FullName = $"{attrSetName}.{attrName}";
         ShortName = attrName;
         attrValue = new AttributeValue(baseValue);
     }
 
-    public AttributeBase(string attrSetName, string attrName)
-    {
-        SetName = attrSetName;
-        Name = $"{attrSetName}.{attrName}";
-        ShortName = attrName;
-        attrValue = new AttributeValue(0);
-    }
 
     public void SetCurValue(float value ,bool excutePreEvent = true,bool excutePostAction = true)
     {
