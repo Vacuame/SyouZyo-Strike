@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.TextCore.Text;
 using UnityEngine.Windows;
 using static Control;
 using static UnityEngine.InputSystem.InputAction;
@@ -13,6 +15,8 @@ public class PlayerCharacter : Character
 {
     [SerializeField,Header("DEBUG")]
     protected ItemInstance itemInHand;
+
+    [SerializeField] public Gun curGun;
 
     #region 输入
     private PlayerActions input;
@@ -39,11 +43,21 @@ public class PlayerCharacter : Character
     private float moveSpeedX, moveSpeedZ;
     #endregion
 
+    #region Rig变量
+    [SerializeField, Header("IK Rig")] private Rig twoHandRig;
+    [SerializeField] private Rig chestRig;
+    [SerializeField] private TwoBoneIKConstraint leftHandRig;
+    [SerializeField] private Transform leftFollow;
+    #endregion
+
     public override void SetController(Controller controller)
     {
         base.SetController(controller);
 
         controller.control.Player.Interact.started += OnInteractPressed;
+
+        controller.control.Player.Weapon1.started += (CallbackContext context) =>
+        ABS.TryActivateAbility("EquipItem",this, chestRig);
     }
 
     private void OnInteractPressed(CallbackContext context)=>
@@ -56,10 +70,13 @@ public class PlayerCharacter : Character
         //之后这些东西都由配置文件写
         Climb_SO so = Resources.Load<Climb_SO>("ScriptObjectData/ClimbData");
         ABS.GrandAbility(new Climb(so));
+        AbilityAsset asset = Resources.Load<AbilityAsset>("ScriptObjectData/EquipData");
+        ABS.GrandAbility(new EquipItem(asset));
+
         CharaAtrr s = new CharaAtrr(Resources.Load<CharaAttr_SO>("ScriptObjectData/CharaData"));
         ABS.AttributeSetContainer.AddAttributeSet(s);
 
-        ABS.ApplyGameplayEffectToSelf(new TestEffect(Resources.Load<TestEffect_SO>("ScriptObjectData/TestData")));
+        //ABS.ApplyGameplayEffectToSelf(new TestEffect(Resources.Load<TestEffect_SO>("ScriptObjectData/TestData")));
     }
 
     protected override void Update()
@@ -70,6 +87,8 @@ public class PlayerCharacter : Character
             input = controller.control.Player;
         else
             input = new PlayerActions();
+
+
 
         ABS.Tick();
 
@@ -88,6 +107,8 @@ public class PlayerCharacter : Character
         anim.SetBool("runing", bRuning);
         anim.SetFloat("inputX", input_move.x);
         anim.SetFloat("inputY", input_move.y);
+
+        IKUpdate();
     }
 
     private void Move()
@@ -177,4 +198,19 @@ public class PlayerCharacter : Character
         
     }
     #endregion
+
+    #region 动画使用的函数
+    private void SetWeapon(int active)
+    {
+        bool isActive = active == 0 ? false : true;
+        curGun.gameObject.SetActive(isActive);
+    }
+    #endregion
+
+    private void IKUpdate()
+    {
+        if (leftFollow.gameObject.activeSelf)
+            leftHandRig.data.target.transform.position = leftFollow.transform.position;
+        twoHandRig.weight = anim.GetFloat("rigWeight");
+    }
 }

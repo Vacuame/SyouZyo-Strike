@@ -8,6 +8,8 @@ public class Controller : MonoBehaviour
 {
     [SerializeField] private Pawn presetPawn;
     [HideInInspector]public Pawn pawn;
+    [HideInInspector] public PlayCamera playCamera;
+    public Control control;
 
     [SerializeField,Tooltip("相机向上角度限制")]
     private float CamTopClamp = 70.0f;
@@ -23,11 +25,6 @@ public class Controller : MonoBehaviour
     protected float mouseLockTimer;
     protected float Yaw;
     protected float Pitch;
-    #endregion
-
-    #region 绑定变量
-    [HideInInspector]public PlayCamera playCamera;
-    public Control control;
     #endregion
 
     #region 生命周期

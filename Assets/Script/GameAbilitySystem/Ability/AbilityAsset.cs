@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public abstract class AbilityAsset : ScriptableObject
+[CreateAssetMenu(fileName = "NewAbilityData", menuName = "ABS/Ability/Basic")]
+public class AbilityAsset : ScriptableObject
 {
     [Header("ª˘±æ…Ë÷√")]
     public string abilityName;

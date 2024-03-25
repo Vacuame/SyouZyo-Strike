@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: ClimbData
   m_EditorClassIdentifier: 
   abilityName: Climb
-  assetTags: []
-  cancelAbilityTags: []
-  blockAbilityTags: []
+  assetTags:
+  - FullBodyAction
+  cancelAbilityTags:
+  - HandAction
+  blockAbilityTags:
+  - HandAction
   activationOwnedTag: []
   activationRequiredTags: []
   activationBlockedTags: []

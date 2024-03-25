@@ -26,10 +26,10 @@ public abstract class AbilitySpec
     }
     private bool CheckGameplayTagsValid()
     {
-        var hasAllTags = owner.HasAllTags(ability.Tag.ActivationRequiredTags);//有条件tag
-        var notHasAnyTags = !owner.HasAnyTags(ability.Tag.ActivationBlockedTags);//没有被tag阻挡
+        bool hasAllRequires = owner.HasAllTags(ability.Tag.ActivationRequiredTags);//有条件tag
+        bool notBlockedByCharacter = !owner.HasAnyTags(ability.Tag.ActivationBlockedTags);//没有被tag阻挡
 
-        var notBlockedByOtherAbility = true;
+        bool notBlockedByOtherAbility = true;
         foreach (var kv in owner.AbilityContainer.AbilitySpecs)
         {
             var abilitySpec = kv.Value;
@@ -40,7 +40,7 @@ public abstract class AbilitySpec
                     break;
                 }
         }
-        return hasAllTags && notHasAnyTags && notBlockedByOtherAbility;
+        return hasAllRequires && notBlockedByCharacter && notBlockedByOtherAbility;
     }
     protected virtual bool CheckOtherCondition()//额外条件，由子类写
     {
@@ -85,6 +85,11 @@ public abstract class AbilitySpec
         EndAbility();
     }
 
+    protected void EndSelf()
+    {
+        owner.TryEndAbility(ability.Name);
+    }
+
     public virtual void OnGet() { }
     public virtual void OnRemoved() { }
 
@@ -92,7 +97,9 @@ public abstract class AbilitySpec
     public virtual void AnimatorMove() { }
     protected virtual void AbilityTick(){}
     protected virtual void SustainedTick() { }//TODO 这是Buff系统的临时代替者，写了Buff系统就不要它了
-    public abstract void CancelAbility();
+
+    //默认被取消和主动结束是一个效果
+    public virtual void CancelAbility() => EndAbility();
     public abstract void ActivateAbility(params object[] args);
     public abstract void EndAbility();
     #endregion

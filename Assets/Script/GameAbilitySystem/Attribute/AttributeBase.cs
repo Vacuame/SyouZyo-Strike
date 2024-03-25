@@ -18,6 +18,8 @@ public class AttributeBase
     public float BaseValue => attrValue.baseValue;
     public float CurrentValue => attrValue.currentValue;
 
+    public static implicit operator float(AttributeBase b) => b.BaseValue;
+
     public AttributeBase(string attrSetName, string attrName, float baseValue = 0)
     {
         SetName = attrSetName;

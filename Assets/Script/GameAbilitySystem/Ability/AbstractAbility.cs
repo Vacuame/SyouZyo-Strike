@@ -10,7 +10,8 @@ public abstract class AbstractAbility
     public readonly string Name;
     public AbstractAbility(AbilityAsset setAsset)
     {
-        Name = setAsset.abilityName;
+        //Name = setAsset.abilityName;
+        Name = GetType().Name;
         Tag = new AbilityTagContainer(setAsset.assetTags, setAsset.cancelAbilityTags,
            setAsset.blockAbilityTags, setAsset.activationOwnedTag,
            setAsset.activationRequiredTags,setAsset.blockAbilityTags);

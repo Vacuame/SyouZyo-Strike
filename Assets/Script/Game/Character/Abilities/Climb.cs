@@ -28,6 +28,8 @@ public class Climb : AbstractAbility<Climb_SO>
         private float wallHeight;
         private Vector3 climb_leftHand, climb_rightHand, climb_rightLeg, climb_root, climbDir;
 
+        private int armAnimLayerIndex;
+
         Animator anim;
         CharacterController cc;
         Transform transform;
@@ -46,8 +48,11 @@ public class Climb : AbstractAbility<Climb_SO>
             cc.enabled = false;
             GameUI.Instance?.SetText("tip", null);
 
+            armAnimLayerIndex = anim.GetLayerIndex("Arm");
+            anim.SetLayerWeight(armAnimLayerIndex, 0);
             climbType = climable;
             anim.SetInteger("climbType", climbType);
+
             climbDir = toWallDire;
             float climbHeight = wallHeight;
             switch (climbType)
@@ -70,20 +75,21 @@ public class Climb : AbstractAbility<Climb_SO>
 
         public override void CancelAbility()
         {
-            
+            EndAbility();
         }
 
         public override void EndAbility()
         {
             cc.enabled = true;
             climbType = 0;
+            anim.SetLayerWeight(armAnimLayerIndex, 1);
             anim.SetInteger("climbType", climbType);
         }
 
         public override void AnimatorMove()
         {
             if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Climb") && !anim.IsInTransition(0))
-                owner.TryEndAbility(climb.Name);
+                EndSelf();
 
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(toWallDire), 0.5f);
 

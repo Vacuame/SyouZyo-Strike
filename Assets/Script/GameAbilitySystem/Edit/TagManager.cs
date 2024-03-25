@@ -27,7 +27,7 @@ public class TagManager : Singleton<TagManager>
 
     public TagManager() 
     {
-        List<string> lines = FileReader.ReadFile("Resources/TestFile.txt");
+        List<string> lines = FileReader.ReadFile("Resources/AbilityTreeMap.txt");
         GetTagRelationship(lines);
     }
 
