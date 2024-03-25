@@ -110,13 +110,16 @@ public class PlayerCharacter : Character
         bool landing = false;
         Vector3 feetPos = feetTransform.position;
         Ray ray = new Ray(feetPos,Vector3.down);
-        if(Physics.Raycast(ray,out RaycastHit hitInfo,10))
+
+        if(cc.velocity.y < -1f && Physics.Raycast(ray,out RaycastHit hitInfo,10))
         {
             if (hitInfo.distance > 0.4f)
                 falling = true;
             if (hitInfo.distance < 0.3f)
                 landing = true;
         }
+
+        if (!landing) landing = cc.isGrounded;
         anim.SetBool("falling", falling);
         anim.SetBool("landing", landing);
 

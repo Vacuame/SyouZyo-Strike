@@ -59,11 +59,15 @@ public class EquipItem : AbstractAbility
             owner.GrandAbility(new Aim(aimSo));
             AbilityAsset shootAsset = Resources.Load<AbilityAsset>("ScriptObjectData/Shoot");
             owner.GrandAbility(new Shoot(shootAsset));
+            AbilityAsset reloadAsset = Resources.Load<AbilityAsset>("ScriptObjectData/Reload");
+            owner.GrandAbility(new Reload(reloadAsset));
 
             character.controller.control.Player.Aim.started += AimSt;
             character.controller.control.Player.Aim.canceled += AimEd;
             character.controller.control.Player.Fire.started += ShootSt;
             character.controller.control.Player.Fire.canceled += ShootEd;
+            character.controller.control.Player.Reload.started += Reload;
+
         }
         private void UnEquipGun()
         {
@@ -71,8 +75,11 @@ public class EquipItem : AbstractAbility
             character.controller.control.Player.Aim.canceled -= AimEd;
             character.controller.control.Player.Fire.started -= ShootSt;
             character.controller.control.Player.Fire.canceled -= ShootEd;
+            character.controller.control.Player.Reload.started -= Reload;
 
             owner.RemoveAbility("Aim");
+            owner.RemoveAbility("Shoot");
+            owner.RemoveAbility("Reload");
         }
 
         private void AimSt(CallbackContext context) =>
@@ -83,6 +90,8 @@ public class EquipItem : AbstractAbility
                 owner.TryActivateAbility("Shoot", character.curGun);
         private void ShootEd(CallbackContext context) =>
             owner.TryEndAbility("Shoot");
+        private void Reload(CallbackContext context) =>
+            owner.TryActivateAbility("Reload",anim,character.curGun);
     }
 
 }
