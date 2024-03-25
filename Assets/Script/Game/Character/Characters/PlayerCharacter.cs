@@ -88,8 +88,6 @@ public class PlayerCharacter : Character
         else
             input = new PlayerActions();
 
-
-
         ABS.Tick();
 
         if (bCanMove)
@@ -107,6 +105,20 @@ public class PlayerCharacter : Character
         anim.SetBool("runing", bRuning);
         anim.SetFloat("inputX", input_move.x);
         anim.SetFloat("inputY", input_move.y);
+
+        bool falling = false;
+        bool landing = false;
+        Vector3 feetPos = feetTransform.position;
+        Ray ray = new Ray(feetPos,Vector3.down);
+        if(Physics.Raycast(ray,out RaycastHit hitInfo,10))
+        {
+            if (hitInfo.distance > 0.4f)
+                falling = true;
+            if (hitInfo.distance < 0.3f)
+                landing = true;
+        }
+        anim.SetBool("falling", falling);
+        anim.SetBool("landing", landing);
 
         IKUpdate();
     }

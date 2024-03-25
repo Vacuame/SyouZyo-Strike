@@ -18,6 +18,8 @@ public abstract class Character : Pawn
     [HideInInspector]public AbilitySystemComponent ABS;
     #endregion
 
+    [Header("绑定"), SerializeField]protected Transform feetTransform;
+
     #region 生命周期
     protected override void Awake()
     {
@@ -43,6 +45,7 @@ public abstract class Character : Pawn
     }
 
     #endregion
+
 
     protected virtual void OnHit(HitInfo hitInfo)
     {;
