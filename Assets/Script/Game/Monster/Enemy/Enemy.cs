@@ -8,7 +8,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(BehaviorTree))]
 public class Enemy : Character
 {
-    protected NavMeshAgent nav;
+    [HideInInspector]public NavMeshAgent nav;
     protected BehaviorTree bt;
 
     protected override void Awake()
