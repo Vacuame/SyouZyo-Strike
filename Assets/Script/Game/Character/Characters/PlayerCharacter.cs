@@ -79,10 +79,8 @@ public class PlayerCharacter : Character
         //ABS.ApplyGameplayEffectToSelf(new TestEffect(Resources.Load<TestEffect_SO>("ScriptObjectData/TestData")));
     }
 
-    protected override void Update()
+    protected void Update()
     {
-        base.Update();
-
         if(bControlable && controller != null)
             input = controller.control.Player;
         else

@@ -39,6 +39,11 @@ public class Climb : AbstractAbility<Climb_SO>
             climb = ability as Climb;
         }
 
+        protected override bool CheckOtherCondition()
+        {
+            return climable != 0;
+        }
+
         public override void ActivateAbility(params object[] args)
         {
             anim = args[0] as Animator;

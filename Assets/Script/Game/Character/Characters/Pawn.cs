@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows;
 
+/// <summary>
+/// 可以动的东西，可以被绑定控制器
+/// </summary>
 public class Pawn : MonoBehaviour
 {
     [SerializeField, Header("绑定")]
