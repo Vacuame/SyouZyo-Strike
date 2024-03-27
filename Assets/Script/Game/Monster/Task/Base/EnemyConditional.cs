@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class EnemyConditional : Conditional
 {
-    protected Rigidbody rb;
+    protected CharacterController cc;
     protected Enemy me;
 
     public override void OnAwake()
     {
         me = GetComponent<Enemy>();
-        rb = me.rb;
-
+        cc = me.cc;
     }
 }

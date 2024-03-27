@@ -156,7 +156,7 @@ NavMeshAgent:
   m_Height: 1.72
   m_BaseOffset: 0.73
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
 --- !u!95 &4413470372602843145
 Animator:
   serializedVersion: 5
@@ -166,8 +166,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3293349837871432870}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}
+  m_Controller: {fileID: 9100000, guid: c4075d9d2ec952e47b4f96bf5f2cacc6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -218,11 +218,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camTraceTransform: {fileID: 7943086685654810416}
   bControlable: 1
-  rb: {fileID: 0}
   anim: {fileID: 0}
+  cc: {fileID: 0}
   ABS: {fileID: 0}
   feetTransform: {fileID: 2674590731596204789}
   nav: {fileID: 0}
+  patrolPointList: {fileID: 0}
+  patrolType: 0
+  patrolPoints: []
 --- !u!114 &4208110306914150461
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,21 +11,23 @@ public class ConeDetector : MonoBehaviour
     [Range(0,360)]public float viewAngle;
     public float halfViewAngle { get { return viewAngle * 0.5f; } }
 
-    public bool TryDetect(out Transform found)
+    public bool TryDetect(out GameObject found)
     {
         found = null;
         Collider[] preCheck = Physics.OverlapSphere(transform.position, viewDistance, targetLayer);//距离
         if (preCheck.Length > 0)
         {
-            Vector3 discovery = preCheck[0].transform.position;
+            Transform overLapCenter = preCheck[0].transform.Find("PosPoint").Find("Center");
+            Vector3 discovery = overLapCenter.position;
+
             Vector3 toDiscoverVector = discovery - transform.position;
-            if(Vector3.Angle(toDiscoverVector, towardVector)<=halfViewAngle)//角度
+            if(Vector3.Angle(toDiscoverVector, towardVector) <= halfViewAngle)//角度
             {
                 if (Physics.Raycast(transform.position, toDiscoverVector,out RaycastHit hit,viewDistance,sightLayer))//射线
                 {
                     if(((1<<hit.transform.gameObject.layer)&targetLayer)!=0)//目标
                     {
-                        found = hit.transform;
+                        found = hit.transform.gameObject;
                     }
                 }
             }

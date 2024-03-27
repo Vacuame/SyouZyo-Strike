@@ -7,7 +7,7 @@ using UnityEngine;
 public class EnemyAction : Action
 {
     protected Enemy me;
-    protected Rigidbody rb;
+    protected CharacterController cc;
     protected TaskStatus taskStatus;
     public void SetTaskStatus(TaskStatus newOne)
     {
@@ -17,7 +17,7 @@ public class EnemyAction : Action
     public override void OnAwake()
     {
         me = GetComponent<Enemy>();
-        rb = me.rb;
+        cc = me.cc;
     }
 }
 

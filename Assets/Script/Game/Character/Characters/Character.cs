@@ -13,9 +13,8 @@ using UnityEngine;
 public abstract class Character : Pawn
 {
     #region 必要组件
-    [HideInInspector] public Rigidbody rb;
     [HideInInspector] public Animator anim;
-    protected CharacterController cc;
+    [HideInInspector] public CharacterController cc;
     //protected HealthComponent healthComp;
 
     [HideInInspector]public AbilitySystemComponent ABS;
@@ -27,7 +26,6 @@ public abstract class Character : Pawn
     {
         //先找到常用组件
         cc = GetComponent<CharacterController>();
-        rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         ABS = GetComponent<AbilitySystemComponent>();
 
