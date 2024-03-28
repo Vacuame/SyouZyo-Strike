@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: "\u56DB\u80A2"
   m_EditorClassIdentifier: Assembly-CSharp::PartSet
   data:
-    toughness: 40
+    toughness: 70
     damageMultipler: []

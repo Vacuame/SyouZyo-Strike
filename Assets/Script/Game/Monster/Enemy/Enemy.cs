@@ -52,8 +52,6 @@ public class Enemy : Character
         foreach (var partSet in partSetting.setting1)
             weakDict.Add(partSet.key, new WeaknessData(partSet.value.data));
 
-        CharaAtrr s = new CharaAtrr(Resources.Load<CharaAttr_SO>("ScriptObjectData/Enemy/ZombieAttr"));
-        ABS.AttributeSetContainer.AddAttributeSet(s);
         ABS.AttributeSetContainer.AddAttributeSet(new BodyAttr(partSetting));
     }
 

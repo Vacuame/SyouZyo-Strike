@@ -15,18 +15,20 @@ MonoBehaviour:
   setting:
   - key: Body
     value:
-      toughness: 30
+      toughness: 60
       damageMultipler:
       - key: 1
+        value: 2
+      - key: 2
         value: 2
   - key: Head
     value:
       toughness: 30
       damageMultipler:
       - key: 1
-        value: 2
+        value: 2.5
       - key: 2
-        value: 2
+        value: 2.5
   setting1:
   - key: LeftArm
     value: {fileID: 11400000, guid: 6375778234b0d10478effc088be2cb3d, type: 2}
