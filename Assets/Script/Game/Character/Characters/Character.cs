@@ -32,13 +32,8 @@ public abstract class Character : Pawn
         //…Ë∂®helthComp
 /*        healthComp = GetComponent<HealthComponent>();
         healthComp.OnHealthZero += OnDeadStart;*/
-
-        ABS.Prepare();
     }
-    protected virtual void OnHit(HitInfo hitInfo)
-    {
-        //healthComp.OnHit(ref hitInfo);
-    }
+    protected abstract void OnHit(HitInfo hitInfo);
     protected abstract void OnDeadStart();
     protected abstract void OnDead();
     protected abstract void OnDeadEnd();

@@ -10,7 +10,6 @@ public class LocomotionAnim : EnemyAction
     {
         float moveSpeed = me.nav.velocity.magnitude;
         me.anim.SetFloat("MoveSpd", moveSpeed);
-        Debug.Log(moveSpeed);
         return TaskStatus.Running;
     }
 }

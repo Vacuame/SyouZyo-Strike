@@ -1,3 +1,4 @@
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityVector2;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ public class AttributeBase
     public float BaseValue => attrValue.baseValue;
     public float CurrentValue => attrValue.currentValue;
 
-    public static implicit operator float(AttributeBase b) => b.BaseValue;
+    public static implicit operator float(AttributeBase b) => b.CurrentValue;
 
     public AttributeBase(string attrSetName, string attrName, float baseValue = 0)
     {
@@ -28,6 +29,26 @@ public class AttributeBase
         attrValue = new AttributeValue(baseValue);
     }
 
+    public void SetCurValueRelative(float input,Tags.Calc calcType)
+    {
+        float value = CurrentValue;
+        switch (calcType) 
+        {
+            case Tags.Calc.Add:
+                value = CurrentValue + input;
+                break;
+            case Tags.Calc.Sub:
+                value = CurrentValue - input;
+                break;
+            case Tags.Calc.Mul:
+                value = CurrentValue * input;
+                break;
+            case Tags.Calc.Div:
+                value = CurrentValue / input;
+                break;
+        }
+        SetCurValue(value);
+    }
 
     public void SetCurValue(float value ,bool excutePreEvent = true,bool excutePostAction = true)
     {
@@ -40,6 +61,7 @@ public class AttributeBase
         if(excutePostAction)
             onPostCurrentValueChange?.Invoke(this,oldValue, value);
     }
+    public void RefreshCurValue() => SetCurValue(BaseValue);
 
     public void SetBaseValue(float value, bool excutePreEvent = true, bool excutePostAction = true)
     {

@@ -21,8 +21,22 @@ public class AbilitySystemComponent : MonoBehaviour
         GameplayTagAggregator = new GameplayTagAggregator(this);
         _ready = true;
     }
+    private void Awake()
+    {
+        Prepare();
+    }
 
-    public void Tick()//TODO 暂时让Player调用，以后集中管理
+    private void OnEnable()
+    {
+        GameAbilitySystem.Instance.Register(this);
+    }
+
+    private void OnDisable()
+    {
+        GameAbilitySystem.Instance?.UnRegister(this);
+    }
+
+    public void Tick()
     {
         AbilityContainer.Tick();
         GameplayEffectContainer.Tick();

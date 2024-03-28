@@ -72,7 +72,6 @@ public class PlayerCharacter : Character
         ABS.GrandAbility(new Climb(so));
         AbilityAsset asset = Resources.Load<AbilityAsset>("ScriptObjectData/EquipData");
         ABS.GrandAbility(new EquipItem(asset));
-
         CharaAtrr s = new CharaAtrr(Resources.Load<CharaAttr_SO>("ScriptObjectData/CharaData"));
         ABS.AttributeSetContainer.AddAttributeSet(s);
 
@@ -85,8 +84,6 @@ public class PlayerCharacter : Character
             input = controller.control.Player;
         else
             input = new PlayerActions();
-
-        ABS.Tick();
 
         if (bCanMove)
         {
@@ -225,5 +222,10 @@ public class PlayerCharacter : Character
         if (leftFollow.gameObject.activeSelf)
             leftHandRig.data.target.transform.position = leftFollow.transform.position;
         twoHandRig.weight = anim.GetFloat("rigWeight");
+    }
+
+    protected override void OnHit(HitInfo hitInfo)
+    {
+        Debug.Log("Chara Be Hit");
     }
 }

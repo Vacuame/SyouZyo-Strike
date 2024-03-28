@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac61e7cc3d22c8f46a522d13c03a5e21, type: 3}
-  m_Name: CharAttr
+  m_Script: {fileID: 11500000, guid: e38138176e477044e9ed473bbdaa840c, type: 3}
+  m_Name: ZombieAttr
   m_EditorClassIdentifier: 
-  AttributeSetting:
-  - key: CharaAttr
-    value: CharaData
+  health: 120

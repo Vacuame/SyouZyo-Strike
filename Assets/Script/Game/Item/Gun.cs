@@ -190,7 +190,17 @@ public class Gun : MonoBehaviour
             Vector3 randDir = new Vector3(Random.Range(-1, 1),
                 Random.Range(-1, 1),Random.Range(-1, 1));
             Vector3 dir = bulletVector*-1 + randDir * 0.3f;
-            ParticleManager.Instance.PlayEffect("BulletImpact" ,hit.point, Quaternion.LookRotation(dir));
+
+            GameObject hitObj = hit.collider.gameObject;
+
+            if (hitObj.layer == 0)//默认图层是场景元素，所以枪来播放特效
+                ParticleManager.Instance.PlayEffect("BulletImpact" ,hit.point, Quaternion.LookRotation(dir));
+            
+            if(hitObj.layer == LayerMask.NameToLayer("EnemyPart"))
+            {
+                EventManager.Instance.TriggerEvent<HitInfo>("Hit" + hitObj.GetInstanceID(),
+                    new HitInfo(HitType.SMG , 10, this.gameObject, hitObj, hit.point, dir));
+            }
         }
 
         Vector3 shakeVector = cameraShakeSource.m_DefaultVelocity;

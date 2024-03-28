@@ -9,4 +9,8 @@ public static class Tags
         Normal = 0,
         Aim = 1
     }
+    public enum Calc
+    {
+        Add,Sub,Mul,Div
+    }
 }

@@ -43,6 +43,11 @@ public class Aim : AbstractAbility<Aim_SO>
             character.curGun.SetAiming(true);
         }
 
+        protected override void AbilityTick()
+        {
+            character.curGun.moving = (character.cc.velocity != Vector3.zero);
+        }
+
         public override void EndAbility()
         {
             character.controller.playCamera.SwitchCamera(Tags.Camera.Normal);
