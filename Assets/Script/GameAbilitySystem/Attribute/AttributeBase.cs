@@ -5,6 +5,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
+public enum ValueType
+{
+    Base,Cur
+}
+
 public class AttributeBase
 {
     public readonly string FullName;
@@ -29,25 +34,39 @@ public class AttributeBase
         attrValue = new AttributeValue(baseValue);
     }
 
-    public void SetCurValueRelative(float input,Tags.Calc calcType)
+    /// <summary>
+    /// 相对计算数值，默认计算CurValue
+    /// </summary>
+    public void SetValueRelative(float input,Tags.Calc calcType,ValueType valueType = ValueType.Cur)
     {
-        float value = CurrentValue;
+        float value;
+        if (valueType == ValueType.Cur) 
+            value = CurrentValue;
+        else 
+            value = BaseValue;
+
         switch (calcType) 
         {
             case Tags.Calc.Add:
-                value = CurrentValue + input;
+                value = value + input;
                 break;
             case Tags.Calc.Sub:
-                value = CurrentValue - input;
+                value = value - input;
                 break;
             case Tags.Calc.Mul:
-                value = CurrentValue * input;
+                value = value * input;
                 break;
             case Tags.Calc.Div:
-                value = CurrentValue / input;
+                value = value / input;
+                break;
+            case Tags.Calc.Override: 
+                value = input;
                 break;
         }
-        SetCurValue(value);
+        if (valueType == ValueType.Cur)
+            SetCurValue(value);
+        else
+            SetBaseValue(value);
     }
 
     public void SetCurValue(float value ,bool excutePreEvent = true,bool excutePostAction = true)

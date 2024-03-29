@@ -16,8 +16,11 @@ public class GameplayEffectContainer
 
     public void Tick()
     {
-        foreach (var gameplayEffectSpec in _gameplayEffectSpecs)
+        var enumerable = _gameplayEffectSpecs.ToArray();
+        foreach (var gameplayEffectSpec in enumerable)
+        {
             gameplayEffectSpec.Tick();
+        }
     }
     public bool AddGameplayEffectSpec(GameplayEffectSpec spec)
     {

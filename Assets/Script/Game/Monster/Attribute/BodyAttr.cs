@@ -9,6 +9,8 @@ public class BodyAttr : AttributeSet
     {
         foreach (var a in bodyPartSet.setting)
             partToughDict.Add(a.key, new AttributeBase(SetName, a.key, a.value.toughness));
+        foreach (var a in bodyPartSet.setting1)
+            partToughDict.Add(a.key, new AttributeBase(SetName, a.key, a.value.data.toughness));
     }
     public override AttributeBase this[string key] => partToughDict[key];
 

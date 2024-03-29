@@ -11,6 +11,6 @@ public static class Tags
     }
     public enum Calc
     {
-        Add,Sub,Mul,Div
+        Add,Sub,Mul,Div,Override
     }
 }

@@ -15,8 +15,6 @@ public class GameplayEffectPeriodTicker
 
     public void Tick()
     {
-        _spec.TriggerOnTick();
-
         if (_periodRemaining.TimerTick())
         {
             _periodRemaining = Period;

@@ -74,8 +74,8 @@ public class Enemy : Character
         //Debug.Log("dmg = " + dmg);
 
         //生命值和部位生命值都减少
-        ABS.AttrSet<CharaAtrr>().health.SetCurValueRelative(dmg, Tags.Calc.Sub);
-        ABS.AttrSet<BodyAttr>()[partName].SetCurValueRelative(dmg, Tags.Calc.Sub);
+        ABS.AttrSet<CharaAtrr>().health.SetValueRelative(dmg, Tags.Calc.Sub);
+        ABS.AttrSet<BodyAttr>()[partName].SetValueRelative(dmg, Tags.Calc.Sub);
         //Debug.Log(ABS.AttrSet<CharaAtrr>().health.Value.currentValue);
         //Debug.Log(partName+ " "+ABS.AttrSet<BodyAttr>()[partName].CurrentValue);
     }
@@ -101,6 +101,8 @@ public class Enemy : Character
         {
             toughness.RefreshCurValue();
             //获得Buff 失衡
+            GameplayEffectAsset asset = Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/LoseBanlance");
+            ABS.ApplyGameplayEffectToSelf(new GameplayEffect(asset));
         }
     }
 }

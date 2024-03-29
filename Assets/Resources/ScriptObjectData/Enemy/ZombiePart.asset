@@ -34,7 +34,7 @@ MonoBehaviour:
     value: {fileID: 11400000, guid: 6375778234b0d10478effc088be2cb3d, type: 2}
   - key: RightArm
     value: {fileID: 11400000, guid: 6375778234b0d10478effc088be2cb3d, type: 2}
-  - key: RightLeg
-    value: {fileID: 11400000, guid: 6375778234b0d10478effc088be2cb3d, type: 2}
   - key: LeftLeg
+    value: {fileID: 11400000, guid: 6375778234b0d10478effc088be2cb3d, type: 2}
+  - key: RightLeg
     value: {fileID: 11400000, guid: 6375778234b0d10478effc088be2cb3d, type: 2}

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewHealth", menuName = "Data/Attribute/Health")]
+//[CreateAssetMenu(fileName = "NewHealth", menuName = "Data/Attribute/Health")]
 public class SO_Health : ScriptableObject
 {
     [HideInInspector] public float curHealth;

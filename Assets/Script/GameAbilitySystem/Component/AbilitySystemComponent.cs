@@ -75,6 +75,11 @@ public class AbilitySystemComponent : MonoBehaviour
         AttributeSetContainer.TryGetAttributeSet<T>(out var attrSet);
         return attrSet;
     }
+    public AttributeBase GetAttributeBase(string setName, string shortName)
+    {
+        AttributeBase attrBase = AttributeSetContainer.GetAttributeBase(setName, shortName);
+        return attrBase;
+    }
     public float? GetAttrCurValue(string setName, string shortName)
     {
         var value = AttributeSetContainer.GetAttributeCurrentValue(setName, shortName);
@@ -89,10 +94,10 @@ public class AbilitySystemComponent : MonoBehaviour
     #endregion
 
     #region GameEffectContainer
-
+    //TODO 整理一下
     public GameplayEffectSpec ApplyGameplayEffectTo(GameplayEffect gameplayEffect, AbilitySystemComponent target)
     {
-        if (!target.HasAllTags(gameplayEffect.TagContainer.ApplicationRequiredTags))
+        if (!gameplayEffect.HasRequiredTag(target))
             return null;
         return target.AddGameplayEffect(gameplayEffect.CreateSpec(this,target));
     }
@@ -102,6 +107,22 @@ public class AbilitySystemComponent : MonoBehaviour
     {
         var success = GameplayEffectContainer.AddGameplayEffectSpec(spec);
         return success ? spec : null;
+    }
+
+    public void ApplyModFromInstantGameplayEffect(GameplayEffectSpec spec)
+    {
+        foreach (var modifier in spec.GameplayEffect.Modifiers)
+        {
+            var attrBase = GetAttributeBase(modifier.AttributeSetName, modifier.AttributeShortName);
+            float magnitude;
+
+            if (modifier.MMC == null)
+                magnitude = modifier.ModiferMagnitude;
+            else
+                magnitude = modifier.MMC.CalculateMagnitude(spec, modifier.ModiferMagnitude);
+
+            attrBase.SetValueRelative(magnitude, modifier.Operation, modifier.ValueType);
+        }
     }
 
     #endregion

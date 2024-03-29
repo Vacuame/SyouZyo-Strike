@@ -69,6 +69,10 @@ public class AttributeSetContainer
     #endregion
 
     #region 直接通过名字拿到属性
+    public AttributeBase GetAttributeBase(string attrSetName, string attrShortName)
+    {
+        return _attributeSets.TryGetValue(attrSetName, out var set) ? set[attrShortName] : null;
+    }
     public float? GetAttributeBaseValue(string attrSetName, string attrShortName)
     {
         return _attributeSets.TryGetValue(attrSetName, out var set) ? set[attrShortName].BaseValue : (float?)null;

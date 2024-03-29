@@ -45,7 +45,7 @@ public class Aim : AbstractAbility<Aim_SO>
 
         protected override void AbilityTick()
         {
-            character.curGun.moving = (character.cc.velocity != Vector3.zero);
+            character.curGun.moving = (character.cc.velocity.sqrMagnitude> 1);
         }
 
         public override void EndAbility()

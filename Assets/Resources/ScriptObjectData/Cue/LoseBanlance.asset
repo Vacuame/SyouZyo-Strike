@@ -9,14 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b044079ced373b44a59557c548a0b55, type: 3}
-  m_Name: TestData
+  m_Script: {fileID: 11500000, guid: 501172df629545e4094ce7cfcdefe83f, type: 3}
+  m_Name: LoseBanlance
   m_EditorClassIdentifier: 
-  period: 0.5
-  duration: 5
-  durationPolicy: 3
-  assetTags: []
-  applicationRequiredTags: []
-  removeGameplayEffectsWithTags: []
-  applicationImmunityTags: []
-  data: 50
+  RequiredTags: []
+  ImmunityTags: []

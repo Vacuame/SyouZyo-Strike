@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-
+[CreateAssetMenu(fileName = "NewGameplayEffect", menuName = "ABS/GameplayEffect/GameplayEffect")]
 public class GameplayEffectAsset : ScriptableObject
 {
     public float period;
@@ -12,4 +12,10 @@ public class GameplayEffectAsset : ScriptableObject
     public string[] applicationRequiredTags;
     public string[] removeGameplayEffectsWithTags;
     public string[] applicationImmunityTags;
+
+    public GameplayCueInstant[] CueOnExecute;
+    public GameplayCueInstant[] CueOnRemove;
+    public GameplayCueInstant[] CueOnAdd;
+    public GameplayCueDurational[] CueDurational;
+    public GameplayEffectModifier[] Modifiers;
 }

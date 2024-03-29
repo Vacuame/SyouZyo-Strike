@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
+
 public enum EffectsDurationPolicy
 {
     None,
@@ -8,7 +10,10 @@ public enum EffectsDurationPolicy
     Infinite,
     Duration
 }
-public abstract class GameplayEffect
+/// <summary>
+/// 这个结构的作用只是做初步的检测,然后把Spec创建出来
+/// </summary>
+public struct GameplayEffect
 {
     public GameplayEffectAsset asset;
 
@@ -16,6 +21,13 @@ public abstract class GameplayEffect
     public readonly float duration;
     public EffectsDurationPolicy durationPolicy;
     public GameplayEffectTagContainer TagContainer;
+
+    // Cues
+    public readonly GameplayCueInstant[] CueOnExecute;
+    public readonly GameplayCueInstant[] CueOnRemove;
+    public readonly GameplayCueInstant[] CueOnAdd;
+    public readonly GameplayCueDurational[] CueDurational;
+    public readonly GameplayEffectModifier[] Modifiers;
 
     public GameplayEffect(GameplayEffectAsset ass)
     {
@@ -29,18 +41,22 @@ public abstract class GameplayEffect
             asset.removeGameplayEffectsWithTags,
             asset.applicationImmunityTags
             );
+        CueOnExecute = asset.CueOnExecute;
+        CueOnRemove = asset.CueOnRemove;
+        CueOnAdd = asset.CueOnAdd;
+        CueDurational = asset.CueDurational;
+        Modifiers = asset.Modifiers;
     }
 
-    public abstract GameplayEffectSpec CreateSpec(AbilitySystemComponent owner,AbilitySystemComponent source);
-
-}
-
-public abstract class GameplayEffect<T> : GameplayEffect where T : GameplayEffectAsset
-{
-    protected readonly T EffectAsset;
-    public GameplayEffect(GameplayEffectAsset ass) : base(ass)
+    public GameplayEffectSpec CreateSpec(AbilitySystemComponent creator,AbilitySystemComponent owner)
     {
-        EffectAsset = ass as T;
+        return new GameplayEffectSpec(this, creator, owner);
     }
 
+    public bool HasRequiredTag(AbilitySystemComponent target)
+    {
+        return target.HasAllTags(TagContainer.ApplicationRequiredTags);
+    }
+
+    public bool NULL => durationPolicy == EffectsDurationPolicy.None;
 }
