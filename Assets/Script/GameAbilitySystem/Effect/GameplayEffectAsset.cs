@@ -9,6 +9,7 @@ public class GameplayEffectAsset : ScriptableObject
     public EffectsDurationPolicy durationPolicy;
 
     public string[] assetTags;
+    public string[] grantedTags;
     public string[] applicationRequiredTags;
     public string[] removeGameplayEffectsWithTags;
     public string[] applicationImmunityTags;

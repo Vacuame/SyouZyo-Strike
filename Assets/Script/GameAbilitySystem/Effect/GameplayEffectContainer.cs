@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 
 public class GameplayEffectContainer
@@ -39,17 +40,23 @@ public class GameplayEffectContainer
         _gameplayEffectSpecs.Add(spec);
         spec.TriggerOnAdd();
 
+        _owner.GameplayTagAggregator.ApplyGameplayEffectTags(spec);
+        RemoveGameplayEffectWithAnyTags(spec.GameplayEffect.TagContainer.RemoveGameplayEffectsWithTags);
+
         return true;
     }
     public void RemoveGameplayEffectSpec(GameplayEffectSpec spec)
     {
+        _owner.GameplayTagAggregator.RestoreGameplayEffectTags(spec);
         spec.TriggerOnRemove();
+
         _gameplayEffectSpecs.Remove(spec);
     }
     public void ClearGameplayEffect()
     {
         foreach (var gameplayEffectSpec in _gameplayEffectSpecs)
         {
+            _owner.GameplayTagAggregator.RestoreGameplayEffectTags(gameplayEffectSpec);
             gameplayEffectSpec.TriggerOnRemove();
         }
 

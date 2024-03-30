@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: LoseBanlance
   m_EditorClassIdentifier: 
   period: 0
-  duration: 3
+  duration: 1
   durationPolicy: 3
   assetTags: []
+  grantedTags:
+  - LoseBanlance
   applicationRequiredTags: []
   removeGameplayEffectsWithTags: []
-  applicationImmunityTags: []
+  applicationImmunityTags:
+  - LoseBanlance
   CueOnExecute: []
   CueOnRemove: []
   CueOnAdd:

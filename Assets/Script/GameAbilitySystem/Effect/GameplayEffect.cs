@@ -37,6 +37,7 @@ public struct GameplayEffect
         durationPolicy = asset.durationPolicy;
         TagContainer = new GameplayEffectTagContainer(
             asset.assetTags,
+            asset.grantedTags,
             asset.applicationRequiredTags,
             asset.removeGameplayEffectsWithTags,
             asset.applicationImmunityTags

@@ -64,6 +64,12 @@ public class GameplayTagAggregator
             } 
         }
     }
+
+    public void RestoreDynamicTags(GameplayTagSet set,object source)
+    {
+        foreach(var a in set.Tags)
+            RemoveDynamicTag(a, source);
+    }
     #endregion
 
     #region Ability
@@ -74,13 +80,25 @@ public class GameplayTagAggregator
             AddDynamicTag(a, source);
         }
     }
-    public void RestoreAbilityTags(AbilitySpec source)
+    public void RestoreAbilityTags(AbilitySpec source)=>
+        RestoreDynamicTags(source.ability.Tag.ActivationOwnedTag, source);
+
+    #endregion
+
+    #region Effect
+    public void ApplyGameplayEffectTags(GameplayEffectSpec source)
     {
-        foreach (var a in source.ability.Tag.ActivationOwnedTag.Tags)
+        var grantedTagSet = source.GameplayEffect.TagContainer.GrantedTags;
+        foreach (var tag in grantedTagSet.Tags)
         {
-            RemoveDynamicTag(a,source);
+            AddDynamicTag(tag,source);
         }
     }
+
+    public void RestoreGameplayEffectTags(GameplayEffectSpec source)=>
+        RestoreDynamicTags(source.GameplayEffect.TagContainer.GrantedTags,source);
+
+
     #endregion
 
     #endregion
