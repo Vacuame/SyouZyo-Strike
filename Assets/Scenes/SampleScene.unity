@@ -3301,6 +3301,12 @@ PrefabInstance:
       propertyPath: anim
       value: 
       objectReference: {fileID: 836719675}
+    - target: {fileID: 1635253662704513946, guid: 078c8994ff1d02848a746d3d7253db8a,
+        type: 3}
+      propertyPath: characterAttribute
+      value: 
+      objectReference: {fileID: 11400000, guid: 3ac0049d7098a6b48b941a5251ab2312,
+        type: 2}
     - target: {fileID: 1759696011715988661, guid: 078c8994ff1d02848a746d3d7253db8a,
         type: 3}
       propertyPath: m_Layer
@@ -4189,6 +4195,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie1
       objectReference: {fileID: 0}
+    - target: {fileID: 3293349837871432870, guid: 85bd9869aa6533142b51d42d1ff71190,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4820614624295675961, guid: 85bd9869aa6533142b51d42d1ff71190,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4244,6 +4255,11 @@ PrefabInstance:
       propertyPath: patrolPointList
       value: 
       objectReference: {fileID: 179762908}
+    - target: {fileID: 6092478844675010962, guid: 85bd9869aa6533142b51d42d1ff71190,
+        type: 3}
+      propertyPath: mBehaviorSource.mTaskData.JSONSerialization
+      value: '{"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"MovePos","IsShared":true,"Vector3mValue":"(0,0,0)"},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"LoseBanlance","IsShared":true,"BooleanmValue":false}]}'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

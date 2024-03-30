@@ -16,7 +16,7 @@ public class GameSystem : SingletonMono<GameSystem>
 
     void Update()
     {
-        
+        TimerManager.Instance.Update();
     }
 
     private void OnDestroy()

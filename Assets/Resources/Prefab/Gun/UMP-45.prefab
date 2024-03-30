@@ -110,12 +110,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 954547607c42da943b0096b893ae2687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  user: {fileID: 0}
   muzzle: {fileID: 8279979290026084344}
   handGuard: {fileID: 8279979291788294135}
   rateOfGun: 500
   shootMask:
     serializedVersion: 2
-    m_Bits: 529
+    m_Bits: 785
   _curAmmo: 30
   _fullAmmo: 30
   moving: 0

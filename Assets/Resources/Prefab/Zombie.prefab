@@ -222,6 +222,7 @@ MonoBehaviour:
   cc: {fileID: 0}
   ABS: {fileID: 0}
   feetTransform: {fileID: 2674590731596204789}
+  characterAttribute: {fileID: 11400000, guid: edde06f6bed7f84448e87f79ee950a3d, type: 2}
   nav: {fileID: 0}
   bt: {fileID: 0}
   patrolPointList: {fileID: 0}

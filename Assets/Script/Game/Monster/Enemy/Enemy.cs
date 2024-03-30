@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public enum PatrolType
 {
@@ -32,13 +33,15 @@ public class Enemy : Character
         base.Awake();
         bt = GetComponent<BehaviorTree>();
         nav = GetComponent<NavMeshAgent>();
+
         for(int i=0;i<patrolPointList.childCount;i++)
         {
             patrolPoints.Add(patrolPointList.GetChild(i));
         }
+        #region 注册部位
 
         //给每个部位添加受击事件
-        foreach(var partList in parts)
+        foreach (var partList in parts)
         {
             foreach(var part in partList.value)
             {
@@ -55,17 +58,19 @@ public class Enemy : Character
         //添加部位的生命值到ABS
         ABS.AttributeSetContainer.AddAttributeSet(new BodyAttr(partSetting));
 
-        //给ABS中部位的生命值变化添加事件
+        //给部位的生命值变化添加事件
         BodyAttr bodyAttr = ABS.AttrSet<BodyAttr>();
         foreach (string name in bodyAttr.AttributeNames)
         {
             bodyAttr[name].onPostCurrentValueChange += OnBodyPartToughnessPost;
         }
-            
+        #endregion
+
     }
 
     protected override void OnHit(HitInfo hitInfo)
     {
+        if(bDead) return;
         //计算伤害
         string partName = partDict[hitInfo.target];
         WeaknessData weakData = weakDict[partName];
@@ -80,9 +85,20 @@ public class Enemy : Character
         bt.SetVariableValue("Target", hitInfo.source);
     }
 
-    protected override void OnDead()
+    protected override void Dead()
     {
-        
+        foreach (var a in ABS.AbilityContainer.AbilitySpecs.Keys)
+            ABS.TryEndAbility(a);
+        ABS.GameplayEffectContainer.ClearGameplayEffect();
+        nav.isStopped = true;
+        bt.SetVariableValue("LoseBanlance", true);
+        bt.DisableBehavior();
+        int deadType = Random.Range(0, 2);
+        anim.SetFloat("DeadType", deadType);
+        anim.Play("Dead");
+        cc.enabled = false;
+        bDead = true;
+        TimerManager.Instance.AddTimer(new Timer(() => Destroy(this.gameObject), 1, 20));
     }
 
     protected override void OnDeadEnd()
@@ -90,13 +106,10 @@ public class Enemy : Character
         
     }
 
-    protected override void OnDeadStart()
-    {
-        
-    }
 
     private void OnBodyPartToughnessPost(AttributeBase toughness,float old,float now)
     {
+        if (bDead) return;
         if(old>0 && now<= 0)
         {
             toughness.RefreshCurValue();

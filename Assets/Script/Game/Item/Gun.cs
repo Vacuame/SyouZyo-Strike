@@ -194,12 +194,13 @@ public class Gun : MonoBehaviour
 
             GameObject hitObj = hit.collider.gameObject;
 
-            if (hitObj.layer == 0)//默认图层是场景元素，所以枪来播放特效
+            //如果是这些layer就播放默认特效
+            if (hitObj.layer == 0 || hitObj.layer == LayerMask.NameToLayer("Climbable"))
                 ParticleManager.Instance.PlayEffect("BulletImpact" ,hit.point, Quaternion.LookRotation(dir));
             
             if(hitObj.layer == LayerMask.NameToLayer("EnemyPart"))
             {
-                EventManager.Instance.TriggerEvent<HitInfo>("Hit" + hitObj.GetInstanceID(),
+                EventManager.Instance.TriggerEvent("Hit" + hitObj.GetInstanceID(),
                     new HitInfo(HitType.SMG , 10, user, hitObj, hit.point, dir));
             }
         }

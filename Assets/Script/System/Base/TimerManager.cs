@@ -107,6 +107,7 @@ public class Timer
         this.intervals = intervals;
         ToNextInterval();
     }
+    //一般用这个
     public Timer(UnityAction action, int loopCount, params float[] intervals) : this(action, loopCount)
     {
         this.intervals = new List<float>();

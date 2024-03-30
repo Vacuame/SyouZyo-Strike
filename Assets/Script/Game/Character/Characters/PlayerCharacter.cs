@@ -71,10 +71,6 @@ public class PlayerCharacter : Character
         ABS.GrandAbility(new Climb(so));
         AbilityAsset asset = Resources.Load<AbilityAsset>("ScriptObjectData/EquipData");
         ABS.GrandAbility(new EquipItem(asset));
-        CharaAtrr s = new CharaAtrr(Resources.Load<CharaAttr_SO>("ScriptObjectData/CharaData"));
-        ABS.AttributeSetContainer.AddAttributeSet(s);
-
-        //ABS.ApplyGameplayEffectToSelf(new TestEffect(Resources.Load<TestEffect_SO>("ScriptObjectData/TestData")));
     }
 
     protected void Update()
@@ -191,17 +187,12 @@ public class PlayerCharacter : Character
 
 
     #region DeadÖÜÆÚ
-    protected override void OnDead()
+    protected override void Dead()
     {
         
     }
 
     protected override void OnDeadEnd()
-    {
-        
-    }
-
-    protected override void OnDeadStart()
     {
         
     }

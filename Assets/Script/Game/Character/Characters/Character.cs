@@ -15,26 +15,34 @@ public abstract class Character : Pawn
     #region 必要组件
     [HideInInspector] public Animator anim;
     [HideInInspector] public CharacterController cc;
-    //protected HealthComponent healthComp;
+    public bool bDead { get; protected set; }
 
     [HideInInspector]public AbilitySystemComponent ABS;
     #endregion
 
     [Header("绑定"), SerializeField]protected Transform feetTransform;
 
+    [SerializeField] private CharaAttr_SO characterAttribute;
     protected override void Awake()
     {
         //先找到常用组件
         cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
         ABS = GetComponent<AbilitySystemComponent>();
+        ABS.Prepare();
 
-        //设定helthComp
-/*        healthComp = GetComponent<HealthComponent>();
-        healthComp.OnHealthZero += OnDeadStart;*/
+        ABS.AttributeSetContainer.AddAttributeSet(new CharaAtrr(characterAttribute));
+        ABS.AttrSet<CharaAtrr>().health.onPostCurrentValueChange += OnHealthPost;
+
+    }
+    private void OnHealthPost(AttributeBase health, float old, float now)
+    {
+        if (old > 0 && now <= 0)
+        {
+            Dead();
+        }
     }
     protected abstract void OnHit(HitInfo hitInfo);
-    protected abstract void OnDeadStart();
-    protected abstract void OnDead();
+    protected abstract void Dead();
     protected abstract void OnDeadEnd();
 }
