@@ -14,3 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RequiredTags: []
   ImmunityTags: []
+  partSets:
+  - key: Head
+    value:
+      loseBanlanceDuration: 2.5
+      hurtType: 0
+  - key: Body
+    value:
+      loseBanlanceDuration: 1.7
+      hurtType: 1
+  - key: Run
+    value:
+      loseBanlanceDuration: 1.7
+      hurtType: 2
+  defaultPartSet:
+    loseBanlanceDuration: 1.5
+    hurtType: 3

@@ -4,7 +4,13 @@ using UnityEngine;
 
 
 [Serializable]
-public struct Pair<T,S>
+public struct Pair<T, S>
 {
     public T key; public S value;
+
+    public Pair(T k, S v)
+    {
+        key = k;
+        value = v;
+    }
 }

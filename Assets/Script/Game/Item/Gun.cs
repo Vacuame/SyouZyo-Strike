@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    [HideInInspector] public GameObject user;
     [SerializeField] private Transform muzzle, handGuard;
     [SerializeField] private float rateOfGun = 300;
     private bool shooting,aiming;
@@ -199,7 +200,7 @@ public class Gun : MonoBehaviour
             if(hitObj.layer == LayerMask.NameToLayer("EnemyPart"))
             {
                 EventManager.Instance.TriggerEvent<HitInfo>("Hit" + hitObj.GetInstanceID(),
-                    new HitInfo(HitType.SMG , 10, this.gameObject, hitObj, hit.point, dir));
+                    new HitInfo(HitType.SMG , 10, user, hitObj, hit.point, dir));
             }
         }
 

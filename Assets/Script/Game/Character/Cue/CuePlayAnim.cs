@@ -7,6 +7,7 @@ public class CuePlayAnim : GameplayCueInstant
 {
     public string animName;
     public string layerName;
+    public List<Pair<string, float>> animParameters = new List<Pair<string, float>>();
     public override GameplayCueInstantSpec CreateSpec(GameplayCueParameters parameters)
     {
         return new CuePlayAnimSpec(this, parameters);
@@ -29,6 +30,9 @@ public class CuePlayAnim : GameplayCueInstant
                 character.anim.Play(cuePlayAnim.animName);
             else
                 character.anim.Play(cuePlayAnim.animName,character.anim.GetLayerIndex(cuePlayAnim.layerName));
+
+            foreach(var a in cuePlayAnim.animParameters)
+                character.anim.SetFloat(a.key, a.value);
         }
     }
 }

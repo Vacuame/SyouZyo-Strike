@@ -14,8 +14,8 @@ public enum PatrolType
 [RequireComponent(typeof(BehaviorTree))]
 public class Enemy : Character
 {
-    [HideInInspector]public NavMeshAgent nav;
-    protected BehaviorTree bt;
+    [HideInInspector] public NavMeshAgent nav;
+    [HideInInspector] public BehaviorTree bt;
 
     [SerializeField,Header("巡逻设置")] private Transform patrolPointList;
     [SerializeField] public PatrolType patrolType;
@@ -71,13 +71,13 @@ public class Enemy : Character
         WeaknessData weakData = weakDict[partName];
         float dmgMul = weakData.multiplyDict[hitInfo.type];
         float dmg = hitInfo.damage * dmgMul;
-        //Debug.Log("dmg = " + dmg);
 
         //生命值和部位生命值都减少
         ABS.AttrSet<CharaAtrr>().health.SetValueRelative(dmg, Tags.Calc.Sub);
         ABS.AttrSet<BodyAttr>()[partName].SetValueRelative(dmg, Tags.Calc.Sub);
-        //Debug.Log(ABS.AttrSet<CharaAtrr>().health.Value.currentValue);
-        //Debug.Log(partName+ " "+ABS.AttrSet<BodyAttr>()[partName].CurrentValue);
+
+        //发现玩家
+        bt.SetVariableValue("Target", hitInfo.source);
     }
 
     protected override void OnDead()
@@ -102,6 +102,16 @@ public class Enemy : Character
             toughness.RefreshCurValue();
             //获得Buff 失衡
             GameplayEffectAsset asset = Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/LoseBanlance");
+            CuePlayAnim cuePlayAnim = asset.CueOnAdd[0] as CuePlayAnim;
+            CueLoseBanlance cueLoseBanlance = asset.CueDurational[0]as CueLoseBanlance;
+            string loseBanlanceName;
+            if (toughness.ShortName=="Body" && nav.velocity.sqrMagnitude >= 4)
+                loseBanlanceName = "Run";
+            else
+                loseBanlanceName = toughness.ShortName;
+            CueLoseBanlance.PartBalanceSet partBalanceSet = cueLoseBanlance.GetPartBanlanceSet(loseBanlanceName);
+            asset.duration = partBalanceSet.loseBanlanceDuration;
+            cuePlayAnim.animParameters.Add(new Pair<string, float>("HurtType", partBalanceSet.hurtType));
             ABS.ApplyGameplayEffectToSelf(new GameplayEffect(asset));
         }
     }

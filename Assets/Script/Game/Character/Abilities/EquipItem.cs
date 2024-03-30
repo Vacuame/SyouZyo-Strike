@@ -39,6 +39,7 @@ public class EquipItem : AbstractAbility
             chestRig = args[1] as Rig;
 
             weaponType = weaponType == 1 ? 0 : 1;
+            //播放动画，实际是动画调用拿出道具的函数
             anim.SetInteger("weaponType", weaponType);
             if(weaponType==1)
                 EquipGun();

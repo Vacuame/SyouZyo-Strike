@@ -37,6 +37,7 @@ public class Aim : AbstractAbility<Aim_SO>
             anim = character.anim;
             chestRig = args[1] as Rig;
 
+            character.bAiming = true;
             character.controller.playCamera.SwitchCamera(Tags.Camera.Aim);
             chestRig.weight = 1;
             anim.SetBool("aiming", true);
@@ -45,11 +46,12 @@ public class Aim : AbstractAbility<Aim_SO>
 
         protected override void AbilityTick()
         {
-            character.curGun.moving = (character.cc.velocity.sqrMagnitude> 1);
+            character.curGun.moving = character.cc.velocity.sqrMagnitude > 1;
         }
 
         public override void EndAbility()
         {
+            character.bAiming = false;
             character.controller.playCamera.SwitchCamera(Tags.Camera.Normal);
             chestRig.weight = 0;
             anim.SetBool("aiming", false);

@@ -223,6 +223,7 @@ MonoBehaviour:
   ABS: {fileID: 0}
   feetTransform: {fileID: 2674590731596204789}
   nav: {fileID: 0}
+  bt: {fileID: 0}
   patrolPointList: {fileID: 0}
   patrolType: 0
   patrolPoints: []
@@ -287,7 +288,7 @@ MonoBehaviour:
   logTaskChanges: 0
   group: 0
   resetValuesOnRestart: 0
-  externalBehavior: {fileID: 11400000, guid: dd830b69eff7254409abd22fb730f729, type: 2}
+  externalBehavior: {fileID: 11400000, guid: c6b8ca56f97ed5d4fb853a3ce42f0f68, type: 2}
   mBehaviorSource:
     behaviorName: ZombieBehavior
     behaviorDescription: 
@@ -296,7 +297,7 @@ MonoBehaviour:
       parentIndex: 
       startIndex: 
       variableStartIndex: 
-      JSONSerialization: '{"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"MovePos","IsShared":true,"Vector3mValue":"(0,0,0)"}]}'
+      JSONSerialization: '{"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"MovePos","IsShared":true,"Vector3mValue":"(0,0,0)"},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"LoseBanlance","IsShared":true,"BooleanmValue":false}]}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 
@@ -869,7 +870,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.33, y: 0.14, z: 0.12}
+  m_Size: {x: 0.35, y: 0.24, z: 0.12}
   m_Center: {x: -0.2, y: 0, z: 0}
 --- !u!1 &388412827114311661 stripped
 GameObject:
@@ -896,7 +897,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3, y: 0.16, z: 0.08}
+  m_Size: {x: 0.3, y: 0.26, z: 0.13}
   m_Center: {x: -0.19, y: 0, z: 0}
 --- !u!1 &1094217788087029027 stripped
 GameObject:
@@ -950,7 +951,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.46, y: 0.12, z: 0.12}
+  m_Size: {x: 0.46, y: 0.16, z: 0.15}
   m_Center: {x: -0.15, y: 0, z: 0}
 --- !u!1 &2573849831780760916 stripped
 GameObject:
@@ -1091,7 +1092,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.46, y: 0.17, z: 0.17}
+  m_Size: {x: 0.46, y: 0.23, z: 0.16}
   m_Center: {x: -0.15, y: 0, z: 0}
 --- !u!1 &4507930473208287996 stripped
 GameObject:
@@ -1118,7 +1119,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.46, y: 0.17, z: 0.17}
+  m_Size: {x: 0.46, y: 0.23, z: 0.16}
   m_Center: {x: -0.15, y: 0, z: 0}
 --- !u!1 &4572271460378670836 stripped
 GameObject:
@@ -1145,7 +1146,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3, y: 0.16, z: 0.08}
+  m_Size: {x: 0.3, y: 0.26, z: 0.13}
   m_Center: {x: -0.19, y: 0, z: 0}
 --- !u!1 &4855251171571041260 stripped
 GameObject:
@@ -1199,7 +1200,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.33, y: 0.14, z: 0.12}
+  m_Size: {x: 0.35, y: 0.24, z: 0.12}
   m_Center: {x: -0.2, y: 0, z: 0}
 --- !u!1 &7428964378907011196 stripped
 GameObject:
@@ -1226,7 +1227,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.46, y: 0.12, z: 0.12}
+  m_Size: {x: 0.46, y: 0.16, z: 0.15}
   m_Center: {x: -0.15, y: 0, z: 0}
 --- !u!1 &8561076135918950546 stripped
 GameObject:

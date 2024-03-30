@@ -36,7 +36,7 @@ public class PlayerCharacter : Character
     private bool bCanMove = true;
     private bool bRuning;
     private bool bInjured;
-    private bool bAiming;
+    public bool bAiming;
     #endregion
 
     #region 移动状态变量
@@ -67,7 +67,6 @@ public class PlayerCharacter : Character
     {
         base.Awake();
 
-        //之后这些东西都由配置文件写
         Climb_SO so = Resources.Load<Climb_SO>("ScriptObjectData/ClimbData");
         ABS.GrandAbility(new Climb(so));
         AbilityAsset asset = Resources.Load<AbilityAsset>("ScriptObjectData/EquipData");
@@ -127,12 +126,17 @@ public class PlayerCharacter : Character
         float moveSpdThres;
 
         if (bAiming)
-            RotationInWalk();
-            //RotationInAim();
-        else if (bRuning)
-            RotationInRun();
-        else
-            RotationInWalk();
+        {
+            RotateToCamera();
+        }
+        else if (input_move != Vector2.zero)
+        {
+            if(bRuning) 
+                RotateToMove();
+            else
+                RotateToCamera();
+        }
+                
 
         if (bRuning)
         {
@@ -157,33 +161,27 @@ public class PlayerCharacter : Character
         cc.SimpleMove(animVelo);
     }
 
-    private void RotationInWalk()
+    private void RotateToCamera()
     {
-        if (input_move != Vector2.zero)
-        {
-            Vector3 cameraAngle = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);
-            Quaternion targetRotation = Quaternion.LookRotation(cameraAngle);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.fixedDeltaTime);
-        }
+        Transform cameraTrans = controller.playCamera.transform;
+        Vector3 cameraAngle = new Vector3(cameraTrans.forward.x, 0, cameraTrans.forward.z);
+        Quaternion targetRotation = Quaternion.LookRotation(cameraAngle);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.fixedDeltaTime);
     }
 
-    private void RotationInRun()
+    private void RotateToMove()
     {
-        if (input_move == Vector2.zero) return;
-        {
-            Vector3 forward = Camera.main.transform.forward;
-            Vector3 right = Camera.main.transform.right;
-            forward.y = 0; right.y = 0;
-            forward *= input_move.y;
-            right *= input_move.x;
-            Quaternion targetRotation = Quaternion.LookRotation(forward + right);
+        Transform cameraTrans = controller.playCamera.transform;
+        Vector3 forward = cameraTrans.forward;
+        Vector3 right = cameraTrans.right;
+        forward.y = 0; right.y = 0;
+        forward *= input_move.y;
+        right *= input_move.x;
+        Quaternion targetRotation = Quaternion.LookRotation(forward + right);
 
-            float rad = Mathf.Acos(Vector3.Dot(forward, transform.forward));
+        float rad = Mathf.Acos(Vector3.Dot(forward, transform.forward));
 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rad * rotateSpeed * Time.fixedDeltaTime);
-        }
-
-
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rad * rotateSpeed * Time.fixedDeltaTime);
     }
 
     private void OnAnimatorMove()
@@ -213,6 +211,7 @@ public class PlayerCharacter : Character
     private void SetWeapon(int active)
     {
         bool isActive = active == 0 ? false : true;
+        curGun.user = this.gameObject;
         curGun.gameObject.SetActive(isActive);
     }
     #endregion
