@@ -2,7 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using GameBasic;
 public class PlayCamera : MonoBehaviour
 {
     [SerializeField] private MultiSetting<Tags.Camera, CinemachineVirtualCamera> cameras;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameBasic;
 
 /// <summary>
 /// 实际的玩家，不仅控制角色，还有背包等其他功能
@@ -21,3 +22,5 @@ public class PlayerController : Controller
     }
 
 }
+
+

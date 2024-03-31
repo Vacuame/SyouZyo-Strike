@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using GameBasic;
 /// <summary>
 /// 作为一个角色，有动画和CharacterController来移动
 /// </summary>
