@@ -44,10 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9eea4cdb8484724084c1196343b821a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  presetPawn: {fileID: 0}
   pawn: {fileID: 0}
+  playCamera: {fileID: 0}
   CamTopClamp: 70
   CamBottomClamp: -30
   CamAngleOverride: 0
   bCamLock: 0
   mouseSpeed: 1.5
-  playCamera: {fileID: 0}
