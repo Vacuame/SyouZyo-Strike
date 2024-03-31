@@ -6,7 +6,6 @@ using UnityEngine;
 public class SingletonMono<T>: MonoBehaviour where T : MonoBehaviour
 {
     protected virtual bool dontDestroyOnLoad => false;
-    protected static bool autoInstance = false;
     protected static T instance;
     public static T Instance
     {
@@ -31,7 +30,6 @@ public class SingletonMono<T>: MonoBehaviour where T : MonoBehaviour
 
 public class SingletonMono_AutoInst<T>:SingletonMono<T> where T:MonoBehaviour
 {
-    private static bool _applicationIsQuitting;
     new public static T Instance
     {
         get

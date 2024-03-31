@@ -9,6 +9,7 @@ using System;
 using PureMVC.Interfaces;
 using PureMVC.Core;
 using PureMVC.Patterns.Observer;
+using PureMVC.Patterns.Command;
 
 namespace PureMVC.Patterns.Facade
 {
@@ -53,6 +54,21 @@ namespace PureMVC.Patterns.Facade
         }
 
         /// <summary>
+        /// Facade Singleton Factory method
+        /// </summary>
+        /// <param name="facadeFunc">the <c>FuncDelegate</c> of the <c>IFacade</c></param>
+        /// <returns>the Singleton instance of the Facade</returns>
+        public static IFacade GetInstance(Func<IFacade> facadeFunc)
+        {
+            if (instance == null)
+            {
+                instance = facadeFunc();
+            }
+            return instance;
+        }
+
+        #region ——Initialize——
+        /// <summary>
         /// Initialize the Singleton <c>Facade</c> instance.
         /// </summary>
         /// <remarks>
@@ -67,20 +83,6 @@ namespace PureMVC.Patterns.Facade
             InitializeModel();
             InitializeController();
             InitializeView();
-        }
-
-        /// <summary>
-        /// Facade Singleton Factory method
-        /// </summary>
-        /// <param name="facadeFunc">the <c>FuncDelegate</c> of the <c>IFacade</c></param>
-        /// <returns>the Singleton instance of the Facade</returns>
-        public static IFacade GetInstance(Func<IFacade> facadeFunc)
-        {
-            if (instance == null)
-            {
-                instance = facadeFunc();
-            }
-            return instance;
         }
 
         /// <summary>
@@ -159,11 +161,15 @@ namespace PureMVC.Patterns.Facade
             view = View.GetInstance(() => new View());
         }
 
+        #endregion
+
+        #region ——Controller对Command的增删查——
         /// <summary>
         /// Register an <c>ICommand</c> with the <c>Controller</c> by Notification name.
         /// </summary>
         /// <param name="notificationName">the name of the <c>INotification</c> to associate the <c>ICommand</c> with</param>
         /// <param name="factory">a reference to the Class of the <c>ICommand</c></param>
+
         public virtual void RegisterCommand(string notificationName, Func<ICommand> factory)
         {
             controller.RegisterCommand(notificationName, factory);
@@ -187,7 +193,9 @@ namespace PureMVC.Patterns.Facade
         {
             return controller.HasCommand(notificationName);
         }
+        #endregion
 
+        #region ——Model对Proxy的增删查——
         /// <summary>
         /// Register an <c>IProxy</c> with the <c>Model</c> by name.
         /// </summary>
@@ -226,7 +234,9 @@ namespace PureMVC.Patterns.Facade
         {
             return model.HasProxy(proxyName);
         }
+        #endregion
 
+        #region ——View对Mediator的增删查——
         /// <summary>
         /// Register a <c>IMediator</c> with the <c>View</c>.
         /// </summary>
@@ -265,7 +275,9 @@ namespace PureMVC.Patterns.Facade
         {
             return view.HasMediator(mediatorName);
         }
+        #endregion
 
+        #region ——Notification——
         /// <summary>
         /// Create and send an <c>INotification</c>.
         /// </summary>
@@ -303,7 +315,24 @@ namespace PureMVC.Patterns.Facade
         {
             view.NotifyObservers(notification);
         }
+        #endregion
 
+        #region GroupCommand
+
+        public void RegisterGroupCommand(GroupCommand groupCommand)
+        {
+            foreach (var command in groupCommand.CommandList())
+                RegisterCommand(command.notificationName, () => new SubCommand(command.excute));
+        }
+        public void RemoveGroupCommand(string[] notificationNames)
+        {
+            foreach(var name in notificationNames)
+                RemoveCommand(name);
+        }
+
+        #endregion
+
+        #region 变量
         /// <summary>References to Controller</summary>
         protected IController controller;
         /// <summary>Reference to Model</summary>
@@ -316,5 +345,6 @@ namespace PureMVC.Patterns.Facade
 
         /// <summary>Message Constants</summary>
         protected const string SingletonMsg = "Facade Singleton already constructed!";
+        #endregion
     }
 }

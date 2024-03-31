@@ -34,6 +34,9 @@ namespace PureMVC.Patterns.Command
     ///         calling <c>addSubCommand</c> once for each <i>SubCommand</i>
     ///         to be executed.
     ///     </para>
+    ///     <para>
+    ///         其实就是集合很多Command一起执行    
+    ///     </para>
     /// </remarks>
     /// <seealso cref="PureMVC.Core.Controller"/>
     /// <seealso cref="PureMVC.Patterns.Observer.Notification"/>

@@ -22,19 +22,14 @@ public class TestData_Mediator : Mediator
 
     public override string[] ListNotificationInterests()
     {
-        return new string[] { 
-            "msg_add",
-            "msg_sub" };
+        return new string[] {"msg_dataChange",};
     }
 
     public override void HandleNotification(INotification notification)
     {
         switch(notification.Name)
         {
-            case "msg_add":
-                Display(notification.Body as TestData);
-                break;
-            case "msg_sub":
+            case "msg_dataChange":
                 Display(notification.Body as TestData);
                 break;
         }
