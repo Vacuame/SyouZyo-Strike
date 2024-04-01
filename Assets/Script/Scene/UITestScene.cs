@@ -13,8 +13,6 @@ public class UITestScene : BaseScene
 
     public override void OnSceneLoaded()
     {
-        base.OnSceneLoaded();
-
         UIManager.Instance.Push(new BaseContext(TestView.uiType));
     }
 }

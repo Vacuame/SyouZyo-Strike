@@ -2,6 +2,7 @@ using MoleMole;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TestView : BaseView
 {
@@ -10,7 +11,6 @@ public class TestView : BaseView
 
     public override void OnEnter(BaseContext context)
     {
-        base.OnEnter(context);
         UIManager.Instance.facade.RegisterGroupCommand(new TestData_Command());
         UIManager.Instance.facade.RegisterMediator(new TestData_Mediator(gameObject));
         UIManager.Instance.facade.RegisterProxy(new TestData_Proxy());
@@ -20,6 +20,5 @@ public class TestView : BaseView
         UIManager.Instance.facade.RemoveGroupCommand(TestData_Command.commandNames);
         UIManager.Instance.facade.RemoveMediator(TestData_Mediator.mediatorName);
         UIManager.Instance.facade.RemoveProxy(TestData_Proxy.proxyName);
-        base.OnExit(context);
     }
 }

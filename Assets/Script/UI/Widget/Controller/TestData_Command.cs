@@ -11,7 +11,7 @@ using static UnityEngine.Mesh;
 
 public class TestData_Command : GroupCommand
 {
-    public static string[] commandNames = { "s" };
+    public static string[] commandNames = { "cmd_add", "cmd_sub" };
     public override SubCommandRegister[] CommandList()
     {
         return new SubCommandRegister[] {
@@ -25,7 +25,7 @@ public class TestData_Command : GroupCommand
         proxy.Add();
         if(proxy.testData.Num==3)
         {
-            SceneSystem.Instance.SetScene(new UITestScene2(),false);
+            SceneSystem.Instance.SetSceneAsync(new UITestScene2());
         }
     }
     public void Sub(INotification notification)

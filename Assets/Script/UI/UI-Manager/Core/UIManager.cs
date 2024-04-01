@@ -19,7 +19,7 @@ namespace MoleMole
         public TestFacade facade { get; private set; }
         public void Init()
         {
-            SceneManager.sceneUnloaded += (Scene scene) => { PopAll(); };
+            GameRoot.Instance.beforeLoadSceneAction += DestroyAll;
             SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) => { OnSceneLoaded(); };
             facade = new TestFacade();
         }
@@ -50,26 +50,17 @@ namespace MoleMole
             return _UIDict[uiType];
         }
 
-        public void DestroyView(UIType uiType,bool trueDestroy = false)
+        public void DestroyView(UIType uiType)
         {
             if (!_UIDict.ContainsKey(uiType))
                 return;
 
-            if (_UIDict[uiType] == null)
-            {
-                _UIDict.Remove(uiType);
-                return;
-            }
-
-            if (trueDestroy)
+            if (_UIDict[uiType] != null)
             {
                 GameObject.Destroy(_UIDict[uiType]);
-                _UIDict.Remove(uiType);
             }
-            else
-            {
-                _UIDict[uiType].transform.PanelAppearance(false);
-            }
+
+            _UIDict.Remove(uiType);
         }
 
         public void Push(BaseContext nextContext)
@@ -83,10 +74,12 @@ namespace MoleMole
 
             _contextStack.Push(nextContext);
             BaseView nextView = GetView(nextContext.ViewType);
+            nextView.transform.PanelAppearance(true);
+            nextView.transform.SetSiblingIndex(_canvas.childCount - 1);
             nextView.OnEnter(nextContext);
         }
 
-        public void Pop()
+        public void Pop(bool trueDestroy = false)
         {
             if (_contextStack.Count > 0)
             {
@@ -95,6 +88,11 @@ namespace MoleMole
 
                 BaseView curView = GetView(curContext.ViewType);
                 curView.OnExit(curContext);
+
+                if(trueDestroy)
+                    DestroyView(curContext.ViewType);
+                else
+                    curView.transform.PanelAppearance(false); ;
             }
 
             if (_contextStack.Count > 0)
@@ -105,10 +103,10 @@ namespace MoleMole
             }
         }
 
-        public void PopAll()
+        public void DestroyAll()
         {
-            while( _contextStack.Count > 0)
-                _contextStack.Pop();
+            while (_contextStack.Count > 0)
+                Pop(true);
         }
     }
 }

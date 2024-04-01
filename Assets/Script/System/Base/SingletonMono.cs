@@ -4,9 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
-/// 注意
-/// 1、若要重写Awake必须调用base.Awake
-/// 2、即使Destroy(gameObject)，Awake也会先执行，可能会因此出问题
+/// 注意如果不是dontDestroyOnLoad，则每个场景都会执行Init
 /// </summary>
 public class SingletonMono<T>: MonoBehaviour where T : MonoBehaviour
 {

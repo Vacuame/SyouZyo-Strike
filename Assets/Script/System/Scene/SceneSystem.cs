@@ -13,36 +13,31 @@ namespace SceneFramework
     {
         public BaseScene curScene;
         private AsyncSceneLoader loader;
-        private readonly string loaderPrefabPath = "";
+        private readonly string loaderPrefabPath = "UI/AsyncSceneLoader";
         public void Init()
         {
             SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) => { curScene?.OnSceneLoaded();};
         }
 
-        public void SetScene(BaseScene scene, bool async = true)
+        public void SetScene(BaseScene scene)
         {
             curScene?.OnExit();
+            GameRoot.Instance.beforeLoadSceneAction?.Invoke();
             curScene = scene;
-            if (async)
-                LoadSceneAsync();
-            else
-                LoadScene();
-        }
-
-        protected void LoadScene()
-        {
             SceneManager.LoadScene(curScene.SceneName);
         }
 
-        protected void LoadSceneAsync()
+        public void SetSceneAsync(BaseScene scene,float fadeTime = 1,bool needPressKey = true)
         {
+            curScene?.OnExit();
+            GameRoot.Instance.beforeLoadSceneAction?.Invoke();
+            curScene = scene;
             if (loader == null)
             {
                 loader = GameObject.Instantiate(Resources.Load<AsyncSceneLoader>(loaderPrefabPath));
             }
 
-            loader.enabled = true;
-            loader.DoLoad(curScene.SceneName);
+            loader.DoLoad(curScene.SceneName,fadeTime,needPressKey);
         }
     }
 }

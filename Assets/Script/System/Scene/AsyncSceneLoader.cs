@@ -1,3 +1,4 @@
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 
 namespace SceneFramework
 {
+    [RequireComponent(typeof(Canvas))]
     [RequireComponent(typeof(CanvasGroup))]
     public class AsyncSceneLoader : MonoBehaviour
     {
@@ -13,10 +15,10 @@ namespace SceneFramework
         [SerializeField] private Slider slider;
         public GameObject ContiuneText;
         [SerializeField] private Image _bg;
-        [SerializeField] private Text _title;
-        [SerializeField] private Text _text;
         private bool loaded;
         private CanvasGroup canvasGroup;
+        private float fadeTime;
+        private bool needPressAnyKey;
 
         private void Awake()
         {
@@ -24,16 +26,17 @@ namespace SceneFramework
             canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        public void DoLoad(string sceneName)
+        public void DoLoad(string sceneName, float fadeTime, bool needPressAnyKey)
         {
-            /*            int randomIndex = Random.Range(0, this._loaderAnim._loaderAnims.Count);
-                        LoaderAnim.LoaderAnimStruct _loaderAnim = this._loaderAnim._loaderAnims[randomIndex];
-                        _bg.sprite = _loaderAnim.background;
-                        _title.text = _loaderAnim.title;
-                        _text.text = _loaderAnim.text;*/
-            slider.value = 0;
+            this.fadeTime = fadeTime;
+            this.needPressAnyKey = needPressAnyKey;
+
+            loaded = false;
+            gameObject.SetActive(true);
             slider.gameObject.SetActive(true);
             ContiuneText.SetActive(false);
+            canvasGroup.alpha = 1;
+            slider.value = 0;
 
             StartCoroutine(Loading(sceneName));
         }
@@ -53,10 +56,11 @@ namespace SceneFramework
 
         private void Update()
         {
-            if (loaded && Input.anyKeyDown)
+            if (loaded && 
+                (!needPressAnyKey||(needPressAnyKey && Input.anyKeyDown)))
             {
                 loaded = false;
-                StartCoroutine(Fading(1f));
+                StartCoroutine(Fading(fadeTime));
             }
         }
 
@@ -69,9 +73,9 @@ namespace SceneFramework
                 canvasGroup.alpha = Mathf.Lerp(0, 1, timer / maxTime);
                 yield return null;
             }
-            enabled = false;
+            canvasGroup.alpha = 0;
+            gameObject.SetActive(false);
         }
 
     }
-
 }

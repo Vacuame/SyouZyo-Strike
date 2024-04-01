@@ -3,6 +3,7 @@ using SceneFramework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -11,6 +12,8 @@ using UnityEngine.SceneManagement;
 public class GameRoot : SingletonMono<GameRoot>
 {
     protected override bool dontDestroyOnLoad => true;
+
+    public UnityAction beforeLoadSceneAction;
 
     /// <summary>
     /// 许多初始化
