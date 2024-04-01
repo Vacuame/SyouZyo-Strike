@@ -1,10 +1,12 @@
 using PureMVC.Interfaces;
 using PureMVC.Patterns.Command;
 using PureMVC.Patterns.Observer;
+using SceneFramework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using static UnityEngine.Mesh;
 
 public class TestData_Command : GroupCommand
@@ -21,25 +23,12 @@ public class TestData_Command : GroupCommand
     {
         TestData_Proxy proxy = Facade.RetrieveProxy("TestData1") as TestData_Proxy;
         proxy.Add();
+        if(proxy.testData.Num==3)
+        {
+            SceneSystem.Instance.SetScene(new UITestScene2(),false);
+        }
     }
     public void Sub(INotification notification)
-    {
-        TestData_Proxy proxy = Facade.RetrieveProxy("TestData1") as TestData_Proxy;
-        proxy.Sub();
-    }
-}
-
-public class TestData_Command_Add : SimpleCommand
-{
-    public override void Execute(INotification notification)
-    {
-        TestData_Proxy proxy = Facade.RetrieveProxy("TestData1") as TestData_Proxy;
-        proxy.Add();
-    }
-}
-public class TestData_Command_Sub : SimpleCommand
-{
-    public override void Execute(INotification notification)
     {
         TestData_Proxy proxy = Facade.RetrieveProxy("TestData1") as TestData_Proxy;
         proxy.Sub();

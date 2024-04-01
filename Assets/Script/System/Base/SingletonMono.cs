@@ -19,8 +19,6 @@ public class SingletonMono<T>: MonoBehaviour where T : MonoBehaviour
         else
             Destroy(gameObject);
 
-        this.gameObject.name = GetType().Name;
-
         if (dontDestroyOnLoad)
             DontDestroyOnLoad(gameObject);
 

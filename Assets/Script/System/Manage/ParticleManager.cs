@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+//TODO ¸Ä³ÉSingleton
 public class ParticleManager : SingletonMono<ParticleManager>
 {
     [SerializeField] private ParticleSet particleSet;
