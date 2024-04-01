@@ -11,20 +11,15 @@ using UnityEngine.SceneManagement;
 public class GameRoot : SingletonMono<GameRoot>
 {
     protected override bool dontDestroyOnLoad => true;
-    private static bool GameInitialized = false;
 
     /// <summary>
     /// 许多初始化
-    /// 注意初始化顺序，Scene会调用UI，所以UI先初始化（绑定sceneLoaded）
+    /// 注意初始化顺序，Scene会调用UI，所以UI先初始化（绑定sceneLoaded先执行）
     /// </summary>
-    protected override void Awake()
+    protected override void Init()
     {
-        base.Awake();
-
-        if (GameInitialized) return;
         UIManager.Instance.Init();
         SceneSystem.Instance.Init();
-        GameInitialized = true;
 
 #if UNITY_EDITOR
         SceneSystem.Instance.curScene = new UITestScene();

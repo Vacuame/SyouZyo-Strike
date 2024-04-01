@@ -12,9 +12,8 @@ public class GameUI : SingletonMono<GameUI>
     private Dictionary<string, TextMeshProUGUI> texts=new Dictionary<string, TextMeshProUGUI>();
     List<RectTransform> sightSides=new List<RectTransform>();
     static readonly Vector2[] sightSideDir = {new Vector2(1,0),new Vector2(0,1),new Vector2(-1,0),new Vector2(0,-1) };
-    protected override void Awake()
+    protected override void Init()
     {
-        base.Awake();
         foreach (var a in _texts)
             texts.Add(a.key, a.value);
 

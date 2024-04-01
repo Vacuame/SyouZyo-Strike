@@ -14,9 +14,8 @@ public class ParticleManager : SingletonMono<ParticleManager>
     private LinkedList<MyParticle> activeParticle=new LinkedList<MyParticle>();
     private Dictionary<int,MyParticle>keepParticle=new Dictionary<int,MyParticle>();
 
-    protected override void Awake()
+    protected override void Init()
     {
-        base.Awake();
         foreach(var a in particleSet.lists)
         {
             var home = new GameObject(a.name).transform;

@@ -3,6 +3,11 @@ using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// 注意
+/// 1、若要重写Awake必须调用base.Awake
+/// 2、即使Destroy(gameObject)，Awake也会先执行，可能会因此出问题
+/// </summary>
 public class SingletonMono<T>: MonoBehaviour where T : MonoBehaviour
 {
     protected virtual bool dontDestroyOnLoad => false;
@@ -12,7 +17,7 @@ public class SingletonMono<T>: MonoBehaviour where T : MonoBehaviour
         get => instance;
     }
 
-    protected virtual void Awake()
+    private void Awake()
     {
         if (instance == null)
             instance = (T)(object)this;
@@ -21,6 +26,14 @@ public class SingletonMono<T>: MonoBehaviour where T : MonoBehaviour
 
         if (dontDestroyOnLoad)
             DontDestroyOnLoad(gameObject);
+
+        if(this == instance)
+            Init();
+
+    }
+
+    protected virtual void Init()
+    {
 
     }
 
