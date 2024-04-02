@@ -11,12 +11,14 @@ public class TestView : BaseView
 
     public override void OnEnter(BaseContext context)
     {
+        base.OnEnter(context);
         UIManager.Instance.facade.RegisterGroupCommand(new TestData_Command());
         UIManager.Instance.facade.RegisterMediator(new TestData_Mediator(gameObject));
         UIManager.Instance.facade.RegisterProxy(new TestData_Proxy());
     }
-    public override void OnExit(BaseContext context)
+    public override void OnExit(bool trueDestroy)
     {
+        base.OnExit(trueDestroy);
         UIManager.Instance.facade.RemoveGroupCommand(TestData_Command.commandNames);
         UIManager.Instance.facade.RemoveMediator(TestData_Mediator.mediatorName);
         UIManager.Instance.facade.RemoveProxy(TestData_Proxy.proxyName);

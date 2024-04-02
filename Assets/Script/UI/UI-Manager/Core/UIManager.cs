@@ -37,7 +37,7 @@ namespace MoleMole
             }
             
         }
-        private BaseView GetView(UIType uiType)
+        private BaseView GetOrCreateView(UIType uiType)
         {
             if (_UIDict.ContainsKey(uiType) == false || _UIDict[uiType] == null)
             {
@@ -68,16 +68,12 @@ namespace MoleMole
             if (_contextStack.Count > 0)
             {
                 BaseContext curContext = _contextStack.Peek();
-                BaseView curView = GetView(curContext.ViewType);
-                curView.OnPause(curContext);
+                BaseView curView = GetOrCreateView(curContext.ViewType);
+                curView.OnPause();
             }
 
             _contextStack.Push(nextContext);
-            BaseView nextView = GetView(nextContext.ViewType);
-
-            nextView.transform.PanelAppearance(true);
-            nextView.transform.SetSiblingIndex(_canvas.childCount - 1);
-
+            BaseView nextView = GetOrCreateView(nextContext.ViewType);
             nextView.OnEnter(nextContext);
         }
 
@@ -88,21 +84,15 @@ namespace MoleMole
                 BaseContext curContext = _contextStack.Peek();
                 _contextStack.Pop();
 
-                BaseView curView = GetView(curContext.ViewType);
-
-                curView.OnExit(curContext);
-
-                if(trueDestroy)
-                    DestroyView(curContext.ViewType);
-                else
-                    curView.transform.PanelAppearance(false); ;
+                if(_UIDict.TryGetValue(curContext.ViewType,out BaseView curView)&&curView!=null)
+                    curView.OnExit(trueDestroy);
             }
 
             if (_contextStack.Count > 0)
             {
                 BaseContext lastContext = _contextStack.Peek();
-                BaseView curView = GetView(lastContext.ViewType);
-                curView.OnResume(lastContext);
+                BaseView curView = GetOrCreateView(lastContext.ViewType);
+                curView.OnResume();
             }
         }
 

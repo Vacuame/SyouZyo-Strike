@@ -17,20 +17,20 @@ namespace MoleMole
             _animator.SetTrigger("OnEnter");
         }
 
-        public override void OnExit(BaseContext context)
+        public override void OnExit(bool trueDestroy)
         {
             _animator.SetTrigger("OnExit");
         }
 
-        public override void OnPause(BaseContext context)
+        public override void OnPause()
         {
-            base.OnPause(context);
+            base.OnPause();
             _animator.SetTrigger("OnPause");
         }
 
-        public override void OnResume(BaseContext context)
+        public override void OnResume()
         {
-            base.OnResume(context);
+            base.OnResume();
             _animator.SetTrigger("OnResume");
         }
 

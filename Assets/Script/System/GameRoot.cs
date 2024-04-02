@@ -25,7 +25,6 @@ public class GameRoot : SingletonMono<GameRoot>
     /// </summary>
     protected override void Init()
     {
-        Debug.Log("Init");
         SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) => afterLoadSceneAction?.Invoke();
 
         UIManager.Instance.Init();
