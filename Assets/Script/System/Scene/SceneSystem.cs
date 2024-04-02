@@ -16,7 +16,7 @@ namespace SceneFramework
         private readonly string loaderPrefabPath = "UI/AsyncSceneLoader";
         public void Init()
         {
-            SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) => { curScene?.OnSceneLoaded();};
+            GameRoot.Instance.afterLoadSceneAction += () => { curScene?.OnSceneLoaded();};
         }
 
         public void SetScene(BaseScene scene)
@@ -39,5 +39,6 @@ namespace SceneFramework
 
             loader.DoLoad(curScene.SceneName,fadeTime,needPressKey);
         }
+
     }
 }

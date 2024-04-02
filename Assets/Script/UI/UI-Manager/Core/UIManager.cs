@@ -19,8 +19,8 @@ namespace MoleMole
         public TestFacade facade { get; private set; }
         public void Init()
         {
-            GameRoot.Instance.beforeLoadSceneAction += DestroyAll;
-            SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) => { OnSceneLoaded(); };
+            GameRoot.Instance.beforeLoadSceneAction += () => { PopAll(true); };
+            GameRoot.Instance.afterLoadSceneAction += () => { OnSceneLoaded(); };
             facade = new TestFacade();
         }
 
@@ -74,8 +74,10 @@ namespace MoleMole
 
             _contextStack.Push(nextContext);
             BaseView nextView = GetView(nextContext.ViewType);
+
             nextView.transform.PanelAppearance(true);
             nextView.transform.SetSiblingIndex(_canvas.childCount - 1);
+
             nextView.OnEnter(nextContext);
         }
 
@@ -87,6 +89,7 @@ namespace MoleMole
                 _contextStack.Pop();
 
                 BaseView curView = GetView(curContext.ViewType);
+
                 curView.OnExit(curContext);
 
                 if(trueDestroy)
@@ -103,10 +106,10 @@ namespace MoleMole
             }
         }
 
-        public void DestroyAll()
+        public void PopAll(bool trueDestroy)
         {
             while (_contextStack.Count > 0)
-                Pop(true);
+                Pop(trueDestroy);
         }
     }
 }

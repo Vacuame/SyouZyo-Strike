@@ -13,7 +13,11 @@ public class GameRoot : SingletonMono<GameRoot>
 {
     protected override bool dontDestroyOnLoad => true;
 
+    /// <summary>
+    /// 所有需要在加载场景前后调用的函数放到此Action，然后在加载场景前调用它
+    /// </summary>
     public UnityAction beforeLoadSceneAction;
+    public UnityAction afterLoadSceneAction;
 
     /// <summary>
     /// 许多初始化
@@ -21,6 +25,9 @@ public class GameRoot : SingletonMono<GameRoot>
     /// </summary>
     protected override void Init()
     {
+        Debug.Log("Init");
+        SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) => afterLoadSceneAction?.Invoke();
+
         UIManager.Instance.Init();
         SceneSystem.Instance.Init();
 
