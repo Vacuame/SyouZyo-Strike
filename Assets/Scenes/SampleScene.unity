@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 87715791}
   m_Layer: 0
-  m_Name: HUD
+  m_Name: HUDCanva
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -221,7 +221,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160390791}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.00000062026083, y: -0, z: -0.000000078231096, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -541,7 +541,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.029497815, y: -0.79016554, z: 0.038147975, w: 0.6109935}
+  m_LocalRotation: {x: 0.029497372, y: -0.79016554, z: 0.03814753, w: 0.6109935}
   m_LocalPosition: {x: -3.9, y: -3.875, z: 0.8089537}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3471,10 +3471,10 @@ SceneRoots:
   - {fileID: 330585546}
   - {fileID: 2121226642}
   - {fileID: 87715791}
+  - {fileID: 1495681748}
   - {fileID: 327355281284924378}
   - {fileID: 333738922}
   - {fileID: 563633573311085844}
   - {fileID: 2720560257185466162}
   - {fileID: 3670904480971410428}
   - {fileID: 3728662595749877101}
-  - {fileID: 1495681748}

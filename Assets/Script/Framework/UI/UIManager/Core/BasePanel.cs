@@ -29,7 +29,7 @@ namespace MoleMole
         public virtual void OnExit(bool trueDestroy)
         {
             if (trueDestroy)
-                UIManager.Instance.DestroyView(context.ViewType);
+                UIManager.Instance.DestroyView(context.uiType);
             else
                 transform.PanelAppearance(false);
         }

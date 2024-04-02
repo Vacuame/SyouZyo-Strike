@@ -10,9 +10,10 @@ namespace MoleMole
         protected bool inited;
         protected virtual void Init()
         {
-
+            
         }
-        public virtual void OnEnter(BaseContext context)
+
+        public virtual void OnInstance(BaseContext context)
         {
             transform.PanelAppearance(true);
             transform.SetSiblingIndex(transform.parent.childCount - 1);
@@ -23,12 +24,9 @@ namespace MoleMole
             }
         }
 
-        public virtual void OnExit(bool trueDestroy)
+        public virtual void SetVisiable(bool visiable)
         {
-            if (trueDestroy)
-                UIManager.Instance.DestroyView(context.ViewType);
-            else
-                transform.PanelAppearance(false);
+            transform.PanelAppearance(visiable);
         }
     }
 }

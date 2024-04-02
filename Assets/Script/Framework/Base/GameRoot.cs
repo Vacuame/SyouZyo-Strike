@@ -28,6 +28,7 @@ public class GameRoot : SingletonMono<GameRoot>
         SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) => afterLoadSceneAction?.Invoke();
 
         UIManager.Instance.Init();
+        HUDManager.Instance.Init();
         SceneSystem.Instance.Init();
 
 #if UNITY_EDITOR

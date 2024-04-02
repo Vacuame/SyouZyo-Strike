@@ -70,12 +70,12 @@ namespace MoleMole
             if (_contextStack.Count > 0)
             {
                 BaseContext curContext = _contextStack.Peek();
-                BasePanel curView = GetOrCreateView(curContext.ViewType);
+                BasePanel curView = GetOrCreateView(curContext.uiType);
                 curView.OnPause();
             }
 
             _contextStack.Push(nextContext);
-            BasePanel nextView = GetOrCreateView(nextContext.ViewType);
+            BasePanel nextView = GetOrCreateView(nextContext.uiType);
             nextView.OnEnter(nextContext);
         }
 
@@ -86,14 +86,14 @@ namespace MoleMole
                 BaseContext curContext = _contextStack.Peek();
                 _contextStack.Pop();
 
-                if(_UIDict.TryGetValue(curContext.ViewType,out BasePanel curView)&&curView!=null)
+                if(_UIDict.TryGetValue(curContext.uiType,out BasePanel curView)&&curView!=null)
                     curView.OnExit(trueDestroy);
             }
 
             if (_contextStack.Count > 0)
             {
                 BaseContext lastContext = _contextStack.Peek();
-                BasePanel curView = GetOrCreateView(lastContext.ViewType);
+                BasePanel curView = GetOrCreateView(lastContext.uiType);
                 curView.OnResume();
             }
         }
