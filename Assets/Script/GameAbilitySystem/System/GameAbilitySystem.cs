@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameAbilitySystem : SingletonMono_AutoInst<GameAbilitySystem>
+public class GameAbilitySystem : SingletonMono<GameAbilitySystem>
 {
     private List<AbilitySystemComponent> abilitySystems = new List<AbilitySystemComponent>();
 

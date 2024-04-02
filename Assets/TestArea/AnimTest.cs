@@ -135,7 +135,7 @@ public class AnimTest : MonoBehaviour
         int climbable = ClimbCheck();
         if (climbable != 0)
         {
-            GameUI.Instance?.SetText("tip", "Press F to climb");
+            ShootHUD.Instance?.SetText("tip", "Press F to climb");
             if (control.Player.Interact.WasPressedThisFrame())
             {
                 climbType = climbable;
@@ -160,7 +160,7 @@ public class AnimTest : MonoBehaviour
             }
         }
         else
-            GameUI.Instance?.SetText("tip", null);
+            ShootHUD.Instance?.SetText("tip", null);
     }
 
     private int ClimbCheck()

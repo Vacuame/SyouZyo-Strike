@@ -1,4 +1,5 @@
 using Cinemachine;
+using MoleMole;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +15,8 @@ public class Gun : MonoBehaviour
     [SerializeField] LayerMask shootMask;
 
     [SerializeField] private int _curAmmo,_fullAmmo;
-    public int curAmmo { get { return _curAmmo; }set{ _curAmmo = value; GameUI.Instance?.SetAmmo(_curAmmo, _fullAmmo); } }
-    public int fullAmmo { get { return _fullAmmo; }set{ _fullAmmo = value; GameUI.Instance?.SetAmmo(_curAmmo, _fullAmmo); } }
+    public int curAmmo { get { return _curAmmo; }set{ _curAmmo = value; ShootHUD.Instance?.SetAmmo(_curAmmo, _fullAmmo); } }
+    public int fullAmmo { get { return _fullAmmo; }set{ _fullAmmo = value; ShootHUD.Instance?.SetAmmo(_curAmmo, _fullAmmo); } }
 
     /// <summary>扩散的屏幕百分比</summary>
     [Header("扩散")]
@@ -58,12 +59,13 @@ public class Gun : MonoBehaviour
 
     private void OnEnable()
     {
-        GameUI.Instance?.SetAmmo(curAmmo, fullAmmo);
+        ShootHUD.Instance?.SetAmmo(curAmmo, fullAmmo);
     }
     private void OnDisable()
     {
         SetAiming(false);
-        GameUI.Instance?.SetAmmo(-1, -1);
+        //UIManager.Instance.GetHUD<ShootHUD>().SetAmmo(5, 30);
+        ShootHUD.Instance?.SetAmmo(-1, -1);
     }
 
     private void Update()
@@ -101,7 +103,7 @@ public class Gun : MonoBehaviour
     private void LateUpdate()//更新UI
     {
         float sightDis = aiming ? sightDistance : -1;
-        GameUI.Instance.SetSightDis(sightDis);   
+        ShootHUD.Instance.SetSightDis(sightDis);   
     }
 
     public void SetAiming(bool value)
@@ -120,7 +122,7 @@ public class Gun : MonoBehaviour
         else
         {
             TrySetShooting(false);
-            GameUI.Instance.SetSightDis(-1);
+            ShootHUD.Instance.SetSightDis(-1);
         }
     }
 

@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.UI.GridLayoutGroup;
 
 public class AbilitySystemComponent : MonoBehaviour
 {
@@ -28,7 +24,7 @@ public class AbilitySystemComponent : MonoBehaviour
 
     private void OnEnable()
     {
-        GameAbilitySystem.Instance.Register(this);
+        GameAbilitySystem.GetOrCreateInstance().Register(this);
     }
 
     private void OnDisable()
@@ -128,4 +124,15 @@ public class AbilitySystemComponent : MonoBehaviour
     #endregion
 
     #endregion
+
+    public static GameAbilitySystem GetGameAbilitySystem()
+    {
+        if (GameAbilitySystem.Instance == null && Application.isPlaying)
+        {
+            GameObject gameObject = new GameObject();
+            gameObject.name = "GameAbilitySystem";
+            return gameObject.AddComponent<GameAbilitySystem>();
+        }
+        return GameAbilitySystem.Instance;
+    }
 }
