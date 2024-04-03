@@ -1,4 +1,5 @@
 using Cinemachine;
+using MoleMole;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using static Calc;
@@ -135,7 +136,7 @@ public class AnimTest : MonoBehaviour
         int climbable = ClimbCheck();
         if (climbable != 0)
         {
-            ShootHUD.Instance?.SetText("tip", "Press F to climb");
+            HUDManager.GetHUD<AimHUD>()?.SetText("tip", "Press F to climb");
             if (control.Player.Interact.WasPressedThisFrame())
             {
                 climbType = climbable;
@@ -160,7 +161,7 @@ public class AnimTest : MonoBehaviour
             }
         }
         else
-            ShootHUD.Instance?.SetText("tip", null);
+            HUDManager.GetHUD<AimHUD>()?.SetText("tip", null);
     }
 
     private int ClimbCheck()

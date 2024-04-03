@@ -1,11 +1,9 @@
-using System.Collections;
+using MoleMole;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
 
-public class ShootHUD : SingletonMono<ShootHUD>
+public class AimHUD : BaseHUD
 {
     [SerializeField] private RectTransform sight;
     [SerializeField]private List<Pair<string, TextMeshProUGUI>> _texts=new List<Pair<string, TextMeshProUGUI>>();

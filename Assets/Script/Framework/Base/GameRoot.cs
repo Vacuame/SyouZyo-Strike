@@ -11,10 +11,11 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameRoot : SingletonMono<GameRoot>
 {
+    public static bool ApplicationQuit => !avaiable;
     protected override bool dontDestroyOnLoad => true;
 
     /// <summary>
-    /// 所有需要在加载场景前后调用的函数放到此Action，然后在加载场景前调用它
+    /// 所有需要在加载场景前后调用的函数放到此Action，然后在加载场景前后调用它
     /// </summary>
     public UnityAction beforeLoadSceneAction;
     public UnityAction afterLoadSceneAction;
@@ -41,10 +42,5 @@ public class GameRoot : SingletonMono<GameRoot>
     void Update()
     {
         TimerManager.Instance.Update();
-    }
-
-    private void OnDestroy()
-    {
-        Consts.ApplicationIsQuitting = true;
     }
 }

@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 namespace MoleMole
 {
     public class HUDManager:Singleton<HUDManager>
     {
-        private const string HUDRootPath = "UI/HUD";
+        private const string HUDRootPath = "UI/HUD/";
 
-        private Dictionary<UIType, BaseHUD> HUDDict = new Dictionary<UIType, BaseHUD>();
+        private Dictionary<string, BaseHUD> _HUDDict = new Dictionary<string, BaseHUD>();
 
         private Transform _canvas;
         public override void Init()
@@ -26,19 +28,23 @@ namespace MoleMole
             }
         }
 
-        public BaseHUD GetHUD(BaseContext context) 
+        public static T GetHUD<T>()where T : BaseHUD
         {
-            UIType uiType = context.uiType;
-            if (HUDDict.ContainsKey(uiType) == false || HUDDict[uiType] == null)
+            if (GameRoot.ApplicationQuit)
+                return null;
+
+            string name = typeof(T).Name;
+            Dictionary<string, BaseHUD> HUDDict = Instance._HUDDict;
+            if (HUDDict.ContainsKey(name) == false || HUDDict[name] == null)
             {
-                BaseHUD hud = GameObject.Instantiate(Resources.Load<BaseHUD>(HUDRootPath + uiType.Path));
-                hud.transform.SetParent(_canvas, false);
-                hud.name = uiType.Name;
-                HUDDict.AddOrReplace(uiType, hud);
-                hud.OnInstance(context);
-                return hud;
+                BaseHUD hud = GameObject.Instantiate(Resources.Load<BaseHUD>(HUDRootPath + name));
+                hud.transform.SetParent(Instance._canvas, false);
+                hud.name = name;
+                HUDDict.AddOrReplace(name, hud);
+                hud.OnEnter();
+                return hud as T;
             }
-            return HUDDict[uiType];
+            return HUDDict[name] as T;
         }
     }
 

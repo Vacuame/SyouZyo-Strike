@@ -1,19 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.ComponentModel;
 using UnityEngine;
 
 namespace MoleMole
 {
-    public class BaseHUD : MonoBehaviour
+    public abstract class BaseHUD : MonoBehaviour
     {
-        protected BaseContext context;
         protected bool inited;
+
         protected virtual void Init()
         {
             
         }
 
-        public virtual void OnInstance(BaseContext context)
+        public virtual void OnEnter()
         {
             transform.PanelAppearance(true);
             transform.SetSiblingIndex(transform.parent.childCount - 1);

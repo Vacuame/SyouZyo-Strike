@@ -2,6 +2,7 @@
 using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 注意如果不是dontDestroyOnLoad，则每个场景都会执行Init
@@ -10,6 +11,7 @@ public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
 {
     protected virtual bool dontDestroyOnLoad => false;
     protected static T instance;
+    protected static bool avaiable = true;
     public static T Instance
     {
         get => instance;
@@ -27,6 +29,10 @@ public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
             return;
         }
 
+        //sceneUnloaded说明GameObject被清空了，不会有人调用了，所以设置avaiable
+        //若在sceneLoaded设置就晚了，因为在Awake之后执行，Awake调用就拿不到Instance
+        SceneManager.sceneUnloaded += (Scene) => { avaiable = true; };
+
         if (dontDestroyOnLoad)
             DontDestroyOnLoad(gameObject);
 
@@ -40,6 +46,9 @@ public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
 
     public static T GetOrCreateInstance()
     {
+        if (!avaiable) 
+            return null;
+
         if (instance == null && Application.isPlaying)
         {
             GameObject gameObject = new GameObject();
@@ -48,4 +57,14 @@ public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
         }
         return instance;
     }
+
+    private void OnDestroy()
+    {
+        avaiable = false;
+    }
+    private void OnApplicationQuit()
+    {
+        avaiable = false;
+    }
+
 }

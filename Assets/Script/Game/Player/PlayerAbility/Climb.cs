@@ -1,3 +1,4 @@
+using MoleMole;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,7 +52,7 @@ public class Climb : AbstractAbility<Climb_SO>
             transform = args[2] as Transform;
 
             cc.enabled = false;
-            ShootHUD.Instance?.SetText("tip", null);
+            HUDManager.GetHUD<AimHUD>()?.SetText("tip", null);
 
             armAnimLayerIndex = anim.GetLayerIndex("Arm");
             anim.SetLayerWeight(armAnimLayerIndex, 0);
@@ -124,9 +125,9 @@ public class Climb : AbstractAbility<Climb_SO>
             if (climbType != 0) return;
             climable = ClimbCheck();
             if(climable != 0)
-                ShootHUD.Instance?.SetText("tip", "Press F to climb");
+                HUDManager.GetHUD<AimHUD>()?.SetText("tip", "Press F to climb");
             else
-                ShootHUD.Instance?.SetText("tip", null);
+                HUDManager.GetHUD<AimHUD>()?.SetText("tip", null);
         }
         
         private int ClimbCheck()

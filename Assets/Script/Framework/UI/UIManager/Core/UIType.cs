@@ -20,10 +20,5 @@ namespace MoleMole
         {
             return string.Format("path : {0} name : {1}", Path, Name);
         }
-
-        public static readonly UIType MainMenu = new UIType("View/MainMenuView");
-        public static readonly UIType OptionMenu = new UIType("View/OptionMenuView");
-        public static readonly UIType NextMenu = new UIType("View/NextMenuView");
-        public static readonly UIType HighScore = new UIType("View/HighScoreView");
     }
 }
