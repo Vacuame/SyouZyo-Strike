@@ -7,7 +7,7 @@ namespace GameBasic
     public class Controller : MonoBehaviour
     {
         [SerializeField] private Pawn presetPawn;
-        [HideInInspector] public Pawn pawn;
+        [HideInInspector] public Pawn controlledPawn;
         [HideInInspector] public PlayCamera playCamera;
         public Control control;
 
@@ -47,6 +47,8 @@ namespace GameBasic
                 playCamera = Camera.main.GetComponent<PlayCamera>();
             }
 
+            playCamera.SetCameraTarget(transform);
+
             if (presetPawn != null)
                 ControlPawn(presetPawn);
         }
@@ -62,11 +64,11 @@ namespace GameBasic
 
         protected virtual void ControlPawn(Pawn pawn)
         {
-            if (this.pawn == pawn)
+            if (this.controlledPawn == pawn)
                 return;
             if (pawn != null)
                 pawn.RemoveController();
-            this.pawn = pawn;
+            this.controlledPawn = pawn;
             pawn.SetController(this);
             Yaw = pawn.transform.rotation.eulerAngles.y;
             Pitch = pawn.transform.rotation.eulerAngles.x;
@@ -86,8 +88,8 @@ namespace GameBasic
             Pitch = Calc.ClampAngle(Pitch, CamBottomClamp, CamTopClamp);
 
             transform.rotation = Quaternion.Euler(Pitch, Yaw, 0.0f);
-            if (!bCamLock)
-                pawn.camTraceTransform.rotation = Quaternion.Euler(Pitch + CamAngleOverride, Yaw, 0.0f);
+            if (!bCamLock&&controlledPawn!=null)
+                controlledPawn.camTraceTransform.rotation = Quaternion.Euler(Pitch + CamAngleOverride, Yaw, 0.0f);
         }
 
     }

@@ -7,6 +7,10 @@ public class PlayCamera : MonoBehaviour
 {
     [SerializeField] private MultiSetting<Tags.Camera, CinemachineVirtualCamera> cameras;
     private Tags.Camera _curCameraTag = Tags.Camera.Normal;
+    private CinemachineVirtualCamera curCamera;
+    private CinemachineBrain cameraBrain;
+    private Transform target;
+
     private Tags.Camera curCameraTag
     {
         get => _curCameraTag;
@@ -16,11 +20,7 @@ public class PlayCamera : MonoBehaviour
             curCamera = cameras.Get(_curCameraTag);
         }
     }
-    private CinemachineVirtualCamera curCamera;
-    private CinemachineBrain cameraBrain;
-
-    private Transform target;
-
+    
     private void Awake()
     {
         curCameraTag = Tags.Camera.Normal;

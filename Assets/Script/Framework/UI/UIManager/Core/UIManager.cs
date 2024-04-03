@@ -8,7 +8,7 @@ namespace MoleMole
 {
     public class UIManager :Singleton<UIManager>
     {
-        private const string UIRootPath = "UI/";
+        private const string UIRootPath = "UI/Panel/";
 
         private Stack<BaseContext> _contextStack = new Stack<BaseContext>();
 
@@ -96,6 +96,14 @@ namespace MoleMole
                 BasePanel curView = GetOrCreateView(lastContext.uiType);
                 curView.OnResume();
             }
+        }
+
+        public void SwitchOnPeek(BaseContext context)
+        {
+            if(_contextStack.TryPeek(out BaseContext cont) && cont.uiType == context.uiType)
+                Pop(false);
+            else
+                Push(context);
         }
 
         public void PopAll(bool trueDestroy)

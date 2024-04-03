@@ -30,7 +30,7 @@ public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
         }
 
         //sceneUnloaded说明GameObject被清空了，不会有人调用了，所以设置avaiable
-        //若在sceneLoaded设置就晚了，因为在Awake之后执行，Awake调用就拿不到Instance
+        //若在sceneLoaded设置就晚了，因为会在Awake之后执行，有些Mono是Awake调用的就拿不到Instance
         SceneManager.sceneUnloaded += (Scene) => { avaiable = true; };
 
         if (dontDestroyOnLoad)
