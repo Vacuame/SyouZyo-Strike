@@ -27,7 +27,7 @@ public class PlayerController : Controller
         base.Update();
 
         if (Input.GetKeyDown(KeyCode.Tab))
-            UIManager.Instance.SwitchOnPeek(new BaseContext(BagPanel.uiType));
+            UIManager.Instance.SwitchOnPeek(new BaseContext(InventoryPanel.uiType));
     }
 
 }
