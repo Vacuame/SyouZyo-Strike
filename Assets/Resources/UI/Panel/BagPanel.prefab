@@ -3065,7 +3065,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -542.6, y: -352.3}
+  m_AnchoredPosition: {x: -511, y: -352.3}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4876581477824727198
@@ -5199,6 +5199,7 @@ MonoBehaviour:
   width: 11
   height: 7
   cellSize: 100
+  testSO: {fileID: 11400000, guid: 3b0df3e0ca41c9b49a897bcd1ae65fa2, type: 2}
 --- !u!1 &7918723111062569010
 GameObject:
   m_ObjectHideFlags: 0

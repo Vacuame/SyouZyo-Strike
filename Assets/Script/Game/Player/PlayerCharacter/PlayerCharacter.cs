@@ -15,7 +15,7 @@ using GameBasic;
 public class PlayerCharacter : Character
 {
     [SerializeField,Header("DEBUG")]
-    protected ItemInstance itemInHand;
+    protected InstanceItem itemInHand;
 
     [SerializeField] public Gun curGun;
 

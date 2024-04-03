@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 被角色手上拿的道具 对应Item
 /// </summary>
-public class ItemInstance : MonoBehaviour
+public class InstanceItem : MonoBehaviour
 {
     Character charaBase;
     public virtual void Init(Character charaBase)
