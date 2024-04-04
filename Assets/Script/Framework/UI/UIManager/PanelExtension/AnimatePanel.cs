@@ -11,7 +11,7 @@ namespace MoleMole
         [SerializeField]
         protected Animator _animator;
 
-        public override void OnEnter(BaseContext context)
+        public override void OnEnter(PanelContext context)
         {
             transform.SetSiblingIndex(transform.parent.childCount - 1);
             _animator.SetTrigger("OnEnter");

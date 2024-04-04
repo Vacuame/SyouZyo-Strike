@@ -17,7 +17,7 @@ public class TestPanel : BasePanel
         btnSub = transform.Find("btnSub").GetComponent<Button>();
     }
 
-    public override void OnEnter(BaseContext context)
+    public override void OnEnter(PanelContext context)
     {
         base.OnEnter(context);
         UIManager.facade.RegisterGroupCommand(new TestData_Command());

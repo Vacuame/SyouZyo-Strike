@@ -3,12 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using MoleMole;
 
+public class InventoryPanelContext : PanelContext
+{
+    public ItemSave itemSave;
+    public InventoryPanelContext(UIType viewType, ItemSave itemSave) : base(viewType)
+    {
+        this.itemSave = itemSave;
+    }
+}
 
-public partial class InventoryPanel : BasePanel
+public class InventoryPanel : BasePanel
 {
     public static readonly UIType uiType = new UIType("InventoryPanel");
 
-    [SerializeField] private List<InventoryTetris> inventoryTetrisList;
+    [SerializeField] private InventoryTetris mainTetris;
+    [SerializeField] private InventoryTetris delTetris;
+    private List<InventoryTetris> inventoryTetrisList = new List<InventoryTetris>();
     [SerializeField] private RectTransform dragContainer;
 
     public InventoryDrager _inventoryDrager { get; private set; }
@@ -17,8 +27,15 @@ public partial class InventoryPanel : BasePanel
     {
         inventoryDrager = new InventoryDrager(inventoryTetrisList,dragContainer);
 
-        foreach (var tetris in inventoryTetrisList)
-            tetris.Init(this);
+        inventoryTetrisList.Add(mainTetris);
+        inventoryTetrisList.Add(delTetris);
+    }
+    public override void OnEnter(PanelContext context)
+    {
+        base.OnEnter(context);
+        InventoryPanelContext inventoryContext = context as InventoryPanelContext;
+        mainTetris.Init(this, inventoryContext.itemSave);
+        delTetris.Init(this);
     }
 
     public override void OnExit(bool trueDestroy)

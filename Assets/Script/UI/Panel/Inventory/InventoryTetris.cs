@@ -27,6 +27,19 @@ public class InventoryTetris : MonoBehaviour
         grid = new Grid<ItemBlock>(width, height,cellSize, Vector3.zero, (Grid<ItemBlock> g, int x, int y) => new ItemBlock(g, x, y));
         DrawBackground();
     }
+    public void Init(InventoryPanel panel,ItemSave itemSave)
+    {
+        width = itemSave.bagWidth; 
+        height = itemSave.bagHeight;
+
+        Init(panel);
+
+        foreach(var a in itemSave.items)
+        {
+            var info = ItemManager.Instance.GetItemInfo(a.id);
+            TryPlaceNewItem(info, a.pos,a.dir);
+        }
+    }
 
     private void Update()
     {

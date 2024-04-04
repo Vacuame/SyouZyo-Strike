@@ -3662,9 +3662,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 615dcd1aee10bb94ea86f0306da59a44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryTetrisList:
-  - {fileID: 3251317590102834192}
-  - {fileID: 5199355623879871700}
+  mainTetris: {fileID: 3251317590102834192}
+  delTetris: {fileID: 5199355623879871700}
   dragContainer: {fileID: 507171820036851919}
 --- !u!1 &4155161775979573717
 GameObject:

@@ -9,6 +9,16 @@ using MoleMole;
 /// </summary>
 public class PlayerController : Controller
 {
+    private ItemSave itemSave;
+
+    protected override void Start()
+    {
+        base.Start();
+        itemSave = new ItemSave();
+        itemSave.bagWidth = 11; itemSave.bagHeight = 7;
+        itemSave.items.Add(new TetrisInfo(1, new Vector2Int(2, 4),InventoryStatic.Dir.Down));
+    }
+
     protected override void ControlPawn(Pawn pawn)
     {
         base.ControlPawn(pawn);
@@ -19,7 +29,7 @@ public class PlayerController : Controller
 
     private void ControllPlayer(PlayerCharacter character)
     {
-        //TODO 设置UI和背包之类的
+        
     }
 
     protected override void Update()
@@ -27,7 +37,7 @@ public class PlayerController : Controller
         base.Update();
 
         if (Input.GetKeyDown(KeyCode.Tab))
-            UIManager.Instance.SwitchOnPeek(new BaseContext(InventoryPanel.uiType));
+            UIManager.Instance.SwitchOnPeek(new InventoryPanelContext(InventoryPanel.uiType,itemSave));
     }
 
 }

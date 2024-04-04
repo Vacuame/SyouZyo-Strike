@@ -10,7 +10,7 @@ namespace MoleMole
     {
         private const string UIRootPath = "UI/Panel/";
 
-        private Stack<BaseContext> _contextStack = new Stack<BaseContext>();
+        private Stack<PanelContext> _contextStack = new Stack<PanelContext>();
 
         public Dictionary<UIType, BasePanel> _UIDict = new Dictionary<UIType, BasePanel>();
 
@@ -65,11 +65,11 @@ namespace MoleMole
             _UIDict.Remove(uiType);
         }
 
-        public void Push(BaseContext nextContext)
+        public void Push(PanelContext nextContext)
         {
             if (_contextStack.Count > 0)
             {
-                BaseContext curContext = _contextStack.Peek();
+                PanelContext curContext = _contextStack.Peek();
                 BasePanel curView = GetOrCreateView(curContext.uiType);
                 curView.OnPause();
             }
@@ -83,7 +83,7 @@ namespace MoleMole
         {
             if (_contextStack.Count > 0)
             {
-                BaseContext curContext = _contextStack.Peek();
+                PanelContext curContext = _contextStack.Peek();
                 _contextStack.Pop();
 
                 if(_UIDict.TryGetValue(curContext.uiType,out BasePanel curView)&&curView!=null)
@@ -92,15 +92,15 @@ namespace MoleMole
 
             if (_contextStack.Count > 0)
             {
-                BaseContext lastContext = _contextStack.Peek();
+                PanelContext lastContext = _contextStack.Peek();
                 BasePanel curView = GetOrCreateView(lastContext.uiType);
                 curView.OnResume();
             }
         }
 
-        public void SwitchOnPeek(BaseContext context)
+        public void SwitchOnPeek(PanelContext context)
         {
-            if(_contextStack.TryPeek(out BaseContext cont) && cont.uiType == context.uiType)
+            if(_contextStack.TryPeek(out PanelContext cont) && cont.uiType == context.uiType)
                 Pop(false);
             else
                 Push(context);

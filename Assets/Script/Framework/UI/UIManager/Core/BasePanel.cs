@@ -8,13 +8,13 @@ namespace MoleMole
 {
 	public class BasePanel : MonoBehaviour
     {
-        protected BaseContext context;
+        protected PanelContext context;
         protected bool inited;
         protected virtual void Init()
         {
 
         }
-        public virtual void OnEnter(BaseContext context)
+        public virtual void OnEnter(PanelContext context)
         {
             this.context = context;
             transform.PanelAppearance(true);
