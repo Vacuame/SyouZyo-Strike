@@ -1,9 +1,9 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewInventorySet", menuName = "Item/Inventory")]
-public class TetrisItem_SO : ScriptableObject
+
+public static class InventoryStatic
 {
     public enum Dir
     {
@@ -13,10 +13,6 @@ public class TetrisItem_SO : ScriptableObject
         Right,
     }
 
-    public string itemName;
-    public Transform prefab;
-    public int width;
-    public int height;
     public static Dir GetNextDir(Dir dir)
     {
         switch (dir)
@@ -39,7 +35,7 @@ public class TetrisItem_SO : ScriptableObject
             case Dir.Right: return 90;
         }
     }
-    public Vector2 GetRotationOffset(Dir dir)
+    public static Vector2 GetRotationOffset(float width, float height,Dir dir)
     {
         switch (dir)
         {
@@ -50,7 +46,11 @@ public class TetrisItem_SO : ScriptableObject
             case Dir.Right: return new Vector2(height, width);
         }
     }
-    public List<Vector2Int> GetGridPositionList(Vector2Int leftDownPos, Dir dir)
+    public static Vector2 GetRotationOffset(ItemInfo info, Dir dir)
+    {
+        return GetRotationOffset(info.width, info.height,dir);
+    }
+    public static List<Vector2Int> GetGridPositionList(Vector2Int leftDownPos, Dir dir, float width, float height)
     {
         List<Vector2Int> gridPositionList = new List<Vector2Int>();
         switch (dir)
@@ -79,4 +79,11 @@ public class TetrisItem_SO : ScriptableObject
         }
         return gridPositionList;
     }
+    public static List<Vector2Int> GetGridPositionList(Vector2Int leftDownPos, Dir dir, ItemInfo info)
+    {
+        return GetGridPositionList(leftDownPos, dir, info.width,info.height);
+    }
+
+
+
 }

@@ -1,9 +1,6 @@
-using MoleMole;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
-using static TetrisItem_SO;
-using static UnityEditor.Progress;
+using static InventoryStatic;
 
 public class InventoryTetris : MonoBehaviour
 {
@@ -21,7 +18,7 @@ public class InventoryTetris : MonoBehaviour
     #endregion
 
     [Header("DEBUG")]
-    public TetrisItem_SO testSO;
+    public ItemInfo testSO;
     public Dir testDir;
 
     public void Init(InventoryPanel panel)
@@ -64,7 +61,7 @@ public class InventoryTetris : MonoBehaviour
         }
     }
 
-    public bool TryPlaceNewItem(TetrisItem_SO itemSO,Vector2Int gridPos,Dir dir)
+    public bool TryPlaceNewItem(ItemInfo itemSO,Vector2Int gridPos,Dir dir)
     {
         if (CanPlaceNew(itemSO, gridPos, dir))
         {
@@ -73,19 +70,19 @@ public class InventoryTetris : MonoBehaviour
         }
         return false;
     }
-    public void PlaceNewItem(TetrisItem_SO itemSO, Vector2Int gridPos, Dir dir)
+    public void PlaceNewItem(ItemInfo itemSO, Vector2Int gridPos, Dir dir)
     {
-        Transform itemObject = Instantiate(itemSO.prefab);
+        Transform itemObject = Instantiate(itemSO.tetrisItemPrefab);
         TetrisItem item = itemObject.GetComponent<TetrisItem>();
-        item.item_SO = itemSO;
+        item.itemSO = itemSO;
         item.SetTetris(gridPos, dir, this);
         itemObject.transform.rotation = Quaternion.Euler(0, 0, GetRotationAngle(dir));
 
         SetGridItem(item,gridPos,dir);
     }
-    public bool CanPlaceNew(TetrisItem_SO itemSO, Vector2Int gridPos, Dir dir)
+    public bool CanPlaceNew(ItemInfo itemSO, Vector2Int gridPos, Dir dir)
     {
-        List<Vector2Int> gridPositionList = itemSO.GetGridPositionList(gridPos, dir);
+        List<Vector2Int> gridPositionList = GetGridPositionList(gridPos, dir,itemSO);
         foreach (Vector2Int gridPosition in gridPositionList)
         {
             bool isValidPosition = grid.IsValidGridPosition(gridPosition);
@@ -108,7 +105,7 @@ public class InventoryTetris : MonoBehaviour
     }
     public bool CanDragTo(TetrisItem item, Vector2Int gridPos, Dir dir)
     {
-        List<Vector2Int> gridPositionList = item.item_SO.GetGridPositionList(gridPos, dir);
+        List<Vector2Int> gridPositionList = GetGridPositionList(gridPos, dir, item.itemSO);
         foreach (Vector2Int gridPosition in gridPositionList)
         {
             bool isValidPosition = grid.IsValidGridPosition(gridPosition);
@@ -125,7 +122,7 @@ public class InventoryTetris : MonoBehaviour
     #region Grid
     public void SetGridItem(TetrisItem item, Vector2Int gridPos, Dir dir)
     {
-        foreach (Vector2Int gridPosition in item.item_SO.GetGridPositionList(gridPos, dir))
+        foreach (Vector2Int gridPosition in GetGridPositionList(gridPos, dir, item.itemSO))
             grid.GetGridObject(gridPosition.x, gridPosition.y).SetItem(item);
     }
     public void ClearGridItem(TetrisItem item)
@@ -143,32 +140,33 @@ public class InventoryTetris : MonoBehaviour
         return grid.GetGridPosition(anchoredPosition);
     }
     #endregion
+
+    public class ItemBlock
+    {
+        private Grid<ItemBlock> grid;
+        private int x;
+        private int y;
+        private TetrisItem item;
+        public TetrisItem GetItem()
+        {
+            return item;
+        }
+        public void SetItem(TetrisItem item)
+        {
+            this.item = item;
+        }
+
+        public ItemBlock(Grid<ItemBlock> grid, int x, int y)
+        {
+            this.grid = grid;
+            this.x = x;
+            this.y = y;
+        }
+
+        public bool Empty()
+        {
+            return item == null;
+        }
+    }
 }
 
-public class ItemBlock
-{
-    private Grid<ItemBlock> grid;
-    private int x;
-    private int y;
-    private TetrisItem item;
-    public TetrisItem GetItem()
-    {
-        return item;
-    }
-    public void SetItem(TetrisItem item)
-    {
-        this.item = item;
-    }
-
-    public ItemBlock(Grid<ItemBlock> grid, int x, int y)
-    {
-        this.grid = grid;
-        this.x = x;
-        this.y = y;
-    }
-
-    public bool Empty()
-    {
-        return item == null;
-    }
-}

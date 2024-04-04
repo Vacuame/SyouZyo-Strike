@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fc3533b2a7efaf42b50d8764af57dd1, type: 3}
-  m_Name: TestItem
+  m_Script: {fileID: 11500000, guid: 889d3b54ffa93ed4aa65375d977c9091, type: 3}
+  m_Name: AK47
   m_EditorClassIdentifier: 
-  itemName: AK
-  prefab: {fileID: 8330047645484279579, guid: d04a2b3e57db8cf45b01e3f3a9d36551, type: 3}
+  id: 1
+  itemName: AK47
   width: 5
   height: 2
+  tetrisItemPrefab: {fileID: 8330047645484279579, guid: d04a2b3e57db8cf45b01e3f3a9d36551,
+    type: 3}

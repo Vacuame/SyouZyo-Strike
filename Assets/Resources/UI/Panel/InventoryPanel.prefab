@@ -5729,7 +5729,7 @@ MonoBehaviour:
   width: 11
   height: 7
   cellSize: 100
-  testSO: {fileID: 11400000, guid: 3b0df3e0ca41c9b49a897bcd1ae65fa2, type: 2}
+  testSO: {fileID: 11400000, guid: ab960ac5dd166044d9af9b22e0d5ee50, type: 2}
   testDir: 0
 --- !u!1 &6656638381917765812
 GameObject:
@@ -7479,7 +7479,7 @@ MonoBehaviour:
   width: 3
   height: 7
   cellSize: 100
-  testSO: {fileID: 11400000, guid: 3b0df3e0ca41c9b49a897bcd1ae65fa2, type: 2}
+  testSO: {fileID: 11400000, guid: ab960ac5dd166044d9af9b22e0d5ee50, type: 2}
   testDir: 0
 --- !u!1 &8320651426013064278
 GameObject:

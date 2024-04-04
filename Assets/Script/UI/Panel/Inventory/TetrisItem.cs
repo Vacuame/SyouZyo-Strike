@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static TetrisItem_SO;
-using static UnityEditor.Progress;
+using static InventoryStatic;
+using static InventoryTetris;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
-    public TetrisItem_SO item_SO;
+    public ItemInfo itemSO;
     [HideInInspector] public Dir dir;
     [HideInInspector] public Vector2Int gridPos;
     [SerializeField] private Image block;
@@ -26,7 +26,7 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 
     public List<Vector2Int> GetGridPositionList()
     {
-        return item_SO.GetGridPositionList(gridPos, dir);
+        return InventoryStatic.GetGridPositionList(gridPos, dir,itemSO);
     }
 
     #region Control
@@ -71,16 +71,15 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         transform.rotation = Quaternion.Euler(0, 0, GetRotationAngle(dir));
         Grid<ItemBlock>grid = inventoryTetris.GetGrid();
         Vector3 anchoredPostion =grid.GetTransformPosition(gridPos.x, gridPos.y) +
-                       (Vector3)item_SO.GetRotationOffset(dir) * grid.GetCellSize() / 2;
+                       (Vector3)GetRotationOffset(itemSO,dir) * grid.GetCellSize() / 2;
         transform.localPosition = anchoredPostion;
     }
 
-    public static TetrisItem Instantiate(TetrisItem_SO itemSO, Transform itemContainer, Vector2 anchoredPosition, Vector2Int gridPos, Dir dir, InventoryTetris tetris)
+    public static TetrisItem Instantiate(ItemInfo itemSO, Transform itemContainer, Vector2 anchoredPosition, Vector2Int gridPos, Dir dir, InventoryTetris tetris)
     {
-        Transform placedObjectTransform = Instantiate(itemSO.prefab);
-        //placedObjectTransform.GetComponent<RectTransform>().anchoredPosition = anchoredPosition;
+        Transform placedObjectTransform = Instantiate(itemSO.tetrisItemPrefab);
         TetrisItem placedObject = placedObjectTransform.GetComponent<TetrisItem>();
-        placedObject.item_SO = itemSO;
+        placedObject.itemSO = itemSO;
         placedObject.SetTetris(gridPos, dir, tetris);
 
         return placedObject;

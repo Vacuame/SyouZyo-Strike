@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 7753440349570892280}
   - component: {fileID: 835040007293512978}
   m_Layer: 5
-  m_Name: AK_TetrisItem
+  m_Name: AK47_TetrisItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05475626ddde10049a6da738e69cc2f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item_SO: {fileID: 11400000, guid: 3b0df3e0ca41c9b49a897bcd1ae65fa2, type: 2}
+  itemSO: {fileID: 11400000, guid: ab960ac5dd166044d9af9b22e0d5ee50, type: 2}
   dir: 0
   gridPos: {x: 0, y: 0}
   block: {fileID: 1348761181729523679}
