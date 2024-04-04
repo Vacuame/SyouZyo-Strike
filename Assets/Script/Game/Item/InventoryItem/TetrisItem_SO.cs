@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewInventorySet", menuName = "Item/Inventory")]
-public class InventoryItem_SO : ScriptableObject
+public class TetrisItem_SO : ScriptableObject
 {
     public enum Dir
     {
@@ -17,16 +17,26 @@ public class InventoryItem_SO : ScriptableObject
     public Transform prefab;
     public int width;
     public int height;
-
-    public int GetRotationAngle(Dir dir)
+    public static Dir GetNextDir(Dir dir)
+    {
+        switch (dir)
+        {
+            default:
+            case Dir.Down: return Dir.Left;
+            case Dir.Left: return Dir.Down;
+            case Dir.Up: return Dir.Left;
+            case Dir.Right: return Dir.Down;
+        }
+    }
+    public static float GetRotationAngle(Dir dir)
     {
         switch (dir)
         {
             default:
             case Dir.Down: return 0;
-            case Dir.Left: return 90;
+            case Dir.Left: return 270;
             case Dir.Up: return 180;
-            case Dir.Right: return 270;
+            case Dir.Right: return 90;
         }
     }
     public Vector2 GetRotationOffset(Dir dir)
@@ -40,7 +50,6 @@ public class InventoryItem_SO : ScriptableObject
             case Dir.Right: return new Vector2(height, width);
         }
     }
-
     public List<Vector2Int> GetGridPositionList(Vector2Int leftDownPos, Dir dir)
     {
         List<Vector2Int> gridPositionList = new List<Vector2Int>();

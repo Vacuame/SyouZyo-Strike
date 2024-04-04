@@ -1,7 +1,8 @@
 using MoleMole;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
-using static InventoryItem_SO;
+using static TetrisItem_SO;
 using static UnityEditor.Progress;
 
 public class InventoryTetris : MonoBehaviour
@@ -20,9 +21,8 @@ public class InventoryTetris : MonoBehaviour
     #endregion
 
     [Header("DEBUG")]
-    public InventoryItem_SO testSO;
+    public TetrisItem_SO testSO;
     public Dir testDir;
-    public Transform visual;
 
     public void Init(InventoryPanel panel)
     {
@@ -37,16 +37,10 @@ public class InventoryTetris : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle(itemContainer, screenPoint, null, out Vector2 anchoredPosition);
         Vector2Int gridPos = grid.GetGridPosition(anchoredPosition);
 
-        //预览
-        Vector3 placedObjectWorldPosition =
-                grid.GetWorldPosition(gridPos.x, gridPos.y) +
-               (Vector3)testSO.GetRotationOffset(testDir) * grid.GetCellSize() / 2;
-        visual.transform.position  = itemContainer.position + placedObjectWorldPosition;
-
-
-        if (Input.GetMouseButtonDown(0)) 
+        if (Input.GetKeyDown(KeyCode.Space)) 
         {
-            TryPlaceItem(testSO, gridPos, testDir);
+            testDir = inventoryPanel.inventoryDrager.GetDir();
+            TryPlaceNewItem(testSO, gridPos, testDir);
         }
         if(Input.GetMouseButtonDown(1)) 
         {
@@ -70,64 +64,85 @@ public class InventoryTetris : MonoBehaviour
         }
     }
 
-    public bool TryPlaceItem(InventoryItem_SO itemSo,Vector2Int gridPos,Dir dir)
+    public bool TryPlaceNewItem(TetrisItem_SO itemSO,Vector2Int gridPos,Dir dir)
     {
-        List<Vector2Int> gridPositionList = itemSo.GetGridPositionList(gridPos, dir);
+        if (CanPlaceNew(itemSO, gridPos, dir))
+        {
+            PlaceNewItem(itemSO, gridPos, dir);
+            return true;
+        }
+        return false;
+    }
+    public void PlaceNewItem(TetrisItem_SO itemSO, Vector2Int gridPos, Dir dir)
+    {
+        Transform itemObject = Instantiate(itemSO.prefab);
+        TetrisItem item = itemObject.GetComponent<TetrisItem>();
+        item.item_SO = itemSO;
+        item.SetTetris(gridPos, dir, this);
+        itemObject.transform.rotation = Quaternion.Euler(0, 0, GetRotationAngle(dir));
 
-        bool canPlace= true;
+        SetGridItem(item,gridPos,dir);
+    }
+    public bool CanPlaceNew(TetrisItem_SO itemSO, Vector2Int gridPos, Dir dir)
+    {
+        List<Vector2Int> gridPositionList = itemSO.GetGridPositionList(gridPos, dir);
         foreach (Vector2Int gridPosition in gridPositionList)
         {
             bool isValidPosition = grid.IsValidGridPosition(gridPosition);
             if (!isValidPosition)
-            {
-                // Not valid
-                canPlace = false;
-                break;
-            }
-            if (!grid.GetGridObject(gridPosition.x, gridPosition.y).CanPlaceItem())
-            {
-                canPlace = false;
-                break;
-            }
+                return false;
+            if (!grid.GetGridObject(gridPosition.x, gridPosition.y).Empty())
+                return false;
         }
-
-        if (canPlace)
-        {
-            Vector3 placedObjectWorldPosition = 
-                grid.GetWorldPosition(gridPos.x, gridPos.y) +
-               (Vector3)itemSo.GetRotationOffset(dir) * grid.GetCellSize()/2;
-
-            TetrisItem itemObject = TetrisItem.Instantiate(itemSo, itemContainer, placedObjectWorldPosition, gridPos, dir, this);
-            itemObject.transform.rotation = Quaternion.Euler(0, 0, -itemSo.GetRotationAngle(dir));
-
-            //给它注册Drag功能
-            //itemObject.GetComponent<InventoryTetrisDragDrop>().Setup(this);
-
-            foreach (Vector2Int gridPosition in gridPositionList)
-            {
-                grid.GetGridObject(gridPosition.x, gridPosition.y).SetItem(itemObject);
-            }
-            return true;
-        }
-
-        return false;
+        return true;
     }
-
     public void RemoveItemAt(Vector2Int gridPos)
     {
         TetrisItem item = grid.GetGridObject(gridPos.x, gridPos.y).GetItem();
 
         if (item != null)
         {
-            List<Vector2Int> gridPositionList = item.GetGridPositionList();
-            foreach (Vector2Int pos in gridPositionList)
-            {
-                grid.GetGridObject(pos.x, pos.y).SetItem(null);
-            }
-
+            ClearGridItem(item);
             Destroy(item.gameObject);
         }
     }
+    public bool CanDragTo(TetrisItem item, Vector2Int gridPos, Dir dir)
+    {
+        List<Vector2Int> gridPositionList = item.item_SO.GetGridPositionList(gridPos, dir);
+        foreach (Vector2Int gridPosition in gridPositionList)
+        {
+            bool isValidPosition = grid.IsValidGridPosition(gridPosition);
+            if (!isValidPosition)
+                return false;
+
+            ItemBlock block = grid.GetGridObject(gridPosition.x, gridPosition.y);
+            if (!block.Empty()&& block.GetItem()!=item)
+                return false;
+        }
+        return true;
+    }
+
+    #region Grid
+    public void SetGridItem(TetrisItem item, Vector2Int gridPos, Dir dir)
+    {
+        foreach (Vector2Int gridPosition in item.item_SO.GetGridPositionList(gridPos, dir))
+            grid.GetGridObject(gridPosition.x, gridPosition.y).SetItem(item);
+    }
+    public void ClearGridItem(TetrisItem item)
+    {
+        List<Vector2Int> gridPositionList = item.GetGridPositionList();
+        foreach (Vector2Int pos in gridPositionList)
+        {
+            grid.GetGridObject(pos.x, pos.y).SetItem(null);
+        }
+    }
+    public Vector2Int GetGridPosInScreen(Vector3 screenPos)
+    {
+        RectTransformUtility.ScreenPointToLocalPointInRectangle
+                (GetItemContainer(), screenPos, null, out Vector2 anchoredPosition);
+        return grid.GetGridPosition(anchoredPosition);
+    }
+    #endregion
 }
 
 public class ItemBlock
@@ -152,7 +167,7 @@ public class ItemBlock
         this.y = y;
     }
 
-    public bool CanPlaceItem()
+    public bool Empty()
     {
         return item == null;
     }

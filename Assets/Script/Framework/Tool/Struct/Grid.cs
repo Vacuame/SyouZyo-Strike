@@ -36,12 +36,12 @@ public class Grid<TGridObj> {
 
             for (int x = 0; x < gridArray.GetLength(0); x++) {
                 for (int y = 0; y < gridArray.GetLength(1); y++) {
-                    Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
-                    Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
+                    Debug.DrawLine(GetTransformPosition(x, y), GetTransformPosition(x, y + 1), Color.white, 100f);
+                    Debug.DrawLine(GetTransformPosition(x, y), GetTransformPosition(x + 1, y), Color.white, 100f);
                 }
             }
-            Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
-            Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
+            Debug.DrawLine(GetTransformPosition(0, height), GetTransformPosition(width, height), Color.white, 100f);
+            Debug.DrawLine(GetTransformPosition(width, 0), GetTransformPosition(width, height), Color.white, 100f);
 
             onGridObjectChanged += (int x,int y) => {
                 debugTextArray[x, y].text = gridArray[x, y]?.ToString();
@@ -64,7 +64,7 @@ public class Grid<TGridObj> {
     #endregion
 
     #region Position
-    public Vector3 GetWorldPosition(int x, int y) {
+    public Vector3 GetTransformPosition(int x, int y) {
         return new Vector3(x, y) * cellSize + originPosition;
     }
 
@@ -73,9 +73,9 @@ public class Grid<TGridObj> {
         y = Mathf.FloorToInt((relativePosition - originPosition).y / cellSize);
     }
 
-    public Vector2Int GetGridPosition(Vector2 rectPosition)
+    public Vector2Int GetGridPosition(Vector2 anchoredPostion)
     {
-        GetXY(rectPosition,out int x,out int y);
+        GetXY(anchoredPostion,out int x,out int y);
         return new Vector2Int(x,y);
     }
     public bool IsValidGridPosition(Vector2Int gridPosition)
