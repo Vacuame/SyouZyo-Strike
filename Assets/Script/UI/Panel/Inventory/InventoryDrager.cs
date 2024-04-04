@@ -7,6 +7,7 @@ using static TetrisItem;
 public class InventoryDrager
 {
     private List<InventoryTetris> inventoryTetrisList;
+    private RectTransform dragContainer;
 
     //Drag
     private InventoryTetris draggingTetris;
@@ -23,9 +24,10 @@ public class InventoryDrager
     private float rotateSpeed;
     private const float rotateTime = 0.3f;
 
-    public InventoryDrager(List<InventoryTetris> list) 
+    public InventoryDrager(List<InventoryTetris> list,RectTransform dragContainer) 
     {
         inventoryTetrisList = list;
+        this.dragContainer = dragContainer;
         rotateSpeed = 90 /rotateTime * Time.deltaTime;
     }
 
@@ -37,17 +39,17 @@ public class InventoryDrager
             Vector3 screenPos = Input.mousePosition + mouseGridOffset;
 
             if (GetTetrisInScreen(screenPos, out InventoryTetris tetris))
+            {
                 draggingTetris = tetris;
-            else
-                return;
+                selectedGridPos = draggingTetris.GetGridPosInScreen(screenPos);
+            }
 
             Grid<ItemBlock> grid = draggingTetris.GetGrid();
-            selectedGridPos = draggingTetris.GetGridPosInScreen(screenPos);
-            
+
             //‘§¿¿∑≈÷√–ßπ˚
             Vector3 rectPostion =grid.GetTransformPosition(selectedGridPos.x, selectedGridPos.y) +
                    ((Vector3)draggingItem.item_SO.GetRotationOffset(dragDir)+Vector3.one * 0.5f) * grid.GetCellSize() / 2;
-            draggingItem.transform.localPosition = rectPostion;
+            draggingItem.transform.position = rectPostion + draggingTetris.GetItemContainer().transform.position;
 
             if (draggingTetris.CanDragTo(draggingItem, selectedGridPos, dragDir))
                 dragState = DragState.Placeable;
@@ -79,6 +81,7 @@ public class InventoryDrager
         Vector3 itemLeftDownPos =item.transform.localPosition - 
                (Vector3)item.item_SO.GetRotationOffset(dragDir) * draggingTetris.GetGrid().GetCellSize() / 2;
 
+        draggingItem.transform.SetParent(dragContainer);
         mouseGridOffset = itemLeftDownPos - (Vector3)anchoredPos;
     }
 

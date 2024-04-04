@@ -9,12 +9,13 @@ public partial class InventoryPanel : BasePanel
     public static readonly UIType uiType = new UIType("InventoryPanel");
 
     [SerializeField] private List<InventoryTetris> inventoryTetrisList;
+    [SerializeField] private RectTransform dragContainer;
 
     public InventoryDrager _inventoryDrager { get; private set; }
     public InventoryDrager inventoryDrager;
     protected override void Init()
     {
-        inventoryDrager = new InventoryDrager(inventoryTetrisList);
+        inventoryDrager = new InventoryDrager(inventoryTetrisList,dragContainer);
 
         foreach (var tetris in inventoryTetrisList)
             tetris.Init(this);
