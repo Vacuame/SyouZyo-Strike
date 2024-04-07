@@ -6,16 +6,19 @@ using System.Runtime.InteropServices;
 
 public class InventoryPanelContext : PanelContext
 {
-    public ItemSave itemSave;
-    public InventoryPanelContext(UIType viewType, ItemSave itemSave) : base(viewType)
+    public TetrisData itemSave;
+    public TetrisData delTetrisData;
+    public InventoryPanelContext(UIType viewType, TetrisData itemSave, TetrisData delTetrisData) : base(viewType)
     {
         this.itemSave = itemSave;
+        this.delTetrisData = delTetrisData;
     }
 }
 
 public class InventoryPanel : BasePanel
 {
     public static readonly UIType uiType = new UIType("InventoryPanel");
+    public static readonly TetrisData emptyDelTetrisData = new TetrisData(3, 7, new List<TetrisInfo>());
 
     [SerializeField] private InventoryTetris mainTetris;
     [SerializeField] private InventoryTetris delTetris;
@@ -25,7 +28,7 @@ public class InventoryPanel : BasePanel
     public InventoryDrager _inventoryDrager { get; private set; }
     public InventoryDrager inventoryDrager;
 
-    private ItemSave itemSave;
+    private TetrisData itemSave;
 
     protected override void Init()
     {
@@ -40,7 +43,7 @@ public class InventoryPanel : BasePanel
         InventoryPanelContext inventoryContext = context as InventoryPanelContext;
         itemSave = inventoryContext.itemSave;
         mainTetris.Init(this, itemSave);
-        delTetris.Init(this);
+        delTetris.Init(this, inventoryContext.delTetrisData);
     }
 
     public override void OnExit(bool trueDestroy)

@@ -11,7 +11,12 @@ public static class Calc
         if (w > 0) w -= timePass;
         return w <= 0;
     }
-
+    public static void Swap<T>(ref T a, ref T b)
+    {
+        T c = a;
+        a = b;
+        b = c;
+    }
     public static float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {
         return Mathf.Clamp(lfAngle % 360, lfMin, lfMax);

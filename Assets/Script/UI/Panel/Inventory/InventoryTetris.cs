@@ -28,7 +28,7 @@ public class InventoryTetris : MonoBehaviour
         grid = new Grid<ItemBlock>(width, height,cellSize, Vector3.zero, (Grid<ItemBlock> g, int x, int y) => new ItemBlock(g, x, y));
         DrawBackground();
     }
-    public void Init(InventoryPanel panel,ItemSave itemSave)
+    public void Init(InventoryPanel panel,TetrisData itemSave)
     {
         width = itemSave.bagWidth; 
         height = itemSave.bagHeight;
@@ -42,7 +42,7 @@ public class InventoryTetris : MonoBehaviour
         }
     }
 
-    private void Update()
+/*    private void Update()
     {
         Vector3 screenPoint = Input.mousePosition + inventoryPanel.inventoryDrager.mouseGridOffset;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(itemContainer, screenPoint, null, out Vector2 anchoredPosition);
@@ -57,7 +57,7 @@ public class InventoryTetris : MonoBehaviour
         {
             RemoveItemAt(gridPos);
         }
-    }
+    }*/
 
     private void DrawBackground()
     {
