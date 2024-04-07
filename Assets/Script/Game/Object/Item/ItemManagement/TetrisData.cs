@@ -17,7 +17,7 @@ public class TetrisData
         items = infos;
     }
 
-    public bool TryGetItem(ItemInfo newItem)
+    public bool TryGetNewItem(ItemInfo newItem)
     {
         //生成二维数组Grid
         bool[,] grid = new bool[bagWidth, bagHeight];

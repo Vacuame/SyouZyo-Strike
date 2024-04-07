@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c9719573eb30d744a7aae5d21602406, type: 3}
   m_Name: Shoot
   m_EditorClassIdentifier: 
-  abilityName: 
+  abilityName: Shoot
   assetTags: []
   cancelAbilityTags: []
   blockAbilityTags: []

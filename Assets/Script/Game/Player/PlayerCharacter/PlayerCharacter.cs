@@ -14,7 +14,7 @@ using GameBasic;
 
 public class PlayerCharacter : Character
 {
-    [SerializeField,Header("DEBUG")]
+    [SerializeField, Header("DEBUG")]
     protected InstanceItem itemInHand;
 
     [SerializeField] public Gun curGun;
@@ -26,7 +26,7 @@ public class PlayerCharacter : Character
 
     #region ÒÆ¶¯ÉèÖÃ
     [SerializeField, Header("ÒÆ¶¯")] private float walkMaxSpeed;
-    [SerializeField] private float runMaxSpeed,xAcc, zAcc;
+    [SerializeField] private float runMaxSpeed, xAcc, zAcc;
     [SerializeField] private float injury_walkMaxSpeed, injury_backMaxSpeed, injury_runMaxSpeed;
     [SerializeField] private float rotateSpeed;
     private const float walkThres = 1.5f, runThres = 3.3f;
@@ -58,11 +58,16 @@ public class PlayerCharacter : Character
         controller.control.Player.Interact.started += OnInteractPressed;
 
         controller.control.Player.Weapon1.started += (CallbackContext context) =>
-        ABS.TryActivateAbility("EquipItem",this, chestRig);
+        ABS.TryActivateAbility("EquipItem", this, chestRig);
     }
 
-    private void OnInteractPressed(CallbackContext context)=>
-        ABS.TryActivateAbility("Climb",anim,cc,transform);
+    private void OnInteractPressed(CallbackContext context)
+    {
+        Climb.ClimbSpec climb;
+        climb = ABS.AbilityContainer.GetAbility("Climb") as Climb.ClimbSpec;
+        ABS.TryActivateAbility("Climb", anim, cc, transform);
+    }
+
 
     protected override void Awake()
     {

@@ -28,10 +28,14 @@ public class AbilityContainer
                 _abilities[kv.Key].TryCancelAbility();
             }
         }
-
         return true;
     }
-
+    public AbilitySpec GetAbility(string abilityName)
+    {
+        if(_abilities.TryGetValue(abilityName, out AbilitySpec spec))
+            return spec;
+        return null;
+    }
     public void GrantAbility(AbstractAbility ability)
     {
         if (_abilities.ContainsKey(ability.Name)) return;

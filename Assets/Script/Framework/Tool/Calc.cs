@@ -4,7 +4,10 @@ using UnityEngine;
 
 public static class Calc
 {
-
+    public static string GetTypeName<T>()where T : class
+    {
+        return typeof(T).Name;
+    }
     public static bool TimerTick(ref this float w, bool unscaled = false)
     {
         float timePass = unscaled ? Time.unscaledDeltaTime : Time.deltaTime;

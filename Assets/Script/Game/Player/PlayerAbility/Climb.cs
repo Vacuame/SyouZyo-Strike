@@ -25,7 +25,8 @@ public class Climb : AbstractAbility<Climb_SO>
 
         private int climable;
         private int climbType;
-        private Vector3 climbEdge, toWallDire;
+        private Vector3 climbEdge;
+        public Vector3 toWallDire;
         private float wallHeight;
         private Vector3 climb_leftHand, climb_rightHand, climb_rightLeg, climb_root, climbDir;
 
