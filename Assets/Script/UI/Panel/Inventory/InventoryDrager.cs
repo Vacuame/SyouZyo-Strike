@@ -90,8 +90,8 @@ public class InventoryDrager
     {
         if(dragState == DragState.Placeable)
         {
-            fromInventoryTetris.ClearGridItem(draggingItem);
-            draggingTetris.SetGridItem(draggingItem, selectedGridPos, dragDir);
+            fromInventoryTetris.ClearGridByItem(draggingItem);
+            draggingTetris.SetGridByItem(draggingItem, selectedGridPos, dragDir);
             draggingItem.SetTetris(selectedGridPos, dragDir, draggingTetris);
         }
         else//∑µªÿ‘≠Œª

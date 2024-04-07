@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using static InventoryStatic;
 
@@ -74,6 +75,7 @@ public class InventoryTetris : MonoBehaviour
         }
     }
 
+    #region Item
     public bool TryPlaceNewItem(ItemInfo itemSO,Vector2Int gridPos,Dir dir)
     {
         if (CanPlaceNew(itemSO, gridPos, dir))
@@ -91,7 +93,7 @@ public class InventoryTetris : MonoBehaviour
         item.SetTetris(gridPos, dir, this);
         itemObject.transform.rotation = Quaternion.Euler(0, 0, GetRotationAngle(dir));
 
-        SetGridItem(item,gridPos,dir);
+        SetGridByItem(item,gridPos,dir);
     }
     public bool CanPlaceNew(ItemInfo itemSO, Vector2Int gridPos, Dir dir)
     {
@@ -106,16 +108,6 @@ public class InventoryTetris : MonoBehaviour
         }
         return true;
     }
-    public void RemoveItemAt(Vector2Int gridPos)
-    {
-        TetrisItem item = grid.GetGridObject(gridPos.x, gridPos.y).GetItem();
-
-        if (item != null)
-        {
-            ClearGridItem(item);
-            Destroy(item.gameObject);
-        }
-    }
     public bool CanDragTo(TetrisItem item, Vector2Int gridPos, Dir dir)
     {
         List<Vector2Int> gridPositionList = GetGridPositionList(gridPos, dir, item.itemSO);
@@ -126,19 +118,50 @@ public class InventoryTetris : MonoBehaviour
                 return false;
 
             ItemBlock block = grid.GetGridObject(gridPosition.x, gridPosition.y);
-            if (!block.Empty()&& block.GetItem()!=item)
+            if (!block.Empty() && block.GetItem() != item)
                 return false;
         }
         return true;
     }
+    public void RemoveItemAt(Vector2Int gridPos)
+    {
+        TetrisItem item = grid.GetGridObject(gridPos.x, gridPos.y).GetItem();
+
+        if (item != null)
+        {
+            ClearGridByItem(item);
+            Destroy(item.gameObject);
+        }
+    }
+    public void RemoveAllItem()
+    {
+        for (int x = 0; x < grid.GetWidth(); x++)
+            for (int y = 0; y < grid.GetHeight(); y++)
+                RemoveItemAt(new Vector2Int(x, y));
+    }
+    public List<TetrisInfo> GetItemInfoList()
+    {
+        HashSet<TetrisItem> hashSet = new HashSet<TetrisItem>();
+        List<TetrisInfo>infoList = new List<TetrisInfo>();
+        for(int x = 0; x < grid.GetWidth();x++)
+            for(int y =0; y < grid.GetHeight();y++)
+            {
+                TetrisItem item = grid.GetGridObject(x, y).GetItem();
+                if (item == null || hashSet.Contains(item)) continue;
+                hashSet.Add(item);
+                infoList.Add(new TetrisInfo(item.itemSO.id,new Vector2Int(x,y), item.dir));
+            }
+        return infoList;
+    }
+    #endregion
 
     #region Grid
-    public void SetGridItem(TetrisItem item, Vector2Int gridPos, Dir dir)
+    public void SetGridByItem(TetrisItem item, Vector2Int gridPos, Dir dir)
     {
         foreach (Vector2Int gridPosition in GetGridPositionList(gridPos, dir, item.itemSO))
             grid.GetGridObject(gridPosition.x, gridPosition.y).SetItem(item);
     }
-    public void ClearGridItem(TetrisItem item)
+    public void ClearGridByItem(TetrisItem item)
     {
         List<Vector2Int> gridPositionList = item.GetGridPositionList();
         foreach (Vector2Int pos in gridPositionList)
