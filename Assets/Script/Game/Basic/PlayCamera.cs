@@ -6,6 +6,7 @@ using GameBasic;
 public class PlayCamera : MonoBehaviour
 {
     [SerializeField] private MultiSetting<Tags.Camera, CinemachineVirtualCamera> cameras;
+    [SerializeField] public Transform frontTransform;
     private Tags.Camera _curCameraTag = Tags.Camera.Normal;
     private CinemachineVirtualCamera curCamera;
     private CinemachineBrain cameraBrain;

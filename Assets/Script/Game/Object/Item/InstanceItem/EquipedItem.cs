@@ -5,12 +5,13 @@ using UnityEngine;
 /// <summary>
 /// 被角色手上拿的道具 对应Item
 /// </summary>
-public class InstanceItem : MonoBehaviour
+public class EquipedItem : MonoBehaviour
 {
-    Character charaBase;
+    public readonly static string rootPath = "Prefab/Item/EquipedItem/";
+    [HideInInspector]public Character user;
     public virtual void Init(Character charaBase)
     {
-        this.charaBase = charaBase;
+        this.user = charaBase;
     }
     public virtual void TakeOut()
     {

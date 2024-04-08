@@ -21,13 +21,13 @@ public class Aim : AbstractAbility<Aim_SO>
         Aim aim;
         Aim_SO asset => aim.AbilityAsset;
 
-        
         public AimSpec(AbstractAbility ability, AbilitySystemComponent owner) : base(ability, owner)
         {
             aim = ability as Aim;
         }
 
         PlayerCharacter character;
+        Gun gun =>character.equipingItem as Gun;
         Animator anim;
         Rig chestRig;
         /// <param name="args">PlayerCharacter , Rig</param>
@@ -41,12 +41,12 @@ public class Aim : AbstractAbility<Aim_SO>
             character.controller.playCamera.SwitchCamera(Tags.Camera.Aim);
             chestRig.weight = 1;
             anim.SetBool("aiming", true);
-            character.curGun.SetAiming(true);
+            gun.SetAiming(true);
         }
 
         protected override void AbilityTick()
         {
-            character.curGun.moving = character.cc.velocity.sqrMagnitude > 1;
+            gun.moving = character.cc.velocity.sqrMagnitude > 1;
         }
 
         public override void EndAbility()
@@ -55,7 +55,7 @@ public class Aim : AbstractAbility<Aim_SO>
             character.controller.playCamera.SwitchCamera(Tags.Camera.Normal);
             chestRig.weight = 0;
             anim.SetBool("aiming", false);
-            character.curGun.SetAiming(false);
+            gun.SetAiming(false);
         }
     }
 

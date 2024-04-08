@@ -36,7 +36,7 @@ public class PlayerController : Controller
         base.Update();
 
         if (Input.GetKeyDown(KeyCode.Tab))
-            UIManager.Instance.SwitchOnPeek(new InventoryPanelContext(InventoryPanel.uiType,itemSave,InventoryPanel.emptyDelTetrisData));
+            UIManager.Instance.SwitchOnPeek(new InventoryPanelContext(InventoryPanel.uiType,this,itemSave,InventoryPanel.emptyDelTetrisData));
 
 /*        if(Input.GetKeyDown(KeyCode.Alpha0))
         {
@@ -56,7 +56,7 @@ public class PlayerController : Controller
             int height = dir == InventoryStatic.Dir.Down ? itemInfo.height : itemInfo.width;
             delTetrisData.items.Add(new TetrisInfo(
                 itemInfo.id, new Vector2Int(0, delTetrisData.bagHeight - height), dir));
-            UIManager.Instance.Push(new InventoryPanelContext(InventoryPanel.uiType, itemSave, delTetrisData));
+            UIManager.Instance.Push(new InventoryPanelContext(InventoryPanel.uiType,this, itemSave, delTetrisData));
         }
     }
 }

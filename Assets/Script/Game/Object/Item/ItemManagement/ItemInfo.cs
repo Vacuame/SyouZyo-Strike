@@ -10,5 +10,5 @@ public class ItemInfo : ScriptableObject
     public int width;
     public int height;
     public Transform tetrisItemPrefab;
-
+    public EquipedItem equipedItemPrefab;
 }

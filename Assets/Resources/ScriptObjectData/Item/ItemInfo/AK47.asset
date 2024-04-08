@@ -18,3 +18,5 @@ MonoBehaviour:
   height: 2
   tetrisItemPrefab: {fileID: 8330047645484279579, guid: d04a2b3e57db8cf45b01e3f3a9d36551,
     type: 3}
+  equipedItemPrefab: {fileID: 8279979290830076264, guid: e58170054b53137439ed69b1c2ffdb34,
+    type: 3}

@@ -20,12 +20,14 @@ public class EquipItem : AbstractAbility
         return new EquipItemSpec(this,owner);
     }
 
-    public class EquipItemSpec : AbilitySpec
+    public class EquipItemSpec : TimeLineAbilitySpec
     {
         int weaponType;
         PlayerCharacter character;
         Animator anim;
         Rig chestRig;
+
+        EquipedItem equipedItem;
         public EquipItemSpec(AbstractAbility ability, AbilitySystemComponent owner) : base(ability, owner)
         {
 
@@ -56,6 +58,13 @@ public class EquipItem : AbstractAbility
 
         private void EquipGun()
         {
+            ItemInfo info = ItemManager.Instance.GetItemInfo(1);
+            equipedItem = GameObject.Instantiate(info.equipedItemPrefab,character.RightHandTransform);
+            character.equipingItem = equipedItem;
+            Gun gun = equipedItem as Gun;
+            character.leftFollow = gun.handGuard;
+            gun.user = character;
+
             Aim_SO aimSo = Resources.Load<Aim_SO>("ScriptObjectData/Aim");
             owner.GrandAbility(new Aim(aimSo));
             AbilityAsset shootAsset = Resources.Load<AbilityAsset>("ScriptObjectData/Shoot");
@@ -81,6 +90,8 @@ public class EquipItem : AbstractAbility
             owner.RemoveAbility("Aim");
             owner.RemoveAbility("Shoot");
             owner.RemoveAbility("Reload");
+
+            GameObject.Destroy(equipedItem.gameObject);
         }
 
         private void AimSt(CallbackContext context) =>
@@ -88,11 +99,16 @@ public class EquipItem : AbstractAbility
         private void AimEd(CallbackContext context) =>
             owner.TryEndAbility("Aim");
         private void ShootSt(CallbackContext context) =>
-                owner.TryActivateAbility("Shoot", character.curGun);
+                owner.TryActivateAbility("Shoot", character.equipingItem);
         private void ShootEd(CallbackContext context) =>
             owner.TryEndAbility("Shoot");
         private void Reload(CallbackContext context) =>
-            owner.TryActivateAbility("Reload",anim,character.curGun);
+            owner.TryActivateAbility("Reload",anim,character.equipingItem);
+
+        public override void InitTimeLine()
+        {
+            
+        }
     }
 
 }

@@ -14,10 +14,14 @@ using GameBasic;
 
 public class PlayerCharacter : Character
 {
+    //TODO 之后不要这个变量
     [SerializeField, Header("DEBUG")]
-    protected InstanceItem itemInHand;
+    public EquipedItem equipingItem;
 
-    [SerializeField] public Gun curGun;
+    #region 变量
+
+    [Header("绑定")]
+    public Transform RightHandTransform;
 
     #region 输入
     private PlayerActions input;
@@ -45,10 +49,12 @@ public class PlayerCharacter : Character
     #endregion
 
     #region Rig变量
-    [SerializeField, Header("IK Rig")] private Rig twoHandRig;
-    [SerializeField] private Rig chestRig;
-    [SerializeField] private TwoBoneIKConstraint leftHandRig;
-    [SerializeField] private Transform leftFollow;
+    [SerializeField, Header("IK Rig")] public Rig twoHandRig;
+    [SerializeField] public Rig chestRig;
+    [SerializeField] public TwoBoneIKConstraint leftHandRig;
+    [SerializeField] public Transform leftFollow;
+    #endregion
+
     #endregion
 
     public override void SetController(Controller controller)
@@ -59,6 +65,10 @@ public class PlayerCharacter : Character
 
         controller.control.Player.Weapon1.started += (CallbackContext context) =>
         ABS.TryActivateAbility("EquipItem", this, chestRig);
+
+        chestRig.GetComponent<MultiAimConstraint>().data.sourceObjects = 
+            new WeightedTransformArray() { new WeightedTransform(controller.playCamera.frontTransform, 1) };
+        GetComponent<RigBuilder>().Build();
     }
 
     private void OnInteractPressed(CallbackContext context)
@@ -124,6 +134,8 @@ public class PlayerCharacter : Character
 
         IKUpdate();
     }
+
+    #region MOVE
 
     private void Move()
     {
@@ -194,6 +206,7 @@ public class PlayerCharacter : Character
         Move();
     }
 
+    #endregion
 
     #region Dead周期
     protected override void Dead()
@@ -207,19 +220,19 @@ public class PlayerCharacter : Character
     }
     #endregion
 
-    #region 动画使用的函数
+/*    #region 动画使用的函数
     private void SetWeapon(int active)
     {
         bool isActive = active == 0 ? false : true;
-        curGun.user = this.gameObject;
+        curGun.user = this;
         curGun.gameObject.SetActive(isActive);
     }
-    #endregion
+    #endregion*/
 
     private void IKUpdate()
     {
-        if (leftFollow.gameObject.activeSelf)
-            leftHandRig.data.target.transform.position = leftFollow.transform.position;
+        if (leftFollow!=null)
+            leftHandRig.data.target.transform.position = leftFollow.position;
         twoHandRig.weight = anim.GetFloat("rigWeight");
     }
 

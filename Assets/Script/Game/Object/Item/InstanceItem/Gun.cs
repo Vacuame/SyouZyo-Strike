@@ -4,10 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public class Gun : EquipedItem
 {
-    [HideInInspector] public GameObject user;
-    [SerializeField] private Transform muzzle, handGuard;
+    //[HideInInspector] public GameObject user;
+    [SerializeField] public Transform muzzle, handGuard;
     [SerializeField] private float rateOfGun = 300;
     private bool shooting,aiming;
     private float shootInterval;
@@ -204,7 +204,7 @@ public class Gun : MonoBehaviour
             if(hitObj.layer == LayerMask.NameToLayer("EnemyPart"))
             {
                 EventManager.Instance.TriggerEvent("Hit" + hitObj.GetInstanceID(),
-                    new HitInfo(HitType.SMG , 10, user, hitObj, hit.point, dir));
+                    new HitInfo(HitType.SMG , 10, user.gameObject, hitObj, hit.point, dir));
             }
         }
 

@@ -8,10 +8,12 @@ public class InventoryPanelContext : PanelContext
 {
     public TetrisData itemSave;
     public TetrisData delTetrisData;
-    public InventoryPanelContext(UIType viewType, TetrisData itemSave, TetrisData delTetrisData) : base(viewType)
+    public PlayerController controller;
+    public InventoryPanelContext(UIType viewType, PlayerController controller, TetrisData itemSave, TetrisData delTetrisData) : base(viewType)
     {
         this.itemSave = itemSave;
         this.delTetrisData = delTetrisData;
+        this.controller = controller;
     }
 }
 
