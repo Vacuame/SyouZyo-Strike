@@ -11,4 +11,10 @@ public class ItemInfo : ScriptableObject
     public int height;
     public Transform tetrisItemPrefab;
     public EquipedItem equipedItemPrefab;
+    public ItemType type;
+
+    public enum ItemType
+    {
+        Item,Useable,Gun
+    }
 }

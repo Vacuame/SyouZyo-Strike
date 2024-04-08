@@ -28,7 +28,7 @@ public class InventoryTetris : MonoBehaviour
         grid = new Grid<ItemBlock>(width, height,cellSize, Vector3.zero, (Grid<ItemBlock> g, int x, int y) => new ItemBlock(g, x, y));
         DrawBackground();
     }
-    public void Init(InventoryPanel panel,TetrisData itemSave)
+    public void Init(InventoryPanel panel,ItemSaveData itemSave)
     {
         width = itemSave.bagWidth; 
         height = itemSave.bagHeight;
@@ -37,27 +37,9 @@ public class InventoryTetris : MonoBehaviour
 
         foreach(var a in itemSave.items)
         {
-            var info = ItemManager.Instance.GetItemInfo(a.id);
-            TryPlaceNewItem(info, a.pos,a.dir);
+            TryPlaceNewItem(a, a.pos,a.dir);
         }
     }
-
-/*    private void Update()
-    {
-        Vector3 screenPoint = Input.mousePosition + inventoryPanel.inventoryDrager.mouseGridOffset;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(itemContainer, screenPoint, null, out Vector2 anchoredPosition);
-        Vector2Int gridPos = grid.GetGridPosition(anchoredPosition);
-
-        if (Input.GetKeyDown(KeyCode.Space)) 
-        {
-            testDir = inventoryPanel.inventoryDrager.GetDir();
-            TryPlaceNewItem(testSO, gridPos, testDir);
-        }
-        if(Input.GetMouseButtonDown(1)) 
-        {
-            RemoveItemAt(gridPos);
-        }
-    }*/
 
     private void DrawBackground()
     {
@@ -76,20 +58,21 @@ public class InventoryTetris : MonoBehaviour
     }
 
     #region Item
-    public bool TryPlaceNewItem(ItemInfo itemSO,Vector2Int gridPos,Dir dir)
+    public bool TryPlaceNewItem(ItemSave itemSave,Vector2Int gridPos,Dir dir)
     {
-        if (CanPlaceNew(itemSO, gridPos, dir))
+        var info = ItemManager.Instance.GetItemInfo(itemSave.id);
+        if (CanPlaceNew(info, gridPos, dir))
         {
-            PlaceNewItem(itemSO, gridPos, dir);
+            PlaceNewItem(info, gridPos, dir,itemSave);
             return true;
         }
         return false;
     }
-    public void PlaceNewItem(ItemInfo itemSO, Vector2Int gridPos, Dir dir)
+    public void PlaceNewItem(ItemInfo itemSO, Vector2Int gridPos, Dir dir,ItemSave itemSave)
     {
         Transform itemObject = Instantiate(itemSO.tetrisItemPrefab);
         TetrisItem item = itemObject.GetComponent<TetrisItem>();
-        item.itemSO = itemSO;
+        item.SetInfo(itemSO, itemSave);
         item.SetTetris(gridPos, dir, this);
         itemObject.transform.rotation = Quaternion.Euler(0, 0, GetRotationAngle(dir));
 
@@ -110,7 +93,7 @@ public class InventoryTetris : MonoBehaviour
     }
     public bool CanDragTo(TetrisItem item, Vector2Int gridPos, Dir dir)
     {
-        List<Vector2Int> gridPositionList = GetGridPositionList(gridPos, dir, item.itemSO);
+        List<Vector2Int> gridPositionList = GetGridPositionList(gridPos, dir, item.itemInfo);
         foreach (Vector2Int gridPosition in gridPositionList)
         {
             bool isValidPosition = grid.IsValidGridPosition(gridPosition);
@@ -139,17 +122,19 @@ public class InventoryTetris : MonoBehaviour
             for (int y = 0; y < grid.GetHeight(); y++)
                 RemoveItemAt(new Vector2Int(x, y));
     }
-    public List<TetrisInfo> GetItemInfoList()
+    public List<ItemSave> GetItemInfoList()
     {
         HashSet<TetrisItem> hashSet = new HashSet<TetrisItem>();
-        List<TetrisInfo>infoList = new List<TetrisInfo>();
+        List<ItemSave>infoList = new List<ItemSave>();
         for(int x = 0; x < grid.GetWidth();x++)
             for(int y =0; y < grid.GetHeight();y++)
             {
                 TetrisItem item = grid.GetGridObject(x, y).GetItem();
                 if (item == null || hashSet.Contains(item)) continue;
                 hashSet.Add(item);
-                infoList.Add(new TetrisInfo(item.itemSO.id,new Vector2Int(x,y), item.dir));
+                item.itemSave.pos = new Vector2Int(x, y);
+                item.itemSave.dir = item.dir;
+                infoList.Add(item.itemSave);
             }
         return infoList;
     }
@@ -158,7 +143,7 @@ public class InventoryTetris : MonoBehaviour
     #region Grid
     public void SetGridByItem(TetrisItem item, Vector2Int gridPos, Dir dir)
     {
-        foreach (Vector2Int gridPosition in GetGridPositionList(gridPos, dir, item.itemSO))
+        foreach (Vector2Int gridPosition in GetGridPositionList(gridPos, dir, item.itemInfo))
             grid.GetGridObject(gridPosition.x, gridPosition.y).SetItem(item);
     }
     public void ClearGridByItem(TetrisItem item)

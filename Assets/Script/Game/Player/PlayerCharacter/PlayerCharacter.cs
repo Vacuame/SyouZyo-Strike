@@ -14,6 +14,8 @@ using GameBasic;
 
 public class PlayerCharacter : Character
 {
+    [HideInInspector] public static readonly string abilityRootPath = "ScriptObjectData/Player/Ability/";
+
     //TODO 之后不要这个变量
     [SerializeField, Header("DEBUG")]
     public EquipedItem equipingItem;
@@ -63,8 +65,8 @@ public class PlayerCharacter : Character
 
         controller.control.Player.Interact.started += OnInteractPressed;
 
-        controller.control.Player.Weapon1.started += (CallbackContext context) =>
-        ABS.TryActivateAbility("EquipItem", this, chestRig);
+/*        controller.control.Player.Weapon1.started += (CallbackContext context) =>
+        ABS.TryActivateAbility("EquipItem", this, chestRig);*/
 
         chestRig.GetComponent<MultiAimConstraint>().data.sourceObjects = 
             new WeightedTransformArray() { new WeightedTransform(controller.playCamera.frontTransform, 1) };
@@ -83,9 +85,10 @@ public class PlayerCharacter : Character
     {
         Climb_SO climbAsset = Resources.Load<Climb_SO>("ScriptObjectData/ClimbData");
         ABS.GrandAbility(new Climb(climbAsset));
-        AbilityAsset equipAsset = Resources.Load<AbilityAsset>("ScriptObjectData/EquipData");
+        EquipItemAsset equipAsset = Instantiate(Resources.Load<EquipItemAsset>(abilityRootPath+"EquipData"));
+        equipAsset.Bind(this, chestRig);
         ABS.GrandAbility(new EquipItem(equipAsset));
-        Interact_SO interactAsset = Resources.Load<Interact_SO>("ScriptObjectData/Player/InteractData");
+        Interact_SO interactAsset = Resources.Load<Interact_SO>(abilityRootPath + "InteractData");
         interactAsset = Instantiate(interactAsset);
         interactAsset.centerTransform = centerTransform;
         interactAsset.cameraTransform = controller.playCamera.transform;

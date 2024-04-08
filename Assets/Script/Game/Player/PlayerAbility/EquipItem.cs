@@ -8,7 +8,7 @@ using static UnityEngine.InputSystem.InputAction;
 /// <summary>
 /// 根据输入的按键从物品栏装备相应物品
 /// </summary>
-public class EquipItem : AbstractAbility
+public class EquipItem : AbstractAbility<EquipItemAsset>
 {
     public EquipItem(AbilityAsset setAsset) : base(setAsset)
     {
@@ -22,32 +22,50 @@ public class EquipItem : AbstractAbility
 
     public class EquipItemSpec : TimeLineAbilitySpec
     {
+        EquipItem equip;
+        EquipItemAsset equipAsset => equip.AbilityAsset;
+
         int weaponType;
         PlayerCharacter character;
         Animator anim;
         Rig chestRig;
 
         EquipedItem equipedItem;
+        ItemSave itemSave;
+        ItemInfo itemInfo;
+
         public EquipItemSpec(AbstractAbility ability, AbilitySystemComponent owner) : base(ability, owner)
         {
-
+            equip = ability as EquipItem;
+            character = equipAsset.character;
+            anim = character.anim;
+            chestRig = equipAsset.chestRig;
         }
 
-        /// <param name="args">PlayerCharacter , Rig</param>
+        /// <param name="args">
+        /// ItemInfo ItemSave
+        /// </param>
         public override void ActivateAbility(params object[] args)
         {
-            character = args[0] as PlayerCharacter;
-            anim = character.anim;
-            chestRig = args[1] as Rig;
+            ItemInfo newItemInfo = args[0] as ItemInfo;
+            ItemSave newItemSave = args[1] as ItemSave;
 
-            weaponType = weaponType == 1 ? 0 : 1;
-            //播放动画，实际是动画调用拿出道具的函数
-            anim.SetInteger("weaponType", weaponType);
-            if(weaponType==1)
-                EquipGun();
-            else
-                UnEquipGun();
+            if(newItemInfo.type == ItemInfo.ItemType.Gun)
+            {
+                if(itemSave!=null && itemSave!=newItemSave)
+                    UnEquipGun(itemSave as GunItemSave);
 
+                GunItemSave gunSave = newItemSave as GunItemSave;
+                weaponType = gunSave.equiped? 0:1;
+                //播放动画，实际是动画调用拿出道具的函数
+                anim.SetInteger("weaponType", weaponType);
+                if (!gunSave.equiped)
+                    EquipGun(newItemInfo, gunSave);
+                else
+                    UnEquipGun(gunSave);
+
+                
+            }
             EndSelf();
         }
 
@@ -56,14 +74,18 @@ public class EquipItem : AbstractAbility
             
         }
 
-        private void EquipGun()
+        private void EquipGun(ItemInfo info,GunItemSave gunSave)
         {
-            ItemInfo info = ItemManager.Instance.GetItemInfo(1);
+            itemInfo = info;
+            itemSave = gunSave;
+
             equipedItem = GameObject.Instantiate(info.equipedItemPrefab,character.RightHandTransform);
             character.equipingItem = equipedItem;
             Gun gun = equipedItem as Gun;
+            gun.curAmmo = gunSave.curAmmo;
             character.leftFollow = gun.handGuard;
             gun.user = character;
+            gunSave.equiped = true;
 
             Aim_SO aimSo = Resources.Load<Aim_SO>("ScriptObjectData/Aim");
             owner.GrandAbility(new Aim(aimSo));
@@ -79,8 +101,15 @@ public class EquipItem : AbstractAbility
             character.controller.control.Player.Reload.started += Reload;
 
         }
-        private void UnEquipGun()
+        private void UnEquipGun(GunItemSave gunSave)
         {
+            gunSave.equiped = false;
+            Gun gun = equipedItem as Gun;
+            gunSave.curAmmo = gun.curAmmo;
+
+            itemInfo = null;
+            itemSave = null;
+
             character.controller.control.Player.Aim.started -= AimSt;
             character.controller.control.Player.Aim.canceled -= AimEd;
             character.controller.control.Player.Fire.started -= ShootSt;

@@ -5,12 +5,12 @@ using UnityEngine;
 using static InventoryStatic;
 using static UnityEditor.Progress;
 
-public class TetrisData
+public class ItemSaveData
 {
-    public List<TetrisInfo> items = new List<TetrisInfo>();
+    public List<ItemSave> items = new List<ItemSave>();
     public int bagWidth, bagHeight;
 
-    public TetrisData(int width,int height,List<TetrisInfo> infos)
+    public ItemSaveData(int width,int height,List<ItemSave> infos)
     {
         bagWidth = width;
         bagHeight = height;
@@ -38,12 +38,12 @@ public class TetrisData
         Vector2Int itemPos;
         if (TryFindItemPlace(grid, Dir.Down, newItem.width,newItem.height,out itemPos))
         {
-            items.Add(new TetrisInfo(newItem.id, itemPos, Dir.Down));
+            items.Add(ItemSaveFac.NewItemSave(newItem, itemPos, Dir.Down));
             return true;
         }
         if (TryFindItemPlace(grid, Dir.Left, newItem.height, newItem.width, out itemPos))
         {
-            items.Add(new TetrisInfo(newItem.id, itemPos, Dir.Left)); ;
+            items.Add(ItemSaveFac.NewItemSave(newItem, itemPos, Dir.Left));
             return true;
         }
         return false;
@@ -79,15 +79,33 @@ public class TetrisData
 }
 
 [System.Serializable]
-public class TetrisInfo
+public class ItemSave
 {
     public int id;
     public Vector2Int pos;
     public Dir dir;
-    public TetrisInfo(int id, Vector2Int pos,Dir dir)
+    public ItemSave(int id, Vector2Int pos,Dir dir)
     {
         this.id = id;
         this.pos = pos;
         this.dir = dir;
+    }
+}
+
+public static class ItemSaveFac
+{
+    public static ItemSave NewItemSave(ItemInfo info,Vector2Int pos,Dir dir)
+    {
+        switch (info.type) 
+        {
+            case ItemInfo.ItemType.Item:
+                return new ItemSave(info.id,pos,dir);
+            case ItemInfo.ItemType.Useable:
+                break;
+            case ItemInfo.ItemType.Gun:
+                GunItemInfo gunInfo = (GunItemInfo)info;
+                return new GunItemSave(info.id, pos, dir, gunInfo.fullAmmo,false);
+        }
+        return null;
     }
 }

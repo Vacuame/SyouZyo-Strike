@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3790689937964531837}
   - component: {fileID: 177548661219598922}
   - component: {fileID: 1015431564539081437}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ak-47Ak-47_Pickable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd161ec3e8973414e9983662202abe7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemInfo: {fileID: 11400000, guid: ab960ac5dd166044d9af9b22e0d5ee50, type: 2}
+  itemInfo: {fileID: 11400000, guid: 0f05937ff362b2043a31db068953d85b, type: 2}
   edgeWidth: 0.0004
   renders:
   - {fileID: 5314905942234359331}

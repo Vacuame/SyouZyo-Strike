@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 
 public class InventoryPanelContext : PanelContext
 {
-    public TetrisData itemSave;
-    public TetrisData delTetrisData;
+    public ItemSaveData itemSave;
+    public ItemSaveData delTetrisData;
     public PlayerController controller;
-    public InventoryPanelContext(UIType viewType, PlayerController controller, TetrisData itemSave, TetrisData delTetrisData) : base(viewType)
+    public InventoryPanelContext(UIType viewType, PlayerController controller, ItemSaveData itemSave, ItemSaveData delTetrisData) : base(viewType)
     {
         this.itemSave = itemSave;
         this.delTetrisData = delTetrisData;
@@ -19,8 +19,10 @@ public class InventoryPanelContext : PanelContext
 
 public class InventoryPanel : BasePanel
 {
-    public static readonly UIType uiType = new UIType("InventoryPanel");
-    public static readonly TetrisData emptyDelTetrisData = new TetrisData(3, 7, new List<TetrisInfo>());
+    public static readonly UIType uiType = new UIType("Inventory/InventoryPanel");
+    public static readonly ItemSaveData emptyDelTetrisData = new ItemSaveData(3, 7, new List<ItemSave>());
+
+    public InventoryPanelContext inventoryContext=>context as InventoryPanelContext;
 
     [SerializeField] private InventoryTetris mainTetris;
     [SerializeField] private InventoryTetris delTetris;
@@ -30,7 +32,7 @@ public class InventoryPanel : BasePanel
     public InventoryDrager _inventoryDrager { get; private set; }
     public InventoryDrager inventoryDrager;
 
-    private TetrisData itemSave;
+    private ItemSaveData itemSave;
 
     protected override void Init()
     {
@@ -42,7 +44,6 @@ public class InventoryPanel : BasePanel
     public override void OnEnter(PanelContext context)
     {
         base.OnEnter(context);
-        InventoryPanelContext inventoryContext = context as InventoryPanelContext;
         itemSave = inventoryContext.itemSave;
         mainTetris.Init(this, itemSave);
         delTetris.Init(this, inventoryContext.delTetrisData);
@@ -59,5 +60,7 @@ public class InventoryPanel : BasePanel
     private void Update()
     {
         inventoryDrager.Tick();
+        if (Input.GetMouseButtonDown(1))
+            UIManager.Instance.Pop();
     }
 }

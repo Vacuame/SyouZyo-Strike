@@ -1,4 +1,5 @@
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
+using MoleMole;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,13 +9,19 @@ using static InventoryStatic;
 using static InventoryTetris;
 
 [RequireComponent(typeof(CanvasGroup))]
-public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler,IPointerClickHandler
 {
-    public ItemInfo itemSO;
+    public ItemInfo itemInfo;
+    public ItemSave itemSave;
+
     [HideInInspector] public Dir dir;
     [HideInInspector] public Vector2Int gridPos;
+
     [SerializeField] private Image block;
     [SerializeField] private List<Pair<DragState, Color>> blockColorSetting;
+
+    public GameObject onUseTip;
+
     private CanvasGroup canvasGroup;
     public InventoryTetris inventoryTetris { get; private set; }
     private InventoryDrager InventoryDrager => inventoryTetris.inventoryPanel.inventoryDrager;
@@ -23,13 +30,55 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     {
         canvasGroup = GetComponent<CanvasGroup>();
     }
+    public void SetInfo(ItemInfo itemInfo, ItemSave itemSave)
+    {
+        this.itemInfo = itemInfo;
+        this.itemSave = itemSave;
+
+        switch(itemInfo.type)
+        {
+            case ItemInfo.ItemType.Gun:
+                GunItemSave gunSave = itemSave as GunItemSave;
+                onUseTip.SetActive(gunSave.equiped);
+                gunSave.onEquipedChange += OnEquipedChange;
+                break;
+        }
+    }
+
+    public void OnEquipedChange(bool eq)
+    {
+        if (onUseTip!=null)
+        {
+            onUseTip.SetActive(eq);
+        }
+        
+    }
+
+    private void OnDestroy()
+    {
+        switch (itemInfo.type)
+        {
+            case ItemInfo.ItemType.Gun:
+                GunItemSave gunSave = itemSave as GunItemSave;
+                gunSave.onEquipedChange -= OnEquipedChange;
+                break;
+        }
+    }
 
     public List<Vector2Int> GetGridPositionList()
     {
-        return InventoryStatic.GetGridPositionList(gridPos, dir,itemSO);
+        return InventoryStatic.GetGridPositionList(gridPos, dir,itemInfo);
     }
 
-    #region Control
+    #region Pointer
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(eventData.button==PointerEventData.InputButton.Left)
+        UIManager.Instance.Push(new TetrisItemPanelContext
+            (TetrisItemPanel.uiType, Input.mousePosition,this));
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
 
@@ -71,21 +120,10 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         transform.rotation = Quaternion.Euler(0, 0, GetRotationAngle(dir));
         Grid<ItemBlock>grid = inventoryTetris.GetGrid();
         Vector3 anchoredPostion =grid.GetTransformPosition(gridPos.x, gridPos.y) +
-                       (Vector3)GetRotationOffset(itemSO,dir) * grid.GetCellSize() / 2;
+                       (Vector3)GetRotationOffset(itemInfo,dir) * grid.GetCellSize() / 2;
         transform.localPosition = anchoredPostion;
     }
 
-    public static TetrisItem Instantiate(ItemInfo itemSO, Transform itemContainer, Vector2 anchoredPosition, Vector2Int gridPos, Dir dir, InventoryTetris tetris)
-    {
-        Transform placedObjectTransform = Instantiate(itemSO.tetrisItemPrefab);
-        TetrisItem placedObject = placedObjectTransform.GetComponent<TetrisItem>();
-        placedObject.itemSO = itemSO;
-        placedObject.SetTetris(gridPos, dir, tetris);
-
-        return placedObject;
-    }
-
-    
     public enum DragState
     {
         Placed,Placeable,Blocked

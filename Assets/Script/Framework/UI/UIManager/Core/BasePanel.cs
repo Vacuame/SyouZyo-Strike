@@ -37,11 +37,13 @@ namespace MoleMole
         public virtual void OnPause()
         {
             transform.GetOrAddComponent<CanvasGroup>().blocksRaycasts = false;
+            enabled = false;
         }
 
         public virtual void OnResume()
         {
             transform.GetOrAddComponent<CanvasGroup>().blocksRaycasts = true;
+            enabled = true;
         }
     }
 }

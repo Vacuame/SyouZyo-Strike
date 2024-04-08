@@ -49,7 +49,7 @@ public class InventoryDrager
 
             //‘§¿¿∑≈÷√–ßπ˚
             Vector3 rectPostion =grid.GetTransformPosition(selectedGridPos.x, selectedGridPos.y) +
-                   ((Vector3)GetRotationOffset(draggingItem.itemSO, dragDir) +Vector3.one * 0.5f) * grid.GetCellSize() / 2;
+                   ((Vector3)GetRotationOffset(draggingItem.itemInfo, dragDir) +Vector3.one * 0.5f) * grid.GetCellSize() / 2;
             draggingItem.transform.position = rectPostion + draggingTetris.GetItemContainer().transform.position;
 
             if (draggingTetris.CanDragTo(draggingItem, selectedGridPos, dragDir))
@@ -80,7 +80,7 @@ public class InventoryDrager
                 (draggingTetris.GetItemContainer(), screenPoint, null, out Vector2 anchoredPos);
 
         Vector3 itemLeftDownPos =item.transform.localPosition - 
-               (Vector3)GetRotationOffset(item.itemSO,dragDir) * draggingTetris.GetGrid().GetCellSize() / 2;
+               (Vector3)GetRotationOffset(item.itemInfo,dragDir) * draggingTetris.GetGrid().GetCellSize() / 2;
 
         draggingItem.transform.SetParent(dragContainer);
         mouseGridOffset = itemLeftDownPos - (Vector3)anchoredPos;

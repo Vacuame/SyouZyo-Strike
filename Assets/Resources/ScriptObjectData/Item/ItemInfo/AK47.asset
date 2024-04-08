@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 889d3b54ffa93ed4aa65375d977c9091, type: 3}
+  m_Script: {fileID: 11500000, guid: a86c0dbe4a808ba43a571fa5c984bb3b, type: 3}
   m_Name: AK47
   m_EditorClassIdentifier: 
   id: 1
@@ -20,3 +20,5 @@ MonoBehaviour:
     type: 3}
   equipedItemPrefab: {fileID: 8279979290830076264, guid: e58170054b53137439ed69b1c2ffdb34,
     type: 3}
+  type: 2
+  fullAmmo: 30

@@ -9,13 +9,13 @@ using MoleMole;
 /// </summary>
 public class PlayerController : Controller
 {
-    private TetrisData itemSave;
+    private ItemSaveData itemSave;
 
     protected override void Start()
     {
         base.Start();
-        itemSave = new TetrisData(11,7,new List<TetrisInfo>());
-        itemSave.items.Add(new TetrisInfo(1, new Vector2Int(2, 4),InventoryStatic.Dir.Down));
+        itemSave = new ItemSaveData(11,7,new List<ItemSave>());
+        itemSave.items.Add(new GunItemSave(1, new Vector2Int(2, 4),InventoryStatic.Dir.Down,24,false));
     }
 
     protected override void ControlPawn(Pawn pawn)
@@ -49,12 +49,12 @@ public class PlayerController : Controller
     {
         if (!itemSave.TryGetNewItem(itemInfo))
         {
-            TetrisData delTetrisData = InventoryPanel.emptyDelTetrisData;
+            ItemSaveData delTetrisData = InventoryPanel.emptyDelTetrisData;
             InventoryStatic.Dir dir = InventoryStatic.Dir.Down;
             if (itemInfo.width > delTetrisData.bagWidth)
                 dir = InventoryStatic.Dir.Left;
             int height = dir == InventoryStatic.Dir.Down ? itemInfo.height : itemInfo.width;
-            delTetrisData.items.Add(new TetrisInfo(
+            delTetrisData.items.Add(new ItemSave(
                 itemInfo.id, new Vector2Int(0, delTetrisData.bagHeight - height), dir));
             UIManager.Instance.Push(new InventoryPanelContext(InventoryPanel.uiType,this, itemSave, delTetrisData));
         }

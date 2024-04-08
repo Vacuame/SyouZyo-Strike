@@ -15,4 +15,4 @@ MonoBehaviour:
   setting:
     Setting:
     - key: 1
-      value: {fileID: 11400000, guid: ab960ac5dd166044d9af9b22e0d5ee50, type: 2}
+      value: {fileID: 11400000, guid: 0f05937ff362b2043a31db068953d85b, type: 2}
