@@ -65,18 +65,21 @@ public class PlayerCharacter : Character
     {
         Climb.ClimbSpec climb;
         climb = ABS.AbilityContainer.GetAbility("Climb") as Climb.ClimbSpec;
+        ABS.TryActivateAbility("Interact",this);
         ABS.TryActivateAbility("Climb", anim, cc, transform);
     }
 
-
-    protected override void Awake()
+    private void Start()
     {
-        base.Awake();
-
-        Climb_SO so = Resources.Load<Climb_SO>("ScriptObjectData/ClimbData");
-        ABS.GrandAbility(new Climb(so));
-        AbilityAsset asset = Resources.Load<AbilityAsset>("ScriptObjectData/EquipData");
-        ABS.GrandAbility(new EquipItem(asset));
+        Climb_SO climbAsset = Resources.Load<Climb_SO>("ScriptObjectData/ClimbData");
+        ABS.GrandAbility(new Climb(climbAsset));
+        AbilityAsset equipAsset = Resources.Load<AbilityAsset>("ScriptObjectData/EquipData");
+        ABS.GrandAbility(new EquipItem(equipAsset));
+        Interact_SO interactAsset = Resources.Load<Interact_SO>("ScriptObjectData/Player/InteractData");
+        interactAsset = Instantiate(interactAsset);
+        interactAsset.centerTransform = centerTransform;
+        interactAsset.cameraTransform = controller.playCamera.transform;
+        ABS.GrandAbility(new Interact(interactAsset));
     }
 
     protected void Update()

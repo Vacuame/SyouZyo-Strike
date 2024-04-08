@@ -11,15 +11,15 @@ namespace GameBasic
     public class Pawn : MonoBehaviour
     {
         [SerializeField, Header("°ó¶¨")]
-        public Transform camTraceTransform;
+        public Transform centerTransform;
 
         [HideInInspector] public bool bControlable = true;
         [HideInInspector] public Controller controller { get; private set; }
 
         protected virtual void Awake()
         {
-            if (camTraceTransform == null)
-                camTraceTransform = transform;
+            if (centerTransform == null)
+                centerTransform = transform;
         }
 
         public virtual void SetController(Controller controller)

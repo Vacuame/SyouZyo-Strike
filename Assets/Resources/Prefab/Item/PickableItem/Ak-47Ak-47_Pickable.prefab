@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3790689937964531837}
   - component: {fileID: 177548661219598922}
+  - component: {fileID: 1015431564539081437}
   m_Layer: 0
   m_Name: Ak-47Ak-47_Pickable
   m_TagString: Untagged
@@ -50,6 +51,27 @@ MonoBehaviour:
   renders:
   - {fileID: 5314905942234359331}
   - {fileID: 5314905942234359329}
+--- !u!65 &1015431564539081437
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5381184982873525457}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.33519042, y: 0.8843069, z: 1.7116141}
+  m_Center: {x: 0.0016791224, y: -0.057846546, z: -0.05306983}
 --- !u!1001 &5314905942232333891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64,7 +86,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cd8d56469cf64654eaa21e15c6ae7c18, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.4881046
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cd8d56469cf64654eaa21e15c6ae7c18, type: 3}
       propertyPath: m_LocalPosition.y
@@ -72,7 +94,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cd8d56469cf64654eaa21e15c6ae7c18, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.3185277
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cd8d56469cf64654eaa21e15c6ae7c18, type: 3}
       propertyPath: m_LocalRotation.w

@@ -72,7 +72,7 @@ namespace GameBasic
             pawn.SetController(this);
             Yaw = pawn.transform.rotation.eulerAngles.y;
             Pitch = pawn.transform.rotation.eulerAngles.x;
-            playCamera.SetCameraTarget(pawn.camTraceTransform);
+            playCamera.SetCameraTarget(pawn.centerTransform);
         }
 
         private void UpdateRotation()
@@ -89,7 +89,7 @@ namespace GameBasic
 
             transform.rotation = Quaternion.Euler(Pitch, Yaw, 0.0f);
             if (!bCamLock&&controlledPawn!=null)
-                controlledPawn.camTraceTransform.rotation = Quaternion.Euler(Pitch + CamAngleOverride, Yaw, 0.0f);
+                controlledPawn.centerTransform.rotation = Quaternion.Euler(Pitch + CamAngleOverride, Yaw, 0.0f);
         }
 
     }

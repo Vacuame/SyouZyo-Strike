@@ -36,15 +36,11 @@ public class PickableItem : InteractableObj
     public override void SetSelected(bool isSelected)
     {
         base.SetSelected(isSelected);
-        if (isSelected)
+        List<Material[]> materials = isSelected? edgeMats:mats;
+        for (int i = 0; i < renders.Count; i++)
         {
-            for (int i = 0; i < renders.Count; i++)
-                renders[i].materials = edgeMats[i];
-        }
-        else
-        {
-            for (int i = 0; i < renders.Count; i++)
-                renders[i].materials = mats[i];
+            if (renders[i] != null)
+                renders[i].materials = materials[i];
         }
     }
 

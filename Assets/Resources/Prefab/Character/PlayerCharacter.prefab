@@ -2261,7 +2261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c70e3f53a96524b48a7837b5c3507d32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camTraceTransform: {fileID: 4746127120802066479}
+  centerTransform: {fileID: 4746127120802066479}
   bControlable: 1
   anim: {fileID: 0}
   cc: {fileID: 0}

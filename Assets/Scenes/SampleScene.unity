@@ -904,6 +904,79 @@ Transform:
   m_Children: []
   m_Father: {fileID: 179762908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &855351567
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.17912
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.184
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5381184982873525457, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_Name
+      value: Ak-47_Pickable (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5381184982873525457, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dfdd3c16dc245d14c9cd99d465db500a, type: 3}
 --- !u!114 &1037020777 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8480755706782845592, guid: b86bedf30e60f864d97f5bddf618a5f4,
@@ -1027,6 +1100,79 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5533763349068690698}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1254954412
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.288
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.17912
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.184
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790689937964531837, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5381184982873525457, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_Name
+      value: Ak-47_Pickable (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5381184982873525457, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dfdd3c16dc245d14c9cd99d465db500a, type: 3}
 --- !u!1 &1361102257
 GameObject:
   m_ObjectHideFlags: 0
@@ -2128,22 +2274,22 @@ PrefabInstance:
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.61100113
+      value: 0.6110163
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.029350583
+      value: 0.029477967
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7901722
+      value: -0.79014957
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.03800161
+      value: 0.038130734
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
@@ -2228,6 +2374,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ak-47_Pickable
       objectReference: {fileID: 0}
+    - target: {fileID: 5381184982873525457, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2260,3 +2411,5 @@ SceneRoots:
   - {fileID: 3670904480971410428}
   - {fileID: 3728662595749877101}
   - {fileID: 6901964075344215345}
+  - {fileID: 1254954412}
+  - {fileID: 855351567}
