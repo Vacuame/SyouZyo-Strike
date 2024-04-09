@@ -68,7 +68,6 @@ public class AttributeBase
         else
             SetBaseValue(value);
     }
-
     public void SetCurValue(float value ,bool excutePreEvent = true,bool excutePostAction = true)
     {
         if(excutePreEvent && onPreCurrentValueChange != null)
@@ -81,7 +80,6 @@ public class AttributeBase
             onPostCurrentValueChange?.Invoke(this,oldValue, value);
     }
     public void RefreshCurValue() => SetCurValue(BaseValue);
-
     public void SetBaseValue(float value, bool excutePreEvent = true, bool excutePostAction = true)
     {
         if (excutePreEvent && onPreBaseValueChange != null)
@@ -92,6 +90,10 @@ public class AttributeBase
 
         if (excutePostAction)
             onPostBaseValueChange?.Invoke(this, oldValue, value);
+    }
+    public float GetProportion()
+    {
+        return CurrentValue / BaseValue;
     }
     public virtual void Dispose()
     {

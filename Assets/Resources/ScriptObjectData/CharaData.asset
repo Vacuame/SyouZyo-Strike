@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e38138176e477044e9ed473bbdaa840c, type: 3}
   m_Name: CharaData
   m_EditorClassIdentifier: 
-  health: 10
+  health: 160

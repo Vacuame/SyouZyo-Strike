@@ -37,7 +37,6 @@ public class Attack : AbstractAbility<Attack_SO>
 
         public override void InitTimeLine()
         {
-            Debug.Log("init");
             timeLine.AddEvent(0, () => asset.animPara.PlayAnim(me.anim));
             timeLine.AddEvent(asset.makeDmgTime, MakeDamage);
             timeLine.AddEvent(asset.endTime, EndSelf);
@@ -48,7 +47,6 @@ public class Attack : AbstractAbility<Attack_SO>
             Collider[] list = collider.Overlap(asset.targetMask);
             foreach (var a in list)
             {
-                Debug.Log("Hit" + a.gameObject);
                 EventManager.Instance.TriggerEvent("Hit" + a.gameObject.GetInstanceID(), new HitInfo(asset.dmg));
             }
         }

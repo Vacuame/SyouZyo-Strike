@@ -27,5 +27,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   dmg: 25
-  makeDmgTime: 1
-  endTime: 2
+  makeDmgTime: 0.15
+  endTime: 0.3

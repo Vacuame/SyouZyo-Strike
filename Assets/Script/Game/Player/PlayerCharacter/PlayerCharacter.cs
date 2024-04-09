@@ -11,6 +11,7 @@ using UnityEngine.Windows;
 using static Control;
 using static UnityEngine.InputSystem.InputAction;
 using GameBasic;
+using MoleMole;
 
 public class PlayerCharacter : Character
 {
@@ -75,8 +76,8 @@ public class PlayerCharacter : Character
 
     private void OnInteractPressed(CallbackContext context)
     {
-        Climb.ClimbSpec climb;
-        climb = ABS.AbilityContainer.GetAbility("Climb") as Climb.ClimbSpec;
+/*        Climb.ClimbSpec climb;
+        climb = ABS.AbilityContainer.TryGetAbility("Climb") as Climb.ClimbSpec;*/
         ABS.TryActivateAbility("Interact",this);
         ABS.TryActivateAbility("Climb", anim, cc, transform);
     }
@@ -99,6 +100,9 @@ public class PlayerCharacter : Character
         interactAsset.centerTransform = centerTransform;
         interactAsset.cameraTransform = controller.playCamera.transform;
         ABS.GrandAbility(new Interact(interactAsset));
+
+        ABS.AttrSet<CharaAtrr>().health.onPostCurrentValueChange += OnHealthPost_HUD;
+        HUDManager.GetHUD<PlayerHUD>().SetHpValue(ABS.AttrSet<CharaAtrr>().health.GetProportion());
     }
 
     protected void Update()
@@ -245,9 +249,13 @@ public class PlayerCharacter : Character
             leftHandRig.data.target.transform.position = leftFollow.position;
         twoHandRig.weight = anim.GetFloat("rigWeight");
     }
-
+    private void OnHealthPost_HUD(AttributeBase health, float old, float now)
+    {
+        HUDManager.GetHUD<PlayerHUD>().SetHpValue(ABS.AttrSet<CharaAtrr>().health.GetProportion());
+    }
     protected override void OnHit(HitInfo hitInfo)
     {
-        Debug.Log("Chara Be Hit"+hitInfo.damage);
+        ABS.AttrSet<CharaAtrr>().health.SetValueRelative(hitInfo.damage, Tags.Calc.Sub);
+        Debug.Log((float)ABS.AttrSet<CharaAtrr>().health);
     }
 }

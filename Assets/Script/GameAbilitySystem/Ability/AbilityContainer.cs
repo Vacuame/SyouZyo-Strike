@@ -30,11 +30,9 @@ public class AbilityContainer
         }
         return true;
     }
-    public AbilitySpec GetAbility(string abilityName)
+    public bool TryGetAbility(string abilityName,out AbilitySpec spec)
     {
-        if(_abilities.TryGetValue(abilityName, out AbilitySpec spec))
-            return spec;
-        return null;
+        return _abilities.TryGetValue(abilityName, out spec);
     }
     public void GrantAbility(AbstractAbility ability)
     {

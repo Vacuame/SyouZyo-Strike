@@ -103,8 +103,7 @@ public class Gun : EquipedItem
     private void LateUpdate()//¸üÐÂUI
     {
         float sightDis = aiming ? sightDistance : -1;
-        HUDManager.GetHUD<AimHUD>()?.SetSightDis(sightDis);
-        //ShootHUD.Instance.SetSightDis(sightDis);   
+        HUDManager.GetHUD<AimHUD>()?.SetSightDis(sightDis); 
     }
 
     public void SetAiming(bool value)

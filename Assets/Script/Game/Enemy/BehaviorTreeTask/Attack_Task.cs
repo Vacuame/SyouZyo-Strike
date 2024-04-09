@@ -6,11 +6,26 @@ using UnityEngine;
 [TaskCategory("Mine")]
 public class Attack_Task : EnemyAction
 {
+    bool tryActived;
+    AbilitySpec abilitySpec;
+    public override void OnStart()
+    {
+        tryActived = false;
+        abilitySpec = null;
+    }
     public override TaskStatus OnUpdate()
     {
-        if(me.ABS.TryActivateAbility("Attack", me,me.normalAtkRange))
+        if (!tryActived)
+        {
+            tryActived = true;
+            if (!me.ABS.TryActivateAbility("Attack", me, me.normalAtkRange))
+                return TaskStatus.Failure;
+            me.ABS.AbilityContainer.TryGetAbility("Attack", out abilitySpec);
+        }
+        else if (!abilitySpec.IsActive)
+        {
             return TaskStatus.Success;
-        else
-            return TaskStatus.Failure;
+        }
+        return TaskStatus.Running;
     }
 }
