@@ -17,7 +17,7 @@ public class ItemSaveData
         items = infos;
     }
 
-    public bool TryGetNewItem(ItemInfo newItem)
+    public bool TryGetNewItem(ItemInfo itemInfo,ExtraSave extra)
     {
         //生成二维数组Grid
         bool[,] grid = new bool[bagWidth, bagHeight];
@@ -36,14 +36,14 @@ public class ItemSaveData
         }
 
         Vector2Int itemPos;
-        if (TryFindItemPlace(grid, Dir.Down, newItem.width,newItem.height,out itemPos))
+        if (TryFindItemPlace(grid, Dir.Down, itemInfo.width,itemInfo.height,out itemPos))
         {
-            items.Add(ItemSaveFac.NewItemSave(newItem, itemPos, Dir.Down));
+            items.Add(new ItemSave(itemInfo.id, itemPos, Dir.Down,extra));
             return true;
         }
-        if (TryFindItemPlace(grid, Dir.Left, newItem.height, newItem.width, out itemPos))
+        if (TryFindItemPlace(grid, Dir.Left, itemInfo.height, itemInfo.width, out itemPos))
         {
-            items.Add(ItemSaveFac.NewItemSave(newItem, itemPos, Dir.Left));
+            items.Add(new ItemSave(itemInfo.id, itemPos, Dir.Left, extra));
             return true;
         }
         return false;
@@ -78,34 +78,4 @@ public class ItemSaveData
 
 }
 
-[System.Serializable]
-public class ItemSave
-{
-    public int id;
-    public Vector2Int pos;
-    public Dir dir;
-    public ItemSave(int id, Vector2Int pos,Dir dir)
-    {
-        this.id = id;
-        this.pos = pos;
-        this.dir = dir;
-    }
-}
 
-public static class ItemSaveFac
-{
-    public static ItemSave NewItemSave(ItemInfo info,Vector2Int pos,Dir dir)
-    {
-        switch (info.type) 
-        {
-            case ItemInfo.ItemType.Item:
-                return new ItemSave(info.id,pos,dir);
-            case ItemInfo.ItemType.Useable:
-                break;
-            case ItemInfo.ItemType.Gun:
-                GunItemInfo gunInfo = (GunItemInfo)info;
-                return new GunItemSave(info.id, pos, dir, gunInfo.fullAmmo,false);
-        }
-        return null;
-    }
-}

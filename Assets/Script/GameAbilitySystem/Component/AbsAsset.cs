@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,3 +7,4 @@ public class AbsAsset : ScriptableObject
 {
     public List<Pair<string, string>> AttributeSetting;
 }
+*/

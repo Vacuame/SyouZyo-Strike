@@ -138,6 +138,7 @@ public class PlayerCharacter : Character
         IKUpdate();
     }
 
+    //TODO 跑步时做FullBodyAction会打断动作，因为没做相关判断。（但是不影响，看不出来）
     #region MOVE
 
     private void Move()

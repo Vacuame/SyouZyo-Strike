@@ -10,6 +10,7 @@ public class PickableItem : InteractableObj
     private Material highLightMat;
     private List<Material[]> mats = new List<Material[]>();
     private List<Material[]> edgeMats = new List<Material[]>();
+    protected virtual ExtraSave extraSet { get => null; }
     private void Awake()
     {
         highLightMat = Resources.Load<Material>("Material/EdgeGlow");
@@ -21,15 +22,10 @@ public class PickableItem : InteractableObj
             edgeMats.Add(new Material[2] { render.material, highLightMat });
         }
     }
-/*    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-            SetSelected(!bSelected);
-    }*/
     public override void BeInteracted(PlayerCharacter character)
     {
         PlayerController controller = character.controller as PlayerController;
-        controller.GetNewItem(itemInfo);
+        controller.GetNewItem(itemInfo, extraSet);
         Destroy(gameObject);
     }
 

@@ -32,7 +32,7 @@ public class Interact : AbstractAbility<Interact_SO>
 
         public override void ActivateAbility(params object[] args)
         {
-            selectedInteractable.BeInteracted(args[0] as PlayerCharacter);
+            selectedInteractable?.BeInteracted(args[0] as PlayerCharacter);
 
             EndSelf();
         }

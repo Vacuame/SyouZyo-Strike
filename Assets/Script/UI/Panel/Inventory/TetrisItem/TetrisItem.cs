@@ -38,7 +38,7 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         switch(itemInfo.type)
         {
             case ItemInfo.ItemType.Gun:
-                GunItemSave gunSave = itemSave as GunItemSave;
+                GunItemSave gunSave = itemSave.extra as GunItemSave;
                 onUseTip.SetActive(gunSave.equiped);
                 gunSave.onEquipedChange += OnEquipedChange;
                 break;
@@ -59,7 +59,7 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         switch (itemInfo.type)
         {
             case ItemInfo.ItemType.Gun:
-                GunItemSave gunSave = itemSave as GunItemSave;
+                GunItemSave gunSave = itemSave.extra as GunItemSave;
                 gunSave.onEquipedChange -= OnEquipedChange;
                 break;
         }

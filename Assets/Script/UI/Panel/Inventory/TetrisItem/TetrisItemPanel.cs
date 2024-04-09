@@ -37,7 +37,7 @@ public class TetrisItemPanel : BasePanel
             case ItemInfo.ItemType.Gun:
                 Button btnEquip = GameObject.Instantiate(btnPrefab, transform);
                 btnEquip.onClick.AddListener(EquipWeapon);
-                GunItemSave gunSave = tetrisItemContext.itemSave as GunItemSave;
+                GunItemSave gunSave = tetrisItemContext.itemSave.extra as GunItemSave;
                 string txtUse = gunSave.equiped ? "卸下" : "装备";
                 btnEquip.GetComponentInChildren<Text>().text = txtUse;
                 break;
@@ -59,7 +59,7 @@ public class TetrisItemPanel : BasePanel
             if(character.ABS.TryActivateAbility("EquipItem",tetrisItemContext.itemInfo,tetrisItemContext.itemSave))
             {
                 //设置Save并显示已装备
-                GunItemSave gunSave = tetrisItemContext.itemSave as GunItemSave;
+                GunItemSave gunSave = tetrisItemContext.itemSave.extra as GunItemSave;
                 tetrisItemContext.tetrisItem.onUseTip.SetActive(gunSave.equiped);
             }
         }

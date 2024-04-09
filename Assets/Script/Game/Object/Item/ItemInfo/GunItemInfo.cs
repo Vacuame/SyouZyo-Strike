@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewGun", menuName = "Item/GunInfo")]
 public class GunItemInfo : ItemInfo
 {
-    public int fullAmmo;
+    public EquipedItem equipedItemPrefab;
 }

@@ -53,14 +53,14 @@ public class EquipItem : AbstractAbility<EquipItemAsset>
             if(newItemInfo.type == ItemInfo.ItemType.Gun)
             {
                 if(itemSave!=null && itemSave!=newItemSave)
-                    UnEquipGun(itemSave as GunItemSave);
+                    UnEquipGun(itemSave.extra as GunItemSave);
 
-                GunItemSave gunSave = newItemSave as GunItemSave;
+                GunItemSave gunSave = newItemSave.extra as GunItemSave;
                 weaponType = gunSave.equiped? 0:1;
                 //播放动画，实际是动画调用拿出道具的函数
                 anim.SetInteger("weaponType", weaponType);
                 if (!gunSave.equiped)
-                    EquipGun(newItemInfo, gunSave);
+                    EquipGun(newItemInfo, newItemSave);
                 else
                     UnEquipGun(gunSave);
 
@@ -74,12 +74,13 @@ public class EquipItem : AbstractAbility<EquipItemAsset>
             
         }
 
-        private void EquipGun(ItemInfo info,GunItemSave gunSave)
+        private void EquipGun(ItemInfo info,ItemSave save)
         {
             itemInfo = info;
-            itemSave = gunSave;
+            itemSave = save;
+            GunItemSave gunSave = itemSave.extra as GunItemSave;
 
-            equipedItem = GameObject.Instantiate(info.equipedItemPrefab,character.RightHandTransform);
+            equipedItem = GameObject.Instantiate(((GunItemInfo)info).equipedItemPrefab,character.RightHandTransform);
             character.equipingItem = equipedItem;
             Gun gun = equipedItem as Gun;
             gun.curAmmo = gunSave.curAmmo;
