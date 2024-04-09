@@ -5,5 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewAttackData", menuName = "ABS/Ability/Attack")]
 public class Attack_SO : AbilityAsset
 {
-    
+    public AnimParameter animPara;
+
+    public LayerMask targetMask;
+
+    public float dmg;
+
+    public float makeDmgTime, endTime;
 }

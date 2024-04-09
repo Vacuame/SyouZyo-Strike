@@ -7,7 +7,7 @@ public abstract class TimeLineAbilitySpec : AbilitySpec
     protected SkillTimeLine timeLine = new SkillTimeLine();
     public TimeLineAbilitySpec(AbstractAbility ability, AbilitySystemComponent owner) : base(ability, owner)
     {
-        InitTimeLine();
+
     }
 
     public abstract void InitTimeLine();

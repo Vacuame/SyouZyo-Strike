@@ -8,7 +8,7 @@ using static UnityEngine.UI.GridLayoutGroup;
 
 public enum PatrolType
 {
-    ReverseOnEnd,Circle
+    ReverseOnEnd, Circle
 }
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -18,15 +18,18 @@ public class Enemy : Character
     [HideInInspector] public NavMeshAgent nav;
     [HideInInspector] public BehaviorTree bt;
 
-    [SerializeField,Header("巡逻设置")] private Transform patrolPointList;
+    [SerializeField, Header("巡逻设置")] private Transform patrolPointList;
     [SerializeField] public PatrolType patrolType;
-    [HideInInspector]public List<Transform> patrolPoints;
+    [HideInInspector] public List<Transform> patrolPoints;
 
-    [Header("身体部位设置"),SerializeField] private List<Pair<string, List<Collider>>> parts;
-    private Dictionary<GameObject,string> partDict = new Dictionary<GameObject,string>();
+    [Header("身体部位设置"), SerializeField] private List<Pair<string, List<Collider>>> parts;
+    private Dictionary<GameObject, string> partDict = new Dictionary<GameObject, string>();
 
-    [SerializeField]private BodyPartSet partSetting;
+    [SerializeField] private BodyPartSet partSetting;
     private Dictionary<string, WeaknessData> weakDict = new Dictionary<string, WeaknessData>();
+
+    [Header("攻击设置")]
+    public BoxCollider normalAtkRange;
 
     protected override void Awake()
     {
@@ -34,7 +37,7 @@ public class Enemy : Character
         bt = GetComponent<BehaviorTree>();
         nav = GetComponent<NavMeshAgent>();
 
-        for(int i=0;i<patrolPointList.childCount;i++)
+        for (int i = 0; i < patrolPointList.childCount; i++)
         {
             patrolPoints.Add(patrolPointList.GetChild(i));
         }
@@ -43,7 +46,7 @@ public class Enemy : Character
         //给每个部位添加受击事件
         foreach (var partList in parts)
         {
-            foreach(var part in partList.value)
+            foreach (var part in partList.value)
             {
                 EventManager.Instance.AddListener<HitInfo>("Hit" + part.gameObject.GetInstanceID(), OnHit);
                 partDict.Add(part.gameObject, partList.key);
@@ -70,7 +73,7 @@ public class Enemy : Character
 
     protected override void OnHit(HitInfo hitInfo)
     {
-        if(bDead) return;
+        if (bDead) return;
         //计算伤害
         string partName = partDict[hitInfo.target];
         WeaknessData weakData = weakDict[partName];
@@ -103,22 +106,22 @@ public class Enemy : Character
 
     protected override void OnDeadEnd()
     {
-        
+
     }
 
 
-    private void OnBodyPartToughnessPost(AttributeBase toughness,float old,float now)
+    private void OnBodyPartToughnessPost(AttributeBase toughness, float old, float now)
     {
         if (bDead) return;
-        if(old>0 && now<= 0)
+        if (old > 0 && now <= 0)
         {
             toughness.RefreshCurValue();
             //获得Buff 失衡
             GameplayEffectAsset asset = Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/LoseBanlance");
             CuePlayAnim cuePlayAnim = asset.CueOnAdd[0] as CuePlayAnim;
-            CueLoseBanlance cueLoseBanlance = asset.CueDurational[0]as CueLoseBanlance;
+            CueLoseBanlance cueLoseBanlance = asset.CueDurational[0] as CueLoseBanlance;
             string loseBanlanceName;
-            if (toughness.ShortName=="Body" && nav.velocity.sqrMagnitude >= 4)
+            if (toughness.ShortName == "Body" && nav.velocity.sqrMagnitude >= 4)
                 loseBanlanceName = "Run";
             else
                 loseBanlanceName = toughness.ShortName;

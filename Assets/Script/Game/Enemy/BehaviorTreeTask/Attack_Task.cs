@@ -8,7 +8,7 @@ public class Attack_Task : EnemyAction
 {
     public override TaskStatus OnUpdate()
     {
-        if(me.ABS.TryActivateAbility("Attack", me))
+        if(me.ABS.TryActivateAbility("Attack", me,me.normalAtkRange))
             return TaskStatus.Success;
         else
             return TaskStatus.Failure;

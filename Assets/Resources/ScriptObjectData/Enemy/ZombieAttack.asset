@@ -12,10 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e219233d95239174eb32197c28cc2f10, type: 3}
   m_Name: ZombieAttack
   m_EditorClassIdentifier: 
-  abilityName: 
+  abilityName: Attack
   assetTags: []
   cancelAbilityTags: []
   blockAbilityTags: []
   activationOwnedTag: []
   activationRequiredTags: []
   activationBlockedTags: []
+  animPara:
+    animName: Attack
+    layerName: 
+    animParameters: []
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 64
+  dmg: 25
+  makeDmgTime: 1
+  endTime: 2

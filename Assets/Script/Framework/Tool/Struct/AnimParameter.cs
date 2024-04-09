@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 
 
+[System.Serializable]
 public class AnimParameter
 {
     public string animName;

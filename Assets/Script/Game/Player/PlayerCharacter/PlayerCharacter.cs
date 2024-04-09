@@ -81,6 +81,12 @@ public class PlayerCharacter : Character
         ABS.TryActivateAbility("Climb", anim, cc, transform);
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        EventManager.Instance.AddListener<HitInfo>("Hit" + gameObject.GetInstanceID(), OnHit);
+    }
+
     private void Start()
     {
         Climb_SO climbAsset = Resources.Load<Climb_SO>("ScriptObjectData/ClimbData");
@@ -242,6 +248,6 @@ public class PlayerCharacter : Character
 
     protected override void OnHit(HitInfo hitInfo)
     {
-        Debug.Log("Chara Be Hit");
+        Debug.Log("Chara Be Hit"+hitInfo.damage);
     }
 }
