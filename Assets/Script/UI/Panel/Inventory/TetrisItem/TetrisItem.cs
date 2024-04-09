@@ -76,8 +76,7 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     public void OnPointerClick(PointerEventData eventData)
     {
         if(eventData.button==PointerEventData.InputButton.Left)
-        UIManager.Instance.Push(new TetrisItemPanelContext
-            (TetrisItemPanel.uiType, Input.mousePosition,this));
+            UIManager.Instance.Push(new TetrisItemPanelContext(TetrisItemPanel.uiType, Input.mousePosition,this));
     }
 
     public void OnPointerDown(PointerEventData eventData)

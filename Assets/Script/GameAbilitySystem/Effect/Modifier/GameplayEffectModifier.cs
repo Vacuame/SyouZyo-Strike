@@ -1,19 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-
+using Object = UnityEngine.Object;
 
 [Serializable]
 public struct GameplayEffectModifier
 {
-    public string AttributeName;
-
-    [HideInInspector]
     public string AttributeSetName;
 
-    [HideInInspector]
     public string AttributeShortName;
 
     public float ModiferMagnitude;
@@ -25,19 +18,18 @@ public struct GameplayEffectModifier
     public ModifierMagnitudeCalculation MMC;
 
     public GameplayEffectModifier(
-        string attributeName,
+        string attributeSetName,
+        string attributeShortName,
         float modiferMagnitude,
         Tags.Calc operation,
         ValueType valueType,
         ModifierMagnitudeCalculation mmc)
     {
-        AttributeName = attributeName;
-        var splits = attributeName.Split('.');
-        AttributeSetName = splits[0];
-        AttributeShortName = splits[1];
+        AttributeSetName = attributeSetName;
+        AttributeShortName = attributeShortName;
         ModiferMagnitude = modiferMagnitude;
         Operation = operation;
         ValueType = valueType;
-        MMC = mmc;
+        MMC = mmc!=null ? Object.Instantiate(mmc):null;
     }
 }

@@ -31,10 +31,14 @@ public class Attack : AbstractAbility<Attack_SO>
         {
             me = args[0] as Character;
             collider = args[1] as Collider;
+            collider.enabled = true;
 
             base.ActivateAbility(args);
         }
-
+        public override void EndAbility()
+        {
+            collider.enabled = false;
+        }
         public override void InitTimeLine()
         {
             timeLine.AddEvent(0, () => asset.animPara.PlayAnim(me.anim));

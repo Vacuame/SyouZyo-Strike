@@ -7,7 +7,7 @@ using UnityEngine;
 public abstract class Move : EnemyAction
 {
     public SharedFloat maxSpeed;
-    float stopDistance = 1;
+    public SharedFloat stopDistance;
 
     public override TaskStatus OnUpdate()
     {
@@ -22,6 +22,6 @@ public abstract class Move : EnemyAction
         return TaskStatus.Running;
     }
     protected abstract Vector3 GetTargetPos();
-    protected virtual float GetStopDistance() => stopDistance;
+    protected virtual float GetStopDistance() => stopDistance.Value;
 
 }

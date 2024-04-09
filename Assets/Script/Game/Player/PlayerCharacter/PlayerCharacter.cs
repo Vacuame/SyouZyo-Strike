@@ -101,8 +101,8 @@ public class PlayerCharacter : Character
         interactAsset.cameraTransform = controller.playCamera.transform;
         ABS.GrandAbility(new Interact(interactAsset));
 
-        ABS.AttrSet<CharaAtrr>().health.onPostCurrentValueChange += OnHealthPost_HUD;
-        HUDManager.GetHUD<PlayerHUD>().SetHpValue(ABS.AttrSet<CharaAtrr>().health.GetProportion());
+        ABS.AttrSet<CharaAttr>().health.onPostCurrentValueChange += OnHealthPost_HUD;
+        HUDManager.GetHUD<PlayerHUD>().SetHpValue(ABS.AttrSet<CharaAttr>().health.GetProportion());
     }
 
     protected void Update()
@@ -251,11 +251,10 @@ public class PlayerCharacter : Character
     }
     private void OnHealthPost_HUD(AttributeBase health, float old, float now)
     {
-        HUDManager.GetHUD<PlayerHUD>().SetHpValue(ABS.AttrSet<CharaAtrr>().health.GetProportion());
+        HUDManager.GetHUD<PlayerHUD>().SetHpValue(ABS.AttrSet<CharaAttr>().health.GetProportion());
     }
     protected override void OnHit(HitInfo hitInfo)
     {
-        ABS.AttrSet<CharaAtrr>().health.SetValueRelative(hitInfo.damage, Tags.Calc.Sub);
-        Debug.Log((float)ABS.AttrSet<CharaAtrr>().health);
+        ABS.AttrSet<CharaAttr>().health.SetValueRelative(hitInfo.damage, Tags.Calc.Sub);
     }
 }

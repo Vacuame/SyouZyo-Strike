@@ -59,7 +59,7 @@ public class AttributeSetContainer
     }
     #endregion
 
-    #region ²é
+    #region É¾
     public void RemoveAttributeSet<T>() where T : AttributeSet
     {
         _attributeSets.Remove(nameof(T));

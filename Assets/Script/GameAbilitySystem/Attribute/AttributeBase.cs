@@ -26,12 +26,22 @@ public class AttributeBase
 
     public static implicit operator float(AttributeBase b) => b.CurrentValue;
 
-    public AttributeBase(string attrSetName, string attrName, float baseValue = 0)
+    public AttributeBase(string attrSetName, string attrName, float baseValue, bool limitZeroToBase = false)
     {
         SetName = attrSetName;
         FullName = $"{attrSetName}.{attrName}";
         ShortName = attrName;
         attrValue = new AttributeValue(baseValue);
+
+        if (limitZeroToBase)//ÏÞÖÆvalueÔÚ [0,Base]
+            onPreCurrentValueChange += (AttributeBase b, float value) =>
+            {
+                if (value > BaseValue)
+                    value = BaseValue;
+                if(value < 0)
+                    value = 0;
+                return value;
+            };
     }
 
     /// <summary>

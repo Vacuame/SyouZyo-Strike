@@ -42,8 +42,6 @@ public class ABTest : MonoBehaviour
             AssetManager.Instance.LoadAssetAsync<GameObject>("weapon", "UMP-45", 
                 (o) => { GameObject.Instantiate(o, Vector3.zero, Quaternion.identity); });
         }
-            
-
         //StartCoroutine(AbAsync("weapon", "UMP-45", Vector3.zero));
     }
 }

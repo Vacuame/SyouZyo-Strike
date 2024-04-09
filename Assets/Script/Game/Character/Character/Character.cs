@@ -31,8 +31,8 @@ public abstract class Character : Pawn
         ABS = GetComponent<AbilitySystemComponent>();
         ABS.Prepare();
 
-        ABS.AttributeSetContainer.AddAttributeSet(new CharaAtrr(characterAttribute));
-        ABS.AttrSet<CharaAtrr>().health.onPostCurrentValueChange += OnHealthPost;
+        ABS.AttributeSetContainer.AddAttributeSet(new CharaAttr(characterAttribute));
+        ABS.AttrSet<CharaAttr>().health.onPostCurrentValueChange += OnHealthPost;
 
     }
     protected virtual void OnHealthPost(AttributeBase health, float old, float now)

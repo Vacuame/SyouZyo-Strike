@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharaAtrr : AttributeSet
+public class CharaAttr : AttributeSet
 {
     public AttributeBase health;
 
-    public CharaAtrr(CharaAttr_SO asset)
+    public CharaAttr(CharaAttr_SO asset)
     {
-        health = new AttributeBase(SetName, "health", asset.health);
+        health = new AttributeBase(SetName, "health", asset.health,true);
     }
 
     public override AttributeBase this[string key]
