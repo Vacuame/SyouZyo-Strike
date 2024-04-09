@@ -28,7 +28,9 @@ public class InventoryPanel : BasePanel
     [SerializeField] private InventoryTetris delTetris;
     [HideInInspector]private List<InventoryTetris> inventoryTetrisList = new List<InventoryTetris>();
     [SerializeField] private RectTransform dragContainer;
-
+    [Header("Prefab")]
+    [SerializeField] private Transform _tetrisItemPrefab;
+    public Transform tetrisItemPrefab { get => _tetrisItemPrefab; }
     public InventoryDrager _inventoryDrager { get; private set; }
     public InventoryDrager inventoryDrager;
 

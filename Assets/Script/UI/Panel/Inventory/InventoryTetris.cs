@@ -70,7 +70,7 @@ public class InventoryTetris : MonoBehaviour
     }
     public void PlaceNewItem(ItemInfo itemSO, Vector2Int gridPos, Dir dir,ItemSave itemSave)
     {
-        Transform itemObject = Instantiate(itemSO.tetrisItemPrefab);
+        Transform itemObject = Instantiate(inventoryPanel.tetrisItemPrefab);
         TetrisItem item = itemObject.GetComponent<TetrisItem>();
         item.SetInfo(itemSO, itemSave);
         item.SetTetris(gridPos, dir, this);

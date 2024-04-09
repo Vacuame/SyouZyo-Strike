@@ -17,12 +17,13 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     [HideInInspector] public Dir dir;
     [HideInInspector] public Vector2Int gridPos;
 
+    [Header("Visual")]
     [SerializeField] private Image block;
     [SerializeField] private List<Pair<DragState, Color>> blockColorSetting;
-
+    [SerializeField] private Image img;
     public GameObject onUseTip;
-
     private CanvasGroup canvasGroup;
+
     public InventoryTetris inventoryTetris { get; private set; }
     private InventoryDrager InventoryDrager => inventoryTetris.inventoryPanel.inventoryDrager;
 
@@ -110,6 +111,7 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         block.color = color;
     }
 
+    private float _imgCellSize = 0;
     public void SetTetris(Vector2Int gridPos, Dir dir, InventoryTetris inventoryTetris)
     {
         this.gridPos = gridPos;
@@ -121,7 +123,36 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         Grid<ItemBlock>grid = inventoryTetris.GetGrid();
         Vector3 anchoredPostion =grid.GetTransformPosition(gridPos.x, gridPos.y) +
                        (Vector3)GetRotationOffset(itemInfo,dir) * grid.GetCellSize() / 2;
+
+        if(_imgCellSize!= grid.GetCellSize())
+            adjustVisualSize(grid.GetCellSize());
+
         transform.localPosition = anchoredPostion;
+    }
+
+    private void adjustVisualSize(float size)
+    {
+        _imgCellSize = size;
+        RectTransform rect = transform as RectTransform;
+        UIExtend.SetSize(rect, new Vector2(itemInfo.width, itemInfo.height) * _imgCellSize);
+
+        img.sprite = itemInfo.icon;
+        float spriteWidth = img.sprite.rect.width;
+        float spriteHeight = img.sprite.rect.height;
+        float blockWidthHeightRatio = (float)itemInfo.width / itemInfo.height;
+        float spriteWidthHeightRatio = spriteWidth / spriteHeight;
+        if (blockWidthHeightRatio > spriteWidthHeightRatio)//¿ò¸ü¿í
+        {
+            spriteHeight = itemInfo.height * _imgCellSize;
+            spriteWidth = spriteHeight * spriteWidthHeightRatio;
+        }
+        else
+        {
+            spriteWidth = itemInfo.width * _imgCellSize;
+            spriteHeight = spriteWidth / spriteWidthHeightRatio;
+        }
+        RectTransform imgRect = img.transform as RectTransform;
+        UIExtend.SetSize(imgRect, new Vector2(spriteWidth, spriteHeight));
     }
 
     public enum DragState

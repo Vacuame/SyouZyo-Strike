@@ -9,7 +9,7 @@ public class ItemInfo : ScriptableObject
     public string itemName;
     public int width;
     public int height;
-    public Transform tetrisItemPrefab;
+    public Sprite icon;
     public ItemType type;
 
     public enum ItemType
