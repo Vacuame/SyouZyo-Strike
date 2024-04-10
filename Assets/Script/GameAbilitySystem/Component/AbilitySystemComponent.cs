@@ -56,11 +56,13 @@ public class AbilitySystemComponent : MonoBehaviour
     #endregion
 
     #region GameplayTagAggregator
-    internal bool HasAllTags(GameplayTagSet activationRequiredTags)=>
+    public bool HasAllTags(GameplayTagSet activationRequiredTags)=>
         GameplayTagAggregator.HasAllTags(activationRequiredTags);
-    internal bool HasAnyTags(GameplayTagSet activationBlockedTags)=>
+    public bool HasAnyTags(GameplayTagSet activationBlockedTags)=>
         GameplayTagAggregator.HasAnyTags(activationBlockedTags);
-    internal void ApplyAbilityTags(AbilitySpec source)=>
+    public bool HasTag(GameplayTag tag) =>
+        GameplayTagAggregator.HasTag(tag);
+    public void ApplyAbilityTags(AbilitySpec source)=>
         GameplayTagAggregator.ApplyAbilityTags(source);
 
     #endregion

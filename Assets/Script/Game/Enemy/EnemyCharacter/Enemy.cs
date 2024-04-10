@@ -82,7 +82,9 @@ public class Enemy : Character
 
         //生命值和部位生命值都减少
         ABS.AttrSet<CharaAttr>().health.SetValueRelative(dmg, Tags.Calc.Sub);
-        ABS.AttrSet<BodyAttr>()[partName].SetValueRelative(dmg, Tags.Calc.Sub);
+
+        if (!ABS.HasTag("LoseBanlance"))
+            ABS.AttrSet<BodyAttr>()[partName].SetValueRelative(dmg, Tags.Calc.Sub);
 
         //发现玩家
         bt.SetVariableValue("Target", hitInfo.source);
