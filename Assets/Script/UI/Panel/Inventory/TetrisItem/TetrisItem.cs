@@ -23,6 +23,8 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     [SerializeField] private Image img;
     public GameObject onUseTip;
     private CanvasGroup canvasGroup;
+    //TODO 如果在deltetris则不可打开选单
+    //public bool useable;
 
     public InventoryTetris inventoryTetris { get; private set; }
     private InventoryDrager InventoryDrager => inventoryTetris.inventoryPanel.inventoryDrager;
@@ -36,17 +38,21 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         this.itemInfo = itemInfo;
         this.itemSave = itemSave;
 
+        itemSave.extra.onNumChanged += OnNumChanged;
+
         switch(itemInfo.type)
         {
             case ItemInfo.ItemType.Gun:
                 GunItemSave gunSave = itemSave.extra as GunItemSave;
                 onUseTip.SetActive(gunSave.equiped);
-                gunSave.onEquipedChange += OnEquipedChange;
+                gunSave.onEquipedChanged += OnEquipedChanged;
                 break;
         }
     }
 
-    public void OnEquipedChange(bool eq)
+    #region OnItemSaveChange
+
+    public void OnEquipedChanged(bool eq)
     {
         if (onUseTip!=null)
         {
@@ -54,21 +60,45 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         }
         
     }
+    public void OnNumChanged(int num)
+    {
+        if (num <= 0)
+            inventoryTetris.RemoveItemAt(gridPos);
+    }
+
+    #endregion
 
     private void OnDestroy()
     {
+        itemSave.extra.onNumChanged -= OnNumChanged;
         switch (itemInfo.type)
         {
             case ItemInfo.ItemType.Gun:
                 GunItemSave gunSave = itemSave.extra as GunItemSave;
-                gunSave.onEquipedChange -= OnEquipedChange;
+                gunSave.onEquipedChanged -= OnEquipedChanged;
                 break;
         }
     }
+    public void SetTetris(Vector2Int gridPos, Dir dir, InventoryTetris inventoryTetris)
+    {
+        this.gridPos = gridPos;
+        this.dir = dir;
+        this.inventoryTetris = inventoryTetris;
 
+        transform.SetParent(inventoryTetris.GetItemContainer());
+        transform.rotation = Quaternion.Euler(0, 0, GetRotationAngle(dir));
+        Grid<ItemBlock> grid = inventoryTetris.GetGrid();
+        Vector3 anchoredPostion = grid.GetTransformPosition(gridPos.x, gridPos.y) +
+                       (Vector3)GetRotationOffset(itemInfo, dir) * grid.GetCellSize() / 2;
+
+        if (_imgCellSize != grid.GetCellSize())
+            adjustVisualSize(grid.GetCellSize());
+
+        transform.localPosition = anchoredPostion;
+    }
     public List<Vector2Int> GetGridPositionList()
     {
-        return InventoryStatic.GetGridPositionList(gridPos, dir,itemInfo);
+        return InventoryStatic.GetGridPositionList(gridPos, dir, itemInfo);
     }
 
     #region Pointer
@@ -104,6 +134,7 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     }
     #endregion
 
+    #region 视觉效果
     public void SetBlockColor(DragState state)
     {
         var color = blockColorSetting.Find((a) => a.key == state).value;
@@ -111,24 +142,6 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     }
 
     private float _imgCellSize = 0;
-    public void SetTetris(Vector2Int gridPos, Dir dir, InventoryTetris inventoryTetris)
-    {
-        this.gridPos = gridPos;
-        this.dir = dir;
-        this.inventoryTetris = inventoryTetris;
-
-        transform.SetParent(inventoryTetris.GetItemContainer());
-        transform.rotation = Quaternion.Euler(0, 0, GetRotationAngle(dir));
-        Grid<ItemBlock>grid = inventoryTetris.GetGrid();
-        Vector3 anchoredPostion =grid.GetTransformPosition(gridPos.x, gridPos.y) +
-                       (Vector3)GetRotationOffset(itemInfo,dir) * grid.GetCellSize() / 2;
-
-        if(_imgCellSize!= grid.GetCellSize())
-            adjustVisualSize(grid.GetCellSize());
-
-        transform.localPosition = anchoredPostion;
-    }
-
     private void adjustVisualSize(float size)
     {
         _imgCellSize = size;
@@ -153,6 +166,8 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         RectTransform imgRect = img.transform as RectTransform;
         UIExtend.SetSize(imgRect, new Vector2(spriteWidth, spriteHeight));
     }
+
+    #endregion
 
     public enum DragState
     {

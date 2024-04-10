@@ -17,10 +17,6 @@ public class PlayerCharacter : Character
 {
     [HideInInspector] public static readonly string abilityRootPath = "ScriptObjectData/Player/Ability/";
 
-    //TODO 之后不要这个变量
-    [SerializeField, Header("DEBUG")]
-    public EquipedItem equipingItem;
-
     #region 变量
 
     [Header("绑定")]
@@ -59,7 +55,7 @@ public class PlayerCharacter : Character
     #endregion
 
     #endregion
-
+    
     public override void SetController(Controller controller)
     {
         base.SetController(controller);

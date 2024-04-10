@@ -9,14 +9,14 @@ using MoleMole;
 /// </summary>
 public class PlayerController : Controller
 {
-    private ItemSaveData itemSave;
+    private ItemSaveData itemSaveData;
 
     protected override void Start()
     {
         base.Start();
-        itemSave = new ItemSaveData(11,7,new List<ItemSave>());
-        itemSave.items.Add(new ItemSave(1, new Vector2Int(2, 4),InventoryStatic.Dir.Down,new GunItemSave(24, false)));
-        itemSave.items.Add(new ItemSave(2, new Vector2Int(0, 0), InventoryStatic.Dir.Down,null));
+        itemSaveData = new ItemSaveData(11,7,new List<ItemSave>());
+        itemSaveData.items.Add(new ItemSave(1, new Vector2Int(2, 4),InventoryStatic.Dir.Down,new GunItemSave(24, false),itemSaveData));
+        itemSaveData.items.Add(new ItemSave(2, new Vector2Int(0, 0), InventoryStatic.Dir.Down,new ExtraSave(1), itemSaveData));
     }
 
     protected override void ControlPawn(Pawn pawn)
@@ -37,7 +37,7 @@ public class PlayerController : Controller
         base.Update();
 
         if (Input.GetKeyDown(KeyCode.Tab))
-            UIManager.Instance.SwitchOnPeek(new InventoryPanelContext(InventoryPanel.uiType,this,itemSave,InventoryPanel.emptyDelTetrisData));
+            UIManager.Instance.SwitchOnPeek(new InventoryPanelContext(InventoryPanel.uiType,this,itemSaveData,InventoryPanel.emptyDelTetrisData));
 
 /*        if(Input.GetKeyDown(KeyCode.Alpha0))
         {
@@ -48,7 +48,7 @@ public class PlayerController : Controller
 
     public void GetNewItem(ItemInfo itemInfo,ExtraSave extra)
     {
-        if (!itemSave.TryGetNewItem(itemInfo,extra))
+        if (!itemSaveData.TryGetNewItem(itemInfo,extra))
         {
             ItemSaveData delTetrisData = InventoryPanel.emptyDelTetrisData;
             InventoryStatic.Dir dir = InventoryStatic.Dir.Down;
@@ -57,9 +57,9 @@ public class PlayerController : Controller
             int height = dir == InventoryStatic.Dir.Down ? itemInfo.height : itemInfo.width;
 
             delTetrisData.items.Add(new ItemSave(
-                itemInfo.id, new Vector2Int(0, delTetrisData.bagHeight - height), dir,extra));
+                itemInfo.id, new Vector2Int(0, delTetrisData.bagHeight - height), dir,extra,null));
 
-            UIManager.Instance.Push(new InventoryPanelContext(InventoryPanel.uiType,this, itemSave, delTetrisData));
+            UIManager.Instance.Push(new InventoryPanelContext(InventoryPanel.uiType,this, itemSaveData, delTetrisData));
         }
     }
 }

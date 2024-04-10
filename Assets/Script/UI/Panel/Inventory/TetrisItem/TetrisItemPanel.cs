@@ -78,6 +78,7 @@ public class TetrisItemPanel : BasePanel
         {
             character.ABS.ApplyGameplayEffectToSelf(new GameplayEffect(asset));
         }
+        itemSave.extra.num--;
         UIManager.Instance.Pop();
     }
     private void Update()

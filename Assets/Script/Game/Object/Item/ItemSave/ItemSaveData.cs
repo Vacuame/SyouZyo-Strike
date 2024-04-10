@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using static InventoryStatic;
-using static UnityEditor.Progress;
 
 public class ItemSaveData
 {
@@ -38,12 +36,12 @@ public class ItemSaveData
         Vector2Int itemPos;
         if (TryFindItemPlace(grid, Dir.Down, itemInfo.width,itemInfo.height,out itemPos))
         {
-            items.Add(new ItemSave(itemInfo.id, itemPos, Dir.Down,extra));
+            items.Add(new ItemSave(itemInfo.id, itemPos, Dir.Down,extra,this));
             return true;
         }
         if (TryFindItemPlace(grid, Dir.Left, itemInfo.height, itemInfo.width, out itemPos))
         {
-            items.Add(new ItemSave(itemInfo.id, itemPos, Dir.Left, extra));
+            items.Add(new ItemSave(itemInfo.id, itemPos, Dir.Left, extra,this));
             return true;
         }
         return false;

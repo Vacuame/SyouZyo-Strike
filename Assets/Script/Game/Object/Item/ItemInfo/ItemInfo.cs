@@ -9,6 +9,7 @@ public class ItemInfo : ScriptableObject
     public string itemName;
     public int width;
     public int height;
+    public int maxStackNum = 1;
     public Sprite icon;
     public ItemType type;
 

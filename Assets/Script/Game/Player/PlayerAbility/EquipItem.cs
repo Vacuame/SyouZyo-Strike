@@ -81,7 +81,6 @@ public class EquipItem : AbstractAbility<EquipItemAsset>
             GunItemSave gunSave = itemSave.extra as GunItemSave;
 
             equipedItem = GameObject.Instantiate(((GunItemInfo)info).equipedItemPrefab,character.RightHandTransform);
-            character.equipingItem = equipedItem;
             Gun gun = equipedItem as Gun;
             gun.curAmmo = gunSave.curAmmo;
             character.leftFollow = gun.handGuard;
@@ -125,15 +124,15 @@ public class EquipItem : AbstractAbility<EquipItemAsset>
         }
 
         private void AimSt(CallbackContext context) =>
-                owner.TryActivateAbility("Aim",character,chestRig);
+                owner.TryActivateAbility("Aim",character,chestRig,equipedItem);
         private void AimEd(CallbackContext context) =>
             owner.TryEndAbility("Aim");
         private void ShootSt(CallbackContext context) =>
-                owner.TryActivateAbility("Shoot", character.equipingItem);
+                owner.TryActivateAbility("Shoot", equipedItem);
         private void ShootEd(CallbackContext context) =>
             owner.TryEndAbility("Shoot");
         private void Reload(CallbackContext context) =>
-            owner.TryActivateAbility("Reload",anim,character.equipingItem);
+            owner.TryActivateAbility("Reload",anim, equipedItem);
 
         public override void InitTimeLine()
         {

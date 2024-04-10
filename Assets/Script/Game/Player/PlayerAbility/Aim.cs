@@ -27,7 +27,7 @@ public class Aim : AbstractAbility<Aim_SO>
         }
 
         PlayerCharacter character;
-        Gun gun =>character.equipingItem as Gun;
+        Gun gun;
         Animator anim;
         Rig chestRig;
         /// <param name="args">PlayerCharacter , Rig</param>
@@ -36,6 +36,7 @@ public class Aim : AbstractAbility<Aim_SO>
             character = args[0] as PlayerCharacter;
             anim = character.anim;
             chestRig = args[1] as Rig;
+            gun = args[2] as Gun;
 
             character.bAiming = true;
             character.controller.playCamera.SwitchCamera(Tags.Camera.Aim);

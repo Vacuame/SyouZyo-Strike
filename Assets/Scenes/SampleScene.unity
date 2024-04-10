@@ -963,6 +963,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8968566408739344569, guid: dfdd3c16dc245d14c9cd99d465db500a,
         type: 3}
+      propertyPath: gunSet.num
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8968566408739344569, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
       propertyPath: gunSet.curAmmo
       value: 7
       objectReference: {fileID: 0}
@@ -1150,6 +1155,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ak-47_Pickable (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8968566408739344569, guid: dfdd3c16dc245d14c9cd99d465db500a,
+        type: 3}
+      propertyPath: gunSet.num
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2247,22 +2257,22 @@ PrefabInstance:
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.61120665
+      value: 0.6112072
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.031191738
+      value: 0.031180702
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7898508
+      value: -0.7898513
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.039866205
+      value: 0.03985525
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}

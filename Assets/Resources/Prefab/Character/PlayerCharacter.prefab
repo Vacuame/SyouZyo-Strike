@@ -2222,7 +2222,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 1.55
-  m_Radius: 0.22
+  m_Radius: 0.27
   m_SlopeLimit: 45
   m_StepOffset: 0.4
   m_SkinWidth: 0.03
@@ -2268,7 +2268,6 @@ MonoBehaviour:
   ABS: {fileID: 0}
   feetTransform: {fileID: 3766168569392332772}
   characterAttribute: {fileID: 11400000, guid: 3ac0049d7098a6b48b941a5251ab2312, type: 2}
-  equipingItem: {fileID: 0}
   RightHandTransform: {fileID: 15587151842338838}
   walkMaxSpeed: 2
   runMaxSpeed: 5

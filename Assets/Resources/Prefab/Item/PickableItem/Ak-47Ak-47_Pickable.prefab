@@ -73,6 +73,37 @@ MonoBehaviour:
   - {fileID: 5314905942234359331}
   - {fileID: 5314905942234359329}
   gunSet:
+    itemSave:
+      id: 0
+      pos: {x: 0, y: 0}
+      dir: 0
+      extra:
+        itemSave:
+          id: 0
+          pos: {x: 0, y: 0}
+          dir: 0
+          extra:
+            itemSave:
+              id: 0
+              pos: {x: 0, y: 0}
+              dir: 0
+              extra:
+                itemSave:
+                  id: 0
+                  pos: {x: 0, y: 0}
+                  dir: 0
+                  extra:
+                    itemSave:
+                      id: 0
+                      pos: {x: 0, y: 0}
+                      dir: 0
+                      extra:
+                        _num: 0
+                    _num: 0
+                _num: 0
+            _num: 0
+        _num: 0
+    _num: 1
     curAmmo: 4
 --- !u!1001 &5314905942232333891
 PrefabInstance:
