@@ -72,8 +72,6 @@ public class PlayerCharacter : Character
 
     private void OnInteractPressed(CallbackContext context)
     {
-/*        Climb.ClimbSpec climb;
-        climb = ABS.AbilityContainer.TryGetAbility("Climb") as Climb.ClimbSpec;*/
         ABS.TryActivateAbility("Interact",this);
         ABS.TryActivateAbility("Climb", anim, cc, transform);
     }
@@ -88,9 +86,11 @@ public class PlayerCharacter : Character
     {
         Climb_SO climbAsset = Resources.Load<Climb_SO>("ScriptObjectData/ClimbData");
         ABS.GrandAbility(new Climb(climbAsset));
+
         EquipItemAsset equipAsset = Instantiate(Resources.Load<EquipItemAsset>(abilityRootPath+"EquipData"));
         equipAsset.Bind(this, chestRig);
         ABS.GrandAbility(new EquipItem(equipAsset));
+
         Interact_SO interactAsset = Resources.Load<Interact_SO>(abilityRootPath + "InteractData");
         interactAsset = Instantiate(interactAsset);
         interactAsset.centerTransform = centerTransform;
@@ -229,15 +229,6 @@ public class PlayerCharacter : Character
         
     }
     #endregion
-
-/*    #region 动画使用的函数
-    private void SetWeapon(int active)
-    {
-        bool isActive = active == 0 ? false : true;
-        curGun.user = this;
-        curGun.gameObject.SetActive(isActive);
-    }
-    #endregion*/
 
     private void IKUpdate()
     {

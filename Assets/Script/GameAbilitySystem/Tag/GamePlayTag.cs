@@ -13,6 +13,11 @@ public struct GameplayTag
     [SerializeField] private int[] _ancestorHashCodes;
     [SerializeField] private string[] _ancestorNames;//Tag是树状结构，逐层记录上级的名字（a a.b a.b.c）
 
+    public static implicit operator GameplayTag(string name)//适用于没有树形结构的标签，隐式转换比较方便
+    {
+        return new GameplayTag(name);
+    }
+
     public GameplayTag(string name)
     {
         _name = name;

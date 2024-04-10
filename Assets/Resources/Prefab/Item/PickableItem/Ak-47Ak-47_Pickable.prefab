@@ -49,7 +49,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -73,36 +73,6 @@ MonoBehaviour:
   - {fileID: 5314905942234359331}
   - {fileID: 5314905942234359329}
   gunSet:
-    itemSave:
-      id: 0
-      pos: {x: 0, y: 0}
-      dir: 0
-      extra:
-        itemSave:
-          id: 0
-          pos: {x: 0, y: 0}
-          dir: 0
-          extra:
-            itemSave:
-              id: 0
-              pos: {x: 0, y: 0}
-              dir: 0
-              extra:
-                itemSave:
-                  id: 0
-                  pos: {x: 0, y: 0}
-                  dir: 0
-                  extra:
-                    itemSave:
-                      id: 0
-                      pos: {x: 0, y: 0}
-                      dir: 0
-                      extra:
-                        _num: 0
-                    _num: 0
-                _num: 0
-            _num: 0
-        _num: 0
     _num: 1
     curAmmo: 4
 --- !u!1001 &5314905942232333891

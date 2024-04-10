@@ -16,6 +16,7 @@ public class Interact : AbstractAbility<Interact_SO>
 
     public class InteractSpec : AbilitySpec
     {
+        public static readonly string interactSelectedTag = "interactSelected";
         private Interact_SO asset => interact.AbilityAsset;
         private Interact interact;
 
@@ -59,6 +60,7 @@ public class Interact : AbstractAbility<Interact_SO>
                                             wasInteraction.SetSelected(false);*/
                     selectedInteractable?.SetSelected(false);
                     interactable.SetSelected(true);
+                    owner.GameplayTagAggregator.AddDynamicTag(interactSelectedTag, this);
                     selectedInteractable = interactable;
                 }
                 //selectedInteractTarget = interactTarget;
@@ -68,6 +70,7 @@ public class Interact : AbstractAbility<Interact_SO>
 /*                if (Calc.TryGetInterfaceInTransform(selectedInteractTarget, out IInteractable wasInteraction))
                     wasInteraction.SetSelected(false);*/
                 selectedInteractable?.SetSelected(false);
+                owner.GameplayTagAggregator.RemoveDynamicTag(interactSelectedTag, this);
                 selectedInteractable = null;
             }
         }
