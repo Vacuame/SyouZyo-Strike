@@ -46,7 +46,7 @@ public class EquipedGun : EquipedItem
     private float spread;
     private float heat;
     private float minHeat, maxHeat;
-    public float sightDistance => Screen.height * spread / 200f;
+    public float sightDistance => Screen.height * spread * spreadMultiplier / 200f;
 
     [SerializeField] float onAimHeat;
 
@@ -60,8 +60,10 @@ public class EquipedGun : EquipedItem
 
     //扩散倍率
     private float spreadMultiplier;
+    private float moveMultiplier;
     [SerializeField]private Vector2 moveSpeedRange;
     [SerializeField]private Vector2 moveMultiplierRange;
+    [SerializeField] private float moveMultiplierTransSpeed;
     #endregion
 
     #region 生命周期
@@ -110,7 +112,17 @@ public class EquipedGun : EquipedItem
     #region 扩散
     private void CalculateHeatRange()
     {
+        float min1 = heatToSpreadCurve.keys[0].time;
+        float max1 = heatToSpreadCurve.keys[heatToSpreadCurve.keys.Length-1].time;
 
+        float min2 = heatToHeatPerShotCurve.keys[0].time;
+        float max2 = heatToHeatPerShotCurve.keys[heatToSpreadCurve.keys.Length - 1].time;
+
+        float min3 = heatToCoolDownPerSecondCurve.keys[0].time;
+        float max3 = heatToCoolDownPerSecondCurve.keys[heatToSpreadCurve.keys.Length - 1].time;
+
+        minHeat = Mathf.Min(min1, Mathf.Min(min2, min3));
+        maxHeat = Mathf.Min(max1, Mathf.Min(max2, max3));
     }
     private void UpdateSpread()
     {
@@ -130,9 +142,10 @@ public class EquipedGun : EquipedItem
     private void UpdateSpreadMultiplier()
     {
         float moveSpeed = user.cc.velocity.magnitude;
-        float moveMultiplier = Calc.GetMappedRangeValueClamped(moveSpeedRange, moveMultiplierRange, moveSpeed);
+        float moveMultiplierTarget = Calc.GetMappedRangeValueClamped(moveSpeedRange, moveMultiplierRange, moveSpeed);
+        moveMultiplier = Mathf.MoveTowards(moveMultiplier, moveMultiplierTarget, moveMultiplierTransSpeed * Time.deltaTime);
 
-        spreadMultiplier = moveMultiplier;
+        spreadMultiplier = moveMultiplierTarget;
     }
     #endregion
 

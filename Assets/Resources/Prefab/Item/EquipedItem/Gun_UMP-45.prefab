@@ -387,6 +387,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   moveSpeedRange: {x: 0.5, y: 5}
   moveMultiplierRange: {x: 1, y: 1.5}
+  moveMultiplierTransSpeed: 1
 --- !u!1 &5666705742200522691
 GameObject:
   m_ObjectHideFlags: 0
