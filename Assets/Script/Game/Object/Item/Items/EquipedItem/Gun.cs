@@ -78,7 +78,6 @@ public class Gun : EquipedItem
                 spreadShrinkSpeed = minSpreadShrinkSpeed;
                 shrinkWaitTimer = aimShrinkWait;
             }
-                
 
             sightDistance = Screen.height * (spread) / 200;
 

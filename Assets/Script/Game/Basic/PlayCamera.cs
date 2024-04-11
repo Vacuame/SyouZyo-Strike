@@ -5,11 +5,14 @@ using UnityEngine;
 using GameBasic;
 public class PlayCamera : MonoBehaviour
 {
-    [SerializeField] private MultiSetting<Tags.Camera, CinemachineVirtualCamera> cameras;
+    public Camera cameraComponent { get; private set; }
+    public CinemachineBrain cameraBrain { get; private set; }
+
     [SerializeField] public Transform frontTransform;
+    [SerializeField] private MultiSetting<Tags.Camera, CinemachineVirtualCamera> cameras;
     private Tags.Camera _curCameraTag = Tags.Camera.Normal;
     private CinemachineVirtualCamera curCamera;
-    private CinemachineBrain cameraBrain;
+    
     private Transform target;
 
     private Tags.Camera curCameraTag
@@ -25,6 +28,9 @@ public class PlayCamera : MonoBehaviour
     private void Awake()
     {
         curCameraTag = Tags.Camera.Normal;
+
+        cameraComponent = GetComponent<Camera>();
+        cameraBrain = GetComponent<CinemachineBrain>();
     }
 
     public void SetCameraTarget(Transform target)

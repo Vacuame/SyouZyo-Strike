@@ -17,5 +17,6 @@ MonoBehaviour:
   cancelAbilityTags: []
   blockAbilityTags: []
   activationOwnedTag: []
-  activationRequiredTags: []
+  activationRequiredTags:
+  - Aim
   activationBlockedTags: []

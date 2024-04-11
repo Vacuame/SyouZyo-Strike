@@ -36,6 +36,13 @@ public static class Calc
         while (res.sqrMagnitude > radius * radius);
         return res+pos;
     }
+    public static float GetMappedRangeValueClamped(Vector2 inputRange,Vector2 outputRange,float input)
+    {
+        input = Mathf.Clamp(input, inputRange.x, inputRange.y);
+        float ratio = (input - inputRange.x)/(inputRange.y-inputRange.x);
+        return Mathf.Lerp(outputRange.x, outputRange.y, ratio);
+
+    }
 
     public static int GetUnuseIntInDic(IDictionary dic)
     {

@@ -8,14 +8,11 @@ using UnityEngine;
 public class EquipedItem : MonoBehaviour
 {
     public readonly static string rootPath = "Prefab/Item/EquipedItem/";
-    [HideInInspector]public Character user;
-    public virtual void Init(Character charaBase)
-    {
-        this.user = charaBase;
-    }
-    public virtual void TakeOut()
-    {
+    [HideInInspector]public PlayerCharacter user;
 
+    public virtual void TakeOut(PlayerCharacter user)
+    {
+        this.user = user;
     }
     public virtual void PutIn() 
     {
