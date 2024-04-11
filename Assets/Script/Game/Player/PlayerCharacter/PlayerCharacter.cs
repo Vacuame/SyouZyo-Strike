@@ -40,7 +40,7 @@ public class PlayerCharacter : Character
     private bool bCanMove = true;
     private bool bRuning;
     private bool bInjured;
-    public bool bAiming;
+    //public bool bAiming;
     #endregion
 
     #region 移动状态变量
@@ -51,11 +51,18 @@ public class PlayerCharacter : Character
     [SerializeField, Header("IK Rig")] public Rig twoHandRig;
     [SerializeField] public Rig chestRig;
     [SerializeField] public TwoBoneIKConstraint leftHandRig;
-    [SerializeField] public Transform leftFollow;
+    [HideInInspector] public Transform leftFollow;
+    #endregion
+
+    #region 动画参数
+
+    [Header("动画参数")]
+    [SerializeField] private float injuryProportion;
+
     #endregion
 
     #endregion
-    
+
     public override void SetController(Controller controller)
     {
         base.SetController(controller);
@@ -97,7 +104,7 @@ public class PlayerCharacter : Character
         interactAsset.cameraTransform = controller.playCamera.transform;
         ABS.GrandAbility(new Interact(interactAsset));
 
-        ABS.AttrSet<CharaAttr>().health.onPostCurrentValueChange += OnHealthPost_HUD;
+        //ABS.AttrSet<CharaAttr>().health.onPostCurrentValueChange += OnHealthPost_Player;
         HUDManager.GetHUD<PlayerHUD>().SetHpValue(ABS.AttrSet<CharaAttr>().health.GetProportion());
     }
 
@@ -152,7 +159,7 @@ public class PlayerCharacter : Character
         Vector2 targetSpeed = input_move;
         float moveSpdThres;
 
-        if (bAiming)
+        if (ABS.HasTag("Aim"))
         {
             RotateToCamera();
         }
@@ -236,9 +243,20 @@ public class PlayerCharacter : Character
             leftHandRig.data.target.transform.position = leftFollow.position;
         twoHandRig.weight = anim.GetFloat("rigWeight");
     }
-    private void OnHealthPost_HUD(AttributeBase health, float old, float now)
+    protected override void OnHealthPost(AttributeBase health, float old, float now)
     {
-        HUDManager.GetHUD<PlayerHUD>().SetHpValue(ABS.AttrSet<CharaAttr>().health.GetProportion());
+        float proportion = ABS.AttrSet<CharaAttr>().health.GetProportion();
+
+        float injuryHealth = health.BaseValue * injuryProportion;
+        bInjured = now <= injuryHealth;
+        if (old > injuryHealth && now <= injuryHealth)
+            anim.SetLayerWeight(anim.GetLayerIndex("Injury"), 1);
+        else if (old <= injuryHealth && now > injuryHealth)
+            anim.SetLayerWeight(anim.GetLayerIndex("Injury"), 0);
+
+        HUDManager.GetHUD<PlayerHUD>().SetHpValue(proportion);
+
+        base.OnHealthPost(health, old, now);
     }
     protected override void OnHit(HitInfo hitInfo)
     {

@@ -127,14 +127,4 @@ public class AbilitySystemComponent : MonoBehaviour
 
     #endregion
 
-    public static GameAbilitySystem GetGameAbilitySystem()
-    {
-        if (GameAbilitySystem.Instance == null && Application.isPlaying)
-        {
-            GameObject gameObject = new GameObject();
-            gameObject.name = "GameAbilitySystem";
-            return gameObject.AddComponent<GameAbilitySystem>();
-        }
-        return GameAbilitySystem.Instance;
-    }
 }

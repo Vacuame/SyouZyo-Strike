@@ -44,5 +44,5 @@ public abstract class Character : Pawn
     }
     protected abstract void OnHit(HitInfo hitInfo);
     protected abstract void Dead();
-    protected abstract void OnDeadEnd();
+    protected abstract void OnDeadEnd();//TODO ∫√œÒ√ª”√£ø
 }

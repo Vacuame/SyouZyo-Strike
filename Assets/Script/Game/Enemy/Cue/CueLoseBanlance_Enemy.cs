@@ -9,7 +9,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 /// 处理LoseBanlance的实际逻辑
 /// </summary>
 [CreateAssetMenu(fileName = "NewData", menuName = "ABS/GameplayEffect/Cue/LoseBanlance")]
-public class CueLoseBanlance : GameplayCueDurational
+public class CueLoseBanlance_Enemy : GameplayCueDurational
 {
     [Serializable]
     public struct PartBalanceSet

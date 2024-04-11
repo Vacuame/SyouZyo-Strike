@@ -9,15 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b6be872273c9b14696f37e241cb097f, type: 3}
-  m_Name: Aim
+  m_Script: {fileID: 11500000, guid: e79149fed66969b44bb0ab7768f1b491, type: 3}
+  m_Name: EndAllAbility
   m_EditorClassIdentifier: 
-  abilityName: 
-  assetTags:
-  - Aim
-  cancelAbilityTags: []
-  blockAbilityTags: []
-  activationOwnedTag:
-  - Aim
-  activationRequiredTags: []
-  activationBlockedTags: []
+  RequiredTags: []
+  ImmunityTags: []
+  applyTarget: 0
+  endAll: 1
+  endNames: []

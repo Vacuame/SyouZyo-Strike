@@ -10,22 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a5b96ca076f1ca408152999eb1e8934, type: 3}
-  m_Name: LoseBanlance
+  m_Name: PlayerOnHit
   m_EditorClassIdentifier: 
   period: 0
-  duration: 2.5
-  durationPolicy: 3
+  duration: 0.5
+  durationPolicy: 0
   assetTags: []
   grantedTags:
   - LoseBanlance
   applicationRequiredTags: []
   removeGameplayEffectsWithTags: []
-  applicationImmunityTags:
-  - LoseBanlance
+  applicationImmunityTags: []
   CueOnExecute: []
   CueOnRemove: []
   CueOnAdd:
+  - {fileID: 11400000, guid: df762165c09ba3a46ab8bd7e353ca21e, type: 2}
   - {fileID: 11400000, guid: 3e3b080c309df144b9d8dc6f0238f6ca, type: 2}
-  CueDurational:
-  - {fileID: 11400000, guid: 0e46baa0983ec3544ae4a0f546ec2fd9, type: 2}
+  CueDurational: []
   Modifiers: []

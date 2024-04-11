@@ -2282,6 +2282,7 @@ MonoBehaviour:
   chestRig: {fileID: 3124507856788047127}
   leftHandRig: {fileID: 7818829372149701297}
   leftFollow: {fileID: 0}
+  injuryProportion: 0.25
 --- !u!114 &4307293862690404262
 MonoBehaviour:
   m_ObjectHideFlags: 0

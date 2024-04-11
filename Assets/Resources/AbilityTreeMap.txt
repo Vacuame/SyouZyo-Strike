@@ -1,5 +1,6 @@
 Action
 	HandAction
 		SubHand
+			Aim
 	FullBodyAction
 		SubFull

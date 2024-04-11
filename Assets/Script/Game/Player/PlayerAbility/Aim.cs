@@ -38,7 +38,7 @@ public class Aim : AbstractAbility<Aim_SO>
             chestRig = args[1] as Rig;
             gun = args[2] as Gun;
 
-            character.bAiming = true;
+            //character.bAiming = true;
             character.controller.playCamera.SwitchCamera(Tags.Camera.Aim);
             chestRig.weight = 1;
             anim.SetBool("aiming", true);
@@ -52,7 +52,7 @@ public class Aim : AbstractAbility<Aim_SO>
 
         public override void EndAbility()
         {
-            character.bAiming = false;
+            //character.bAiming = false;
             character.controller.playCamera.SwitchCamera(Tags.Camera.Normal);
             chestRig.weight = 0;
             anim.SetBool("aiming", false);
