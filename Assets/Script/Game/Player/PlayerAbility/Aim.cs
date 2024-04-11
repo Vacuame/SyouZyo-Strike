@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
-using UnityEngine.TextCore.Text;
 
 public class Aim : AbstractAbility<Aim_SO>
 {

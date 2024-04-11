@@ -11,9 +11,10 @@ public abstract class AbstractAbility
     public AbstractAbility(AbilityAsset setAsset)
     {
         Name = setAsset.abilityName != ""? setAsset.abilityName: GetType().Name;
+
         Tag = new AbilityTagContainer(setAsset.assetTags, setAsset.cancelAbilityTags,
            setAsset.blockAbilityTags, setAsset.activationOwnedTag,
-           setAsset.activationRequiredTags,setAsset.blockAbilityTags);
+           setAsset.activationRequiredTags,setAsset.activationBlockedTags);
     }
 
     public AbilityTagContainer Tag;

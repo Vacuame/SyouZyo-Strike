@@ -20,4 +20,5 @@ MonoBehaviour:
   activationOwnedTag:
   - Aim
   activationRequiredTags: []
-  activationBlockedTags: []
+  activationBlockedTags:
+  - LoseBanlance

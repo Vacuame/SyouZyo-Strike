@@ -254,6 +254,12 @@ public class PlayerCharacter : Character
         else if (old <= injuryHealth && now > injuryHealth)
             anim.SetLayerWeight(anim.GetLayerIndex("Injury"), 0);
 
+        if (now < old)
+        {
+            ABS.ApplyGameplayEffectToSelf(new GameplayEffect(
+                Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/PlayerOnHit")));
+        }
+            
         HUDManager.GetHUD<PlayerHUD>().SetHpValue(proportion);
 
         base.OnHealthPost(health, old, now);

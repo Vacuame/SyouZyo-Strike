@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlayerOnHit
   m_EditorClassIdentifier: 
   period: 0
-  duration: 0.5
-  durationPolicy: 0
+  duration: 1
+  durationPolicy: 3
   assetTags: []
   grantedTags:
   - LoseBanlance
