@@ -2075,6 +2075,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 4397823121929837022, guid: 078c8994ff1d02848a746d3d7253db8a,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Right arm'\n\tTransform 'Left arm'\n\tTransform
+        'Left elbow'\n\tTransform 'Right elbow'\n\tTransform 'Left wrist'\n\tTransform
+        'Right wrist'\n\tTransform 'Right arm'\n\tTransform 'Left arm'\n\tTransform
+        'Left elbow'\n\tTransform 'Right elbow'\n\tand more ..."
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2165,6 +2175,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Zombie1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3636990778020659892, guid: 85bd9869aa6533142b51d42d1ff71190,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4820614624295675961, guid: 85bd9869aa6533142b51d42d1ff71190,
         type: 3}
@@ -2257,22 +2272,22 @@ PrefabInstance:
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6112081
+      value: 0.6112124
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.031163493
+      value: 0.031077817
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7898522
+      value: -0.7898565
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.039838236
+      value: 0.039752953
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}

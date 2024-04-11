@@ -8,7 +8,7 @@ using UnityEngine;
 public class Look : EnemyConditional
 {
     public SharedGameObject target;
-    private ConeDetector eye;
+    [SerializeField]private ConeDetector eye;
 
     public override void OnAwake()
     {

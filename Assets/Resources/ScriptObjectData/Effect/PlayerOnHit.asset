@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerOnHit
   m_EditorClassIdentifier: 
   period: 0
-  duration: 1
+  duration: 0.85
   durationPolicy: 3
   assetTags: []
   grantedTags:
