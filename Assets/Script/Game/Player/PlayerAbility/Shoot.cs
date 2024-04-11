@@ -21,11 +21,11 @@ public class Shoot : AbstractAbility
 
         }
 
-        Gun gun;
+        EquipedGun gun;
         /// <param name="args"></param>
         public override void ActivateAbility(params object[] args)
         {
-            gun = args[0] as Gun;
+            gun = args[0] as EquipedGun;
             gun.TrySetShooting(true);
         }
 

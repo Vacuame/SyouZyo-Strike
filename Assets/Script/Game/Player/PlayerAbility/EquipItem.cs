@@ -81,10 +81,9 @@ public class EquipItem : AbstractAbility<EquipItemAsset>
             GunItemSave gunSave = itemSave.extra as GunItemSave;
 
             equipedItem = GameObject.Instantiate(((GunItemInfo)info).equipedItemPrefab,character.RightHandTransform);
-            Gun gun = equipedItem as Gun;
+            EquipedGun gun = equipedItem as EquipedGun;
             gun.curAmmo = gunSave.curAmmo;
-            character.leftFollow = gun.handGuard;
-            gun.user = character;
+            gun.TakeOut(character);
             gunSave.equiped = true;
 
             Aim_SO aimSo = Resources.Load<Aim_SO>("ScriptObjectData/Aim");
@@ -104,7 +103,7 @@ public class EquipItem : AbstractAbility<EquipItemAsset>
         private void UnEquipGun(GunItemSave gunSave)
         {
             gunSave.equiped = false;
-            Gun gun = equipedItem as Gun;
+            EquipedGun gun = equipedItem as EquipedGun;
             gunSave.curAmmo = gun.curAmmo;
 
             itemInfo = null;
@@ -120,6 +119,7 @@ public class EquipItem : AbstractAbility<EquipItemAsset>
             owner.RemoveAbility("Shoot");
             owner.RemoveAbility("Reload");
 
+            gun.PutIn();
             GameObject.Destroy(equipedItem.gameObject);
         }
 

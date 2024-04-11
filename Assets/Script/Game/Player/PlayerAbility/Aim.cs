@@ -24,7 +24,7 @@ public class Aim : AbstractAbility<Aim_SO>
         }
 
         PlayerCharacter character;
-        Gun gun;
+        EquipedGun gun;
         Animator anim;
         Rig chestRig;
         /// <param name="args">PlayerCharacter , Rig</param>
@@ -33,7 +33,7 @@ public class Aim : AbstractAbility<Aim_SO>
             character = args[0] as PlayerCharacter;
             anim = character.anim;
             chestRig = args[1] as Rig;
-            gun = args[2] as Gun;
+            gun = args[2] as EquipedGun;
 
             //character.bAiming = true;
             character.controller.playCamera.SwitchCamera(Tags.Camera.Aim);
@@ -44,7 +44,7 @@ public class Aim : AbstractAbility<Aim_SO>
 
         protected override void AbilityTick()
         {
-            gun.moving = character.cc.velocity.sqrMagnitude > 1;
+            //gun.moving = character.cc.velocity.sqrMagnitude > 1;
         }
 
         public override void EndAbility()

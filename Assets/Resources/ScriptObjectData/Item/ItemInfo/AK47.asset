@@ -16,7 +16,8 @@ MonoBehaviour:
   itemName: AK47
   width: 5
   height: 2
+  maxStackNum: 1
   icon: {fileID: 21300000, guid: b638923084c9fb145bded1af37ff7dc3, type: 3}
   type: 2
-  equipedItemPrefab: {fileID: 8279979290830076264, guid: e58170054b53137439ed69b1c2ffdb34,
+  equipedItemPrefab: {fileID: 4642658917480591811, guid: b091e6ac84920204693d4adbf9e63986,
     type: 3}

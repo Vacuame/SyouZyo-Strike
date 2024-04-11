@@ -258,45 +258,28 @@ MonoBehaviour:
   hitType: 2
   damage: 10
   automatic: 1
-  ratePerMinute: 500
-  coolDownTimeOnAim: 0.5
+  _ratePerMinute: 500
+  coolDownInterval_OverUse: 0.8
+  coolDownInterval: 0.5
   _fullAmmo: 30
-  onAimHeat: 5
+  onAimHeat: 30
   heatToSpreadCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 5
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 0.5
+      outSlope: 0.5
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 31.894287
-      value: 8.848855
-      inSlope: 0.24577036
-      outSlope: 0.24577036
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 50.305508
-      value: 15.676939
-      inSlope: 0.66627586
-      outSlope: 0.66627586
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 60
-      value: 25
-      inSlope: 0.9616864
-      outSlope: 0.9616864
+      value: 35
+      inSlope: 0.5
+      outSlope: 0.5
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -308,8 +291,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 2
+      time: -1.1499634
+      value: 3.9677734
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -317,8 +300,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 33.873108
-      value: 2
+      time: 35.210358
+      value: 3.598999
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -342,16 +325,44 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 20
-      inSlope: 0
-      outSlope: 0
+      value: 160
+      inSlope: 0.013493246
+      outSlope: 0.013493246
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 20.908218
+      value: 160.28212
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 27.27842
+      value: 10.339294
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 50.177814
+      value: 23.599434
+      inSlope: 0.5790607
+      outSlope: 0.5790607
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _moveSpeedThreshold: 1
   distanceDamageFalloff:
     serializedVersion: 2
     m_Curve:
@@ -385,9 +396,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  moveSpeedRange: {x: 0.5, y: 5}
-  moveMultiplierRange: {x: 1, y: 1.5}
-  moveMultiplierTransSpeed: 1
 --- !u!1 &5666705742200522691
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,14 +22,14 @@ public class Reload : AbstractAbility
         }
 
         Animator anim;
-        Gun gun;
+        EquipedGun gun;
         float endTimer;
         
         /// <param name="args">Anim , Gun</param>
         public override void ActivateAbility(params object[] args)
         {
             anim = args[0] as Animator;
-            gun = args[1] as Gun;
+            gun = args[1] as EquipedGun;
 
             int layerIndex = anim.GetLayerIndex("Arm");
             anim.Play("Reload", layerIndex);
