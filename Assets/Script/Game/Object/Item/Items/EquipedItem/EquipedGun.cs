@@ -133,8 +133,6 @@ public class EquipedGun : EquipedItem
 
         minHeat = Mathf.Min(min1, Mathf.Min(min2, min3));
         maxHeat = Mathf.Max(max1, Mathf.Max(max2, max3));
-        Debug.Log(minHeat); 
-        Debug.Log(maxHeat);
     }
     private void UpdateSpread()
     {
