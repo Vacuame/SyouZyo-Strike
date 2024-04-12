@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewAttackData", menuName = "ABS/Ability/Attack")]
 public class Attack_SO : AbilityAsset
 {
-    public AnimParameter animPara;
+    public AnimPlay animPara;
 
     public LayerMask targetMask;
 

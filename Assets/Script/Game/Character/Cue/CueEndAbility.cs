@@ -19,6 +19,8 @@ public class CueEndAbility : GameplayCueInstant
     public bool endAll;
 
     public string[] endNames;
+    public string[] endTags;
+    public string[] exceptEndTags;
 
     public class CueEndAbilitySpec : GameplayCueInstantSpec
     {
@@ -28,7 +30,12 @@ public class CueEndAbility : GameplayCueInstant
         public CueEndAbilitySpec(GameplayCueInstant cue, GameplayCueParameters parameters) : base(cue, parameters)
         {
             cueEndAbility = cue as CueEndAbility;
+            endTagSet = new GameplayTagSet(cueEndAbility.endTags);
+            exceptEndTagSet = new GameplayTagSet(cueEndAbility.exceptEndTags);
         }
+
+        GameplayTagSet endTagSet;
+        GameplayTagSet exceptEndTagSet;
 
         public override void Trigger()
         {
@@ -41,6 +48,16 @@ public class CueEndAbility : GameplayCueInstant
             {
                 foreach (string a in cueEndAbility.endNames)
                     Owner.TryEndAbility(a);
+
+                foreach(var a in Owner.AbilityContainer.AbilitySpecs)
+                {
+                    var abilityTag = a.Value.ability.Tag;
+                    if (abilityTag.AssetTag.HasAnyTags(endTagSet))
+                    {
+                        if (abilityTag.AssetTag.HasNoneTags(exceptEndTagSet))
+                            Owner.TryEndAbility(a.Value.ability.Name);
+                    }
+                }
             }
         }
     }

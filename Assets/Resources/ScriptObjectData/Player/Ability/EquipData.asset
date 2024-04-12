@@ -13,12 +13,10 @@ MonoBehaviour:
   m_Name: EquipData
   m_EditorClassIdentifier: 
   abilityName: EquipItem
-  assetTags:
-  - HandAction
+  assetTags: []
   cancelAbilityTags: []
   blockAbilityTags: []
   activationOwnedTag: []
   activationRequiredTags: []
-  activationBlockedTags: []
-  character: {fileID: 0}
-  chestRig: {fileID: 0}
+  activationBlockedTags:
+  - Melee

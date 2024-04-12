@@ -5,11 +5,10 @@ using UnityEngine.TextCore.Text;
 
 
 [System.Serializable]
-public class AnimParameter
+public class AnimPlay
 {
     public string animName;
     public string layerName;
-    public List<Pair<string, float>> animParameters = new List<Pair<string, float>>();
 
     public void PlayAnim(Animator animator)
     {
@@ -17,8 +16,5 @@ public class AnimParameter
             animator.Play(animName);
         else
             animator.Play(animName, animator.GetLayerIndex(layerName));
-
-        foreach (var a in animParameters)
-            animator.SetFloat(a.key, a.value);
     }
 }

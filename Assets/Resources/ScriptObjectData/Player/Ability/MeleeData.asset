@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a81bc1002f2ae8f4588622065539c5c8, type: 3}
+  m_Name: MeleeData
+  m_EditorClassIdentifier: 
+  abilityName: Melee
+  assetTags:
+  - Melee
+  cancelAbilityTags: []
+  blockAbilityTags: []
+  activationOwnedTag:
+  - Melee
+  - Endure
+  activationRequiredTags: []
+  activationBlockedTags:
+  - LoseBanlance
+  meleeConfigs:
+  - animSpeed: 1.3
+    damageMultiplier: 1
+    atkStartTime: 0
+    atkEndTime: 0
+    canNextTime: 0.8
+    meleeEndTime: 1.6
+    endureEndTime: 0
+  - animSpeed: 1.3
+    damageMultiplier: 1.2
+    atkStartTime: 0
+    atkEndTime: 0
+    canNextTime: 0.75
+    meleeEndTime: 1.5
+    endureEndTime: 0
+  - animSpeed: 1.5
+    damageMultiplier: 1.3
+    atkStartTime: 0
+    atkEndTime: 0
+    canNextTime: 1.26
+    meleeEndTime: 3.1
+    endureEndTime: 0
+  animParamName: meleeIndex
+  nextMeleeEarlierClickTime: 0.1

@@ -15,7 +15,7 @@ using MoleMole;
 
 public class PlayerCharacter : Character
 {
-    [HideInInspector] public static readonly string abilityRootPath = "ScriptObjectData/Player/Ability/";
+    [HideInInspector] public readonly string abilityRootPath = "ScriptObjectData/Player/Ability/";
 
     #region ±‰¡ø
 
@@ -252,8 +252,9 @@ public class PlayerCharacter : Character
 
         if (now < old)
         {
-            ABS.ApplyGameplayEffectToSelf(new GameplayEffect(
-                Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/PlayerOnHit")));
+            if(!ABS.HasTag("Endure"))
+                ABS.ApplyGameplayEffectToSelf(new GameplayEffect(
+                    Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/PlayerOnHit")));
         }
             
         HUDManager.GetHUD<PlayerHUD>().SetHpValue(proportion);
@@ -262,6 +263,7 @@ public class PlayerCharacter : Character
     }
     protected override void OnHit(HitInfo hitInfo)
     {
-        ABS.AttrSet<CharaAttr>().health.SetValueRelative(hitInfo.damage, Tags.Calc.Sub);
+        if (!ABS.HasTag("Invincible"))
+            ABS.AttrSet<CharaAttr>().health.SetValueRelative(hitInfo.damage, Tags.Calc.Sub);
     }
 }

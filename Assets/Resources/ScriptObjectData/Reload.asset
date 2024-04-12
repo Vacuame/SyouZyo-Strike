@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Reload
   assetTags:
-  - HandAction
+  - Reload
   cancelAbilityTags:
-  - SubHand
+  - Aim
   blockAbilityTags:
   - HandAction
   activationOwnedTag: []
   activationRequiredTags: []
-  activationBlockedTags: []
+  activationBlockedTags:
+  - LoseBanlance

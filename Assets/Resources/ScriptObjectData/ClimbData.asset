@@ -14,14 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Climb
   assetTags:
-  - FullBodyAction
+  - Climb
   cancelAbilityTags:
   - HandAction
   blockAbilityTags:
   - HandAction
   activationOwnedTag: []
   activationRequiredTags: []
-  activationBlockedTags: []
+  activationBlockedTags:
+  - interactSelected
+  - LoseBanlance
   minClimbHeight: 0.4
   midClimbHeight: 1.4
   maxClimbHeight: 2.4

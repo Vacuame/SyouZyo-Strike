@@ -25,7 +25,7 @@ public class AbilityContainer
             var abilityTag = kv.Value.ability.Tag;
             if (abilityTag.AssetTag.HasAnyTags(cancleTags))
             {
-                _abilities[kv.Key].TryCancelAbility();
+                _abilities[kv.Key].TryCancelAbility(_abilities[abilityName]);
             }
         }
         return true;

@@ -16,7 +16,8 @@ MonoBehaviour:
   assetTags:
   - Aim
   cancelAbilityTags: []
-  blockAbilityTags: []
+  blockAbilityTags:
+  - HandAction
   activationOwnedTag:
   - Aim
   activationRequiredTags: []

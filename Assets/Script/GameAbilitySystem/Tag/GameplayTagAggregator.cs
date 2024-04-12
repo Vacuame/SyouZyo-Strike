@@ -77,7 +77,9 @@ public class GameplayTagAggregator
     {
         foreach(var a in source.ability.Tag.ActivationOwnedTag.Tags)
         {
+            Debug.Log(a.ShortName);
             AddDynamicTag(a, source);
+            Debug.Log(HasTag(a.ShortName));
         }
     }
     public void RestoreAbilityTags(AbilitySpec source)=>

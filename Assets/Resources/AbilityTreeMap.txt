@@ -1,6 +1,11 @@
 Action
 	HandAction
-		SubHand
-			Aim
+		Aim
+		Reload
+		Melee
 	FullBodyAction
-		SubFull
+		Climb
+
+State
+	Endure //∞‘ÃÂ
+	Invincible

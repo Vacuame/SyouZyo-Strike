@@ -15,7 +15,7 @@ public struct GameplayTag
 
     public static implicit operator GameplayTag(string name)//适用于没有树形结构的标签，隐式转换比较方便
     {
-        return new GameplayTag(name);
+        return new GameplayTag(TagManager.Instance.GetTagGeneration(name));
     }
 
     public GameplayTag(string name)

@@ -24,7 +24,7 @@ public abstract class AbilitySpec
                //&& CheckCost()
                //&& CheckCooldown().TimeRemaining <= 0;
     }
-    private bool CheckGameplayTagsValid()
+    protected bool CheckGameplayTagsValid()
     {
         bool hasAllRequires = owner.HasAllTags(ability.Tag.ActivationRequiredTags);//有条件tag
         bool notBlockedByCharacter = !owner.HasAnyTags(ability.Tag.ActivationBlockedTags);//没有被tag阻挡
@@ -65,13 +65,13 @@ public abstract class AbilitySpec
     /// <summary>
     /// 当被其他动作打断
     /// </summary>
-    public virtual void TryCancelAbility()
+    public virtual void TryCancelAbility(AbilitySpec cancelBy)
     {
         if (!IsActive) return;
         IsActive = false;
 
         owner.GameplayTagAggregator.RestoreAbilityTags(this);
-        CancelAbility();
+        CancelAbility(cancelBy);
     }
     /// <summary>
     /// 当主动结束
@@ -99,7 +99,7 @@ public abstract class AbilitySpec
     protected virtual void SustainedTick() { }//TODO 这是Buff系统的临时代替者，写了Buff系统就不要它了
 
     //默认被取消和主动结束是一个效果
-    public virtual void CancelAbility() => EndAbility();
+    public virtual void CancelAbility(AbilitySpec cancelBy) => EndAbility();
     public abstract void ActivateAbility(params object[] args);
     public abstract void EndAbility();
     #endregion

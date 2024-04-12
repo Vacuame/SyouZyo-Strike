@@ -43,7 +43,7 @@ public class Climb : AbstractAbility<Climb_SO>
 
         protected override bool CheckOtherCondition()
         {
-            return climable != 0 && !owner.GameplayTagAggregator.HasTag(Interact.InteractSpec.interactSelectedTag);
+            return climable != 0;
         }
 
         public override void ActivateAbility(params object[] args)
@@ -78,11 +78,6 @@ public class Climb : AbstractAbility<Climb_SO>
                     break;
             }
             
-        }
-
-        public override void CancelAbility()
-        {
-            EndAbility();
         }
 
         public override void EndAbility()
@@ -126,7 +121,6 @@ public class Climb : AbstractAbility<Climb_SO>
             if (climbType != 0) return;
             climable = ClimbCheck();
 
-            //if(owner.GameplayTagAggregator.HasTag())
             if(CanActivate())
                 HUDManager.GetHUD<AimHUD>()?.SetText("tip", "Press F to climb");
             else
