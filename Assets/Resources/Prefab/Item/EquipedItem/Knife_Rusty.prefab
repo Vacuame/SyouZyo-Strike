@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4902080754245960}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Knife_Rusty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 4369659616084120}
   - component: {fileID: 33006150905264766}
   - component: {fileID: 23082743685162098}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: KitchenRustyKnife
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -7,7 +7,7 @@ public class Interact_SO : AbilityAsset
 {
     [Header("数据设置")]
     public float interactDistance;
-    [Header("动态绑定")]
+/*    [Header("动态绑定")]
     [HideInInspector] public Transform centerTransform;
-    [HideInInspector] public Transform cameraTransform;
+    [HideInInspector] public Transform cameraTransform;*/
 }

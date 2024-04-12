@@ -94,15 +94,11 @@ public class PlayerCharacter : Character
         Climb_SO climbAsset = Resources.Load<Climb_SO>("ScriptObjectData/ClimbData");
         ABS.GrandAbility(new Climb(climbAsset));
 
-        EquipItemAsset equipAsset = Instantiate(Resources.Load<EquipItemAsset>(abilityRootPath+"EquipData"));
-        equipAsset.Bind(this, chestRig);
-        ABS.GrandAbility(new EquipItem(equipAsset));
+        EquipItemAsset equipAsset = Resources.Load<EquipItemAsset>(abilityRootPath+"EquipData");
+        ABS.GrandAbility(new EquipItem(equipAsset,this));
 
         Interact_SO interactAsset = Resources.Load<Interact_SO>(abilityRootPath + "InteractData");
-        interactAsset = Instantiate(interactAsset);
-        interactAsset.centerTransform = centerTransform;
-        interactAsset.cameraTransform = controller.playCamera.transform;
-        ABS.GrandAbility(new Interact(interactAsset));
+        ABS.GrandAbility(new Interact(interactAsset, centerTransform, controller.playCamera.transform));
 
         //ABS.AttrSet<CharaAttr>().health.onPostCurrentValueChange += OnHealthPost_Player;
         HUDManager.GetHUD<PlayerHUD>().SetHpValue(ABS.AttrSet<CharaAttr>().health.GetProportion());

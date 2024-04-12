@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Interact : AbstractAbility<Interact_SO>
 {
-    public Interact(AbilityAsset setAsset) : base(setAsset)
+    public Interact(AbilityAsset setAsset,params object[] binds) : base(setAsset,binds)
     {
 
     }
@@ -26,9 +26,15 @@ public class Interact : AbstractAbility<Interact_SO>
         private IInteractable selectedInteractable;
 
         //private float noInterTimer;
+
+        Transform centerTrans;
+        Transform camTrans;
+
         public InteractSpec(AbstractAbility ability, AbilitySystemComponent owner) : base(ability, owner)
         {
             interact = ability as Interact;
+            centerTrans = ability.binds[0] as Transform;
+            camTrans = ability.binds[1] as Transform;
         }
 
         public override void ActivateAbility(params object[] args)
@@ -48,8 +54,6 @@ public class Interact : AbstractAbility<Interact_SO>
         /// </summary>
         protected override void SustainedTick()
         {
-            Transform centerTrans = asset.centerTransform;
-            Transform camTrans = asset.cameraTransform;
             float interactDis = asset.interactDistance;
             Collider[] preCheck = Physics.OverlapSphere(centerTrans.position, interactDis, LayerMask.GetMask("Interactable"/*, "Enemy"*/));
             if (TrySelectBestInteract(ref preCheck, camTrans.position, camTrans.forward, out Transform interactTarget, out IInteractable interactable))

@@ -51,7 +51,6 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     }
 
     #region OnItemSaveChange
-
     public void OnEquipedChanged(bool eq)
     {
         if (onUseTip!=null)
@@ -65,7 +64,6 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         if (num <= 0)
             inventoryTetris.RemoveItemAt(gridPos);
     }
-
     #endregion
 
     private void OnDestroy()
@@ -165,6 +163,8 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         }
         RectTransform imgRect = img.transform as RectTransform;
         UIExtend.SetSize(imgRect, new Vector2(spriteWidth, spriteHeight));
+
+        onUseTip.transform.localPosition = new Vector2(spriteWidth, spriteHeight) / 2;
     }
 
     #endregion

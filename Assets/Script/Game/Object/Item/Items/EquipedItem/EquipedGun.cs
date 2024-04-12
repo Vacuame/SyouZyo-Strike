@@ -1,11 +1,8 @@
 using Cinemachine;
 using MoleMole;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
-using static InventoryStatic;
+using static UnityEngine.InputSystem.InputAction;
 
 public class EquipedGun : EquipedItem
 {
@@ -36,10 +33,9 @@ public class EquipedGun : EquipedItem
     [SerializeField] private float coolDownInterval;
 
     //×Óµ¯
-    private int _curAmmo;
     [SerializeField] private int _fullAmmo;
-    public int curAmmo { get { return _curAmmo; } set { _curAmmo = value; HUDManager.GetHUD<AimHUD>()?.SetAmmo(_curAmmo, _fullAmmo); } }
-    public int fullAmmo { get { return _fullAmmo; } set { _fullAmmo = value; HUDManager.GetHUD<AimHUD>()?.SetAmmo(_curAmmo, _fullAmmo); } }
+    public int curAmmo { get { return data.curAmmo; } set { data.curAmmo = value; HUDManager.GetHUD<AimHUD>()?.SetAmmo(data.curAmmo, _fullAmmo); } }
+    public int fullAmmo { get { return data.curAmmo; } set { data.curAmmo = value; HUDManager.GetHUD<AimHUD>()?.SetAmmo(data.curAmmo, _fullAmmo); } }
 
     // À©É¢
     [Header("×¼ÐÇÀ©É¢")]
@@ -73,6 +69,70 @@ public class EquipedGun : EquipedItem
 
     #endregion
 
+    #region Equiped
+
+    private GunItemSave data;
+    public override void TakeOut(PlayerCharacter user, ExtraSave extra)
+    {
+        base.TakeOut(user, extra);
+        data = extra as GunItemSave;
+        data.equiped = true;
+
+        user.leftFollow = handGuard;
+        playerCamera = user.controller.playCamera.cameraComponent;
+
+        user.anim.SetInteger("weaponType", 1);
+
+        Aim_SO aimSo = Resources.Load<Aim_SO>("ScriptObjectData/Aim");
+        owner.GrandAbility(new Aim(aimSo));
+        AbilityAsset shootAsset = Resources.Load<AbilityAsset>("ScriptObjectData/Shoot");
+        owner.GrandAbility(new Shoot(shootAsset));
+        AbilityAsset reloadAsset = Resources.Load<AbilityAsset>("ScriptObjectData/Reload");
+        owner.GrandAbility(new Reload(reloadAsset));
+
+        user.controller.control.Player.Aim.started += AimSt;
+        user.controller.control.Player.Aim.canceled += AimEd;
+        user.controller.control.Player.Fire.started += ShootSt;
+        user.controller.control.Player.Fire.canceled += ShootEd;
+        user.controller.control.Player.Reload.started += Reload;
+
+        HUDManager.GetHUD<AimHUD>()?.SetAmmo(curAmmo, fullAmmo);
+    }
+    public override void PutIn()
+    {
+        data.equiped = false;
+
+        user.anim.SetInteger("weaponType", 0);
+
+        user.controller.control.Player.Aim.started -= AimSt;
+        user.controller.control.Player.Aim.canceled -= AimEd;
+        user.controller.control.Player.Fire.started -= ShootSt;
+        user.controller.control.Player.Fire.canceled -= ShootEd;
+        user.controller.control.Player.Reload.started -= Reload;
+
+        owner.RemoveAbility("Aim");
+        owner.RemoveAbility("Shoot");
+        owner.RemoveAbility("Reload");
+
+        HUDManager.GetHUD<AimHUD>()?.SetAmmo(-1, -1);
+
+        GameObject.Destroy(gameObject);
+    }
+
+    private void AimSt(CallbackContext context) =>
+        owner.TryActivateAbility("Aim", user, user.chestRig, this);
+    private void AimEd(CallbackContext context) =>
+        owner.TryEndAbility("Aim");
+    private void ShootSt(CallbackContext context) =>
+            owner.TryActivateAbility("Shoot", this);
+    private void ShootEd(CallbackContext context) =>
+        owner.TryEndAbility("Shoot");
+    private void Reload(CallbackContext context) =>
+        owner.TryActivateAbility("Reload", user.anim, this);
+
+
+    #endregion
+
     #region ÉúÃüÖÜÆÚ
     private void Awake()
     {
@@ -83,15 +143,6 @@ public class EquipedGun : EquipedItem
         maxDistance = distanceDamageFalloff.keys.Last().time;
 
         CalculateHeatRange();
-    }
-    public override void TakeOut(PlayerCharacter user)
-    {
-        base.TakeOut(user);
-
-        user.leftFollow = handGuard;
-        playerCamera = user.controller.playCamera.cameraComponent;
-
-        HUDManager.GetHUD<AimHUD>()?.SetAmmo(curAmmo, fullAmmo);
     }
     private void Update()
     {
@@ -113,10 +164,7 @@ public class EquipedGun : EquipedItem
         float sightDis = aiming ? sightDistance : -1;
         HUDManager.GetHUD<AimHUD>()?.SetSightDis(sightDis);
     }
-    public override void PutIn()
-    {
-        HUDManager.GetHUD<AimHUD>()?.SetAmmo(-1, -1);
-    }
+
     #endregion
 
     #region À©É¢
