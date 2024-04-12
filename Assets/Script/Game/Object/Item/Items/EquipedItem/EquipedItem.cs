@@ -10,6 +10,7 @@ public class EquipedItem : MonoBehaviour
     public readonly static string rootPath = "Prefab/Item/EquipedItem/";
     [HideInInspector]public PlayerCharacter user;
     protected AbilitySystemComponent owner => user.ABS;
+    protected EquipedItemSave data;
 
     public virtual void TakeOut(PlayerCharacter user,ExtraSave data)
     {

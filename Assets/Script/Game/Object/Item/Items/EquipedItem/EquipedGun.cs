@@ -34,8 +34,10 @@ public class EquipedGun : EquipedItem
 
     //×Óµ¯
     [SerializeField] private int _fullAmmo;
-    public int curAmmo { get { return data.curAmmo; } set { data.curAmmo = value; HUDManager.GetHUD<AimHUD>()?.SetAmmo(data.curAmmo, _fullAmmo); } }
-    public int fullAmmo { get { return data.curAmmo; } set { data.curAmmo = value; HUDManager.GetHUD<AimHUD>()?.SetAmmo(data.curAmmo, _fullAmmo); } }
+    public int fullAmmo { get { return _fullAmmo; } 
+        set { _fullAmmo = value; HUDManager.GetHUD<AimHUD>()?.SetAmmo(data.durability, _fullAmmo); } }
+    public int curAmmo { get { return data.durability; } 
+        set { data.durability = value; HUDManager.GetHUD<AimHUD>()?.SetAmmo(data.durability, _fullAmmo); } }
 
     // À©É¢
     [Header("×¼ÐÇÀ©É¢")]
@@ -70,12 +72,10 @@ public class EquipedGun : EquipedItem
     #endregion
 
     #region Equiped
-
-    private GunItemSave data;
     public override void TakeOut(PlayerCharacter user, ExtraSave extra)
     {
         base.TakeOut(user, extra);
-        data = extra as GunItemSave;
+        data = extra as EquipedItemSave;
         data.equiped = true;
 
         user.leftFollow = handGuard;
@@ -284,7 +284,7 @@ public class EquipedGun : EquipedItem
     }
     private void FireBullet(Vector2 aimPoint)
     {
-        Ray shootRay = Camera.main.ScreenPointToRay(aimPoint);
+        Ray shootRay = playerCamera.ScreenPointToRay(aimPoint);
 
         if (Physics.Raycast(shootRay, out RaycastHit hit, maxDistance, shootMask))
         {
@@ -305,7 +305,7 @@ public class EquipedGun : EquipedItem
         }
         else
         {
-            bulletEffectVector = (Camera.main.transform.position + shootRay.direction * maxDistance - muzzle.position).normalized;
+            bulletEffectVector = (playerCamera.transform.position + shootRay.direction * maxDistance - muzzle.position).normalized;
         }
 
         Vector3 shakeVector = cameraShakeSource.m_DefaultVelocity;

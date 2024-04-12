@@ -15,8 +15,9 @@ public class PlayerController : Controller
     {
         base.Start();
         itemSaveData = new ItemSaveData(11,7,new List<ItemSave>());
-        itemSaveData.items.Add(new ItemSave(1, new Vector2Int(2, 4),InventoryStatic.Dir.Down,new GunItemSave(24, false),itemSaveData));
+        itemSaveData.items.Add(new ItemSave(1, new Vector2Int(2, 4),InventoryStatic.Dir.Down,new EquipedItemSave(24, false),itemSaveData));
         itemSaveData.items.Add(new ItemSave(2, new Vector2Int(0, 0), InventoryStatic.Dir.Down,new ExtraSave(1), itemSaveData));
+        itemSaveData.items.Add(new ItemSave(3, new Vector2Int(2, 0), InventoryStatic.Dir.Down, new EquipedItemSave(50,false), itemSaveData));
     }
 
     protected override void ControlPawn(Pawn pawn)

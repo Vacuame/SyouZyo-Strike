@@ -25,17 +25,17 @@ public class ExtraSave
 }
 
 [System.Serializable]
-public class GunItemSave : ExtraSave
+public class EquipedItemSave : ExtraSave
 {
-    public int curAmmo;
+    public int durability;
     private bool _equiped;
     public bool equiped { get { return _equiped; }
         set { _equiped = value; onEquipedChanged?.Invoke(_equiped); }
     }
     public Action<bool> onEquipedChanged;
-    public GunItemSave(int curAmmo,bool equiped,int num = 1):base(num)
+    public EquipedItemSave(int durability, bool equiped,int num = 1):base(num)
     {
-        this.curAmmo = curAmmo;
+        this.durability = durability;
         this._equiped = equiped;
     }
 }

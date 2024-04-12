@@ -27,7 +27,7 @@ public class Look : EnemyConditional
                 return TaskStatus.Success;
             }
         }
-        return TaskStatus.Running;
+        return TaskStatus.Failure;
     }
 }
 

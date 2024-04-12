@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class GunPickableItem : PickableItem
 {
-    public GunItemSave gunSet;
+    public EquipedItemSave gunSet;
     protected override ExtraSave extraSet => gunSet;
 }
