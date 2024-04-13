@@ -1,10 +1,7 @@
 using BehaviorDesigner.Runtime;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.UI.GridLayoutGroup;
 
 public enum PatrolType
 {
@@ -87,7 +84,12 @@ public class Enemy : Character
             ABS.AttrSet<BodyAttr>()[partName].SetValueRelative(dmg, Tags.Calc.Sub);
 
         //∑¢œ÷ÕÊº“
-        bt.SetVariableValue("Target", hitInfo.source);
+        if(bt.GetVariable("Target").GetValue() == null)
+        {
+            bt.Restart();
+            bt.SetVariableValue("Target", hitInfo.source);
+        }
+        
     }
 
     protected override void Dead()
@@ -134,3 +136,4 @@ public class Enemy : Character
         }
     }
 }
+

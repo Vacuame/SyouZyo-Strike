@@ -31,6 +31,16 @@ namespace MoleMole
 
             return component;
         }
+
+        public static Transform FindRootParent(Transform t)
+        {
+            Transform res = t;
+            while(res.parent!=null)
+                res = res.parent;
+            return res;
+        }
+
+        //TODO 这个方法应该放到UIExtendsion
         public static void PanelAppearance(this Transform t, bool on_off, bool active = false)
         {
             CanvasGroup group = t.GetOrAddComponent<CanvasGroup>();

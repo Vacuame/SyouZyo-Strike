@@ -15,4 +15,9 @@ public static class Consts
         public readonly static string RightArm = "RightArm";
     }
 
+    public static class Event
+    {
+        public readonly static string Hit = "Hit";
+    }
+
 }

@@ -297,11 +297,8 @@ public class EquipedGun : EquipedItem
             if (hitObj.layer == 0 || hitObj.layer == LayerMask.NameToLayer("Climbable"))
                 PlayHitDefaultParticle(hit.point, hitDir);
 
-            if (hitObj.layer == LayerMask.NameToLayer("EnemyPart"))
-            {
-                EventManager.Instance.TriggerEvent("Hit" + hitObj.GetInstanceID(),
+            EventManager.Instance.TriggerEvent("Hit" + hitObj.GetInstanceID(),
                     new HitInfo(hitType, damage, user.gameObject, hitObj, hit.point, hitDir));
-            }
         }
         else
         {

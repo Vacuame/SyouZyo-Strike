@@ -1,3 +1,5 @@
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityLight;
+using MoleMole;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -29,11 +31,15 @@ public class Melee : AbstractAbility<MeleeAsset>
         Character character;
         Animator anim => character.anim;
 
-        EquipedKnife knife;
+        //¹¥»÷ÅÐ¶¨
 
+        EquipedKnife knife;
+        BoxCollider atkRange => knife.atkRange;
+        HashSet<GameObject> dmgedObject = new HashSet<GameObject>();
+
+        //Á¬»÷
         int meleeIndex;
         MeleeConfig curConfig;
-        
         bool canNext;
         float nextClickTimer;
 
@@ -41,12 +47,13 @@ public class Melee : AbstractAbility<MeleeAsset>
         {
             character = melee.binds[0] as Character;
             knife = melee.binds[1] as EquipedKnife;
+            
         }
 
         public override void ActivateAbility(params object[] args)
         {
             curConfig = asset.meleeConfigs[meleeIndex];
-
+            dmgedObject.Clear();
             canNext = false;
             anim.SetInteger(asset.animParamName, meleeIndex+1);
             anim.SetFloat("meleeSpeed", curConfig.animSpeed);
@@ -68,7 +75,11 @@ public class Melee : AbstractAbility<MeleeAsset>
                 meleeIndex = (meleeIndex + 1) % asset.meleeConfigs.Count;
                 ActivateAbility();
             }  
+
             base.AbilityTick();
+
+            if(atkRange.enabled)
+                AtkCheck();
         }
 
         public override void EndAbility()
@@ -89,11 +100,28 @@ public class Melee : AbstractAbility<MeleeAsset>
 
         private void AtkStart()
         {
-            //¿ªÆôÅö×²¼ì²â
+            atkRange.enabled = true;
         }
         private void AtkEnd()
         {
-            //¹Ø±ÕÅö×²¼ì²â
+            atkRange.enabled = false;
+        }
+        private void AtkCheck()
+        {
+            var colList = ColliderExtend.Overlap(atkRange, asset.atkMask);
+            foreach(var col in colList)
+            {
+                Transform colTrans = col.transform;
+                GameObject colRootObj = TransformExtension.FindRootParent(colTrans).gameObject;
+                if(!dmgedObject.Contains(colRootObj))
+                {
+                    Vector3 hitPoint = knife.transform.position;
+                    Vector3 hitDir = (colRootObj.transform.position - character.transform.position).normalized;
+                    EventManager.Instance.TriggerEvent(Consts.Event.Hit + col.gameObject.GetInstanceID(),
+                        new HitInfo(HitType.Cut, knife.damage, character.gameObject,col.gameObject, hitPoint, hitDir));
+                    dmgedObject.Add(colRootObj);
+                }
+            }
         }
 
         /// <summary>

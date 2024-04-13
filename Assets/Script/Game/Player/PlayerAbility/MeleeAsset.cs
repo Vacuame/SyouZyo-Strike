@@ -15,6 +15,8 @@ public class MeleeAsset : AbilityAsset
     public string animParamName;
     public float nextMeleeEarlierClickTime;//在不能连招的时候按了也能执行
 
+    public LayerMask atkMask;
+
     [System.Serializable]
     public struct MeleeConfig
     {

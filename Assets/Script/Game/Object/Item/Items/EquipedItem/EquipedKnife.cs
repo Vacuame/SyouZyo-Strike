@@ -2,13 +2,14 @@ using RootMotion.FinalIK;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using static UnityEngine.InputSystem.InputAction;
 
 [RequireComponent(typeof(BoxCollider))]
 public class EquipedKnife : EquipedItem
 {
     [HideInInspector]public BoxCollider atkRange;
-    [SerializeField] private float damage;
+    public float damage;
 
     public override void TakeOut(PlayerCharacter user, ExtraSave data)
     {
@@ -38,7 +39,4 @@ public class EquipedKnife : EquipedItem
     {
         atkRange = GetComponent<BoxCollider>();
     }
-
-
-
 }
