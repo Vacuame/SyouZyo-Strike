@@ -16,12 +16,16 @@ public abstract class Move : EnemyAction
         me.nav.destination = GetTargetPos();
         me.nav.stoppingDistance = GetStopDistance();
 
-        if (me.nav.remainingDistance <= GetStopDistance())
+        if ((transform.position - GetTargetPos()).sqrMagnitude <= GetSqrStopDistance())
+        {
             return TaskStatus.Success;
+        }
+            
 
         return TaskStatus.Running;
     }
     protected abstract Vector3 GetTargetPos();
     protected virtual float GetStopDistance() => stopDistance.Value;
 
+    protected float GetSqrStopDistance() => Mathf.Pow(GetStopDistance(), 2);
 }
