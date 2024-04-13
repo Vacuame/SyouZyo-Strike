@@ -8,7 +8,8 @@ using UnityEngine;
 public class Look : EnemyConditional
 {
     public SharedGameObject target;
-    [SerializeField]private ConeDetector eye;
+    public SharedBool onFindTargetSetBool;
+    private ConeDetector eye;
 
     public override void OnAwake()
     {
@@ -24,6 +25,7 @@ public class Look : EnemyConditional
             if (eye.TryDetect(out GameObject g))
             {
                 target.Value = g;
+                onFindTargetSetBool.Value = true;
                 return TaskStatus.Success;
             }
         }

@@ -148,7 +148,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 4
   avoidancePriority: 50
-  m_AngularSpeed: 225.51
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -259,6 +259,7 @@ MonoBehaviour:
     - {fileID: 360569300025935762}
   partSetting: {fileID: 11400000, guid: 894b3eed56fbe3f4cb7c9e800e7ab1b1, type: 2}
   normalAtkRange: {fileID: 4076976914118835071}
+  deadAnimTypeNum: 4
 --- !u!114 &4208110306914150461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,7 +300,7 @@ MonoBehaviour:
       parentIndex: 
       startIndex: 
       variableStartIndex: 
-      JSONSerialization: '{"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"MovePos","IsShared":true,"Vector3mValue":"(0,0,0)"},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"LoseBanlance","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedQuaternion","Name":"MyQuaternion","IsShared":true,"QuaternionmValue":"(0,0,0,0)"}]}'
+      JSONSerialization: '{"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"MovePos","IsShared":true,"Vector3mValue":"(0,0,0)"},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"LoseBanlance","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"ToEnterBattle","IsShared":true,"BooleanmValue":false}]}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 

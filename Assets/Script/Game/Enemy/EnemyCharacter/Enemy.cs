@@ -28,6 +28,9 @@ public class Enemy : Character
     [Header("π•ª˜…Ë÷√")]
     public BoxCollider normalAtkRange;
 
+    [Header("∂Øª≠…Ë÷√")]
+    [SerializeField] private int deadAnimTypeNum;
+
     protected override void Awake()
     {
         base.Awake();
@@ -100,7 +103,7 @@ public class Enemy : Character
         nav.isStopped = true;
         bt.SetVariableValue("LoseBanlance", true);
         bt.DisableBehavior();
-        int deadType = Random.Range(0, 2);
+        int deadType = Random.Range(0, deadAnimTypeNum);
         anim.SetFloat("DeadType", deadType);
         anim.Play("Dead");
         cc.enabled = false;

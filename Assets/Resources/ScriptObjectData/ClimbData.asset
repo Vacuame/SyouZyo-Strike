@@ -19,7 +19,8 @@ MonoBehaviour:
   - HandAction
   blockAbilityTags:
   - HandAction
-  activationOwnedTag: []
+  activationOwnedTag:
+  - Invincible
   activationRequiredTags: []
   activationBlockedTags:
   - interactSelected
