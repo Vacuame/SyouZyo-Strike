@@ -35,7 +35,6 @@ public class Aim : AbstractAbility<Aim_SO>
             chestRig = args[1] as Rig;
             gun = args[2] as EquipedGun;
 
-            //character.bAiming = true;
             character.controller.playCamera.SwitchCamera(Tags.Camera.Aim);
             chestRig.weight = 1;
             anim.SetBool("aiming", true);
@@ -44,12 +43,19 @@ public class Aim : AbstractAbility<Aim_SO>
 
         protected override void AbilityTick()
         {
-            //gun.moving = character.cc.velocity.sqrMagnitude > 1;
+            Transform cameraTrans = character.controller.playCamera.transform;
+            Vector3 cameraAngle = new Vector3(cameraTrans.forward.x, 0, cameraTrans.forward.z);
+            Quaternion targetRotation = Quaternion.LookRotation(cameraAngle);
+
+            if(Vector3.Angle(cameraAngle,character.transform.forward)>asset.maxArmAngle)
+                character.transform.rotation = targetRotation;
+            else
+                character.transform.rotation = Quaternion.RotateTowards(character.transform.rotation, targetRotation, asset.aimRotateSpeed * Time.fixedDeltaTime);
+
         }
 
         public override void EndAbility()
         {
-            //character.bAiming = false;
             character.controller.playCamera.SwitchCamera(Tags.Camera.Normal);
             chestRig.weight = 0;
             anim.SetBool("aiming", false);

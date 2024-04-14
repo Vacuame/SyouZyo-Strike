@@ -41,6 +41,7 @@ public class TetrisItemPanel : BasePanel
                 btnUse.onClick.AddListener(UseItem);
                 btnUse.GetComponentInChildren<Text>().text = "สนำร";
                 break;
+            case ItemInfo.ItemType.Knife:
             case ItemInfo.ItemType.Gun:
                 Button btnEquip = GameObject.Instantiate(btnPrefab, transform);
                 btnEquip.onClick.AddListener(EquipWeapon);

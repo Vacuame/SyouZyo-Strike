@@ -49,6 +49,8 @@ public class InventoryPanel : BasePanel
         itemSave = inventoryContext.itemSave;
         mainTetris.Init(this, itemSave);
         delTetris.Init(this, inventoryContext.delTetrisData);
+
+        inventoryContext.controller.control.Player.Disable();
     }
 
     public override void OnExit(bool trueDestroy)
@@ -57,6 +59,7 @@ public class InventoryPanel : BasePanel
         //TODO 移除在delTetris的东西
         foreach (var a in inventoryTetrisList)
             a.RemoveAllItem();
+        inventoryContext.controller.control.Player.Enable();
     }
 
     private void Update()

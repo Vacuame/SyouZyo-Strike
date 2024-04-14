@@ -46,4 +46,4 @@ MonoBehaviour:
   nextMeleeEarlierClickTime: 0.1
   atkMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 513

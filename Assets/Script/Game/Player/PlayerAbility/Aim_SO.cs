@@ -5,5 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewAimData", menuName = "ABS/Ability/Aim")]
 public class Aim_SO : AbilityAsset
 {
-    
+    public float aimRotateSpeed;
+    public float maxArmAngle;
 }

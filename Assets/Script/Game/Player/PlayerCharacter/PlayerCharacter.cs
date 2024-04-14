@@ -31,7 +31,7 @@ public class PlayerCharacter : Character
     [SerializeField, Header("ÒÆ¶¯")] private float walkMaxSpeed;
     [SerializeField] private float runMaxSpeed, xAcc, zAcc;
     [SerializeField] private float injury_walkMaxSpeed, injury_backMaxSpeed, injury_runMaxSpeed;
-    [SerializeField] private float rotateSpeed;
+    [SerializeField] public float rotateSpeed;
     private const float walkThres = 1.5f, runThres = 3.3f;
     private const float injury_walkThres = 0.9f, injury_runThres = 1.47f;
     #endregion
@@ -88,7 +88,6 @@ public class PlayerCharacter : Character
         base.Awake();
         EventManager.Instance.AddListener<HitInfo>("Hit" + gameObject.GetInstanceID(), OnHit);
     }
-
     private void Start()
     {
         Climb_SO climbAsset = Resources.Load<Climb_SO>("ScriptObjectData/ClimbData");
@@ -103,9 +102,6 @@ public class PlayerCharacter : Character
         ABS.AttrSet<CharaAttr>().health.onPreCurrentValueChange += OnHealthPre;
         HUDManager.GetHUD<PlayerHUD>().SetHpValue(ABS.AttrSet<CharaAttr>().health.GetProportion());
     }
-
-    
-
     protected void Update()
     {
         if(bControlable && controller != null)
@@ -157,11 +153,7 @@ public class PlayerCharacter : Character
         Vector2 targetSpeed = input_move;
         float moveSpdThres;
 
-        if (ABS.HasTag("Aim"))
-        {
-            RotateToCamera();
-        }
-        else if (input_move != Vector2.zero)
+        if (input_move != Vector2.zero)
         {
             if(bRuning) 
                 RotateToMove();

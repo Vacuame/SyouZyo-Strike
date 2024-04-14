@@ -23,3 +23,5 @@ MonoBehaviour:
   activationRequiredTags: []
   activationBlockedTags:
   - LoseBanlance
+  aimRotateSpeed: 240
+  maxArmAngle: 45

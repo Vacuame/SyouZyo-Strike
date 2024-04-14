@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Projectile
+  - Floor
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - Climbable
   - EnemyPart
   - Interactable
-  - 
+  - Ignore
   - 
   - 
   - 
