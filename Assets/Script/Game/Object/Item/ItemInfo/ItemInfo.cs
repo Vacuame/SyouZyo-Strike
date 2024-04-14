@@ -15,6 +15,6 @@ public class ItemInfo : ScriptableObject
 
     public enum ItemType
     {
-        Item,Useable,Gun
+        Item,Useable,Gun,Knife
     }
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //TODO 应该改名叫EquipedItemInfo
-[CreateAssetMenu(fileName = "NewGun", menuName = "Item/GunInfo")]
-public class GunItemInfo : ItemInfo
+[CreateAssetMenu(fileName = "NewEquip", menuName = "Item/EquipedInfo")]
+public class EquipedItemInfo : ItemInfo
 {
     public EquipedItem equipedItemPrefab;
 }

@@ -22,6 +22,8 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     [SerializeField] private List<Pair<DragState, Color>> blockColorSetting;
     [SerializeField] private Image img;
     public GameObject onUseTip;
+    public GameObject numTip;
+    [HideInInspector]public Text txtNum;
     private CanvasGroup canvasGroup;
     //TODO 如果在deltetris则不可打开选单
     //public bool useable;
@@ -32,6 +34,7 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        txtNum = numTip.GetComponentInChildren<Text>();
     }
     public void SetInfo(ItemInfo itemInfo, ItemSave itemSave)
     {
@@ -43,9 +46,23 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         switch(itemInfo.type)
         {
             case ItemInfo.ItemType.Gun:
-                EquipedItemSave gunSave = itemSave.extra as EquipedItemSave;
-                onUseTip.SetActive(gunSave.equiped);
-                gunSave.onEquipedChanged += OnEquipedChanged;
+            case ItemInfo.ItemType.Knife:
+                EquipedItemSave equipSave = itemSave.extra as EquipedItemSave;
+                onUseTip.SetActive(equipSave.equiped);
+                if(itemInfo.type == ItemInfo.ItemType.Gun)
+                {
+                    numTip.SetActive(true);
+                    txtNum.text = equipSave.durability.ToString();
+                }
+                equipSave.onEquipedChanged += OnEquipedChanged;
+                break;
+            case ItemInfo.ItemType.Item:
+            case ItemInfo.ItemType.Useable:
+                if(itemInfo.maxStackNum>1)
+                {
+                    numTip.SetActive(true);
+                    txtNum.text = itemSave.extra.num.ToString();
+                }
                 break;
         }
     }
@@ -57,7 +74,6 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         {
             onUseTip.SetActive(eq);
         }
-        
     }
     public void OnNumChanged(int num)
     {
@@ -166,6 +182,7 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         UIExtend.SetSize(imgRect, new Vector2(spriteWidth, spriteHeight));
 
         onUseTip.transform.localPosition = new Vector2(spriteWidth, spriteHeight) / 2;
+        numTip.transform.localPosition = new Vector2(spriteWidth, -spriteHeight) / 2;
     }
 
     #endregion

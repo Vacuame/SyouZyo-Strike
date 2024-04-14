@@ -56,7 +56,7 @@ public class EquipItem : AbstractAbility
         private void EquipItem(ItemInfo info,ItemSave save)
         {
             itemSave = save;
-            equipedItem = GameObject.Instantiate(((GunItemInfo)info).equipedItemPrefab,character.RightHandTransform);
+            equipedItem = GameObject.Instantiate(((EquipedItemInfo)info).equipedItemPrefab,character.RightHandTransform);
             equipedItem.TakeOut(character,save.extra);
 
         }
