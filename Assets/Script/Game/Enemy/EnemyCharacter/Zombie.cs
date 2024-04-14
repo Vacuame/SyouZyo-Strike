@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Zombie : Enemy
 {
+    [Header("π•ª˜…Ë÷√")]
+    [SerializeField]private BoxCollider atkRange_TwoHand;
     protected override void Awake()
     {
         base.Awake();
-        Attack_SO atkData = Resources.Load<Attack_SO>("ScriptObjectData/Enemy/ZombieAttack");
-        ABS.GrandAbility(new Attack(atkData));
+        EnemyNormalAttackAsset atkData1 = Resources.Load<EnemyNormalAttackAsset>("ScriptObjectData/Enemy/Zombie_Attack_TwoHand");
+        ABS.GrandAbility(new EnemyNormalAttack(atkData1,this,atkRange_TwoHand));
     }
 }

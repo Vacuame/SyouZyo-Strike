@@ -18,9 +18,9 @@ public abstract class Move : EnemyAction
 
         if ((transform.position - GetTargetPos()).sqrMagnitude <= GetSqrStopDistance())
         {
+            me.nav.destination = transform.position;
             return TaskStatus.Success;
         }
-            
 
         return TaskStatus.Running;
     }

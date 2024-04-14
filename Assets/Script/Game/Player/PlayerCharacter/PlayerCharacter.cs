@@ -263,6 +263,7 @@ public class PlayerCharacter : Character
     }
     protected override void OnHit(HitInfo hitInfo)
     {
+        Debug.Log(2);
         if (!ABS.HasTag("Invincible"))
             ABS.AttrSet<CharaAttr>().health.SetValueRelative(hitInfo.damage, Tags.Calc.Sub);
     }

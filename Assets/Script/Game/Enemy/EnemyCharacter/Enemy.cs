@@ -25,9 +25,6 @@ public class Enemy : Character
     [SerializeField] private BodyPartSet partSetting;
     private Dictionary<string, WeaknessData> weakDict = new Dictionary<string, WeaknessData>();
 
-    [Header("π•ª˜…Ë÷√")]
-    public BoxCollider normalAtkRange;
-
     [Header("∂Øª≠…Ë÷√")]
     [SerializeField] private int deadAnimTypeNum;
 

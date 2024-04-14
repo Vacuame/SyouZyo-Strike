@@ -258,8 +258,8 @@ MonoBehaviour:
     - {fileID: 6650598230317391182}
     - {fileID: 360569300025935762}
   partSetting: {fileID: 11400000, guid: 894b3eed56fbe3f4cb7c9e800e7ab1b1, type: 2}
-  normalAtkRange: {fileID: 4076976914118835071}
   deadAnimTypeNum: 4
+  atkRange_TwoHand: {fileID: 4076976914118835071}
 --- !u!114 &4208110306914150461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 1406743679147340616}
   - component: {fileID: 4076976914118835071}
   m_Layer: 7
-  m_Name: NormalAtkRange
+  m_Name: AtkRange_TwoHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

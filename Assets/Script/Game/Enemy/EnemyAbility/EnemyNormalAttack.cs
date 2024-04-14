@@ -1,8 +1,9 @@
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
-public class Attack : AbstractAbility<Attack_SO>
+public class EnemyNormalAttack : AbstractAbility<EnemyNormalAttackAsset>
 {
-    public Attack(AbilityAsset setAsset) : base(setAsset)
+    public EnemyNormalAttack(AbilityAsset setAsset,params object[] binds) : base(setAsset,binds)
     {
 
     }
@@ -14,23 +15,23 @@ public class Attack : AbstractAbility<Attack_SO>
 
     public class AttackSpec : TimeLineAbilitySpec
     {
-        Attack attack;
-        Attack_SO asset => attack.AbilityAsset;
+        EnemyNormalAttack attack;
+        EnemyNormalAttackAsset asset => attack.AbilityAsset;
 
-        Character me;
+        Enemy me;
 
         Collider collider;
 
         public AttackSpec(AbstractAbility ability, AbilitySystemComponent owner) : base(ability, owner)
         {
-            attack = ability as Attack;
+            attack = ability as EnemyNormalAttack;
+            me = attack.binds[0] as Enemy;
+            collider = attack.binds[1] as Collider;
             InitTimeLine();
         }
 
         public override void ActivateAbility(params object[] args)
         {
-            me = args[0] as Character;
-            collider = args[1] as Collider;
             collider.enabled = true;
 
             base.ActivateAbility(args);
@@ -42,16 +43,20 @@ public class Attack : AbstractAbility<Attack_SO>
         public override void InitTimeLine()
         {
             timeLine.AddEvent(0, () => asset.animPara.PlayAnim(me.anim));
-            timeLine.AddEvent(asset.makeDmgTime, MakeDamage);
+            foreach(var config in asset.atkConfigs)
+            {
+                timeLine.AddEvent(config.makeDmgTime,()=> MakeDamage(config.dmg));
+            }
             timeLine.AddEvent(asset.endTime, EndSelf);
         }
 
-        public void MakeDamage()
+        public void MakeDamage(float dmg)
         {
             Collider[] list = collider.Overlap(asset.targetMask);
             foreach (var a in list)
             {
-                EventManager.Instance.TriggerEvent("Hit" + a.gameObject.GetInstanceID(), new HitInfo(asset.dmg));
+                Debug.Log(1);
+                EventManager.Instance.TriggerEvent("Hit" + a.gameObject.GetInstanceID(), new HitInfo(dmg));
             }
         }
 

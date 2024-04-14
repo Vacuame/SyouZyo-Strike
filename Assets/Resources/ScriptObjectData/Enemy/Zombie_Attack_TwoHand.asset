@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e219233d95239174eb32197c28cc2f10, type: 3}
-  m_Name: ZombieAttack
+  m_Script: {fileID: 11500000, guid: f1c7eba7dd80f6a48923a542e5c854cf, type: 3}
+  m_Name: Zombie_Attack_TwoHand
   m_EditorClassIdentifier: 
-  abilityName: Attack
+  abilityName: Attack_TwoHand
   assetTags: []
   cancelAbilityTags: []
   blockAbilityTags: []
@@ -20,12 +20,14 @@ MonoBehaviour:
   activationRequiredTags: []
   activationBlockedTags: []
   animPara:
-    animName: Attack
+    animName: Attack_TwoHand
     layerName: 
-    animParameters: []
   targetMask:
     serializedVersion: 2
     m_Bits: 64
-  dmg: 25
-  makeDmgTime: 0.15
-  endTime: 0.3
+  atkConfigs:
+  - dmg: 15
+    makeDmgTime: 0.19
+  - dmg: 15
+    makeDmgTime: 0.62
+  endTime: 1
