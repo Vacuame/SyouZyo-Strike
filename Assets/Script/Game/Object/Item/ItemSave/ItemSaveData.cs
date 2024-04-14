@@ -5,7 +5,22 @@ using static InventoryStatic;
 
 public class ItemSaveData
 {
-    public List<ItemSave> items = new List<ItemSave>();
+    #region Items
+    private List<ItemSave> items = new List<ItemSave>();
+    public void AddItem(ItemSave save)
+    {
+        items.Add(save);
+    }
+    public void RemoveItem(ItemSave save)
+    {
+        items.Remove(save);
+    }
+    public List<ItemSave> GetItems()
+    {
+        return items;
+    }
+    #endregion
+
     public int bagWidth, bagHeight;
 
     public ItemSaveData(int width,int height,List<ItemSave> infos)
@@ -36,12 +51,12 @@ public class ItemSaveData
         Vector2Int itemPos;
         if (TryFindItemPlace(grid, Dir.Down, itemInfo.width,itemInfo.height,out itemPos))
         {
-            items.Add(new ItemSave(itemInfo.id, itemPos, Dir.Down,extra,this));
+            AddItem(new ItemSave(itemInfo.id, itemPos, Dir.Down, extra));
             return true;
         }
         if (TryFindItemPlace(grid, Dir.Left, itemInfo.height, itemInfo.width, out itemPos))
         {
-            items.Add(new ItemSave(itemInfo.id, itemPos, Dir.Left, extra,this));
+            AddItem(new ItemSave(itemInfo.id, itemPos, Dir.Left, extra));
             return true;
         }
         return false;

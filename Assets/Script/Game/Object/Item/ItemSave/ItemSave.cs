@@ -15,18 +15,17 @@ public class ItemSave
     public Vector2Int pos;
     public Dir dir;
     public ExtraSave extra;
-    private ItemSaveData container;
-    public ItemSave(int id, Vector2Int pos, Dir dir, ExtraSave extra,ItemSaveData container)
+    public ItemSaveData container;
+    public ItemSave(int id, Vector2Int pos, Dir dir, ExtraSave extra)
     {
         this.id = id;
         this.pos = pos;
         this.dir = dir;
         this.extra = extra;
         this.extra.itemSave = this;
-        this.container = container;
     }
     public void RemoveSelf()
     {
-        container?.items.Remove(this);
+        container?.RemoveItem(this);
     }
 }

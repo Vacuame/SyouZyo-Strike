@@ -46,7 +46,6 @@ public static class Calc
         }
         //在总范围取一个数，看看落在谁的范围
         float rand = Random.Range(0, totalWeight);
-        Debug.Log(rand);
         float selectionSum = 0;
         for (int i = 0; i < arr.Count; i++)
         {

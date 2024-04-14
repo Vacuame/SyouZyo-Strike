@@ -51,11 +51,10 @@ public class InventoryPanel : BasePanel
         delTetris.Init(this, inventoryContext.delTetrisData);
     }
 
-    //TODO 逻辑有点怪，物体数量可以直接修改存档，但这里直接清空存档重新保存就为了获得位置信息，有空改一下
     public override void OnExit(bool trueDestroy)
     {
         base.OnExit(trueDestroy);
-        itemSave.items = mainTetris.GetItemInfoList();
+        //TODO 移除在delTetris的东西
         foreach (var a in inventoryTetrisList)
             a.RemoveAllItem();
     }

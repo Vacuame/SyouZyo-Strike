@@ -15,9 +15,10 @@ public class PlayerController : Controller
     {
         base.Start();
         itemSaveData = new ItemSaveData(11,7,new List<ItemSave>());
-        itemSaveData.items.Add(new ItemSave(1, new Vector2Int(2, 4),InventoryStatic.Dir.Down,new EquipedItemSave(24, false),itemSaveData));
-        itemSaveData.items.Add(new ItemSave(2, new Vector2Int(0, 0), InventoryStatic.Dir.Down,new ExtraSave(1), itemSaveData));
-        itemSaveData.items.Add(new ItemSave(3, new Vector2Int(2, 0), InventoryStatic.Dir.Down, new EquipedItemSave(50,false), itemSaveData));
+        itemSaveData.AddItem(new ItemSave(1, new Vector2Int(2, 4), InventoryStatic.Dir.Down, new EquipedItemSave(24, false)));
+        itemSaveData.AddItem(new ItemSave(2, new Vector2Int(0, 0), InventoryStatic.Dir.Down,new ExtraSave(1)));
+        itemSaveData.AddItem(new ItemSave(3, new Vector2Int(2, 0), InventoryStatic.Dir.Down, new EquipedItemSave(50,false)));
+        itemSaveData.AddItem(new ItemSave(4, new Vector2Int(2, 0), InventoryStatic.Dir.Down, new ExtraSave(50)));
     }
 
     protected override void ControlPawn(Pawn pawn)
@@ -57,8 +58,8 @@ public class PlayerController : Controller
                 dir = InventoryStatic.Dir.Left;
             int height = dir == InventoryStatic.Dir.Down ? itemInfo.height : itemInfo.width;
 
-            delTetrisData.items.Add(new ItemSave(
-                itemInfo.id, new Vector2Int(0, delTetrisData.bagHeight - height), dir,extra,null));
+            delTetrisData.AddItem(new ItemSave(
+                itemInfo.id, new Vector2Int(0, delTetrisData.bagHeight - height), dir,extra));
 
             UIManager.Instance.Push(new InventoryPanelContext(InventoryPanel.uiType,this, itemSaveData, delTetrisData));
         }

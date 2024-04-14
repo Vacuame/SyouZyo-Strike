@@ -35,7 +35,7 @@ public class InventoryTetris : MonoBehaviour
 
         Init(panel);
 
-        foreach(var a in itemSave.items)
+        foreach(var a in itemSave.GetItems())
         {
             TryPlaceNewItem(a, a.pos,a.dir);
         }

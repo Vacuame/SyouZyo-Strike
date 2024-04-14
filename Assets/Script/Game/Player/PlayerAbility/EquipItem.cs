@@ -63,6 +63,7 @@ public class EquipItem : AbstractAbility
         private void UnEquipItem()
         {
             equipedItem.PutIn();
+            itemSave =null;
         }
 
 
