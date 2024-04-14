@@ -100,9 +100,11 @@ public class PlayerCharacter : Character
         Interact_SO interactAsset = Resources.Load<Interact_SO>(abilityRootPath + "InteractData");
         ABS.GrandAbility(new Interact(interactAsset, centerTransform, controller.playCamera.transform));
 
-        //ABS.AttrSet<CharaAttr>().health.onPostCurrentValueChange += OnHealthPost_Player;
+        ABS.AttrSet<CharaAttr>().health.onPreCurrentValueChange += OnHealthPre;
         HUDManager.GetHUD<PlayerHUD>().SetHpValue(ABS.AttrSet<CharaAttr>().health.GetProportion());
     }
+
+    
 
     protected void Update()
     {
@@ -238,6 +240,14 @@ public class PlayerCharacter : Character
         if (leftFollow!=null)
             leftHandRig.data.target.transform.position = leftFollow.position;
         twoHandRig.weight = anim.GetFloat("rigWeight");
+    }
+
+    //²»»á±»»ÆÑªÃëÉ±
+    private float OnHealthPre(AttributeBase health, float value)
+    {
+        if (health.GetProportion() > injuryProportion && value <= 0)
+            value = 1f;
+        return value;
     }
     protected override void OnHealthPost(AttributeBase health, float old, float now)
     {
