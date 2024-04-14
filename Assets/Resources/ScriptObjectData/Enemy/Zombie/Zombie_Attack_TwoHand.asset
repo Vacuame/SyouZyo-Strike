@@ -26,8 +26,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   atkConfigs:
-  - dmg: 15
-    makeDmgTime: 0.19
-  - dmg: 15
-    makeDmgTime: 0.62
-  endTime: 1
+  - dmg: 10
+    makeDmgFrame: 7
+  - dmg: 10
+    makeDmgFrame: 18
+  animStartFrame: 0
+  animEndFrame: 30

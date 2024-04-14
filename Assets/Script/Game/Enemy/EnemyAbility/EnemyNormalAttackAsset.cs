@@ -16,7 +16,10 @@ public class EnemyNormalAttackAsset : AbilityAsset
     public struct AttackConfig
     {
         public float dmg;
-        public float makeDmgTime;
+        public int makeDmgFrame;
     }
-    public float endTime;
+    [Header("¶¯»­ÐÅÏ¢")]
+    public int animStartFrame;
+    public int animEndFrame;
+    public float animLenth => (float)(animEndFrame - animStartFrame) / 30;
 }

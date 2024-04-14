@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1c7eba7dd80f6a48923a542e5c854cf, type: 3}
+  m_Name: Zombie_Attack_Light
+  m_EditorClassIdentifier: 
+  abilityName: Attack_Light
+  assetTags: []
+  cancelAbilityTags: []
+  blockAbilityTags: []
+  activationOwnedTag: []
+  activationRequiredTags: []
+  activationBlockedTags: []
+  animPara:
+    animName: Attack_Light
+    layerName: 
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 64
+  atkConfigs:
+  - dmg: 25
+    makeDmgFrame: 31
+  animStartFrame: 0
+  animEndFrame: 79

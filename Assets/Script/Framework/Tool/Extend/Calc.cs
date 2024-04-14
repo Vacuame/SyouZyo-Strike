@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -36,6 +37,28 @@ public static class Calc
         while (res.sqrMagnitude > radius * radius);
         return res+pos;
     }
+    public static int SelectRandom(List<float> arr)
+    {
+        float totalWeight = 0;
+        foreach (float weight in arr)
+        {
+            totalWeight += weight;
+        }
+        //在总范围取一个数，看看落在谁的范围
+        float rand = Random.Range(0, totalWeight);
+        Debug.Log(rand);
+        float selectionSum = 0;
+        for (int i = 0; i < arr.Count; i++)
+        {
+            selectionSum += arr[i];
+            if (selectionSum >= rand)
+            {
+                return i;
+            }
+        }
+        return 0;
+    }
+
     public static float GetMappedRangeValueClamped(Vector2 inputRange,Vector2 outputRange,float input)
     {
         input = Mathf.Clamp(input, inputRange.x, inputRange.y);
@@ -43,6 +66,7 @@ public static class Calc
         return Mathf.Lerp(outputRange.x, outputRange.y, ratio);
 
     }
+
 
     public static int GetUnuseIntInDic(IDictionary dic)
     {

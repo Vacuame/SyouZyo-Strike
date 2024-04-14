@@ -45,9 +45,10 @@ public class EnemyNormalAttack : AbstractAbility<EnemyNormalAttackAsset>
             timeLine.AddEvent(0, () => asset.animPara.PlayAnim(me.anim));
             foreach(var config in asset.atkConfigs)
             {
-                timeLine.AddEvent(config.makeDmgTime,()=> MakeDamage(config.dmg));
+                float makeDmgTime = (float)(config.makeDmgFrame - asset.animStartFrame) / 30;
+                timeLine.AddEvent(makeDmgTime, ()=> MakeDamage(config.dmg));
             }
-            timeLine.AddEvent(asset.endTime, EndSelf);
+            timeLine.AddEvent(asset.animLenth, EndSelf);
         }
 
         public void MakeDamage(float dmg)
@@ -55,7 +56,6 @@ public class EnemyNormalAttack : AbstractAbility<EnemyNormalAttackAsset>
             Collider[] list = collider.Overlap(asset.targetMask);
             foreach (var a in list)
             {
-                Debug.Log(1);
                 EventManager.Instance.TriggerEvent("Hit" + a.gameObject.GetInstanceID(), new HitInfo(dmg));
             }
         }
