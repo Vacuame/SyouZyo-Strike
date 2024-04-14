@@ -9,7 +9,7 @@ using MoleMole;
 /// </summary>
 public class PlayerController : Controller
 {
-    private ItemSaveData itemSaveData;
+    public ItemSaveData itemSaveData;
 
     protected override void Start()
     {
@@ -19,6 +19,7 @@ public class PlayerController : Controller
         itemSaveData.AddItem(new ItemSave(2, new Vector2Int(0, 0), InventoryStatic.Dir.Down,new ExtraSave(1)));
         itemSaveData.AddItem(new ItemSave(3, new Vector2Int(2, 0), InventoryStatic.Dir.Down, new EquipedItemSave(50,false)));
         itemSaveData.AddItem(new ItemSave(4, new Vector2Int(8, 6), InventoryStatic.Dir.Down, new ExtraSave(37)));
+        itemSaveData.AddItem(new ItemSave(4, new Vector2Int(8, 5), InventoryStatic.Dir.Down, new ExtraSave(12)));
     }
 
     protected override void ControlPawn(Pawn pawn)

@@ -2,6 +2,7 @@ using MoleMole;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AimHUD : BaseHUD
 {
@@ -38,14 +39,38 @@ public class AimHUD : BaseHUD
 
     }
 
-    public void SetAmmo(float now,float full)
+    public void SetAmmo(float cur,float full,float bag)
     {
-        if(now<0&&full<0)
+        if(cur<0&&full<0 && full < 0)
         {
-            SetText("ammo", null);
-            return;
+            SetText("curAmmo", null);
+            SetText("ammoCenterLine", null);
+            SetText("bagAmmo", null);
         }
-        SetText("ammo", $"{now} / {full}");
+        else
+        {
+            SetText("curAmmo", cur.ToString());
+            SetText("ammoCenterLine", "/");
+            SetText("bagAmmo", bag.ToString());
+
+            if (texts.TryGetValue("curAmmo", out TextMeshProUGUI text))
+            {
+                Color color = Color.white;
+                if (cur == full)
+                    color = Color.green;
+                else if(cur == 0)
+                    color = Color.red;
+                text.color = color;
+            }
+            if (texts.TryGetValue("bagAmmo", out text))
+            {
+                Color color = Color.white;
+                if (bag == 0)
+                    color = Color.red;
+                text.color = color;
+            }
+        }
+        
     }
     public void SetSightDis(float distance)
     {

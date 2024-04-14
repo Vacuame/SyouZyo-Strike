@@ -18,7 +18,10 @@ public class ExtraSave
         onNumChanged += (int num) => 
         {
             if(num <= 0)
+            {
                 itemSave.RemoveSelf();
+            }
+                
         };
         this.num = num;
     }

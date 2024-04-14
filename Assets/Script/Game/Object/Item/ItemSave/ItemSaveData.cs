@@ -6,18 +6,51 @@ using static InventoryStatic;
 public class ItemSaveData
 {
     #region Items
+    
     private List<ItemSave> items = new List<ItemSave>();
     public void AddItem(ItemSave save)
     {
         items.Add(save);
+        save.container = this;
+        AddItemToDict(save);
+        
     }
     public void RemoveItem(ItemSave save)
     {
         items.Remove(save);
+        RemoveItemToDict(save);
     }
     public List<ItemSave> GetItems()
     {
         return items;
+    }
+    #endregion
+
+    #region ItemDict
+    private Dictionary<int, List<ItemSave>> itemDict = new Dictionary<int, List<ItemSave>>();
+    private void AddItemToDict(ItemSave item)
+    {
+        if(itemDict.ContainsKey(item.id))
+        {
+            itemDict[item.id].Add(item);
+        }
+        else
+        {
+            itemDict.Add(item.id, new List<ItemSave>() { item});
+        }
+    }
+    private void RemoveItemToDict(ItemSave item)
+    {
+        if(itemDict.TryGetValue(item.id,out var list))
+        {
+            list.Remove(item);
+            if(list.Count<=0)
+                itemDict.Remove(item.id);
+        }
+    }
+    public bool TryGetListOfItem(int id,out List<ItemSave>list)
+    {
+        return itemDict.TryGetValue(id,out list);
     }
     #endregion
 

@@ -1,4 +1,4 @@
-using Cinemachine;
+/*using Cinemachine;
 using MoleMole;
 using System.Collections;
 using System.Collections.Generic;
@@ -211,3 +211,4 @@ public class Gun : EquipedItem
         cameraShakeSource.GenerateImpulse(shakeVector*0.1f);
     }
 }
+*/

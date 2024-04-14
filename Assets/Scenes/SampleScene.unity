@@ -627,7 +627,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: -1
@@ -2108,22 +2108,22 @@ PrefabInstance:
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.61216974
+      value: 0.6121747
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.048081674
+      value: 0.048307467
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7872068
+      value: -0.7871724
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.05693783
+      value: 0.057167906
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
