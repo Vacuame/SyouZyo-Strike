@@ -21,14 +21,12 @@ public class AnimPlayConfig
     }
     public AnimPlayConfig(string animName) : this(animName, "")
     {
-        Debug.Log(this.animName);
     }
 
     public void PlayAnim(Animator animator)
     {
         if(animName!="")
         {
-            Debug.Log(animName);
             if (layerName == "")
                 animator.Play(animName);
             else
