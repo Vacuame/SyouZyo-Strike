@@ -15,7 +15,7 @@ public class CueLoseBanlance_Enemy : GameplayCueDurational
     public struct PartBalanceSet
     {
         public float loseBanlanceDuration;
-        public float hurtType;
+        public string animName;
     }
 
     [SerializeField] private List<Pair<string, PartBalanceSet>> partSets = new List<Pair<string, PartBalanceSet>>();
@@ -46,6 +46,8 @@ public class CueLoseBanlance_Enemy : GameplayCueDurational
 
         public override void OnAdd()
         {
+            
+
             //结束所有行动
             foreach(var a in Owner.AbilityContainer.AbilitySpecs.Keys)
                 Owner.TryEndAbility(a);

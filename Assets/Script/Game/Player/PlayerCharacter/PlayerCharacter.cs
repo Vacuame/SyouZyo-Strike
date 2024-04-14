@@ -245,14 +245,14 @@ public class PlayerCharacter : Character
     //²»»á±»»ÆÑªÃëÉ±
     private float OnHealthPre(AttributeBase health, float value)
     {
+        value = Mathf.Clamp(value,0, health.BaseValue);
         if (health.GetProportion() > injuryProportion && value <= 0)
-            value = 1f;
+            value = 1;
         return value;
     }
     protected override void OnHealthPost(AttributeBase health, float old, float now)
     {
         float proportion = ABS.AttrSet<CharaAttr>().health.GetProportion();
-
         float injuryHealth = health.BaseValue * injuryProportion;
         bInjured = now <= injuryHealth;
         if (old > injuryHealth && now <= injuryHealth)
@@ -266,7 +266,6 @@ public class PlayerCharacter : Character
                 ABS.ApplyGameplayEffectToSelf(new GameplayEffect(
                     Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/PlayerOnHit")));
         }
-            
         HUDManager.GetHUD<PlayerHUD>().SetHpValue(proportion);
 
         base.OnHealthPost(health, old, now);

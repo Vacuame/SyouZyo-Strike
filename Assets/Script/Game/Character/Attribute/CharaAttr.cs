@@ -8,7 +8,7 @@ public class CharaAttr : AttributeSet
 
     public CharaAttr(CharaAttr_SO asset)
     {
-        health = new AttributeBase(SetName, "health", asset.health,true);
+        health = new AttributeBase(SetName, "health", asset.health);
     }
 
     public override AttributeBase this[string key]

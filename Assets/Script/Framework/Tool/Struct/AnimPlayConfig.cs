@@ -9,10 +9,26 @@ public class AnimPlayConfig
 {
     public string animName;
     public string layerName;
+
+    public AnimPlayConfig():this("")
+    {
+
+    }
+    public AnimPlayConfig(string animName, string layerName)
+    {
+        this.animName = animName;
+        this.layerName = layerName;
+    }
+    public AnimPlayConfig(string animName) : this(animName, "")
+    {
+        Debug.Log(this.animName);
+    }
+
     public void PlayAnim(Animator animator)
     {
         if(animName!="")
         {
+            Debug.Log(animName);
             if (layerName == "")
                 animator.Play(animName);
             else

@@ -26,22 +26,12 @@ public class AttributeBase
 
     public static implicit operator float(AttributeBase b) => b.CurrentValue;
 
-    public AttributeBase(string attrSetName, string attrName, float baseValue, bool limitZeroToBase = false)
+    public AttributeBase(string attrSetName, string attrName, float baseValue)
     {
         SetName = attrSetName;
         FullName = $"{attrSetName}.{attrName}";
         ShortName = attrName;
         attrValue = new AttributeValue(baseValue);
-
-        if (limitZeroToBase)//ÏÞÖÆvalueÔÚ [0,Base]
-            onPreCurrentValueChange += (AttributeBase b, float value) =>
-            {
-                if (value > BaseValue)
-                    value = BaseValue;
-                if(value < 0)
-                    value = 0;
-                return value;
-            };
     }
 
     /// <summary>
@@ -82,7 +72,6 @@ public class AttributeBase
     {
         if(excutePreEvent && onPreCurrentValueChange != null)
             value = onPreCurrentValueChange.Invoke(this, value);
-
         float oldValue = attrValue.currentValue;
         attrValue.currentValue = value;
 

@@ -18,15 +18,15 @@ MonoBehaviour:
   - key: Head
     value:
       loseBanlanceDuration: 2.5
-      hurtType: 0
+      animName: HeadHurt
   - key: Body
     value:
       loseBanlanceDuration: 1.7
-      hurtType: 1
+      animName: BackHurt
   - key: Run
     value:
       loseBanlanceDuration: 1.7
-      hurtType: 2
+      animName: BePushBack
   defaultPartSet:
     loseBanlanceDuration: 1.5
-    hurtType: 3
+    animName: LegHurt

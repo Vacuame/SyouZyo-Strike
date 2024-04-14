@@ -5,9 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewData", menuName = "ABS/GameplayEffect/Cue/PlayAnim")]
 public class CuePlayAnim : GameplayCueInstant
 {
-    public string animName;
-    public string layerName;
-    public List<Pair<string, float>> animParameters = new List<Pair<string, float>>();
+    public AnimPlayConfig animConfig;
     public override GameplayCueInstantSpec CreateSpec(GameplayCueParameters parameters)
     {
         return new CuePlayAnimSpec(this, parameters);
@@ -26,13 +24,8 @@ public class CuePlayAnim : GameplayCueInstant
         public override void Trigger()
         {
             var character = Owner.GetComponent<Character>();
-            if (cuePlayAnim.layerName=="")
-                character.anim.Play(cuePlayAnim.animName);
-            else
-                character.anim.Play(cuePlayAnim.animName,character.anim.GetLayerIndex(cuePlayAnim.layerName));
 
-            foreach(var a in cuePlayAnim.animParameters)
-                character.anim.SetFloat(a.key, a.value);
+            cuePlayAnim.animConfig.PlayAnim(character.anim);
         }
     }
 }

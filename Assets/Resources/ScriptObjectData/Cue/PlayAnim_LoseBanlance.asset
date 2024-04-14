@@ -15,6 +15,6 @@ MonoBehaviour:
   RequiredTags: []
   ImmunityTags: []
   applyTarget: 0
-  animName: LoseBanlance
-  layerName: 
-  animParameters: []
+  animConfig:
+    animName: BePushBack
+    layerName: 
