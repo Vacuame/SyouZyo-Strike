@@ -38,5 +38,7 @@ public class ItemDroper : MonoBehaviour
         PickableObj obj = GameObject.Instantiate(prefab, pos, rotation);
         int num = Random.Range(dropConfig.numRange.x, dropConfig.numRange.y + 1);
         obj.extraSet.num = num;
+
+        obj.AddLightColum();
     }
 }

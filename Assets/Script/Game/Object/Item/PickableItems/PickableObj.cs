@@ -12,6 +12,30 @@ public class PickableObj : InteractableObj
     private Material highLightMat;
     private List<Material[]> mats = new List<Material[]>();
     private List<Material[]> edgeMats = new List<Material[]>();
+
+    #region ¹âÖù
+    [HideInInspector]public GameObject lightColumn;
+    [SerializeField] private float lightIntensity_fade,lightIntensity_highLight;
+    [SerializeField]private Color lightColumnColor_fade, lightColumnColor_highLight;
+    private Renderer lightRender;
+    public void AddLightColum()
+    {
+        lightColumn = GameObject.Instantiate(Resources.Load<GameObject>("Effect/LightColumn"), transform.position, Quaternion.identity);
+        lightColumn.transform.SetParent(transform, true);
+        lightRender = lightColumn.GetComponentInChildren<Renderer>();
+        SetLightColumColor(lightColumnColor_fade, lightIntensity_fade);
+    }
+    private void SetLightColumColor(Color color,float lightIntensity)
+    {
+        Material lightMat = new Material(lightRender.material);
+        Color.RGBToHSV(color, out float _h, out float _s, out float _v);
+        Debug.Log(_v);
+        lightMat.SetColor("_EmissionColor", Color.HSVToRGB(_h, _s, lightIntensity));
+        lightRender.material = lightMat;
+    }
+    #endregion
+
+
     public virtual ExtraSave extraSet { get; set; }
     private void Awake()
     {
@@ -40,6 +64,13 @@ public class PickableObj : InteractableObj
         {
             if (renders[i] != null)
                 renders[i].materials = materials[i];
+        }
+
+        if(lightColumn!=null)
+        {
+            Color lightColumnColor = isSelected ? lightColumnColor_highLight : lightColumnColor_fade;
+            float lightIntensity = isSelected ? lightIntensity_highLight : lightIntensity_fade;
+            SetLightColumColor(lightColumnColor, lightIntensity);
         }
     }
 

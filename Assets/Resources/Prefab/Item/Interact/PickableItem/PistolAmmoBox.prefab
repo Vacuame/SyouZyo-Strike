@@ -50,6 +50,11 @@ MonoBehaviour:
   edgeWidth: 0.012
   renders:
   - {fileID: 1096585596727682056}
+  lightColumn: {fileID: 0}
+  lightIntensity_fade: 3
+  lightIntensity_highLight: 6
+  lightColumnColor_fade: {r: 1, g: 0.3137255, b: 0.3137255, a: 1}
+  lightColumnColor_highLight: {r: 1, g: 0.13333334, b: 0.13333334, a: 1}
   extra:
     _num: 50
 --- !u!65 &47096198373114242
