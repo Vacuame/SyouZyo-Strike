@@ -93,7 +93,7 @@ public class Interact : AbstractAbility<Interact_SO>
                     Debug.LogError(a + "is null but in list");
                     continue;
                 }*/
-                if (Calc.TryGetInterfaceInTransform(a, out IInteractable interaction) && interaction.canInteract)
+                if (Calc.TryGetInterfaceInTransform(a, out IInteractable interaction) && interaction.CanInteract())
                 {
                     Vector3 vector = (a.position - from).normalized;
                     float dot = Vector3.Dot(vector, forward);

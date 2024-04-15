@@ -8,5 +8,5 @@ public interface IInteractable
 
     public void SetSelected(bool isSelected);
 
-    public bool canInteract { get; }
+    public bool CanInteract();
 }

@@ -95,10 +95,9 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     }
     public void SetTetris(Vector2Int gridPos, Dir dir, InventoryTetris inventoryTetris)
     {
-        this.gridPos = gridPos;
-        this.dir = dir;
+        this.gridPos = itemSave.pos = gridPos;
+        this.dir = itemSave.dir = dir;
         this.inventoryTetris = inventoryTetris;
-        itemSave.pos = gridPos;
 
         transform.SetParent(inventoryTetris.GetItemContainer());
         transform.rotation = Quaternion.Euler(0, 0, GetRotationAngle(dir));

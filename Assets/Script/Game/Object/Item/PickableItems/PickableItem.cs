@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PickableItem : InteractableObj
 {
+    public static readonly string prefabPath = "Prefab/Item/Interact/PickableItem/";
     [SerializeField] private ItemInfo itemInfo;
     [SerializeField] private float edgeWidth;
     [SerializeField] private List<Renderer> renders;

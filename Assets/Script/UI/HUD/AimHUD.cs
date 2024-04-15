@@ -28,12 +28,8 @@ public class AimHUD : BaseHUD
         if(texts.TryGetValue(key,out TextMeshProUGUI text))
         {
             if (text == null) return;
-            if(value==null)
-            {
-                text.gameObject.SetActive(false);
-                return;
-            }
-            text.gameObject.SetActive(true);
+            if (value == null)
+                value = "";
             text.text = value;
         }
 

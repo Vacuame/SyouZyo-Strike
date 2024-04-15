@@ -53,7 +53,7 @@ public class Climb : AbstractAbility<Climb_SO>
             transform = args[2] as Transform;
 
             cc.enabled = false;
-            HUDManager.GetHUD<AimHUD>()?.SetText("tip", null);
+            HUDManager.GetHUD<PlayerHUD>()?.SetTip(null);
 
             armAnimLayerIndex = anim.GetLayerIndex("Arm");
             anim.SetLayerWeight(armAnimLayerIndex, 0);
@@ -116,15 +116,21 @@ public class Climb : AbstractAbility<Climb_SO>
             }
         }
 
+        private bool lastCanActivate;
         protected override void SustainedTick()
         {
             if (climbType != 0) return;
             climable = ClimbCheck();
 
-            if(CanActivate())
-                HUDManager.GetHUD<AimHUD>()?.SetText("tip", "Press F to climb");
-            else
-                HUDManager.GetHUD<AimHUD>()?.SetText("tip", null);
+            bool canActivate = CanActivate();
+            if (canActivate!=lastCanActivate)
+            {
+                if(canActivate)
+                    HUDManager.GetHUD<PlayerHUD>()?.SetTip("Press F to climb");
+                else
+                    HUDManager.GetHUD<PlayerHUD>()?.SetTip(null);
+            }
+            lastCanActivate = canActivate;
         }
         
         private int ClimbCheck()

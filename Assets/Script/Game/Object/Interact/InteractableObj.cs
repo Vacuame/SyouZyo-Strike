@@ -5,7 +5,10 @@ using UnityEngine;
 public abstract class InteractableObj : MonoBehaviour, IInteractable
 {
     protected bool bSelected;
-    public virtual bool canInteract => true;
+    public virtual bool CanInteract()
+    {
+        return true;
+    }
 
     public abstract void BeInteracted(PlayerCharacter character);
 
