@@ -12,7 +12,6 @@ public class ItemInfo : ScriptableObject
     public int maxStackNum = 1;
     public Sprite icon;
     public ItemType type;
-
     public enum ItemType
     {
         Item,Useable,Gun,Knife

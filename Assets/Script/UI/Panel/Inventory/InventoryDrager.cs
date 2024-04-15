@@ -23,13 +23,13 @@ public class InventoryDrager
     //Rotate
     private float curRotation;
     private float rotateSpeed;
-    private const float rotateTime = 0.3f;
+    private const float rotateTime = 0.15f;
 
     public InventoryDrager(List<InventoryTetris> list,RectTransform dragContainer) 
     {
         inventoryTetrisList = list;
         this.dragContainer = dragContainer;
-        rotateSpeed = 90 /rotateTime * Time.deltaTime;
+        rotateSpeed = 90 /rotateTime;
     }
 
     public void Tick()
@@ -62,7 +62,7 @@ public class InventoryDrager
             if (Input.GetKeyDown(KeyCode.Q))
                 dragDir = GetNextDir(dragDir);
             float targetRotation = GetRotationAngle(dragDir);
-            curRotation = Mathf.MoveTowardsAngle(curRotation, targetRotation, rotateSpeed);
+            curRotation = Mathf.MoveTowardsAngle(curRotation, targetRotation, rotateSpeed * Time.deltaTime);
             draggingItem.transform.rotation = Quaternion.Euler(0, 0, curRotation);
         }
     }

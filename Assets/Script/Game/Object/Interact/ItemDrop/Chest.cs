@@ -38,7 +38,7 @@ public class Chest : InteractableObj
         timeline.AddEvent(openAnimStartTime, () => anim.Play());
         timeline.AddEvent(objInstanceTime, () =>
         {
-            GameObject itemPrefab = Resources.Load<GameObject>(PickableItem.prefabPath + prefabName);
+            GameObject itemPrefab = Resources.Load<GameObject>(PickableObj.prefabPath + prefabName);
             if (itemPrefab != null)
                 GameObject.Instantiate(itemPrefab, objectRespawnPoint.position, Quaternion.identity);
         });

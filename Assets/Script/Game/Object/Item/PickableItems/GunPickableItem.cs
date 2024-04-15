@@ -2,8 +2,12 @@
 using UnityEngine;
 
 
-public class GunPickableItem : PickableItem
+public class GunPickableItem : PickableObj
 {
     public EquipedItemSave gunSet;
-    protected override ExtraSave extraSet => gunSet;
+    protected override ExtraSave extraSet
+    {
+        get => gunSet; 
+        set => gunSet = value as EquipedItemSave;
+    }
 }

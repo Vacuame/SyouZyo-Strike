@@ -49,7 +49,7 @@ public class PlayerController : Controller
         }*/
     }
 
-    public void GetNewItem(ItemInfo itemInfo,ExtraSave extra)
+    public void PickUpNewItem(ItemInfo itemInfo,ExtraSave extra)
     {
         if (!itemSaveData.TryGetNewItem(itemInfo,extra))
         {

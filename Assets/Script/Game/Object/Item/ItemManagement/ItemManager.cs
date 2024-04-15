@@ -12,7 +12,12 @@ public class ItemManager : Singleton<ItemManager>
 
     public ItemInfo GetItemInfo(int id)
     {
-        return itemInfoSetting.setting.Get(id);
+        return itemInfoSetting.setting.Get(id).itemInfo;
+    }
+
+    public PickableObj GetPickablePrefab(int id)
+    {
+        return itemInfoSetting.setting.Get(id).pickablePrefab;
     }
 
 }
