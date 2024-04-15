@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using static InventoryStatic;
 
 public class ItemSaveData
@@ -12,13 +13,20 @@ public class ItemSaveData
     {
         items.Add(save);
         save.container = this;
-        AddItemToDict(save);
-        
+        itemDict.Add(save.id, save);
+        if(onItemAdded.TryGetValue(save.id,out var action))
+        {
+            action.Invoke(save);
+        }
     }
     public void RemoveItem(ItemSave save)
     {
         items.Remove(save);
-        RemoveItemToDict(save);
+        itemDict.Remove(save.id, save);
+        if (onItemRemoved.TryGetValue(save.id, out var action))
+        {
+            action.Invoke(save);
+        }
     }
     public List<ItemSave> GetItems()
     {
@@ -27,32 +35,38 @@ public class ItemSaveData
     #endregion
 
     #region ItemDict
-    private Dictionary<int, List<ItemSave>> itemDict = new Dictionary<int, List<ItemSave>>();
+    private ListDictionary<int, ItemSave> itemDict = new ListDictionary<int, ItemSave>();
+/*
+    private Dictionary<int, List<ItemSave>> _itemDict = new Dictionary<int, List<ItemSave>>();
     private void AddItemToDict(ItemSave item)
     {
-        if(itemDict.ContainsKey(item.id))
+        if(_itemDict.ContainsKey(item.id))
         {
-            itemDict[item.id].Add(item);
+            _itemDict[item.id].Add(item);
         }
         else
         {
-            itemDict.Add(item.id, new List<ItemSave>() { item});
+            _itemDict.Add(item.id, new List<ItemSave>() { item});
         }
     }
     private void RemoveItemToDict(ItemSave item)
     {
-        if(itemDict.TryGetValue(item.id,out var list))
+        if(_itemDict.TryGetValue(item.id,out var list))
         {
             list.Remove(item);
             if(list.Count<=0)
-                itemDict.Remove(item.id);
+                _itemDict.Remove(item.id);
         }
-    }
+    }*/
     public bool TryGetListOfItem(int id,out List<ItemSave>list)
     {
-        return itemDict.TryGetValue(id,out list);
+        return itemDict.TryGetList(id,out list);
+        //return _itemDict.TryGetValue(id,out list);
     }
     #endregion
+
+    public Dictionary<int, UnityAction<ItemSave>> onItemAdded = new Dictionary<int, UnityAction<ItemSave>>();
+    public Dictionary<int, UnityAction<ItemSave>> onItemRemoved=new Dictionary<int, UnityAction<ItemSave>>();
 
     public int bagWidth, bagHeight;
 

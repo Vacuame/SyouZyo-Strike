@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GunPickableItem : PickableObj
 {
-    public EquipedItemSave gunSet;
-    protected override ExtraSave extraSet
+    [SerializeField]private EquipedItemSave gunSet;
+    public override ExtraSave extraSet
     {
         get => gunSet; 
         set => gunSet = value as EquipedItemSave;

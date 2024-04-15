@@ -15,10 +15,20 @@ MonoBehaviour:
   setting:
     Setting:
     - key: 1
-      value: {fileID: 11400000, guid: 0f05937ff362b2043a31db068953d85b, type: 2}
+      value:
+        itemInfo: {fileID: 11400000, guid: 0f05937ff362b2043a31db068953d85b, type: 2}
+        pickablePrefab: {fileID: 8968566408739344569, guid: dfdd3c16dc245d14c9cd99d465db500a,
+          type: 3}
     - key: 2
-      value: {fileID: 11400000, guid: 536327daa42eb894e8c8bda8631585ca, type: 2}
+      value:
+        itemInfo: {fileID: 11400000, guid: 536327daa42eb894e8c8bda8631585ca, type: 2}
+        pickablePrefab: {fileID: 0}
     - key: 3
-      value: {fileID: 11400000, guid: d126b15d06375f448838a20ed4cfbc77, type: 2}
+      value:
+        itemInfo: {fileID: 11400000, guid: d126b15d06375f448838a20ed4cfbc77, type: 2}
+        pickablePrefab: {fileID: 0}
     - key: 4
-      value: {fileID: 11400000, guid: f1c9803095beb0044a38982d244ebbc4, type: 2}
+      value:
+        itemInfo: {fileID: 11400000, guid: f1c9803095beb0044a38982d244ebbc4, type: 2}
+        pickablePrefab: {fileID: 3226988916142625348, guid: c188b0e9359169f4498d126e747d93c1,
+          type: 3}

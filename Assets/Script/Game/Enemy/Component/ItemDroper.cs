@@ -9,7 +9,7 @@ public class ItemDroper : MonoBehaviour
     {
         public int id;
         public float weight;
-        public int numRange;
+        public Vector2Int numRange;
     }
 
     public List<DropConfig> dropConfigs=new List<DropConfig>();
@@ -23,9 +23,20 @@ public class ItemDroper : MonoBehaviour
         }
     }
 
-    public void DropItem(Vector3 pos)
+    public void DropItem(Vector3 pos,Quaternion rotation)
     {
         int dropIndex = Calc.SelectRandom(weightList);
-
+        DropConfig dropConfig = dropConfigs[dropIndex];
+        if (dropConfig.id == 0)
+            return;
+        PickableObj prefab = ItemManager.Instance.GetPickablePrefab(dropConfig.id);
+        if (prefab == null)
+        {
+            Debug.LogError($"想Drop的id = {dropConfig.id}的prefab没有找到");
+            return;
+        }
+        PickableObj obj = GameObject.Instantiate(prefab, pos, rotation);
+        int num = Random.Range(dropConfig.numRange.x, dropConfig.numRange.y + 1);
+        obj.extraSet.num = num;
     }
 }

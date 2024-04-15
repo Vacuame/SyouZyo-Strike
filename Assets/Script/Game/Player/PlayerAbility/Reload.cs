@@ -35,7 +35,7 @@ public class Reload : AbstractAbility
             gun = args[1] as EquipedGun;
             player = args[2] as PlayerController;
 
-            int ammoId = gun.GetAmmoId();
+            int ammoId = gun.ammoId;
             bool canReload = ammoId != 0 && gun.curAmmo < gun.fullAmmo;
 
             if (!canReload||!player.itemSaveData.TryGetListOfItem(ammoId, out ammoBoxes))

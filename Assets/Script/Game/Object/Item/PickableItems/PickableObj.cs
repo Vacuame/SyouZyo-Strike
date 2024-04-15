@@ -12,7 +12,7 @@ public class PickableObj : InteractableObj
     private Material highLightMat;
     private List<Material[]> mats = new List<Material[]>();
     private List<Material[]> edgeMats = new List<Material[]>();
-    protected virtual ExtraSave extraSet { get; set; }
+    public virtual ExtraSave extraSet { get; set; }
     private void Awake()
     {
         highLightMat = Resources.Load<Material>("Material/EdgeGlow");

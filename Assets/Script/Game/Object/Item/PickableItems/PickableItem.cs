@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class PickableItem : PickableObj
 {
-    public ExtraSave extra;
-    protected override ExtraSave extraSet { get => extra; set => extra = value; }
+    [SerializeField]private ExtraSave extra;
+    public override ExtraSave extraSet { get => extra; set => extra = value; }
 }

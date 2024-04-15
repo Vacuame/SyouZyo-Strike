@@ -32,12 +32,37 @@ public class AimHUD : BaseHUD
                 value = "";
             text.text = value;
         }
+    }
 
+    public void SetBagAmmo(float bag)
+    {
+        SetText("bagAmmo", bag.ToString());
+        if (texts.TryGetValue("bagAmmo", out TextMeshProUGUI text))
+        {
+            Color color = Color.white;
+            if (bag == 0)
+                color = Color.red;
+            text.color = color;
+        }
+    }
+
+    public void SetCurAmmo(float cur, float full)
+    {
+        SetText("curAmmo", cur.ToString());
+        if (texts.TryGetValue("curAmmo", out TextMeshProUGUI text))
+        {
+            Color color = Color.white;
+            if (cur == full)
+                color = Color.green;
+            else if (cur == 0)
+                color = Color.red;
+            text.color = color;
+        }
     }
 
     public void SetAmmo(float cur,float full,float bag)
     {
-        if(cur<0&&full<0 && full < 0)
+        if(cur<0 || full<0 || full < 0)
         {
             SetText("curAmmo", null);
             SetText("ammoCenterLine", null);
@@ -45,28 +70,10 @@ public class AimHUD : BaseHUD
         }
         else
         {
-            SetText("curAmmo", cur.ToString());
+            SetCurAmmo(cur, full);
             SetText("ammoCenterLine", "/");
-            SetText("bagAmmo", bag.ToString());
-
-            if (texts.TryGetValue("curAmmo", out TextMeshProUGUI text))
-            {
-                Color color = Color.white;
-                if (cur == full)
-                    color = Color.green;
-                else if(cur == 0)
-                    color = Color.red;
-                text.color = color;
-            }
-            if (texts.TryGetValue("bagAmmo", out text))
-            {
-                Color color = Color.white;
-                if (bag == 0)
-                    color = Color.red;
-                text.color = color;
-            }
+            SetBagAmmo(bag);
         }
-        
     }
     public void SetSightDis(float distance)
     {

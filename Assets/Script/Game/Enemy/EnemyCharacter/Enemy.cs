@@ -106,11 +106,16 @@ public class Enemy : Character
         gameObject.layer = LayerMask.NameToLayer("Ignore");
         bDead = true;
         TimerManager.Instance.AddTimer(new Timer(() => Destroy(this.gameObject), 1, 20));
+
+        OnDeadEnd();
     }
 
-    protected override void OnDeadEnd()
+    protected override void OnDeadEnd() //TODO 死亡动画播放完后执行，并且橡皮人
     {
-
+        if(TryGetComponent(out ItemDroper itemDroper))
+        {
+            itemDroper.DropItem(feetTransform.position, transform.rotation);
+        }
     }
 
 

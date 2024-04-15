@@ -1,6 +1,5 @@
 using Cinemachine;
 using MoleMole;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
@@ -34,17 +33,18 @@ public class EquipedGun : EquipedItem
     [SerializeField] private float coolDownInterval;
 
     //×Óµ¯
+    public int ammoId { get; private set; }
     [SerializeField] private int _fullAmmo;
     public int fullAmmo { get { return _fullAmmo; } 
-        set { _fullAmmo = value; HUDManager.GetHUD<AimHUD>()?.SetAmmo(data.durability, _fullAmmo,bagAmmo); } }
+        set { _fullAmmo = value; HUDManager.GetHUD<AimHUD>()?.SetCurAmmo(data.durability, _fullAmmo); } }
     public int curAmmo { get { return data.durability; } 
-        set { data.durability = value; HUDManager.GetHUD<AimHUD>()?.SetAmmo(data.durability, _fullAmmo, bagAmmo); } }
+        set { data.durability = value; HUDManager.GetHUD<AimHUD>()?.SetCurAmmo(data.durability, _fullAmmo); } }
 
     private int _bagAmmo;
     public int bagAmmo
     {
         get { return _bagAmmo; }
-        set { _bagAmmo = value; HUDManager.GetHUD<AimHUD>()?.SetAmmo(data.durability, _fullAmmo, _bagAmmo); }
+        set { _bagAmmo = value; HUDManager.GetHUD<AimHUD>()?.SetBagAmmo(_bagAmmo); }
     }
 
 
@@ -105,7 +105,11 @@ public class EquipedGun : EquipedItem
         user.controller.control.Player.Fire.canceled += ShootEd;
         user.controller.control.Player.Reload.started += Reload;
 
+        ammoId = GetAmmoId();
+        PlayerController player = user.controller as PlayerController;
+        player.itemSaveData.onItemAdded.AddOrReplace(ammoId, ShowAmmoOnAdd);
         bagAmmo = GetAmmoInBag();
+        
         HUDManager.GetHUD<AimHUD>()?.SetAmmo(curAmmo, fullAmmo,bagAmmo);
     }
     public override void PutIn()
@@ -123,6 +127,9 @@ public class EquipedGun : EquipedItem
         owner.RemoveAbility("Aim");
         owner.RemoveAbility("Shoot");
         owner.RemoveAbility("Reload");
+
+        PlayerController player = user.controller as PlayerController;
+        player.itemSaveData.onItemAdded.Remove(ammoId);
 
         HUDManager.GetHUD<AimHUD>()?.SetAmmo(-1, -1,-1);
 
@@ -323,8 +330,11 @@ public class EquipedGun : EquipedItem
     #endregion
 
     #region µ¯Ò©
-
-    public int GetAmmoId()
+    private void ShowAmmoOnAdd(ItemSave ammo)
+    {
+        bagAmmo += ammo.extra.num;
+    }
+    private int GetAmmoId()
     {
         int res = 0;
         switch (hitType)
@@ -336,7 +346,6 @@ public class EquipedGun : EquipedItem
         }
         return res;
     }
-
     public int GetAmmoInBag()
     {
         PlayerController player = user.controller as PlayerController;

@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 114608725901821478}
   - component: {fileID: 3226988916142625348}
-  m_Layer: 0
+  - component: {fileID: 47096198373114242}
+  m_Layer: 10
   m_Name: PistolAmmoBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,6 +52,27 @@ MonoBehaviour:
   - {fileID: 1096585596727682056}
   extra:
     _num: 50
+--- !u!65 &47096198373114242
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7180026818835859336}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.2745935, y: 0.22071008, z: 0.23681034}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5685107830893888031
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -114,7 +136,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Chuck_Pistol_Box_9_CLOSED
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3298938550826572798, guid: a82432d1109cc4c49b891160c9db1aa7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
