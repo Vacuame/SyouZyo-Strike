@@ -65,8 +65,8 @@
     <Compile Include="Assets\Plugins\OpenFracture\Tests\Runtime\QuadTests.cs" />
     <Compile Include="Assets\Plugins\OpenFracture\Tests\Runtime\MeshVertexTests.cs" />
     <Compile Include="Assets\Plugins\OpenFracture\Tests\Runtime\BinSortTests.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Tests\Runtime\SlicedMeshDataTests.cs" />
     <Compile Include="Assets\Plugins\OpenFracture\Tests\Runtime\Vector3Tests.cs" />
+    <Compile Include="Assets\Plugins\OpenFracture\Tests\Runtime\SlicedMeshDataTests.cs" />
     <Compile Include="Assets\Plugins\OpenFracture\Tests\Runtime\MathUtilsTests.cs" />
     <Compile Include="Assets\Plugins\OpenFracture\Tests\Runtime\EdgeTests.cs" />
     <Compile Include="Assets\Plugins\OpenFracture\Tests\Runtime\TriangulationPointTests.cs" />

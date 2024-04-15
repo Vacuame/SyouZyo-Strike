@@ -103,7 +103,7 @@ public class Enemy : Character
         int deadType = Random.Range(0, deadAnimTypeNum);
         anim.SetFloat("DeadType", deadType);
         anim.Play("Dead");
-        cc.enabled = false;
+        gameObject.layer = LayerMask.NameToLayer("Ignore");
         bDead = true;
         TimerManager.Instance.AddTimer(new Timer(() => Destroy(this.gameObject), 1, 20));
     }
@@ -122,7 +122,8 @@ public class Enemy : Character
             toughness.RefreshCurValue();
             //»ñµÃBuff Ê§ºâ
             GameplayEffectAsset asset = Instantiate(Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/LoseBanlance"));
-            CuePlayAnim cuePlayAnim = Instantiate(asset.CueOnAdd[0] as CuePlayAnim);
+            asset.CueOnAdd[0] = Instantiate(asset.CueOnAdd[0]);
+            CuePlayAnim cuePlayAnim = asset.CueOnAdd[0] as CuePlayAnim;
             CueLoseBanlance_Enemy cueLoseBanlance = asset.CueDurational[0] as CueLoseBanlance_Enemy;
             string loseBanlanceName;
             if (toughness.ShortName == "Body" && nav.velocity.sqrMagnitude >= 4)
@@ -132,7 +133,6 @@ public class Enemy : Character
             CueLoseBanlance_Enemy.PartBalanceSet partBalanceSet = cueLoseBanlance.GetPartBanlanceSet(loseBanlanceName);
             asset.duration = partBalanceSet.loseBanlanceDuration;
             cuePlayAnim.animConfig = new AnimPlayConfig(partBalanceSet.animName);
-            asset.CueOnAdd[0] = cuePlayAnim;
             ABS.ApplyGameplayEffectToSelf(new GameplayEffect(asset));
         }
     }

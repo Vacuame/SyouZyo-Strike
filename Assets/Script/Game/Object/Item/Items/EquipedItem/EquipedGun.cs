@@ -75,7 +75,7 @@ public class EquipedGun : EquipedItem
 
     //…‰≥Ã
     [Header("æ‡¿Î")]
-    [SerializeField] private AnimationCurve distanceDamageFalloff;
+    [SerializeField] private AnimationCurve distanceDamageFalloff;// 0 - 1
     private float maxDistance;
 
     #endregion
@@ -308,7 +308,8 @@ public class EquipedGun : EquipedItem
                 PlayHitDefaultParticle(hit.point, hitDir);
 
             EventManager.Instance.TriggerEvent("Hit" + hitObj.GetInstanceID(),
-                    new HitInfo(hitType, damage, user.gameObject, hitObj, hit.point, hitDir));
+                    new HitInfo(hitType, damage * distanceDamageFalloff.Evaluate(hit.distance), 
+                    user.gameObject, hitObj, hit.point, hitDir));
         }
         else
         {
