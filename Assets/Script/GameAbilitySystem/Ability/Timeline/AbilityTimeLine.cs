@@ -4,7 +4,7 @@ using UnityEngine;
 public class AbilityTimeLine
 {
     private bool bStart;//是否开始
-    private bool bPause;//是否暂停
+    public bool bPause;//是否暂停
     private float curTime;//当前计时    
     private Action reset;//重置事件
     private Action<float> update;//每帧回调
@@ -50,11 +50,11 @@ public class AbilityTimeLine
 
     public void Update()
     {
-        float deltaTime = Time.deltaTime;
         if (!bStart || bPause)//时间线开始并且没有被暂停就进入下面
         {
             return;
         }
+        float deltaTime = Time.deltaTime;
         curTime += deltaTime;
         if (null != update)
         {

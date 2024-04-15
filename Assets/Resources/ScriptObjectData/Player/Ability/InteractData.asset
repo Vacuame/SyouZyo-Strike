@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: InteractData
   m_EditorClassIdentifier: 
   abilityName: Interact
-  assetTags: []
-  cancelAbilityTags: []
-  blockAbilityTags: []
-  activationOwnedTag: []
+  assetTags:
+  - Interact
+  cancelAbilityTags:
+  - HandAction
+  blockAbilityTags:
+  - HandAction
+  activationOwnedTag:
+  - Invincible
   activationRequiredTags: []
-  activationBlockedTags: []
+  activationBlockedTags:
+  - LoseBanlance
   interactDistance: 1
-  centerTransform: {fileID: 0}
-  cameraTransform: {fileID: 0}

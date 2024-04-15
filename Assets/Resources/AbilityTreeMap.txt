@@ -5,6 +5,7 @@ Action
 		Melee
 	FullBodyAction
 		Climb
+		Interact
 
 State
 	Endure //∞‘ÃÂ

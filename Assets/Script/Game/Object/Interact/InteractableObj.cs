@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class InteractableObj : MonoBehaviour, IInteractable
 {
@@ -10,7 +11,7 @@ public abstract class InteractableObj : MonoBehaviour, IInteractable
         return true;
     }
 
-    public abstract void BeInteracted(PlayerCharacter character);
+    public abstract void BeInteracted(PlayerCharacter character,UnityAction onInteractOver);
 
     public virtual void SetSelected(bool isSelected) 
     {

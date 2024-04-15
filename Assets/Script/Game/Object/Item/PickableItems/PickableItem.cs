@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PickableItem : InteractableObj
 {
@@ -23,10 +24,11 @@ public class PickableItem : InteractableObj
             edgeMats.Add(new Material[2] { render.material, highLightMat });
         }
     }
-    public override void BeInteracted(PlayerCharacter character)
+    public override void BeInteracted(PlayerCharacter character, UnityAction onInteractOver)
     {
         PlayerController controller = character.controller as PlayerController;
         controller.GetNewItem(itemInfo, extraSet);
+        onInteractOver?.Invoke();
         Destroy(gameObject);
     }
 

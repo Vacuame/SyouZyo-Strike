@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.Events;
 
 public interface IInteractable
 {
-    public void BeInteracted(PlayerCharacter character);
+    public void BeInteracted(PlayerCharacter character, UnityAction onInteractOver);
 
     public void SetSelected(bool isSelected);
 
