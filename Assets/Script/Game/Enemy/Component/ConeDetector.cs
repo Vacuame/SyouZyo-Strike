@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ConeDetector : MonoBehaviour
 {
@@ -33,6 +35,20 @@ public class ConeDetector : MonoBehaviour
             }
         }
         return found != null;
+    }
+
+    public Func<bool> shouldLook;
+
+    public Action<GameObject> onLook;
+    private void Update()
+    {
+        if(shouldLook!=null && shouldLook.Invoke())
+        {
+            if(TryDetect(out GameObject found)) 
+            {
+                onLook?.Invoke(found);
+            }
+        }
     }
 
     private void OnDrawGizmos()

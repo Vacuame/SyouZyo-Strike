@@ -38,6 +38,7 @@ public class Enemy : Character
         {
             patrolPoints.Add(patrolPointList.GetChild(i));
         }
+
         #region 注册部位
 
         //给每个部位添加受击事件
@@ -66,8 +67,25 @@ public class Enemy : Character
         }
         #endregion
 
+        InitSense();
     }
 
+    #region 感官
+    protected virtual void InitSense()
+    {   
+        //眼睛
+        ConeDetector eye = transform.GetComponentInChildren<ConeDetector>();
+
+
+        //耳朵
+        EventManager.Instance.AddListener("Hear" + gameObject.GetInstanceID(), (Vector3 v) =>
+        {
+            Debug.Log("Heard Something at " + v);
+        });
+    }
+    #endregion
+
+    #region 伤害计算
     protected override void OnHit(HitInfo hitInfo)
     {
         if (bDead) return;
@@ -91,7 +109,31 @@ public class Enemy : Character
         }
         
     }
+    private void OnBodyPartToughnessPost(AttributeBase toughness, float old, float now)
+    {
+        if (bDead) return;
+        if (old > 0 && now <= 0)
+        {
+            toughness.RefreshCurValue();
+            //获得Buff 失衡
+            GameplayEffectAsset asset = Instantiate(Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/LoseBanlance"));
+            asset.CueOnAdd[0] = Instantiate(asset.CueOnAdd[0]);
+            CuePlayAnim cuePlayAnim = asset.CueOnAdd[0] as CuePlayAnim;
+            CueLoseBanlance_Enemy cueLoseBanlance = asset.CueDurational[0] as CueLoseBanlance_Enemy;
+            string loseBanlanceName;
+            if (toughness.ShortName == "Body" && nav.velocity.sqrMagnitude >= 4)
+                loseBanlanceName = "Run";
+            else
+                loseBanlanceName = toughness.ShortName;
+            CueLoseBanlance_Enemy.PartBalanceSet partBalanceSet = cueLoseBanlance.GetPartBanlanceSet(loseBanlanceName);
+            asset.duration = partBalanceSet.loseBanlanceDuration;
+            cuePlayAnim.animConfig = new AnimPlayConfig(partBalanceSet.animName);
+            ABS.ApplyGameplayEffectToSelf(new GameplayEffect(asset));
+        }
+    }
+    #endregion
 
+    #region 死亡
     protected override void Dead()
     {
         foreach (var a in ABS.AbilityContainer.AbilitySpecs.Keys)
@@ -117,29 +159,6 @@ public class Enemy : Character
             itemDroper.DropItem(feetTransform.position, transform.rotation);
         }
     }
-
-
-    private void OnBodyPartToughnessPost(AttributeBase toughness, float old, float now)
-    {
-        if (bDead) return;
-        if (old > 0 && now <= 0)
-        {
-            toughness.RefreshCurValue();
-            //获得Buff 失衡
-            GameplayEffectAsset asset = Instantiate(Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/LoseBanlance"));
-            asset.CueOnAdd[0] = Instantiate(asset.CueOnAdd[0]);
-            CuePlayAnim cuePlayAnim = asset.CueOnAdd[0] as CuePlayAnim;
-            CueLoseBanlance_Enemy cueLoseBanlance = asset.CueDurational[0] as CueLoseBanlance_Enemy;
-            string loseBanlanceName;
-            if (toughness.ShortName == "Body" && nav.velocity.sqrMagnitude >= 4)
-                loseBanlanceName = "Run";
-            else
-                loseBanlanceName = toughness.ShortName;
-            CueLoseBanlance_Enemy.PartBalanceSet partBalanceSet = cueLoseBanlance.GetPartBanlanceSet(loseBanlanceName);
-            asset.duration = partBalanceSet.loseBanlanceDuration;
-            cuePlayAnim.animConfig = new AnimPlayConfig(partBalanceSet.animName);
-            ABS.ApplyGameplayEffectToSelf(new GameplayEffect(asset));
-        }
-    }
+    #endregion
 }
 

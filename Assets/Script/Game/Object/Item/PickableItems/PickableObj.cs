@@ -1,3 +1,4 @@
+using MoleMole;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,12 +30,10 @@ public class PickableObj : InteractableObj
     {
         Material lightMat = new Material(lightRender.material);
         Color.RGBToHSV(color, out float _h, out float _s, out float _v);
-        Debug.Log(_v);
         lightMat.SetColor("_EmissionColor", Color.HSVToRGB(_h, _s, lightIntensity));
         lightRender.material = lightMat;
     }
     #endregion
-
 
     public virtual ExtraSave extraSet { get; set; }
     private void Awake()
@@ -72,6 +71,12 @@ public class PickableObj : InteractableObj
             float lightIntensity = isSelected ? lightIntensity_highLight : lightIntensity_fade;
             SetLightColumColor(lightColumnColor, lightIntensity);
         }
+
+        if (isSelected)
+            HUDManager.GetHUD<PickUpHUD>().SetPickUpTip(transform, itemInfo.itemName, extraSet.num);
+        else
+            HUDManager.GetHUD<PickUpHUD>().HidePickUpTip();
+
     }
 
 }

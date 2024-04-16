@@ -71,6 +71,11 @@ MonoBehaviour:
   edgeWidth: 0.002
   renders:
   - {fileID: 7791415675952370442}
+  lightColumn: {fileID: 0}
+  lightIntensity_fade: 0
+  lightIntensity_highLight: 0
+  lightColumnColor_fade: {r: 0.78867924, g: 0.78867924, b: 0.78867924, a: 1}
+  lightColumnColor_highLight: {r: 1, g: 1, b: 1, a: 1}
   gunSet:
     _num: 1
     durability: 30

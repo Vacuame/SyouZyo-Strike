@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: M9
   m_EditorClassIdentifier: 
   id: 3
-  itemName: M9 Knife
+  itemName: "M9\u523A\u5200"
   width: 3
   height: 1
   maxStackNum: 1

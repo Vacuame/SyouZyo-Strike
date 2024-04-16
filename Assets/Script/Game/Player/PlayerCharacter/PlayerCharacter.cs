@@ -1,13 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.TextCore.Text;
-using UnityEngine.Windows;
 using static Control;
 using static UnityEngine.InputSystem.InputAction;
 using GameBasic;
@@ -108,6 +100,12 @@ public class PlayerCharacter : Character
             input = controller.control.Player;
         else
             input = new PlayerActions();
+
+        if(Input.GetKeyDown(KeyCode.T)) 
+        {
+            SoundMaker.Instance.MakeSound
+                (feetTransform.position, new SoundMaker.SoundConfig(10, LayerMask.GetMask("Enemy")));
+        }
 
         if (bCanMove)
         {

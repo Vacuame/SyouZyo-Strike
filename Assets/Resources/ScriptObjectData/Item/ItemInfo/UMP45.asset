@@ -13,13 +13,11 @@ MonoBehaviour:
   m_Name: UMP45
   m_EditorClassIdentifier: 
   id: 1
-  itemName: UMP-45
+  itemName: UMP45
   width: 4
   height: 2
   maxStackNum: 1
   icon: {fileID: 21300000, guid: f7d8101cd6474a74bb10fdd3449d0e5e, type: 3}
   type: 2
-  pickableItemInfo: {fileID: 8968566408739344569, guid: dfdd3c16dc245d14c9cd99d465db500a,
-    type: 3}
   equipedItemPrefab: {fileID: 4642658917480591811, guid: b091e6ac84920204693d4adbf9e63986,
     type: 3}
