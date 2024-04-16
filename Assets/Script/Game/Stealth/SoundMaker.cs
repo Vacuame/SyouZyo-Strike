@@ -14,24 +14,13 @@ public class SoundMaker:Singleton<SoundMaker>
             NavMeshPath path = new NavMeshPath();
             if(NavMesh.CalculatePath(a.transform.position, pos, NavMesh.AllAreas, path))
             {
-                if(GetPathLength(pos,path,a.transform.position)<=sound.radious)
+                if(NavExtension.GetPathLength(pos,path,a.transform.position)<=sound.radious)
                     EventManager.Instance.TriggerEvent("Hear"+a.gameObject.GetInstanceID(), pos);
             }
         }
     }
 
-    float GetPathLength(Vector3 fromPos,NavMeshPath path,Vector3 targetPos)
-    {
-        float pathLength = 
-            Vector3.Distance(path.corners[0],fromPos)+ 
-            Vector3.Distance(path.corners[path.corners.Length - 1], targetPos);
-        for (int i = 0; i < path.corners.Length - 1; i++)
-        {
-            pathLength += Vector3.Distance(path.corners[i + 1], path.corners[i]);
-        }
-        return pathLength;
-    }
-
+    [System.Serializable]
     public struct SoundConfig
     {
         public float radious;

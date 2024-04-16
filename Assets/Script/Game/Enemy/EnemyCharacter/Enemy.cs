@@ -63,10 +63,12 @@ public class Enemy : Character
             BehaviorExtension.Restart(bt);
         };
 
+        bt.SetVariableValue("PosToCheck", Consts.NullV3);
         //¶ú¶ä
-        EventManager.Instance.AddListener("Hear" + gameObject.GetInstanceID(), (Vector3 v) =>
+        EventManager.Instance.AddListener("Hear" + gameObject.GetInstanceID(), (Vector3 place) =>
         {
-            Debug.Log("Heard Something at " + v);
+            bt.SetVariableValue("PosToCheck", place);
+            BehaviorExtension.Restart(bt);
         });
     }
 
