@@ -1,13 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.TextCore.Text;
-using UnityEngine.Windows;
 using static Control;
 using static UnityEngine.InputSystem.InputAction;
 using GameBasic;

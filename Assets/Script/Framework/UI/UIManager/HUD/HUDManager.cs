@@ -10,20 +10,24 @@ namespace MoleMole
 
         private Dictionary<string, BaseHUD> _HUDDict = new Dictionary<string, BaseHUD>();
 
+        
         private Transform _canvas;
+        private Transform _worldCanvas;
+
         public override void Init()
         {
             GameRoot.Instance.afterLoadSceneAction += () => { OnSceneLoaded(); };
         }
         public void OnSceneLoaded()
         {
-            GameObject canvasObj = GameObject.Find("HUDCanvas");
-            if (canvasObj != null)
+            _canvas = GameObject.Find("HUDCanvas")?.transform;
+            _worldCanvas = GameObject.Find("WorldCanvas")?.transform;
+            Transform[] canvases = new Transform[2] { _canvas, _worldCanvas }; 
+            foreach(var c in canvases)
             {
-                _canvas = canvasObj.transform;
-                for (int i = 0; i < _canvas.childCount; i++)
+                for (int i = 0; i < c.childCount; i++)
                 {
-                    GameObject.Destroy(_canvas.GetChild(i).gameObject);
+                    GameObject.Destroy(c.GetChild(i).gameObject);
                 }
             }
         }
@@ -38,7 +42,8 @@ namespace MoleMole
             if (HUDDict.ContainsKey(name) == false || HUDDict[name] == null)
             {
                 BaseHUD hud = GameObject.Instantiate(Resources.Load<BaseHUD>(HUDRootPath + name));
-                hud.transform.SetParent(Instance._canvas, false);
+                Transform canvas = hud is WorldHUD ? Instance._worldCanvas : Instance._canvas;
+                hud.transform.SetParent(canvas, false);
                 hud.name = name;
                 HUDDict.AddOrReplace(name, hud);
                 hud.OnEnter();
