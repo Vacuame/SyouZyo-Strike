@@ -1,8 +1,7 @@
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public abstract class Move : EnemyAction
 {
@@ -16,7 +15,11 @@ public abstract class Move : EnemyAction
         me.nav.destination = GetTargetPos();
         me.nav.stoppingDistance = GetStopDistance();
 
-        if ((transform.position - GetTargetPos()).sqrMagnitude <= GetSqrStopDistance())
+        if (!me.nav.hasPath)
+            return TaskStatus.Failure;
+
+        if (me.nav.remainingDistance <= GetStopDistance() || 
+            (transform.position - GetTargetPos()).sqrMagnitude <= GetSqrStopDistance())
         {
             me.nav.destination = transform.position;
             return TaskStatus.Success;
