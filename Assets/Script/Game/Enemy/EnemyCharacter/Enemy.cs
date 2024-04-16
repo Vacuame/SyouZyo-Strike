@@ -39,8 +39,39 @@ public class Enemy : Character
             patrolPoints.Add(patrolPointList.GetChild(i));
         }
 
-        #region 注册部位
+        RegistBodyPart();
 
+        RegistSense();
+    }
+
+    
+    #region 注册组件
+    protected virtual void RegistSense()
+    {   
+        //眼睛
+        ConeDetector eye = transform.GetComponentInChildren<ConeDetector>();
+        eye.shouldLook += () =>
+        {
+            SharedGameObject targetVariable = bt.GetVariable("Target") as SharedGameObject;
+            GameObject target = targetVariable.Value;
+            return target == null;
+        };
+        eye.onLook += (GameObject obj) =>
+        {
+            bt.SetVariableValue("Target", obj);
+            bt.SetVariableValue("ToEnterBattle", true);
+            BehaviorExtension.Restart(bt);
+        };
+
+        //耳朵
+        EventManager.Instance.AddListener("Hear" + gameObject.GetInstanceID(), (Vector3 v) =>
+        {
+            Debug.Log("Heard Something at " + v);
+        });
+    }
+
+    private void RegistBodyPart()
+    {
         //给每个部位添加受击事件
         foreach (var partList in parts)
         {
@@ -65,24 +96,8 @@ public class Enemy : Character
         {
             bodyAttr[name].onPostCurrentValueChange += OnBodyPartToughnessPost;
         }
-        #endregion
-
-        InitSense();
     }
 
-    #region 感官
-    protected virtual void InitSense()
-    {   
-        //眼睛
-        ConeDetector eye = transform.GetComponentInChildren<ConeDetector>();
-
-
-        //耳朵
-        EventManager.Instance.AddListener("Hear" + gameObject.GetInstanceID(), (Vector3 v) =>
-        {
-            Debug.Log("Heard Something at " + v);
-        });
-    }
     #endregion
 
     #region 伤害计算
