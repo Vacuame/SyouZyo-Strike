@@ -19,8 +19,6 @@ public class EventManager : Singleton<EventManager>
         else
             eventDic.Add(eventName, new List<Delegate>() { callback });
     }
-
-
     public void AddListener(string eventName, Action callback) => AddListenerBase(eventName, callback);
     public void AddListener<T>(string eventName, Action<T> callback) => AddListenerBase(eventName, callback);
 
@@ -134,7 +132,7 @@ public class EventManager : Singleton<EventManager>
         eventDic.Clear();
     }
 
-    //新功能拓展测试，现在只设置传Func float
+/*
     private Dictionary<string, Func<float>> funcDic = new Dictionary<string, Func<float>>();
 
     public bool TryTrigerFunc(string name, out float res)
@@ -161,6 +159,6 @@ public class EventManager : Singleton<EventManager>
         if (funcName == null) return;
         funcDic.Remove(funcName);
     }
-
+*/
 }
 

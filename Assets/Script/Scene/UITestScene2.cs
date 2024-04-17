@@ -12,7 +12,7 @@ public class UITestScene2 : BaseScene
     }
     public override void OnSceneLoaded()
     {
-        UIManager.Instance.Push(new PanelContext(TestPanel.uiType));
+        
     }
 
 }

@@ -103,8 +103,9 @@ public class PlayerCharacter : Character
 
         if(Input.GetKeyDown(KeyCode.T)) 
         {
-            SoundMaker.Instance.MakeSound
-                (feetTransform.position, new SoundMaker.SoundConfig(50, LayerMask.GetMask("Enemy")));
+            SoundMaker.Instance.MakeSound(feetTransform.position, 
+                new SoundConfig(50, LayerMask.GetMask("Enemy")),
+                new SoundInfo(SoundType.Sound));
         }
 
         if (bCanMove)

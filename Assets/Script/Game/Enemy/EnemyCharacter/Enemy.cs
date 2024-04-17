@@ -88,10 +88,17 @@ public class Enemy : Character
             ABS.AttrSet<AlertAttr>().alert.SetValueRelative(alertGrouthSpeed * Time.deltaTime, Tags.Calc.Add);
         };
 
-        //¶ú¶ä
-        EventManager.Instance.AddListener("Hear" + gameObject.GetInstanceID(), (Vector3 soundPos) =>
+        EventManager.Instance.AddListener("Hear" + gameObject.GetInstanceID(), (Vector3 pos,SoundInfo info) =>
         {
-            SetPosToCheck(soundPos);
+            switch (info.type)
+            {
+                case SoundType.Sound:
+                    SetPosToCheck(pos);
+                    break;
+                case SoundType.NotifyPlayer:
+                    EnterBattle(info.paras[0] as GameObject,false);
+                    break;
+            }
         });
     }
 
@@ -125,24 +132,30 @@ public class Enemy : Character
 
     #endregion
 
-    #region ¾¯½ä
+    #region Ë÷µÐ
     private GameObject watchingObj;
     private bool bAlert,bBattle;
+    private void EnterBattle(GameObject obj,bool discoverBySelf)
+    {
+        bt.SetVariableValue("Target", obj);
+        if(discoverBySelf)
+            bt.SetVariableValue("ToEnterBattle", true);
+        BehaviorExtension.Restart(bt);
+        bBattle = true;
+    }
     private void OnAlertPost(AttributeBase alert, float old, float value)
     {
         EnemyAlertHUD alertHUD = HUDManager.GetHUD<EnemyAlertHUD>();
         alertHUD.SetVisiable(!bBattle && value > 0);
         alertHUD.GetAlertTip(gameObject).SetValue(alert.GetProportion());
 
+        if (bBattle) return;
+
         if(old < value) //Ôö¼Ó
         {
             if (value >= alertSetting.alertToFind && old < alertSetting.alertToFind)
             {
-                
-                bt.SetVariableValue("Target", watchingObj);
-                bt.SetVariableValue("ToEnterBattle", true);
-                BehaviorExtension.Restart(bt);
-                bBattle = true;
+                EnterBattle(watchingObj,true);
             }
             else if(value >= alertSetting.alertToCheck)
             {
@@ -168,6 +181,8 @@ public class Enemy : Character
     }
     private void SetPosToCheck(Vector3 pos)
     {
+        if (bBattle) return;
+
         Vector3 oldPosToCheck = (bt.GetVariable("PosToCheck") as SharedVector3).Value;
         ABS.AttrSet<AlertAttr>().searchTime.RefreshCurValue();
         bt.SetVariableValue("PosToCheck", pos);

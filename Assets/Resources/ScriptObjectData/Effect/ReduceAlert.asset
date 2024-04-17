@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5b96ca076f1ca408152999eb1e8934, type: 3}
   m_Name: ReduceAlert
   m_EditorClassIdentifier: 
-  period: 1
+  period: 0.5
   duration: 0
   durationPolicy: 2
   assetTags:
@@ -28,13 +28,13 @@ MonoBehaviour:
   Modifiers:
   - AttributeSetName: AlertAttr
     AttributeShortName: alert
-    ModiferMagnitude: 4
+    ModiferMagnitude: 2
     Operation: 1
     ValueType: 1
     MMC: {fileID: 0}
   - AttributeSetName: AlertAttr
     AttributeShortName: searchTime
-    ModiferMagnitude: 1
+    ModiferMagnitude: 0.5
     Operation: 1
     ValueType: 1
     MMC: {fileID: 0}

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SoundMaker:Singleton<SoundMaker>
 {
-    public void MakeSound(Vector3 pos,SoundConfig sound)
+    public void MakeSound(Vector3 pos,SoundConfig sound,SoundInfo info)
     {
         Collider[] cols = Physics.OverlapSphere(pos, sound.radious, sound.soundMask);
         foreach(var a in cols)
@@ -15,20 +15,32 @@ public class SoundMaker:Singleton<SoundMaker>
             if(NavMesh.CalculatePath(a.transform.position, pos, NavMesh.AllAreas, path))
             {
                 if(NavExtension.GetPathLength(pos,path,a.transform.position)<=sound.radious)
-                    EventManager.Instance.TriggerEvent("Hear"+a.gameObject.GetInstanceID(), pos);
+                    EventManager.Instance.TriggerEvent("Hear"+a.gameObject.GetInstanceID(), pos, info);
             }
         }
     }
-
-    [System.Serializable]
-    public struct SoundConfig
+}
+[System.Serializable]
+public struct SoundConfig
+{
+    public float radious;
+    public LayerMask soundMask;
+    public SoundConfig(float radious, LayerMask soundMask)
     {
-        public float radious;
-        public LayerMask soundMask;
-        public SoundConfig(float radious, LayerMask soundMask)
-        {
-            this.radious = radious;
-            this.soundMask = soundMask;
-        }
+        this.radious = radious;
+        this.soundMask = soundMask;
+    }
+}
+
+public enum SoundType { Sound, NotifyPlayer }
+
+public class SoundInfo
+{
+    public SoundType type;
+    public object[] paras;
+    public SoundInfo(SoundType type,params object[] paras)
+    {
+        this.type = type;
+        this.paras = paras;
     }
 }
