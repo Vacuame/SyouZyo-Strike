@@ -10,10 +10,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{90E73B70-D811-786E-BFD5-C173D16AB74B}</ProjectGuid>
+    <ProjectGuid>{DA537CF5-73B3-4077-0A48-A66AD4E3A6F2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>OpenFracture.Editor</AssemblyName>
+    <AssemblyName>PsdPlugin</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -27,7 +27,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169;USG0001</NoWarn>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,7 +36,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169;USG0001</NoWarn>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <NoConfig>true</NoConfig>
@@ -50,7 +50,7 @@
     <UnityProjectGenerator>Package</UnityProjectGenerator>
     <UnityProjectGeneratorVersion>2.0.22</UnityProjectGeneratorVersion>
     <UnityProjectGeneratorStyle>Legacy</UnityProjectGeneratorStyle>
-    <UnityProjectType>Editor:5</UnityProjectType>
+    <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2022.3.21f1</UnityVersion>
   </PropertyGroup>
@@ -60,18 +60,55 @@
     <Analyzer Include="F:\ProgramD\UnityEditor\2022.3.21f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\SliceEditor.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\PrefractureOptionsPropertyDrawer.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\PrefractureEditor.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\RefractureOptionsPropertyDrawer.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\TriggerOptionsPropertyDrawer.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\CallbackOptionsPropertyDrawer.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\FractureEditor.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\FractureOptionsPropertyDrawer.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\UnfreezeFragmentEditor.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PDNWrapper\Document.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Layers\Layer.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PDNWrapper\Rectangle.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Compression\ZipImage.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Layers\LayerInfo\RawLayerInfo.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\RleRowLengths.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Layers\LayerInfo\LayerUnicodeName.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\PsdBinaryReader.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\ImageResources\RawImageResource.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Compression\RleImage.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Compression\ImageDataFactory.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PDNWrapper\PDNDecodeJob.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\AssemblyInfo.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PDNWrapper\BitmapLayer.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Util.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PhotoShopFileType\PsdLoad.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\PsdFile.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Layers\Mask.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PhotoShopFileType\BlendModeMapping.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Compression\RawImage.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PhotoShopFileType\ImageDecoderPdn.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PDNWrapper\Enums.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Layers\LayerInfo\LayerId.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\RleReader.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\ImageResources\UnicodeAlphaNames.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Layers\LayerInfo\InfoLayers.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Compression\ZipPredict32Image.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PDNWrapper\Surface.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\ImageResources\VersionInfo.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Layers\LayerInfo.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\ImageResources\Thumbnail.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\ImageResources\AlphaChannelNames.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\LoadContext.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\ImageResource.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Compression\EndianReverser.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\ImageResources\ResolutionInfo.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Layers\BlendingRanges.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Layers\Channel.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Compression\ImageData.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\RleWriter.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Layers\LayerInfo\LayerSectionInfo.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\PsdBlendMode.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Compression\ZipPredict16Image.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PhotoShopFileType\DocumentLoadContext.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PDNWrapper\Size.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdFile\Exceptions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Plugins\OpenFracture\Editor\OpenFracture.Editor.asmdef" />
+    <None Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.4\Editor\PSDPlugin\PsdPlugin.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -976,9 +1013,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="RuntimeAssembly.csproj">
-      <Project>{41C1CAB7-F72B-9D8D-5606-506A93F20B1A}</Project>
-      <Name>RuntimeAssembly</Name>
+    <ProjectReference Include="Unity.Burst.csproj">
+      <Project>{5A461570-949E-6202-1729-501EEF026564}</Project>
+      <Name>Unity.Burst</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.TestRunner.csproj">
       <Project>{32FD0FBD-6A43-39FE-B7CD-EB2B7069E3F0}</Project>

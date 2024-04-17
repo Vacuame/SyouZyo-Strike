@@ -10,10 +10,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{90E73B70-D811-786E-BFD5-C173D16AB74B}</ProjectGuid>
+    <ProjectGuid>{941413BE-8E47-610D-22AC-D8816BFECB8A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>OpenFracture.Editor</AssemblyName>
+    <AssemblyName>Unity.2D.IK.Editor</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -60,18 +60,17 @@
     <Analyzer Include="F:\ProgramD\UnityEditor\2022.3.21f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\SliceEditor.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\PrefractureOptionsPropertyDrawer.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\PrefractureEditor.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\RefractureOptionsPropertyDrawer.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\TriggerOptionsPropertyDrawer.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\CallbackOptionsPropertyDrawer.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\FractureEditor.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\FractureOptionsPropertyDrawer.cs" />
-    <Compile Include="Assets\Plugins\OpenFracture\Editor\UnfreezeFragmentEditor.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\IK\Editor\IKGizmos.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\IK\Editor\Inspectors\LimbSolver2DEditor.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\IK\Editor\IKEditorManager.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\IK\Editor\Inspectors\IKManager2DEditor.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\IK\Editor\AssemblyInfo.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\IK\Editor\Inspectors\FabrikSolver2DEditor.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\IK\Editor\Inspectors\CCDSolver2DEditor.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\IK\Editor\Inspectors\Solver2DEditor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Plugins\OpenFracture\Editor\OpenFracture.Editor.asmdef" />
+    <None Include="Library\PackageCache\com.unity.2d.animation@9.1.0\IK\Editor\Unity.2D.IK.Editor.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -976,9 +975,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="RuntimeAssembly.csproj">
-      <Project>{41C1CAB7-F72B-9D8D-5606-506A93F20B1A}</Project>
-      <Name>RuntimeAssembly</Name>
+    <ProjectReference Include="Unity.InternalAPIEditorBridge.001.csproj">
+      <Project>{76A99BFD-C0A7-A7AC-333B-A71F2164AA3C}</Project>
+      <Name>Unity.InternalAPIEditorBridge.001</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.InternalAPIEngineBridge.001.csproj">
+      <Project>{3458D6DC-0AE1-3F9B-C3BF-68F784128ECA}</Project>
+      <Name>Unity.InternalAPIEngineBridge.001</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Common.Editor.csproj">
+      <Project>{9680B88C-653B-6BDA-50B6-157AAC27487D}</Project>
+      <Name>Unity.2D.Common.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Common.Runtime.csproj">
+      <Project>{FC377029-6A3C-8769-1553-66067BFC82FB}</Project>
+      <Name>Unity.2D.Common.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.IK.Runtime.csproj">
+      <Project>{770E0566-319C-0836-D00E-A40932C7F08C}</Project>
+      <Name>Unity.2D.IK.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Animation.Editor.csproj">
+      <Project>{BBF6E37D-F606-DE78-3757-B29040FFD665}</Project>
+      <Name>Unity.2D.Animation.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.TestRunner.csproj">
       <Project>{32FD0FBD-6A43-39FE-B7CD-EB2B7069E3F0}</Project>

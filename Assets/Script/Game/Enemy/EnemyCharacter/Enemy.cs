@@ -1,4 +1,5 @@
 using BehaviorDesigner.Runtime;
+using MoleMole;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEditor.VersionControl;
@@ -15,6 +16,7 @@ public enum PatrolType
 [RequireComponent(typeof(BehaviorTree))]
 public class Enemy : Character
 {
+    #region 变量
     [HideInInspector] public NavMeshAgent nav;
     [HideInInspector] public BehaviorTree bt;
 
@@ -22,6 +24,7 @@ public class Enemy : Character
     [SerializeField] public PatrolType patrolType;
     [HideInInspector] public List<Transform> patrolPoints;
     [SerializeField] private AlertAttrAsset alertSetting;
+    [SerializeField] private Transform alertTipPos;
 
     [Header("身体部位设置"), SerializeField] private List<Pair<string, List<Collider>>> parts;
     private Dictionary<GameObject, string> partDict = new Dictionary<GameObject, string>();
@@ -31,7 +34,9 @@ public class Enemy : Character
 
     [Header("动画设置")]
     [SerializeField] private int deadAnimTypeNum;
+    #endregion
 
+    #region 初始化
     protected override void Awake()
     {
         base.Awake();
@@ -42,13 +47,14 @@ public class Enemy : Character
         {
             patrolPoints.Add(patrolPointList.GetChild(i));
         }
-
+    }
+    private void Start()
+    {
         RegistBodyPart();
 
         RegistSense();
     }
 
-    #region 注册组件
     protected virtual void RegistSense()
     {
         //根据alertSetting设置事件
@@ -62,6 +68,9 @@ public class Enemy : Character
 
         //初始化搜索位置为空
         bt.SetVariableValue("PosToCheck", Consts.NullV3);
+
+        //添加Alert UI
+        HUDManager.GetHUD<EnemyAlertHUD>(true).AddAlertTip(gameObject, alertTipPos);
 
         //眼睛
         ConeDetector eye = transform.GetComponentInChildren<ConeDetector>();
@@ -118,37 +127,52 @@ public class Enemy : Character
 
     #region 警戒
     private GameObject watchingObj;
+    private bool bAlert,bBattle;
     private void OnAlertPost(AttributeBase alert, float old, float value)
     {
+        EnemyAlertHUD alertHUD = HUDManager.GetHUD<EnemyAlertHUD>();
+        alertHUD.SetVisiable(!bBattle && value > 0);
+        alertHUD.GetAlertTip(gameObject).SetValue(alert.GetProportion());
+
         if(old < value) //增加
         {
             if (value >= alertSetting.alertToFind && old < alertSetting.alertToFind)
             {
+                
                 bt.SetVariableValue("Target", watchingObj);
                 bt.SetVariableValue("ToEnterBattle", true);
                 BehaviorExtension.Restart(bt);
+                bBattle = true;
             }
             else if(value >= alertSetting.alertToCheck)
             {
                 SetPosToCheck(watchingObj.transform.position);
+                bAlert = true;
+            }
+        }
+        else if(bAlert)
+        {
+            if(old>0 && value<=0)
+            {
+                bAlert = false;
+                ABS.AttrSet<AlertAttr>().searchTime.SetCurValue(0);
             }
         }
     }
     private void OnSearchTimePost(AttributeBase searchTime, float old, float value)
     {
-        Debug.Log(value);
         if (old > 0 && value <= 0)
         {
             bt.SetVariableValue("PosToCheck", Consts.NullV3);
         }
     }
-
     private void SetPosToCheck(Vector3 pos)
     {
         Vector3 oldPosToCheck = (bt.GetVariable("PosToCheck") as SharedVector3).Value;
         ABS.AttrSet<AlertAttr>().searchTime.RefreshCurValue();
         bt.SetVariableValue("PosToCheck", pos);
-
+        bt.SetVariableValue("CheckRadius", 1f);
+        
         if (oldPosToCheck == Consts.NullV3)//第一次设置时打断当前状态
             BehaviorExtension.Restart(bt);
     }
@@ -205,20 +229,26 @@ public class Enemy : Character
     #region 死亡
     protected override void Dead()
     {
+        HUDManager.GetHUD<EnemyAlertHUD>(true).RemoveAlertTip(gameObject);
+
         foreach (var a in ABS.AbilityContainer.AbilitySpecs.Keys)
             ABS.TryEndAbility(a);
         ABS.GameplayEffectContainer.ClearGameplayEffect();
+
         nav.isStopped = true;
+
         bt.SetVariableValue("LoseBanlance", true);
         bt.DisableBehavior();
+
         int deadType = Random.Range(0, deadAnimTypeNum);
         anim.SetFloat("DeadType", deadType);
         anim.Play("Dead");
+
         gameObject.layer = LayerMask.NameToLayer("Ignore");
         bDead = true;
-        TimerManager.Instance.AddTimer(new Timer(() => Destroy(this.gameObject), 1, 20));
 
-        OnDeadEnd();
+        TimerManager.Instance.AddTimer(new Timer(OnDeadEnd, 1, 0.6f));
+        TimerManager.Instance.AddTimer(new Timer(() => Destroy(this.gameObject), 1, 20));
     }
 
     protected override void OnDeadEnd() //TODO 死亡动画播放完后执行，并且橡皮人
