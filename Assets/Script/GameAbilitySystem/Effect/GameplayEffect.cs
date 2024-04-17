@@ -29,24 +29,24 @@ public struct GameplayEffect
     public readonly GameplayCueDurational[] CueDurational;
     public readonly GameplayEffectModifier[] Modifiers;
 
-    public GameplayEffect(GameplayEffectAsset ass)
+    public GameplayEffect(GameplayEffectAsset asset)
     {
-        asset = ass;
-        period = asset.period;
-        duration = asset.duration;
-        durationPolicy = asset.durationPolicy;
+        this.asset = asset;
+        period = this.asset.period;
+        duration = this.asset.duration;
+        durationPolicy = this.asset.durationPolicy;
         TagContainer = new GameplayEffectTagContainer(
-            asset.assetTags,
-            asset.grantedTags,
-            asset.applicationRequiredTags,
-            asset.removeGameplayEffectsWithTags,
-            asset.applicationImmunityTags
+            this.asset.assetTags,
+            this.asset.grantedTags,
+            this.asset.applicationRequiredTags,
+            this.asset.removeGameplayEffectsWithTags,
+            this.asset.applicationImmunityTags
             );
-        CueOnExecute = asset.CueOnExecute;
-        CueOnRemove = asset.CueOnRemove;
-        CueOnAdd = asset.CueOnAdd;
-        CueDurational = asset.CueDurational;
-        Modifiers = asset.Modifiers;
+        CueOnExecute = this.asset.CueOnExecute;
+        CueOnRemove = this.asset.CueOnRemove;
+        CueOnAdd = this.asset.CueOnAdd;
+        CueDurational = this.asset.CueDurational;
+        Modifiers = this.asset.Modifiers;
     }
 
     public GameplayEffectSpec CreateSpec(AbilitySystemComponent creator,AbilitySystemComponent owner)

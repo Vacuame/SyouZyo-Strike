@@ -229,6 +229,7 @@ MonoBehaviour:
   patrolPointList: {fileID: 0}
   patrolType: 0
   patrolPoints: []
+  alertSetting: {fileID: 11400000, guid: 998637ab4215e9e488742de7bf51614f, type: 2}
   parts:
   - key: LeftArm
     value:

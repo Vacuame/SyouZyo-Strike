@@ -62,8 +62,7 @@ public class GameplayEffectContainer
 
         _gameplayEffectSpecs.Clear();
     }
-
-    internal void RemoveGameplayEffectWithAnyTags(GameplayTagSet tags)
+    public void RemoveGameplayEffectWithAnyTags(GameplayTagSet tags)
     {
         if (tags.Empty) return;
 

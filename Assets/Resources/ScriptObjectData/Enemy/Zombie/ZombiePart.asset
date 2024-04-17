@@ -31,10 +31,10 @@ MonoBehaviour:
         value: 2.5
   setting1:
   - key: LeftArm
-    value: {fileID: 11400000, guid: 6375778234b0d10478effc088be2cb3d, type: 2}
+    value: {fileID: 11400000, guid: 3eab37afc79b8254493e2e9124169260, type: 2}
   - key: RightArm
-    value: {fileID: 11400000, guid: 6375778234b0d10478effc088be2cb3d, type: 2}
+    value: {fileID: 11400000, guid: 3eab37afc79b8254493e2e9124169260, type: 2}
   - key: LeftLeg
-    value: {fileID: 11400000, guid: 6375778234b0d10478effc088be2cb3d, type: 2}
+    value: {fileID: 11400000, guid: 3eab37afc79b8254493e2e9124169260, type: 2}
   - key: RightLeg
-    value: {fileID: 11400000, guid: 6375778234b0d10478effc088be2cb3d, type: 2}
+    value: {fileID: 11400000, guid: 3eab37afc79b8254493e2e9124169260, type: 2}

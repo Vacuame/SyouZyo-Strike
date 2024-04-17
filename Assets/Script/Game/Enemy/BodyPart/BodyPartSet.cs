@@ -8,7 +8,7 @@ public class BodyPartSet : ScriptableObject
 {
     //两种，方便设置
     public List<Pair<string, PartData>> setting;
-    public List<Pair<string, PartSet>> setting1;
+    public List<Pair<string, SinglePartSet>> setting1;
 }
 [Serializable]
 public struct PartData
@@ -36,8 +36,3 @@ public class WeaknessData
     }
 }
 
-[CreateAssetMenu(fileName = "部位设置", menuName = "Data/部位/单个部位")]
-public class PartSet:ScriptableObject
-{
-    public PartData data;
-}

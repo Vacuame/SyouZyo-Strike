@@ -1,7 +1,10 @@
 using BehaviorDesigner.Runtime;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.Rendering.DebugUI;
 
 public enum PatrolType
 {
@@ -18,6 +21,7 @@ public class Enemy : Character
     [SerializeField, Header("巡逻设置")] private Transform patrolPointList;
     [SerializeField] public PatrolType patrolType;
     [HideInInspector] public List<Transform> patrolPoints;
+    [SerializeField] private AlertAttrAsset alertSetting;
 
     [Header("身体部位设置"), SerializeField] private List<Pair<string, List<Collider>>> parts;
     private Dictionary<GameObject, string> partDict = new Dictionary<GameObject, string>();
@@ -44,10 +48,21 @@ public class Enemy : Character
         RegistSense();
     }
 
-    
     #region 注册组件
     protected virtual void RegistSense()
-    {   
+    {
+        //根据alertSetting设置事件
+        AlertAttr alertAttr = new AlertAttr(alertSetting);
+        ABS.AttributeSetContainer.AddAttributeSet(alertAttr);
+        alertAttr.alert.onPostCurrentValueChange += OnAlertPost;
+        alertAttr.alert.onPreCurrentValueChange += (AttributeBase b, float v) => Mathf.Clamp(v, 0, b.BaseValue);
+        alertAttr.searchTime.onPostCurrentValueChange += OnSearchTimePost;
+        alertAttr.searchTime.onPreCurrentValueChange += (AttributeBase b, float v) => Mathf.Clamp(v, 0, b.BaseValue);
+        ABS.ApplyGameplayEffectToSelf(new GameplayEffect(alertSetting.reduceAlertEffect));
+
+        //初始化搜索位置为空
+        bt.SetVariableValue("PosToCheck", Consts.NullV3);
+
         //眼睛
         ConeDetector eye = transform.GetComponentInChildren<ConeDetector>();
         eye.shouldLook += () =>
@@ -58,17 +73,16 @@ public class Enemy : Character
         };
         eye.onLook += (GameObject obj) =>
         {
-            bt.SetVariableValue("Target", obj);
-            bt.SetVariableValue("ToEnterBattle", true);
-            BehaviorExtension.Restart(bt);
+            watchingObj = obj;
+            float distance = Vector3.Distance(obj.transform.position, transform.position);
+            float alertGrouthSpeed = alertSetting.alertGrowthSpeedCurve.Evaluate(distance);
+            ABS.AttrSet<AlertAttr>().alert.SetValueRelative(alertGrouthSpeed * Time.deltaTime, Tags.Calc.Add);
         };
 
-        bt.SetVariableValue("PosToCheck", Consts.NullV3);
         //耳朵
-        EventManager.Instance.AddListener("Hear" + gameObject.GetInstanceID(), (Vector3 place) =>
+        EventManager.Instance.AddListener("Hear" + gameObject.GetInstanceID(), (Vector3 soundPos) =>
         {
-            bt.SetVariableValue("PosToCheck", place);
-            BehaviorExtension.Restart(bt);
+            SetPosToCheck(soundPos);
         });
     }
 
@@ -100,6 +114,44 @@ public class Enemy : Character
         }
     }
 
+    #endregion
+
+    #region 警戒
+    private GameObject watchingObj;
+    private void OnAlertPost(AttributeBase alert, float old, float value)
+    {
+        if(old < value) //增加
+        {
+            if (value >= alertSetting.alertToFind && old < alertSetting.alertToFind)
+            {
+                bt.SetVariableValue("Target", watchingObj);
+                bt.SetVariableValue("ToEnterBattle", true);
+                BehaviorExtension.Restart(bt);
+            }
+            else if(value >= alertSetting.alertToCheck)
+            {
+                SetPosToCheck(watchingObj.transform.position);
+            }
+        }
+    }
+    private void OnSearchTimePost(AttributeBase searchTime, float old, float value)
+    {
+        Debug.Log(value);
+        if (old > 0 && value <= 0)
+        {
+            bt.SetVariableValue("PosToCheck", Consts.NullV3);
+        }
+    }
+
+    private void SetPosToCheck(Vector3 pos)
+    {
+        Vector3 oldPosToCheck = (bt.GetVariable("PosToCheck") as SharedVector3).Value;
+        ABS.AttrSet<AlertAttr>().searchTime.RefreshCurValue();
+        bt.SetVariableValue("PosToCheck", pos);
+
+        if (oldPosToCheck == Consts.NullV3)//第一次设置时打断当前状态
+            BehaviorExtension.Restart(bt);
+    }
     #endregion
 
     #region 伤害计算
