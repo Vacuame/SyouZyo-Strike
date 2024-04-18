@@ -14,6 +14,8 @@ public class PlayerCharacter : Character
     [Header("∞Û∂®")]
     public Transform RightHandTransform;
 
+    [SerializeField] public Collider assasinRange;
+
     #region  ‰»Î
     private PlayerActions input;
     private Vector2 input_move;
@@ -67,7 +69,6 @@ public class PlayerCharacter : Character
             new WeightedTransformArray() { new WeightedTransform(controller.playCamera.frontTransform, 1) };
         GetComponent<RigBuilder>().Build();
     }
-
     private void OnCrouchPressed(CallbackContext context)
     {
         if (!ABS.HasTag("Crouch"))
@@ -81,11 +82,6 @@ public class PlayerCharacter : Character
         ABS.TryActivateAbility("Climb", anim, cc, transform);
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-        EventManager.Instance.AddListener<HitInfo>("Hit" + gameObject.GetInstanceID(), OnHit);
-    }
     private void Start()
     {
         Climb_SO climbAsset = Resources.Load<Climb_SO>("ScriptObjectData/ClimbData");
@@ -156,6 +152,8 @@ public class PlayerCharacter : Character
 
     private void Move()
     {
+        if(!cc.enabled)return;
+
         Vector2 targetSpeed = input_move;
         float moveSpdThres;
 

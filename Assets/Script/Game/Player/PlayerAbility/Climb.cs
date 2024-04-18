@@ -95,14 +95,16 @@ public class Climb : AbstractAbility<Climb_SO>
 
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(toWallDire), 0.5f);
 
+            //应用动画的RootMotion位移
             anim.ApplyBuiltinRootMotion();
 
+            //使动作贴合地形，使可以爬上去
             MatchTargetWeightMask weightMask = new MatchTargetWeightMask(Vector3.one, 0);
             switch (climbType)
             {
                 case 1:
                     anim.MatchTarget(climb_leftHand, Quaternion.identity, AvatarTarget.LeftHand, weightMask, 0, 0.1f);
-                    anim.MatchTarget(climb_leftHand + Vector3.up * 0.25f + climbDir * 0.2f, Quaternion.identity, AvatarTarget.LeftHand, new MatchTargetWeightMask(Vector3.up, 0f), 0.1f, 0.3f);
+                    anim.MatchTarget(climb_leftHand + Vector3.up * 0.25f + climbDir * 0.2f, Quaternion.identity, AvatarTarget.LeftHand, weightMask, 0.1f, 0.3f);
                     break;
                 case 2:
                     anim.MatchTarget(climb_rightHand, Quaternion.identity, AvatarTarget.RightHand, weightMask, 0.1f, 0.18f);

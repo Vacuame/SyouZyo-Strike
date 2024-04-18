@@ -2011,6 +2011,7 @@ Transform:
   - {fileID: 7357519097623463353}
   - {fileID: 2981537670073500382}
   - {fileID: 3182342498547039814}
+  - {fileID: 6514664243620050539}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &2987613732736194851
@@ -2244,7 +2245,12 @@ Animator:
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'Right arm'\n\tTransform 'Left arm'\n\tTransform
+    'Left elbow'\n\tTransform 'Right elbow'\n\tTransform 'Left wrist'\n\tTransform
+    'Right wrist'\n\tTransform 'Right arm'\n\tTransform 'Left arm'\n\tTransform 'Left
+    elbow'\n\tTransform 'Right elbow'\n\tand more ..."
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -2269,6 +2275,7 @@ MonoBehaviour:
   feetTransform: {fileID: 3766168569392332772}
   characterAttribute: {fileID: 11400000, guid: 3ac0049d7098a6b48b941a5251ab2312, type: 2}
   RightHandTransform: {fileID: 15587151842338838}
+  assasinRange: {fileID: 877583144415208422}
   walkMaxSpeed: 2
   runMaxSpeed: 5
   xAcc: 10
@@ -5154,6 +5161,59 @@ Transform:
   - {fileID: 7750741645536294915}
   m_Father: {fileID: 8010796604890393692}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7092364961294615783
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6514664243620050539}
+  - component: {fileID: 877583144415208422}
+  m_Layer: 0
+  m_Name: AssRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6514664243620050539
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7092364961294615783}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.778, z: 0.556}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3000786658864992704}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &877583144415208422
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7092364961294615783}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.4634722, y: 1, z: 0.39347282}
+  m_Center: {x: 0.017087463, y: 0, z: -0.3032637}
 --- !u!1 &7134432576565076681
 GameObject:
   m_ObjectHideFlags: 0

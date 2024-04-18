@@ -1,6 +1,7 @@
 using RootMotion.FinalIK;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Events;
 using static UnityEngine.EventSystems.EventTrigger;
@@ -24,20 +25,28 @@ public class EquipedKnife : EquipedItem
         MeleeAsset meleeAsset = Resources.Load<MeleeAsset>(user.abilityRootPath+"MeleeData");
         owner.GrandAbility(new Melee(meleeAsset,user,this));
 
-        user.controller.control.Player.Fire.started += Melee;
+        owner.GrandAbility(new Assassination(Resources.Load<AssassinationAsset>
+        (user.abilityRootPath + "AssassinationAsset"), user, user.assasinRange));
+
+        user.controller.control.Player.Fire.started += UseKnife;
     }
     public override void PutIn()
     {
         base.PutIn();
         data.equiped = false;
 
-        user.controller.control.Player.Fire.started -= Melee;
+        user.controller.control.Player.Fire.started -= UseKnife;
         owner.RemoveAbility("Melee");
 
         GameObject.Destroy(gameObject);
     }
-    private void Melee(CallbackContext context) =>
+    private void UseKnife(CallbackContext context)
+    {
+        if (owner.TryActivateAbility("Assassination"))
+            return;
         owner.TryActivateAbility("Melee");
+    }
+        
 
     private void Awake()
     {

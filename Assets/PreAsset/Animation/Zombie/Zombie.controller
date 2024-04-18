@@ -162,7 +162,7 @@ BlendTree:
   m_BlendParameter: DeadType
   m_BlendParameterY: MoveSpd
   m_MinThreshold: 0
-  m_MaxThreshold: 3
+  m_MaxThreshold: 4
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -744,7 +744,7 @@ AnimatorStateMachine:
     m_Position: {x: 340, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6004458237609285670}
-    m_Position: {x: 650, y: 220, z: 0}
+    m_Position: {x: 640, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1739575570341455637}
     m_Position: {x: 270, y: 20, z: 0}

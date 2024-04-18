@@ -37,6 +37,8 @@ public abstract class Character : Pawn
         EventManager.Instance.AddFunc("GetABS" + gameObject.GetInstanceID(), 
             new Func<AbilitySystemComponent>(() => ABS));
 
+        EventManager.Instance.AddListener<HitInfo>("Hit" + gameObject.GetInstanceID(), OnHit);
+
         ABS.AttributeSetContainer.AddAttributeSet(new CharaAttr(characterAttribute));
         ABS.AttrSet<CharaAttr>().health.onPostCurrentValueChange += OnHealthPost;
 

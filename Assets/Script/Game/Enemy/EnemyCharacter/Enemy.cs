@@ -1,8 +1,10 @@
 using BehaviorDesigner.Runtime;
 using MoleMole;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static RootMotion.Demos.Turret;
 
 public enum PatrolType
 {
@@ -143,7 +145,7 @@ public class Enemy : Character
 
     #region 索敌
     private GameObject watchingObj;
-    private bool bAlert,bBattle;
+    public bool bAlert,bBattle;
     private void EnterBattle(GameObject obj,bool discoverBySelf)
     {
         bt.SetVariableValue("Target", obj);
@@ -221,16 +223,21 @@ public class Enemy : Character
     protected override void OnHit(HitInfo hitInfo)
     {
         if (bDead) return;
+
+        string partName = "";
         //计算伤害
-        string partName = partDict[hitInfo.target];
-        WeaknessData weakData = weakDict[partName];
-        float dmgMul = weakData.multiplyDict[hitInfo.type];
+        float dmgMul = 1;
+        if(partDict.ContainsKey(hitInfo.target))
+        {
+            partName = partDict[hitInfo.target];
+            WeaknessData weakData = weakDict[partName];
+            dmgMul = weakData.multiplyDict[hitInfo.type];
+        }
         float dmg = hitInfo.damage * dmgMul;
 
-        //生命值和部位生命值都减少
         ABS.AttrSet<CharaAttr>().health.SetValueRelative(dmg, Tags.Calc.Sub);
 
-        if (!ABS.HasTag("LoseBanlance"))
+        if (partName!="" && !ABS.HasTag("LoseBanlance"))
             ABS.AttrSet<BodyAttr>()[partName].SetValueRelative(dmg, Tags.Calc.Sub);
 
         //发现玩家
@@ -279,7 +286,7 @@ public class Enemy : Character
         bt.SetVariableValue("LoseBanlance", true);
         bt.DisableBehavior();
 
-        int deadType = Random.Range(0, deadAnimTypeNum);
+        int deadType = UnityEngine.Random.Range(0, deadAnimTypeNum);
         anim.SetFloat("DeadType", deadType);
         anim.Play("Dead");
 
