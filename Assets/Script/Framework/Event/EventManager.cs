@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MoleMole;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -132,33 +133,26 @@ public class EventManager : Singleton<EventManager>
         eventDic.Clear();
     }
 
-/*
-    private Dictionary<string, Func<float>> funcDic = new Dictionary<string, Func<float>>();
 
-    public bool TryTrigerFunc(string name, out float res)
+    private Dictionary<string, Delegate> funcDic = new Dictionary<string, Delegate>();
+
+    public bool TryTrigerFunc<T>(string funcName,out T res)
     {
-        res = 0;
-        if (funcDic.TryGetValue(name, out Func<float> func))
+        res = default;
+        if (funcDic.ContainsKey(funcName))
         {
-            res = func();
+            res =(funcDic[funcName] as Func<T>).Invoke();
             return true;
         }
         return false;
     }
-
-    public void AddFuncListener(string funcName, Func<float> callback)
+    public void AddFunc(string funcName,Delegate func)
     {
-        if (funcDic.ContainsKey(funcName))
-            funcDic[funcName] = callback;
-        else
-            funcDic.Add(funcName, callback);
+        funcDic.AddOrReplace(funcName, func);
     }
-
-    public void RemoveFuncListener(string funcName)
+    public void RemoveFunc(string funcName)
     {
-        if (funcName == null) return;
         funcDic.Remove(funcName);
     }
-*/
 }
 

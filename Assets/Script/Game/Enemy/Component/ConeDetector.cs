@@ -19,7 +19,11 @@ public class ConeDetector : MonoBehaviour
         Collider[] preCheck = Physics.OverlapSphere(transform.position, viewDistance, targetLayer);//¾àÀë
         if (preCheck.Length > 0)
         {
-            Transform overLapCenter = preCheck[0].transform.Find("PosPoint").Find("Center");
+            Transform overLapCenter;
+            if (!EventManager.Instance.TryTrigerFunc("GetCenterTrans" +
+                preCheck[0].gameObject.GetInstanceID(), out overLapCenter))
+                overLapCenter = preCheck[0].transform;
+                                     
             Vector3 discovery = overLapCenter.position;
 
             Vector3 toDiscoverVector = discovery - transform.position;

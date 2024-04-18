@@ -8,6 +8,8 @@ public abstract class Move : EnemyAction
     public SharedFloat maxSpeed;
     public SharedFloat stopDistance;
 
+    private bool SetNavDestination;
+
     public override TaskStatus OnUpdate()
     {
         if (maxSpeed.Value != 0)
@@ -15,11 +17,12 @@ public abstract class Move : EnemyAction
         me.nav.destination = GetTargetPos();
         me.nav.stoppingDistance = GetStopDistance();
 
-        if (!me.nav.hasPath)
+        if (me.nav.path.status == NavMeshPathStatus.PathPartial)
+        {
             return TaskStatus.Failure;
-
-        if (me.nav.remainingDistance <= GetStopDistance() || 
-            (transform.position - GetTargetPos()).sqrMagnitude <= GetSqrStopDistance())
+        }
+            
+        if ((transform.position - GetTargetPos()).sqrMagnitude <= GetSqrStopDistance())
         {
             me.nav.destination = transform.position;
             return TaskStatus.Success;

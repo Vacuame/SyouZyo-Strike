@@ -47,5 +47,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  alertGrowthMultiplyOnCrouch: 0.7
   reduceAlertEffect: {fileID: 11400000, guid: 5102398fef56cf94e98cca463bb8c78c, type: 2}
   searchTime: 10

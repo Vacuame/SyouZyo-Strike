@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,8 @@ namespace GameBasic
         {
             if (centerTransform == null)
                 centerTransform = transform;
+            EventManager.Instance.AddFunc("GetCenterTrans" + gameObject.GetInstanceID(),
+                new Func<Transform>(() => centerTransform));
         }
 
         public virtual void SetController(Controller controller)

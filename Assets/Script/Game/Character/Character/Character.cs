@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using GameBasic;
+using System;
 /// <summary>
 /// 作为一个角色，有动画和CharacterController来移动
 /// </summary>
@@ -25,11 +26,16 @@ public abstract class Character : Pawn
     [SerializeField] private CharaAttr_SO characterAttribute;
     protected override void Awake()
     {
+        base.Awake();
+
         //先找到常用组件
         cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
         ABS = GetComponent<AbilitySystemComponent>();
         ABS.Prepare();
+
+        EventManager.Instance.AddFunc("GetABS" + gameObject.GetInstanceID(), 
+            new Func<AbilitySystemComponent>(() => ABS));
 
         ABS.AttributeSetContainer.AddAttributeSet(new CharaAttr(characterAttribute));
         ABS.AttrSet<CharaAttr>().health.onPostCurrentValueChange += OnHealthPost;

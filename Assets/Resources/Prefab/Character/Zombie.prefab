@@ -263,6 +263,7 @@ MonoBehaviour:
   patrolPoints: []
   alertSetting: {fileID: 11400000, guid: 998637ab4215e9e488742de7bf51614f, type: 2}
   alertTipPos: {fileID: 6085682314838074318}
+  eye: {fileID: 3128838242178845577}
   parts:
   - key: LeftArm
     value:
@@ -470,7 +471,7 @@ MonoBehaviour:
   sightLayer:
     serializedVersion: 2
     m_Bits: 321
-  viewAngle: 61
+  viewAngle: 90
   showPlaneRange: 1
 --- !u!1001 &3167023196548696507
 PrefabInstance:

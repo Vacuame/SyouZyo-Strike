@@ -8,6 +8,7 @@ public class AlertAttrAsset : AttributeAsset
     public float alertToCheck;
     public float alertToFind;
     public AnimationCurve alertGrowthSpeedCurve;
+    public float alertGrowthMultiplyOnCrouch;
     public GameplayEffectAsset reduceAlertEffect;
 
     public float searchTime;

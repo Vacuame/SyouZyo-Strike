@@ -1,6 +1,6 @@
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
-
+using UnityEngine;
 
 [TaskCategory("Mine")]
 public class SelectPatrolPos : EnemyAction

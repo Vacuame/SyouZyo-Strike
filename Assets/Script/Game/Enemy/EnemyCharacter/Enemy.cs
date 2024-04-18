@@ -22,6 +22,7 @@ public class Enemy : Character
     [HideInInspector] public List<Transform> patrolPoints;
     [SerializeField] private AlertAttrAsset alertSetting;
     [SerializeField] private Transform alertTipPos;
+    [SerializeField] private ConeDetector eye;
 
     [Header("身体部位设置"), SerializeField] private List<Pair<string, List<Collider>>> parts;
     private Dictionary<GameObject, string> partDict = new Dictionary<GameObject, string>();
@@ -70,7 +71,6 @@ public class Enemy : Character
         HUDManager.GetHUD<EnemyAlertHUD>(true).AddAlertTip(gameObject, alertTipPos);
 
         //眼睛
-        ConeDetector eye = transform.GetComponentInChildren<ConeDetector>();
         eye.shouldLook += () =>
         {
             SharedGameObject targetVariable = bt.GetVariable("Target") as SharedGameObject;
@@ -79,9 +79,20 @@ public class Enemy : Character
         };
         eye.onLook += (GameObject obj) =>
         {
-            watchingObj = obj;
+            if(obj != watchingObj)
+            {
+                watchingObj = obj;
+            }
             float distance = Vector3.Distance(obj.transform.position, transform.position);
             float alertGrouthSpeed = alertSetting.alertGrowthSpeedCurve.Evaluate(distance);
+
+            if (EventManager.Instance.TryTrigerFunc("GetABS" + watchingObj.GetInstanceID(), out AbilitySystemComponent watchingABS))
+            {
+                if (watchingABS.HasTag("Crouch"))
+                {
+                    alertGrouthSpeed *= alertSetting.alertGrowthMultiplyOnCrouch;
+                }
+            }
             ABS.AttrSet<AlertAttr>().alert.SetValueRelative(alertGrouthSpeed * Time.deltaTime, Tags.Calc.Add);
         };
 
@@ -157,7 +168,16 @@ public class Enemy : Character
             }
             else if(value >= alertSetting.alertToCheck)
             {
-                SetPosToCheck(watchingObj.transform.position);
+                bool checkNewPos = true;
+                if(EventManager.Instance.TryTrigerFunc("GetABS"+watchingObj.GetInstanceID(),out AbilitySystemComponent watchingABS))
+                {
+                    if (watchingABS.HasTag("Crouch"))
+                    {
+                        checkNewPos = false;
+                    }
+                }
+                if(checkNewPos)
+                    SetPosToCheck(watchingObj.transform.position);
                 bAlert = true;
             }
         }
