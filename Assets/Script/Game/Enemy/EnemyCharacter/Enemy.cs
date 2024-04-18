@@ -1,11 +1,8 @@
 using BehaviorDesigner.Runtime;
 using MoleMole;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.Rendering.DebugUI;
 
 public enum PatrolType
 {
@@ -88,6 +85,7 @@ public class Enemy : Character
             ABS.AttrSet<AlertAttr>().alert.SetValueRelative(alertGrouthSpeed * Time.deltaTime, Tags.Calc.Add);
         };
 
+        //耳朵
         EventManager.Instance.AddListener("Hear" + gameObject.GetInstanceID(), (Vector3 pos,SoundInfo info) =>
         {
             switch (info.type)
@@ -176,17 +174,23 @@ public class Enemy : Character
     {
         if (old > 0 && value <= 0)
         {
-            bt.SetVariableValue("PosToCheck", Consts.NullV3);
+            SetPosToCheck(Consts.NullV3);
         }
     }
     private void SetPosToCheck(Vector3 pos)
     {
         if (bBattle) return;
 
+        if(pos == Consts.NullV3)
+        {
+            bt.SetVariableValue("PosToCheck", pos);
+            return;
+        }
+
         Vector3 oldPosToCheck = (bt.GetVariable("PosToCheck") as SharedVector3).Value;
         ABS.AttrSet<AlertAttr>().searchTime.RefreshCurValue();
         bt.SetVariableValue("PosToCheck", pos);
-        bt.SetVariableValue("CheckRadius", 1f);
+        bt.SetVariableValue("CheckRadius", 0.5f);
         
         if (oldPosToCheck == Consts.NullV3)//第一次设置时打断当前状态
             BehaviorExtension.Restart(bt);

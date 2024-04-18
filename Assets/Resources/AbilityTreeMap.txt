@@ -6,6 +6,10 @@ Action
 	FullBodyAction
 		Climb
 		Interact
+	Locomotion
+		Crouch
+		Walk  //可能会用到
+		Run
 
 State
 	Endure //霸体

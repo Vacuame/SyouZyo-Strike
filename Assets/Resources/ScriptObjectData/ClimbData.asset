@@ -17,8 +17,10 @@ MonoBehaviour:
   - Climb
   cancelAbilityTags:
   - HandAction
+  - Locomotion
   blockAbilityTags:
   - HandAction
+  - Locomotion
   activationOwnedTag:
   - Invincible
   activationRequiredTags: []

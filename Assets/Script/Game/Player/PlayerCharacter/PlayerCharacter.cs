@@ -60,15 +60,21 @@ public class PlayerCharacter : Character
         base.SetController(controller);
 
         controller.control.Player.Interact.started += OnInteractPressed;
+        controller.control.Player.Squat.started += OnCrouchPressed;
 
-/*        controller.control.Player.Weapon1.started += (CallbackContext context) =>
-        ABS.TryActivateAbility("EquipItem", this, chestRig);*/
-
+        //手部Rig绑定为跟随相机前方
         chestRig.GetComponent<MultiAimConstraint>().data.sourceObjects = 
             new WeightedTransformArray() { new WeightedTransform(controller.playCamera.frontTransform, 1) };
         GetComponent<RigBuilder>().Build();
     }
 
+    private void OnCrouchPressed(CallbackContext context)
+    {
+        if (!ABS.HasTag("Crouch"))
+            ABS.TryActivateAbility("Crouch");
+        else
+            ABS.TryEndAbility("Crouch");
+    }
     private void OnInteractPressed(CallbackContext context)
     {
         ABS.TryActivateAbility("Interact",this);
@@ -91,6 +97,8 @@ public class PlayerCharacter : Character
         Interact_SO interactAsset = Resources.Load<Interact_SO>(abilityRootPath + "InteractData");
         ABS.GrandAbility(new Interact(interactAsset, centerTransform, controller.playCamera.transform));
 
+        ABS.GrandAbility(new Crouch(Resources.Load<AbilityAsset>(abilityRootPath + "CrouchAsset"),this));
+
         ABS.AttrSet<CharaAttr>().health.onPreCurrentValueChange += OnHealthPre;
         HUDManager.GetHUD<PlayerHUD>().SetHpValue(ABS.AttrSet<CharaAttr>().health.GetProportion());
     }
@@ -107,7 +115,6 @@ public class PlayerCharacter : Character
                 new SoundConfig(50, LayerMask.GetMask("Enemy")),
                 new SoundInfo(SoundType.Sound));
         }
-
         if (bCanMove)
         {
             //这个可能就是Move动作了，以后把它改到Ability里
@@ -154,14 +161,14 @@ public class PlayerCharacter : Character
 
         if (input_move != Vector2.zero)
         {
-            if(bRuning) 
+            if(bRuning||ABS.HasTag("Crouch")) 
                 RotateToMove();
             else
                 RotateToCamera();
         }
-                
 
-        if (bRuning)
+
+        if (bRuning || ABS.HasTag("Crouch"))
         {
             moveSpdThres = bInjured ? injury_runThres : runThres;
             if (input_move.sqrMagnitude != 0)

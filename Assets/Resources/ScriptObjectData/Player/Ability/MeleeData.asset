@@ -15,8 +15,10 @@ MonoBehaviour:
   abilityName: Melee
   assetTags:
   - Melee
-  cancelAbilityTags: []
-  blockAbilityTags: []
+  cancelAbilityTags:
+  - Crouch
+  blockAbilityTags:
+  - Crouch
   activationOwnedTag:
   - Melee
   - Endure
