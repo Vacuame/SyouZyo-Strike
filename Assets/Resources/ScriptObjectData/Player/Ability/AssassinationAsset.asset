@@ -13,12 +13,17 @@ MonoBehaviour:
   m_Name: AssassinationAsset
   m_EditorClassIdentifier: 
   abilityName: Assassination
-  assetTags: []
-  cancelAbilityTags: []
-  blockAbilityTags: []
-  activationOwnedTag: []
+  assetTags:
+  - Assassination
+  cancelAbilityTags:
+  - Crouch
+  blockAbilityTags:
+  - Crouch
+  activationOwnedTag:
+  - Endure
   activationRequiredTags: []
-  activationBlockedTags: []
+  activationBlockedTags:
+  - LoseBanlance
   assassinLayer:
     serializedVersion: 2
     m_Bits: 128

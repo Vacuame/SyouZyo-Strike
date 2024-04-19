@@ -1,11 +1,5 @@
 using MoleMole;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static RootMotion.FinalIK.HitReaction;
-using UnityEngine.TextCore.Text;
-using static Melee;
 
 public class Assassination : AbstractAbility<AssassinationAsset>
 {
@@ -78,7 +72,6 @@ public class Assassination : AbstractAbility<AssassinationAsset>
         {
             //±³¶Ô
             float Angle = Vector3.Angle(character.transform.forward, target.transform.forward);
-            Debug.Log(Angle);
             if (Angle > asset.canAssassinateAngle)
                 return false;
 

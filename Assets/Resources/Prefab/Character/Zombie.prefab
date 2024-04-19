@@ -295,6 +295,8 @@ MonoBehaviour:
     - {fileID: 360569300025935762}
   partSetting: {fileID: 11400000, guid: 894b3eed56fbe3f4cb7c9e800e7ab1b1, type: 2}
   deadAnimTypeNum: 4
+  bAlert: 0
+  bBattle: 0
   atkRange_TwoHand: {fileID: 4076976914118835071}
 --- !u!114 &4208110306914150461
 MonoBehaviour:
@@ -446,7 +448,7 @@ Transform:
   m_GameObject: {fileID: 7412015217198381456}
   serializedVersion: 2
   m_LocalRotation: {x: -0.49099886, y: 0.48988733, z: 0.5055563, w: 0.51316994}
-  m_LocalPosition: {x: -0.048374373, y: -0.02607664, z: 0.061356753}
+  m_LocalPosition: {x: -0.12, y: -0.8, z: -0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

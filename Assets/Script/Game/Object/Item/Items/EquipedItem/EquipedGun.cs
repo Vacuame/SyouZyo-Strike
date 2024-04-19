@@ -21,6 +21,7 @@ public class EquipedGun : EquipedItem
     [SerializeField] private HitType hitType;
     [SerializeField] private float damage;
     [SerializeField] private bool automatic;
+    [SerializeField] private SoundConfig fireSoundConfig;
 
     //…‰ª˜¿‰»¥ ±º‰
     [Header("«π–µ…Ë÷√")]
@@ -302,6 +303,8 @@ public class EquipedGun : EquipedItem
     private void FireBullet(Vector2 aimPoint)
     {
         Ray shootRay = playerCamera.ScreenPointToRay(aimPoint);
+
+        SoundMaker.Instance.MakeSound(transform.position, fireSoundConfig, new SoundInfo(SoundType.Sound));
 
         if (Physics.Raycast(shootRay, out RaycastHit hit, maxDistance, shootMask))
         {

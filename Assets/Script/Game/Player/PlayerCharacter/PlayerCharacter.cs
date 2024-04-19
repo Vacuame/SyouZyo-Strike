@@ -105,12 +105,6 @@ public class PlayerCharacter : Character
         else
             input = new PlayerActions();
 
-        if(Input.GetKeyDown(KeyCode.T)) 
-        {
-            SoundMaker.Instance.MakeSound(feetTransform.position, 
-                new SoundConfig(50, LayerMask.GetMask("Enemy")),
-                new SoundInfo(SoundType.Sound));
-        }
         if (bCanMove)
         {
             //这个可能就是Move动作了，以后把它改到Ability里

@@ -141,6 +141,11 @@ MonoBehaviour:
   hitType: 2
   damage: 10
   automatic: 1
+  fireSoundConfig:
+    radious: 20
+    soundMask:
+      serializedVersion: 2
+      m_Bits: 128
   _ratePerMinute: 500
   coolDownInterval_OverUse: 0.8
   coolDownInterval: 0.5
