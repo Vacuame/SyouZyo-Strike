@@ -7,7 +7,8 @@ public static class Tags
    public enum Camera
     {
         Normal = 0,
-        Aim = 1
+        Aim = 1,
+        Assassination = 2
     }
     public enum Calc
     {

@@ -1,4 +1,5 @@
 using MoleMole;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class Assassination : AbstractAbility<AssassinationAsset>
@@ -41,6 +42,17 @@ public class Assassination : AbstractAbility<AssassinationAsset>
         {
             anim.Play("Assassination");
             HUDManager.GetHUD<PlayerHUD>()?.SetTip(null);
+
+            character.controller.playCamera.SwitchCamera(Tags.Camera.Assassination);
+            character.centerTransform.rotation = character.transform.rotation;
+
+            //只是让敌人站定在原地
+            if(target.TryGetComponent<AbilitySystemComponent>(out var tarABS))
+            {
+                GameplayEffectAsset asset = Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/BeAssassinated");
+                owner.ApplyGameplayEffectTo(new GameplayEffect(asset), tarABS);
+            }
+
             base.ActivateAbility(args);
         }
 
@@ -82,11 +94,17 @@ public class Assassination : AbstractAbility<AssassinationAsset>
             return true;
         }
 
+        public override void EndAbility()
+        {
+            character.controller.playCamera.SwitchCamera(Tags.Camera.Normal);
+            base.EndAbility();
+        }
+
         public override void InitTimeLine()
         {
             timeLine.AddEvent(asset.doAtkTime, ()=> 
             EventManager.Instance.TriggerEvent(Consts.Event.Hit + target.GetInstanceID(),
-            new HitInfo(HitType.Cut, asset.dmg, character.gameObject, target)));
+            new HitInfo(HitType.Assassinate, asset.dmg, character.gameObject, target)));
 
             timeLine.AddEvent(asset.endTime, EndSelf);
         }

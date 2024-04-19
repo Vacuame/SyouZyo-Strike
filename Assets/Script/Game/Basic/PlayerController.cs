@@ -42,11 +42,14 @@ public class PlayerController : Controller
         if (Input.GetKeyDown(KeyCode.Tab))
             UIManager.Instance.SwitchOnPeek(new InventoryPanelContext(InventoryPanel.uiType,this,itemSaveData,InventoryPanel.emptyDelTetrisData));
 
-/*        if(Input.GetKeyDown(KeyCode.Alpha0))
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            ItemInfo itemInfo = ItemManager.Instance.GetItemInfo(1);
-            GetNewItem(itemInfo);
-        }*/
+            playCamera.SwitchCamera(Tags.Camera.Assassination);
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            playCamera.SwitchCamera(Tags.Camera.Normal);
+        }
     }
 
     public void PickUpNewItem(ItemInfo itemInfo,ExtraSave extra)

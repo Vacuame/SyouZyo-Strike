@@ -46,8 +46,6 @@ public class CueLoseBanlance_Enemy : GameplayCueDurational
 
         public override void OnAdd()
         {
-            
-
             //结束所有行动
             foreach(var a in Owner.AbilityContainer.AbilitySpecs.Keys)
                 Owner.TryEndAbility(a);
@@ -55,6 +53,7 @@ public class CueLoseBanlance_Enemy : GameplayCueDurational
             //设置行为树状态 LoseBanlance true
             if(Owner.TryGetComponent(out enemy)) 
             {
+                enemy.nav.destination = enemy.transform.position;
                 enemy.nav.isStopped = true;
 
                 enemy.bt.SetVariableValue("LoseBanlance", true);

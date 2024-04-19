@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-public enum HitType { None ,HG ,SMG ,AR ,RF ,SG ,Cut ,Explode }
+public enum HitType { None ,HG ,SMG ,AR ,RF ,SG ,Cut ,Explode ,Assassinate }
 [System.Serializable]
 public class HitInfo
 {

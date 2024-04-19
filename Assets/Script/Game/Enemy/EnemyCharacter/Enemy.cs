@@ -235,13 +235,17 @@ public class Enemy : Character
         }
         float dmg = hitInfo.damage * dmgMul;
 
+        //可能导致失衡状态的行为
+        if(!ABS.HasTag("LoseBanlance"))
+        {
+            if (partName != "")//打在部位上才会减少部位韧性
+                ABS.AttrSet<BodyAttr>()[partName].SetValueRelative(dmg, Tags.Calc.Sub);
+        }
+
         ABS.AttrSet<CharaAttr>().health.SetValueRelative(dmg, Tags.Calc.Sub);
 
-        if (partName!="" && !ABS.HasTag("LoseBanlance"))
-            ABS.AttrSet<BodyAttr>()[partName].SetValueRelative(dmg, Tags.Calc.Sub);
-
         //发现玩家
-        if(bt.GetVariable("Target").GetValue() == null)
+        if (bt.GetVariable("Target").GetValue() == null)
         {
             bt.Restart();
             bt.SetVariableValue("Target", hitInfo.source);
@@ -256,6 +260,8 @@ public class Enemy : Character
             toughness.RefreshCurValue();
             //获得Buff 失衡
             GameplayEffectAsset asset = Instantiate(Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/LoseBanlance"));
+
+            //通过cueLoseBanlance 计算debuff时间和动画
             asset.CueOnAdd[0] = Instantiate(asset.CueOnAdd[0]);
             CuePlayAnim cuePlayAnim = asset.CueOnAdd[0] as CuePlayAnim;
             CueLoseBanlance_Enemy cueLoseBanlance = asset.CueDurational[0] as CueLoseBanlance_Enemy;
@@ -267,6 +273,7 @@ public class Enemy : Character
             CueLoseBanlance_Enemy.PartBalanceSet partBalanceSet = cueLoseBanlance.GetPartBanlanceSet(loseBanlanceName);
             asset.duration = partBalanceSet.loseBanlanceDuration;
             cuePlayAnim.animConfig = new AnimPlayConfig(partBalanceSet.animName);
+
             ABS.ApplyGameplayEffectToSelf(new GameplayEffect(asset));
         }
     }
