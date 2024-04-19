@@ -40,7 +40,7 @@ public abstract class ControllableInteract : Pawn, IInteractable
             EndInteract();
     }
 
-    public void BeInteracted(PlayerCharacter character, UnityAction onInteractOver)
+    public virtual void BeInteracted(PlayerCharacter character, UnityAction onInteractOver)
     {
         lastCharacter = character;
         lastController = character.controller;
@@ -50,6 +50,17 @@ public abstract class ControllableInteract : Pawn, IInteractable
         HUDManager.GetHUD<PlayerHUD>().SetTip("°´ÏÂ 'ÓÒ¼ü' ÍË³ö");
         interacting = true;
     }
+    public virtual void EndInteract()
+    {
+        if (interacting)
+        {
+            interacting = false;
+            lastController.ControlPawn(lastCharacter);
+            interactOverAction?.Invoke();
+            HUDManager.GetHUD<PlayerHUD>().SetTip(null);
+        }
+    }
+
     public override void SetController(Controller controller)
     {
         controller.playCamera.SwitchCamera(Tags.Camera.Interact);
@@ -68,14 +79,4 @@ public abstract class ControllableInteract : Pawn, IInteractable
             playerEntered = false;
     }
 
-    public void EndInteract()
-    {
-        if (interacting)
-        {
-            interacting = false;
-            lastController.ControlPawn(lastCharacter);
-            interactOverAction?.Invoke();
-            HUDManager.GetHUD<PlayerHUD>().SetTip(null);
-        }
-    }
 }
