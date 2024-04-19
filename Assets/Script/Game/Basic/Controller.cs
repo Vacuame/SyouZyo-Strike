@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.X86;
+using static UnityEditor.PlayerSettings;
 
 namespace GameBasic
 {
@@ -11,20 +13,23 @@ namespace GameBasic
         [HideInInspector] public PlayCamera playCamera;
         public Control control;
 
-        [SerializeField, Tooltip("相机向上角度限制")]
-        private float CamTopClamp = 70.0f;
-        [SerializeField, Tooltip("相机向下角度限制")]
-        private float CamBottomClamp = -30.0f;
-        [HideInInspector]
-        public float CamAngleOverride = 0.0f;
+        [SerializeField] private float CamTopClamp ;
+        [SerializeField] private float CamBottomClamp;
+        [SerializeField] private float CamLeftClamp;
+        [SerializeField] private float CamRightClamp;
+        
+
         [HideInInspector]
         public bool bCamLock = false;
 
         #region 控制Controller自身的变量
         [SerializeField, Header("输入")] protected float mouseSpeed = 1.5f;
         protected float mouseLockTimer;
-        protected float Yaw;
-        protected float Pitch;
+        protected float yaw;
+        protected float pitch;
+        [Header("EX")]
+        [SerializeField]protected float exYaw;
+        [SerializeField] protected float exPitch;
         #endregion
 
         #region 生命周期
@@ -69,27 +74,49 @@ namespace GameBasic
             if (controlledPawn != null)
                 controlledPawn.RemoveController();
             controlledPawn = newPawn;
-            controlledPawn.SetController(this);
-            Yaw = controlledPawn.transform.rotation.eulerAngles.y;
-            Pitch = controlledPawn.transform.rotation.eulerAngles.x;
+            
             playCamera.SetCameraTarget(controlledPawn.centerTransform);
+            yaw = 0;
+            pitch = 0;
+
+            exPitch = controlledPawn.transform.eulerAngles.x;
+            exYaw = controlledPawn.transform.eulerAngles.y;
+
+            controlledPawn.SetController(this);
+        }
+
+        /// <summary>
+        /// Pitch  >0是向下看，<0是向上看
+        /// </summary>
+        public void SetRotateLimit(float topClamp, float bottonClamp, float yawClamp,float exPitch = Consts.NullFloat,float exYaw = Consts.NullFloat)
+        {
+            CamTopClamp = topClamp;
+            CamBottomClamp = bottonClamp;
+            CamLeftClamp = -yawClamp;
+            CamRightClamp = yawClamp;
+
+            if(exPitch != Consts.NullFloat)
+                this.exPitch = exPitch;
+            if(exYaw != Consts.NullFloat)
+                this.exYaw = exYaw;
         }
 
         private void UpdateRotation()
         {
-            Vector2 look = control.Player.Look.ReadValue<Vector2>();
+            Vector2 look = control.Controller.Look.ReadValue<Vector2>();
             if (mouseLockTimer <= 0 && look.sqrMagnitude >= 10)
             {
                 float deltaTimeMove = Time.deltaTime * mouseSpeed;
-                Yaw += look.x * deltaTimeMove;
-                Pitch += look.y * deltaTimeMove;
+                yaw += look.x * deltaTimeMove;
+                pitch += look.y * deltaTimeMove;
             }
-            Yaw = Calc.ClampAngle(Yaw, float.MinValue, float.MaxValue);
-            Pitch = Calc.ClampAngle(Pitch, CamBottomClamp, CamTopClamp);
 
-            transform.rotation = Quaternion.Euler(Pitch, Yaw, 0.0f);
+            yaw = Calc.ClampAngle(yaw, CamLeftClamp, CamRightClamp);
+            pitch = Calc.ClampAngle(pitch, CamBottomClamp, CamTopClamp);
+
+            transform.rotation = Quaternion.Euler(pitch+exPitch, yaw+exYaw, 0.0f);
             if (!bCamLock&&controlledPawn!=null)
-                controlledPawn.centerTransform.rotation = Quaternion.Euler(Pitch + CamAngleOverride, Yaw, 0.0f);
+                controlledPawn.centerTransform.rotation = Quaternion.Euler(pitch + exPitch, yaw+exYaw, 0.0f);
         }
 
     }

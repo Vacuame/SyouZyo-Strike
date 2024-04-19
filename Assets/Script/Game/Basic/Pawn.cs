@@ -11,7 +11,7 @@ namespace GameBasic
     /// </summary>
     public class Pawn : MonoBehaviour
     {
-        [SerializeField, Header("°ó¶¨")]
+        [SerializeField, Header("°ó¶¨ as Pawn")]
         public Transform centerTransform;
 
         [HideInInspector] public bool bControlable = true;

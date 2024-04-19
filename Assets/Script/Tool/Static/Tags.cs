@@ -8,7 +8,8 @@ public static class Tags
     {
         Normal = 0,
         Aim = 1,
-        Assassination = 2
+        Assassination = 2,
+        Interact = 3
     }
     public enum Calc
     {

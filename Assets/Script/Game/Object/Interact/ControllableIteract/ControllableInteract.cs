@@ -1,11 +1,9 @@
 using GameBasic;
 using MoleMole;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ControllableInteract : Pawn, IInteractable
+public abstract class ControllableInteract : Pawn, IInteractable
 {
     protected bool bSelected;
     protected bool interacting;
@@ -13,6 +11,13 @@ public class ControllableInteract : Pawn, IInteractable
     private Controller lastController;
     private Character lastCharacter;
     UnityAction interactOverAction;
+
+    [SerializeField, Header("相机角度限制")]
+    public float camTopClamp;
+    public float camBottomClamp;
+    public float camYawClamp;
+    public float exCamPitch;
+    public float exCamYaw;
 
     public virtual bool CanInteract()
     {
@@ -45,6 +50,12 @@ public class ControllableInteract : Pawn, IInteractable
         HUDManager.GetHUD<PlayerHUD>().SetTip("按下 '右键' 退出");
         interacting = true;
     }
+    public override void SetController(Controller controller)
+    {
+        controller.playCamera.SwitchCamera(Tags.Camera.Interact);
+        controller.SetRotateLimit(camTopClamp,camBottomClamp, camYawClamp,exCamPitch,exCamYaw);
+    }
+
     private void ExitInteracted()
     {
         interacting = false;

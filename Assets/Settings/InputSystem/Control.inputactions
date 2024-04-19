@@ -768,6 +768,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Controller",
+            "id": "4c514fde-aab2-4bc3-9375-49b968c805a9",
+            "actions": [
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "b4a44fe3-2f7d-495e-9589-23dd8ef76277",
+                    "expectedControlType": "Vector2",
+                    "processors": "ScaleVector2(x=10,y=5),InvertVector2(invertX=false)",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0074270e-9b7b-45c9-b5c7-9674194443b6",
+                    "path": "<Pointer>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse;Touch",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

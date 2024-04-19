@@ -11,7 +11,7 @@ public class PlayerCharacter : Character
 
     #region 变量
 
-    [Header("绑定")]
+    [Header("绑定 as PlayerCharacter")]
     public Transform RightHandTransform;
 
     [SerializeField] public Collider assasinRange;
@@ -19,6 +19,9 @@ public class PlayerCharacter : Character
     #region 输入
     private PlayerActions input;
     private Vector2 input_move;
+    [SerializeField, Tooltip("相机上下角度限制")]
+    public float CamTopClamp = 70.0f;
+    public float CamBottomClamp = -30.0f;
     #endregion
 
     #region 移动设置
@@ -61,6 +64,9 @@ public class PlayerCharacter : Character
     public override void SetController(Controller controller)
     {
         base.SetController(controller);
+
+        controller.playCamera.SwitchCamera(Tags.Camera.Normal);
+        controller.SetRotateLimit(CamTopClamp, CamBottomClamp, 360);
 
         controller.control.Player.Enable();
 

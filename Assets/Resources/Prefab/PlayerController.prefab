@@ -47,8 +47,11 @@ MonoBehaviour:
   presetPawn: {fileID: 0}
   controlledPawn: {fileID: 0}
   playCamera: {fileID: 0}
-  CamTopClamp: 70
-  CamBottomClamp: -30
-  CamAngleOverride: 0
+  CamTopClamp: 0
+  CamBottomClamp: 0
+  CamLeftClamp: 0
+  CamRightClamp: 0
   bCamLock: 0
   mouseSpeed: 1.5
+  exYaw: 0
+  exPitch: 0

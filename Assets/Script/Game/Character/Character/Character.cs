@@ -21,7 +21,7 @@ public abstract class Character : Pawn
     [HideInInspector]public AbilitySystemComponent ABS;
     #endregion
 
-    [Header("°ó¶¨"), SerializeField]protected Transform feetTransform;
+    [Header("°ó¶¨ as Character"), SerializeField]protected Transform feetTransform;
 
     [SerializeField] private CharaAttr_SO characterAttribute;
     protected override void Awake()
