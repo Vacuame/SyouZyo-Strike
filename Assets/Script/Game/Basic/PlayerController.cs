@@ -22,18 +22,6 @@ public class PlayerController : Controller
         itemSaveData.AddItem(new ItemSave(4, new Vector2Int(8, 5), InventoryStatic.Dir.Down, new ExtraSave(12)));
     }
 
-    protected override void ControlPawn(Pawn pawn)
-    {
-        base.ControlPawn(pawn);
-
-        if (pawn is PlayerCharacter)
-            ControllPlayer(pawn as PlayerCharacter);
-    }
-
-    private void ControllPlayer(PlayerCharacter character)
-    {
-        
-    }
 
     protected override void Update()
     {
@@ -42,14 +30,6 @@ public class PlayerController : Controller
         if (Input.GetKeyDown(KeyCode.Tab))
             UIManager.Instance.SwitchOnPeek(new InventoryPanelContext(InventoryPanel.uiType,this,itemSaveData,InventoryPanel.emptyDelTetrisData));
 
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            playCamera.SwitchCamera(Tags.Camera.Assassination);
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            playCamera.SwitchCamera(Tags.Camera.Normal);
-        }
     }
 
     public void PickUpNewItem(ItemInfo itemInfo,ExtraSave extra)

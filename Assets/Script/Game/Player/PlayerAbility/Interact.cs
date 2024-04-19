@@ -40,6 +40,7 @@ public class Interact : AbstractAbility<Interact_SO>
         public override void ActivateAbility(params object[] args)
         {
             selectedInteractable?.BeInteracted(args[0] as PlayerCharacter,EndSelf);
+            selectedInteractable = null;
         }
 
         public override void EndAbility()
@@ -52,6 +53,8 @@ public class Interact : AbstractAbility<Interact_SO>
         /// </summary>
         protected override void SustainedTick()
         {
+            if (IsActive) return; //正在操作就不要检测了
+
             float interactDis = asset.interactDistance;
             Collider[] preCheck = Physics.OverlapSphere(centerTrans.position, interactDis, LayerMask.GetMask("Interactable"/*, "Enemy"*/));
             if (TrySelectBestInteract(ref preCheck, camTrans.position, camTrans.forward, out Transform interactTarget, out IInteractable interactable))

@@ -62,17 +62,17 @@ namespace GameBasic
         }
         #endregion
 
-        protected virtual void ControlPawn(Pawn pawn)
+        public virtual void ControlPawn(Pawn newPawn)
         {
-            if (this.controlledPawn == pawn)
+            if (controlledPawn == newPawn)
                 return;
-            if (pawn != null)
-                pawn.RemoveController();
-            this.controlledPawn = pawn;
-            pawn.SetController(this);
-            Yaw = pawn.transform.rotation.eulerAngles.y;
-            Pitch = pawn.transform.rotation.eulerAngles.x;
-            playCamera.SetCameraTarget(pawn.centerTransform);
+            if (controlledPawn != null)
+                controlledPawn.RemoveController();
+            controlledPawn = newPawn;
+            controlledPawn.SetController(this);
+            Yaw = controlledPawn.transform.rotation.eulerAngles.y;
+            Pitch = controlledPawn.transform.rotation.eulerAngles.x;
+            playCamera.SetCameraTarget(controlledPawn.centerTransform);
         }
 
         private void UpdateRotation()

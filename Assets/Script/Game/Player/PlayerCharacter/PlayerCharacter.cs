@@ -57,17 +57,31 @@ public class PlayerCharacter : Character
 
     #endregion
 
+    private bool setControlled = false;
     public override void SetController(Controller controller)
     {
         base.SetController(controller);
 
-        controller.control.Player.Interact.started += OnInteractPressed;
-        controller.control.Player.Squat.started += OnCrouchPressed;
+        controller.control.Player.Enable();
 
-        //手部Rig绑定为跟随相机前方
-        chestRig.GetComponent<MultiAimConstraint>().data.sourceObjects = 
+        if(!setControlled)//一开始想做多个控制器的，还写SetControll，后来东西多了各种绑定实在很麻烦
+        {
+            controller.control.Player.Interact.started += OnInteractPressed;
+            controller.control.Player.Squat.started += OnCrouchPressed;
+
+            //手部Rig绑定为跟随相机前方
+            chestRig.GetComponent<MultiAimConstraint>().data.sourceObjects =
             new WeightedTransformArray() { new WeightedTransform(controller.playCamera.frontTransform, 1) };
-        GetComponent<RigBuilder>().Build();
+            GetComponent<RigBuilder>().Build();
+
+            setControlled = true;
+        }
+    }
+    public override void RemoveController()
+    {
+        controller.control.Player.Disable();
+
+        //应该要把controller设为null的，但是一开始没有设计这个，可能会报错（很多地方都读了它），不弄了
     }
     private void OnCrouchPressed(CallbackContext context)
     {
