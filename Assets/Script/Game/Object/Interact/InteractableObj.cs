@@ -17,4 +17,9 @@ public abstract class InteractableObj : MonoBehaviour, IInteractable
     {
         bSelected = isSelected;
     }
+
+    public void EndInteract()
+    {
+        
+    }
 }

@@ -31,13 +31,13 @@ public abstract class ControllableInteract : Pawn, IInteractable
         else
             HUDManager.GetHUD<PlayerHUD>().SetTip(null);
     }
-    private void Update()
+    protected virtual void Update()
     {
         if (!interacting)
             return;
 
         if(Input.GetMouseButtonDown(1))
-            ExitInteracted();
+            EndInteract();
     }
 
     public void BeInteracted(PlayerCharacter character, UnityAction onInteractOver)
@@ -56,14 +56,6 @@ public abstract class ControllableInteract : Pawn, IInteractable
         controller.SetRotateLimit(camTopClamp,camBottomClamp, camYawClamp,exCamPitch,exCamYaw);
     }
 
-    private void ExitInteracted()
-    {
-        interacting = false;
-        lastController.ControlPawn(lastCharacter);
-        interactOverAction?.Invoke();
-        HUDManager.GetHUD<PlayerHUD>().SetTip(null);
-    }
-
     private bool playerEntered;
     private void OnTriggerEnter(Collider obj)
     {
@@ -74,5 +66,16 @@ public abstract class ControllableInteract : Pawn, IInteractable
     {
         if (obj.gameObject.CompareTag("Player"))
             playerEntered = false;
+    }
+
+    public void EndInteract()
+    {
+        if (interacting)
+        {
+            interacting = false;
+            lastController.ControlPawn(lastCharacter);
+            interactOverAction?.Invoke();
+            HUDManager.GetHUD<PlayerHUD>().SetTip(null);
+        }
     }
 }

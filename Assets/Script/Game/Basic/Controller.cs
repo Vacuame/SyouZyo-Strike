@@ -84,17 +84,15 @@ namespace GameBasic
         /// <summary>
         /// Pitch  >0是向下看，<0是向上看
         /// </summary>
-        public void SetRotateLimit(float topClamp, float bottonClamp, float yawClamp,float exPitch = Consts.NullFloat,float exYaw = Consts.NullFloat)
+        public void SetRotateLimit(float topClamp, float bottonClamp, float yawClamp,float exPitch = 0,float exYaw = 0)
         {
             CamTopClamp = topClamp;
             CamBottomClamp = bottonClamp;
             CamLeftClamp = -yawClamp;
             CamRightClamp = yawClamp;
 
-            if(exPitch != Consts.NullFloat)
-                this.exPitch = exPitch;
-            if(exYaw != Consts.NullFloat)
-                this.exYaw = exYaw;
+            this.exPitch += exPitch;
+            this.exYaw += exYaw;
         }
 
         private void UpdateRotation()

@@ -1,3 +1,4 @@
+using System.Xml.Serialization;
 using UnityEngine.Events;
 
 public interface IInteractable
@@ -7,4 +8,6 @@ public interface IInteractable
     public void SetSelected(bool isSelected);
 
     public bool CanInteract();
+
+    public void EndInteract();
 }
