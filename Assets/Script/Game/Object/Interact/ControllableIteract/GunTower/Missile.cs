@@ -26,6 +26,7 @@ public class Missile : MonoBehaviour
         rb.velocity = Vector3.zero;
         transform.SetParent(parent);
         transform.localPosition = localPos;
+        transform.localRotation = Quaternion.identity;
     }
 
     public void Launch(Vector3 dir,float spd)

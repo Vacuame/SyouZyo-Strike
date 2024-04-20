@@ -75,6 +75,8 @@ public class Enemy : Character
         //ÑÛ¾¦
         eye.shouldLook += () =>
         {
+            if (bDead) return false;
+
             SharedGameObject targetVariable = bt.GetVariable("Target") as SharedGameObject;
             GameObject target = targetVariable.Value;
             return target == null;
