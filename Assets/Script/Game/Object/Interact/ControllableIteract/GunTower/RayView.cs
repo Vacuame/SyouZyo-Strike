@@ -36,10 +36,11 @@ public class RayView : MonoBehaviour
     private void OnEnable()
     {
         rayLine.enabled = true;
+        redPoint.gameObject.SetActive(true);
     }
     private void OnDisable()
     {
         rayLine.enabled = false;
-        redPoint.localScale = Vector3.zero;
+        redPoint.gameObject.SetActive(false);
     }
 }

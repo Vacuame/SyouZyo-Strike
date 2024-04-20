@@ -55,7 +55,9 @@ public class Melee : AbstractAbility<MeleeAsset>
             curConfig = asset.meleeConfigs[meleeIndex];
             dmgedObject.Clear();
             canNext = false;
-            if (meleeIndex == 0)//立刻播放，不要缓缓转换
+
+            //如果是其他动作，则立刻播放，不要缓缓转换
+            if (meleeIndex == 0 && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Melee"))
                 anim.Play("MeleeInward");
             anim.SetInteger(asset.animParamName, meleeIndex+1);
             anim.SetFloat("meleeSpeed", curConfig.animSpeed);

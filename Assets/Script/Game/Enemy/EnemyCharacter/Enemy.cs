@@ -157,8 +157,8 @@ public class Enemy : Character
     private void OnAlertPost(AttributeBase alert, float old, float value)
     {
         EnemyAlertHUD alertHUD = HUDManager.GetHUD<EnemyAlertHUD>();
-        alertHUD.SetVisiable(!bBattle && value > 0);
-        alertHUD.GetAlertTip(gameObject).SetValue(alert.GetProportion());
+        alertHUD.SetAlertVisiable(gameObject,!bBattle && value > 0);
+        alertHUD.GetAlertTip(gameObject)?.SetValue(alert.GetProportion());
 
         if (bBattle) return;
 
@@ -227,7 +227,7 @@ public class Enemy : Character
         string partName = "";
         //计算伤害
         float dmgMul = 1;
-        if(partDict.ContainsKey(hitInfo.target))
+        if(hitInfo.target!=null && partDict.ContainsKey(hitInfo.target))
         {
             partName = partDict[hitInfo.target];
             WeaknessData weakData = weakDict[partName];
@@ -245,7 +245,7 @@ public class Enemy : Character
         ABS.AttrSet<CharaAttr>().health.SetValueRelative(dmg, Tags.Calc.Sub);
 
         //发现玩家
-        if (bt.GetVariable("Target").GetValue() == null)
+        if (hitInfo.source!=null && bt.GetVariable("Target").GetValue() == null)
         {
             bt.Restart();
             bt.SetVariableValue("Target", hitInfo.source);

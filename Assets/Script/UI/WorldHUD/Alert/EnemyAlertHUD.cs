@@ -24,6 +24,11 @@ public class EnemyAlertHUD : BaseHUD
             alertTipDict.Remove(obj);
         }
     }
+    public void SetAlertVisiable(GameObject obj,bool v)
+    {
+        if (alertTipDict.TryGetValue(obj, out EnemyAlertTip tip))
+            tip.transform.PanelAppearance(v);
+    }
     public EnemyAlertTip GetAlertTip(GameObject obj)
     {
         if(alertTipDict.TryGetValue(obj,out EnemyAlertTip tip))

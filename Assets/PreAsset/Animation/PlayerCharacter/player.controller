@@ -851,7 +851,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: -203655887218126122, guid: c1c6844f986deb448b742999482eaa5c,
     type: 3}
-  m_Tag: 
+  m_Tag: Melee
   m_SpeedParameter: meleeSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -2162,7 +2162,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: -203655887218126122, guid: 86fdf555c25c4d34cb97dcefda328433,
     type: 3}
-  m_Tag: 
+  m_Tag: Melee
   m_SpeedParameter: meleeSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -2431,7 +2431,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: -203655887218126122, guid: db753038307030740a0798eadb3d838f,
     type: 3}
-  m_Tag: 
+  m_Tag: Melee
   m_SpeedParameter: meleeSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
