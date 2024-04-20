@@ -129,7 +129,7 @@ public class PlayerCharacter : Character
         ABS.GrandAbility(new Crouch(Resources.Load<AbilityAsset>(abilityRootPath + "CrouchAsset"),this));
 
         ABS.GrandAbility(new RandomFight(Resources.Load<RandomFightAsset>(abilityRootPath + "FightAsset"),
-            this,checkFightRange,fightAttackRange));
+            this, checkFightRange, fightAttackRange));
 
         ABS.AttrSet<CharaAttr>().health.onPreCurrentValueChange += OnHealthPre;
         HUDManager.GetHUD<PlayerHUD>().SetHpValue(ABS.AttrSet<CharaAttr>().health.GetProportion());

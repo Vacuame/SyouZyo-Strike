@@ -45,6 +45,8 @@ public class Chest : InteractableObj
         timeline.Start();
 
         interacted = true;
+
+        HUDManager.GetHUD<PlayerHUD>().SetTip(null);
     }
 
     private void Update()
