@@ -18,7 +18,6 @@ public class PickUpHUD : BaseHUD
         followingTransform = itemTrans;
         txt_itemName.text = itemName;
         txt_itemNum.text = $"¡Á {itemNum}";
-        //pickUpTip.GetComponent<ContentSizeFitter>().SetLayoutHorizontal();
         LayoutRebuilder.ForceRebuildLayoutImmediate(pickUpTip.transform as RectTransform);
     }
 

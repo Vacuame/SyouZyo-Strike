@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
+
 
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(Rigidbody))]
@@ -23,6 +21,7 @@ public class Missile : MonoBehaviour
     public void Init(Transform parent,Vector3 localPos)
     {
         lauched = false;
+        gameObject.SetActive(true);
         rb.velocity = Vector3.zero;
         transform.SetParent(parent);
         transform.localPosition = localPos;
@@ -42,7 +41,7 @@ public class Missile : MonoBehaviour
         {
             if(launchedTimer.TimerTick())
             {
-                gameObject.SetActive(true);
+                gameObject.SetActive(false);
             }
         }
     }
@@ -61,6 +60,7 @@ public class Missile : MonoBehaviour
                 EventManager.Instance.TriggerEvent(Consts.Event.Hit + col.gameObject.GetInstanceID(),
                     new HitInfo(HitType.Explode, dmg));
             }
+            gameObject.SetActive(false);
         }
     }
 

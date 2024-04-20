@@ -82,12 +82,17 @@ public class PlayerCharacter : Character
 
             setControlled = true;
         }
+
+        HUDManager.GetHUD<PlayerHUD>().SetVisiable(true);
+        HUDManager.GetHUD<AimHUD>().SetVisiable(true);
     }
     public override void RemoveController()
     {
+        //应该要把controller设为null的，但是一开始没有设计这个，可能会报错（很多地方都读了它），不弄了
         controller.control.Player.Disable();
 
-        //应该要把controller设为null的，但是一开始没有设计这个，可能会报错（很多地方都读了它），不弄了
+        HUDManager.GetHUD<PlayerHUD>().SetVisiable(false);
+        HUDManager.GetHUD<AimHUD>().SetVisiable(false);
     }
     private void OnCrouchPressed(CallbackContext context)
     {

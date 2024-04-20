@@ -47,7 +47,6 @@ public abstract class ControllableInteract : Pawn, IInteractable
         interactOverAction = onInteractOver;
 
         character.controller.ControlPawn(this);
-        HUDManager.GetHUD<PlayerHUD>().SetTip("°´ÏÂ 'ÓÒ¼ü' ÍË³ö");
         interacting = true;
     }
     public virtual void EndInteract()
@@ -57,7 +56,6 @@ public abstract class ControllableInteract : Pawn, IInteractable
             interacting = false;
             lastController.ControlPawn(lastCharacter);
             interactOverAction?.Invoke();
-            HUDManager.GetHUD<PlayerHUD>().SetTip(null);
         }
     }
 

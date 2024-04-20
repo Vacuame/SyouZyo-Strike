@@ -1,3 +1,5 @@
+using GameBasic;
+using MoleMole;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,6 +54,7 @@ public class GunTower : ControllableInteract
             {
                 missile.Init(GunTrans, missileOriginLocalPos);
             }
+            HUDManager.GetHUD<GunTowerHUD>().SetReload(1 - reloadTimer/reloadTime);
         }
     }
 
@@ -64,6 +67,17 @@ public class GunTower : ControllableInteract
     {
         base.EndInteract();
         laser.enabled = false;
+    }
+
+    public override void SetController(Controller controller)
+    {
+        HUDManager.GetHUD<GunTowerHUD>().SetVisiable(true);
+        base.SetController(controller);
+    }
+    public override void RemoveController()
+    {
+        HUDManager.GetHUD<GunTowerHUD>().SetVisiable(false);
+        base.RemoveController();
     }
 
 }
