@@ -4,6 +4,7 @@ using static Control;
 using static UnityEngine.InputSystem.InputAction;
 using GameBasic;
 using MoleMole;
+using System.Collections.Generic;
 
 public class PlayerCharacter : Character
 {
@@ -15,10 +16,13 @@ public class PlayerCharacter : Character
     public Transform RightHandTransform;
 
     [SerializeField] public Collider assasinRange;
+    [SerializeField] private Collider checkFightRange;
+    [SerializeField] private List<Collider> fightAttackRange;
 
     #region 输入
     private PlayerActions input;
     private Vector2 input_move;
+    [Header("输入")]
     [SerializeField, Tooltip("相机上下角度限制")]
     public float CamTopClamp = 70.0f;
     public float CamBottomClamp = -30.0f;
@@ -103,8 +107,12 @@ public class PlayerCharacter : Character
     }
     private void OnInteractPressed(CallbackContext context)
     {
-        ABS.TryActivateAbility("Interact",this);
-        ABS.TryActivateAbility("Climb", anim, cc, transform);
+        if (ABS.TryActivateAbility("Fight"))
+            return;
+        if (ABS.TryActivateAbility("Interact", this))
+            return;
+        if (ABS.TryActivateAbility("Climb", anim, cc, transform))
+            return;
     }
 
     private void Start()
@@ -119,6 +127,9 @@ public class PlayerCharacter : Character
         ABS.GrandAbility(new Interact(interactAsset, centerTransform, controller.playCamera.transform));
 
         ABS.GrandAbility(new Crouch(Resources.Load<AbilityAsset>(abilityRootPath + "CrouchAsset"),this));
+
+        ABS.GrandAbility(new RandomFight(Resources.Load<RandomFightAsset>(abilityRootPath + "FightAsset"),
+            this,checkFightRange,fightAttackRange));
 
         ABS.AttrSet<CharaAttr>().health.onPreCurrentValueChange += OnHealthPre;
         HUDManager.GetHUD<PlayerHUD>().SetHpValue(ABS.AttrSet<CharaAttr>().health.GetProportion());

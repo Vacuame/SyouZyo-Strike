@@ -18,3 +18,4 @@ MonoBehaviour:
   animConfig:
     animName: GetHit
     layerName: 
+    floatList: []
