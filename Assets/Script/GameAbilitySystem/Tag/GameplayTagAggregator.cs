@@ -106,7 +106,8 @@ public class GameplayTagAggregator
     #region TagµÄ²é
     public bool HasTag(GameplayTag tag)
     {
-        return fixTags.Contains(tag)||dynamicTags.ContainsKey(tag);
+        //return fixTags.Contains(tag)||dynamicTags.ContainsKey(tag);
+        return fixTags.Any(t => t.HasTag(tag)) || dynamicTags.Any(t => t.Key.HasTag(tag));
     }
 
     public bool HasAllTags(GameplayTagSet tags)

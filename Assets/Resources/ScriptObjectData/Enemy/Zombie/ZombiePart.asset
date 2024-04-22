@@ -15,7 +15,7 @@ MonoBehaviour:
   setting:
   - key: Body
     value:
-      toughness: 60
+      toughness: 30
       damageMultipler:
       - key: 1
         value: 2

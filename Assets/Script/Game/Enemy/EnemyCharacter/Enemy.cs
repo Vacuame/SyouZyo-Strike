@@ -225,6 +225,9 @@ public class Enemy : Character
     {
         if (bDead) return;
 
+        if (hitInfo.type == HitType.Impulse && ABS.HasTag("Lay"))
+            return;
+
         string partName = "";
 
         //计算伤害
@@ -238,7 +241,7 @@ public class Enemy : Character
         float dmg = hitInfo.damage * dmgMul;
 
         //各种Debuff情况
-        if(!ABS.HasTag("LoseBanlance"))
+        if(!ABS.HasTag("Disable"))
         {
             if (partName != "")//打在部位上才会减少部位韧性
                 ABS.AttrSet<BodyAttr>()[partName].SetValueRelative(dmg, Tags.Calc.Sub);
@@ -292,6 +295,9 @@ public class Enemy : Character
     {
         HUDManager.GetHUD<EnemyAlertHUD>(true).RemoveAlertTip(gameObject);
 
+        ABS.GameplayTagAggregator.AddFixTag("Dead");
+        bool layDownDead = ABS.HasTag("Lay");
+
         foreach (var a in ABS.AbilityContainer.AbilitySpecs.Keys)
             ABS.TryEndAbility(a);
         ABS.GameplayEffectContainer.ClearGameplayEffect();
@@ -301,10 +307,17 @@ public class Enemy : Character
         bt.SetVariableValue("LoseBanlance", true);
         bt.DisableBehavior();
 
-        int deadType = UnityEngine.Random.Range(0, deadAnimTypeNum);
-        anim.SetFloat("DeadType", deadType);
-        anim.Play("Dead");
-
+        if(layDownDead)
+        {
+            anim.Play("LayDownDead");
+        }
+        else
+        {
+            int deadType = UnityEngine.Random.Range(0, deadAnimTypeNum);
+            anim.SetFloat("DeadType", deadType);
+            anim.Play("Dead");
+        }
+        
         gameObject.layer = LayerMask.NameToLayer("Ignore");
         bDead = true;
 
@@ -320,5 +333,6 @@ public class Enemy : Character
         }
     }
     #endregion
+
 }
 

@@ -57,7 +57,7 @@ public class GameplayEffectSpec
         {
             if (GameplayEffect.CueDurational != null && GameplayEffect.CueDurational.Length > 0)
             {
-                foreach (var cue in _cueDurationalSpecs) 
+                foreach (var cue in _cueDurationalSpecs)
                     cue.OnTick();
             }
         }

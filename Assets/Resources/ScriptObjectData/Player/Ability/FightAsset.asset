@@ -70,4 +70,4 @@ MonoBehaviour:
   atkMask:
     serializedVersion: 2
     m_Bits: 128
-  knockAwayForce: 10
+  knockAwayForce: 1

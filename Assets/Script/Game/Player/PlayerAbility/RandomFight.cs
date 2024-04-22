@@ -90,10 +90,10 @@ public class RandomFight : AbstractAbility<RandomFightAsset>
                         EventManager.Instance.TriggerEvent(Consts.Event.Hit + col.gameObject.GetInstanceID(),
                             new HitInfo(HitType.Impulse, curFightConfig.atkConfig.damage,
                             character.gameObject, col.gameObject, hitDire: hitDir));
-
+/*
                         CueKnockedAway knock = Resources.Load<CueKnockedAway>("ScriptObjectData/Cue/KnockedAway");
                         knock.ApplyFrom(this, col.gameObject, hitDir * asset.knockAwayForce);
-
+*/
                         dmgedObject.Add(colObj);
                     }
                 }

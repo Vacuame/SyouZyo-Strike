@@ -15,3 +15,9 @@ Action
 State
 	Endure //∞‘ÃÂ
 	Invincible
+	Disable
+		LoseBanlance
+		Lay
+			LayDown
+			GetUp
+		Dead

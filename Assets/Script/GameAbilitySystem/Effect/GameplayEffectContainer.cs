@@ -54,10 +54,10 @@ public class GameplayEffectContainer
     }
     public void ClearGameplayEffect()
     {
-        foreach (var gameplayEffectSpec in _gameplayEffectSpecs)
+        for(int i = 0; i< _gameplayEffectSpecs.Count;i++)
         {
-            _owner.GameplayTagAggregator.RestoreGameplayEffectTags(gameplayEffectSpec);
-            gameplayEffectSpec.TriggerOnRemove();
+            _owner.GameplayTagAggregator.RestoreGameplayEffectTags(_gameplayEffectSpecs[i]);
+            _gameplayEffectSpecs[i].TriggerOnRemove();
         }
 
         _gameplayEffectSpecs.Clear();

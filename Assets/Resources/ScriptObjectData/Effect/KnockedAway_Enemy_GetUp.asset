@@ -10,23 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a5b96ca076f1ca408152999eb1e8934, type: 3}
-  m_Name: KnockedAway_Enemy
+  m_Name: KnockedAway_Enemy_GetUp
   m_EditorClassIdentifier: 
   period: 0
-  duration: 5
+  duration: 1.47
   durationPolicy: 3
   assetTags: []
   grantedTags:
-  - LayDown
+  - GetUp
   applicationRequiredTags: []
   removeGameplayEffectsWithTags: []
   applicationImmunityTags:
-  - Disable
+  - Dead
   CueOnExecute: []
   CueOnRemove:
-  - {fileID: 11400000, guid: 385734e0c1b4ee94892fdc7b8101c101, type: 2}
+  - {fileID: 11400000, guid: d0f7df40a68bbd24f99199c9ee7aaa8a, type: 2}
   CueOnAdd:
-  - {fileID: 11400000, guid: 65bd468b6e80b80488032de7ff0d869b, type: 2}
-  - {fileID: 11400000, guid: 5ae3842c5f029c445b04d51d860b61f6, type: 2}
+  - {fileID: 11400000, guid: 91ab45ecc83709048bede29c4e22e9f1, type: 2}
   CueDurational: []
   Modifiers: []
