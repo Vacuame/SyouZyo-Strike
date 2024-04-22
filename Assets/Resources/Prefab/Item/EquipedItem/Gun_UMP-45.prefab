@@ -139,7 +139,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 785
   hitType: 2
-  damage: 1055
+  damage: 10
   automatic: 1
   fireSoundConfig:
     radious: 20

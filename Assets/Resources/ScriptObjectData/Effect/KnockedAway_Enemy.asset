@@ -21,7 +21,7 @@ MonoBehaviour:
   applicationRequiredTags: []
   removeGameplayEffectsWithTags: []
   applicationImmunityTags:
-  - Disable
+  - LayDown
   CueOnExecute: []
   CueOnRemove:
   - {fileID: 11400000, guid: 385734e0c1b4ee94892fdc7b8101c101, type: 2}

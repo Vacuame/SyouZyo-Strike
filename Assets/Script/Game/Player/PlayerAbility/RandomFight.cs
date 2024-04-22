@@ -75,6 +75,7 @@ public class RandomFight : AbstractAbility<RandomFightAsset>
             AtkCheck();
         }
 
+        #region 攻击逻辑
         private void AtkCheck()
         {
             foreach(var i in curAtkRangeIndex)
@@ -99,7 +100,6 @@ public class RandomFight : AbstractAbility<RandomFightAsset>
                 }
             }
         }
-
         private void AtkStart(List<int> colliderIndex)
         {
             curAtkRangeIndex = new List<int>(colliderIndex);
@@ -108,5 +108,44 @@ public class RandomFight : AbstractAbility<RandomFightAsset>
         {
             curAtkRangeIndex = new List<int>();
         }
+        #endregion
+
+        #region 检查启动条件
+        bool lastCanActivate;
+        bool haveTargetInRange;
+        protected override void SustainedTick()
+        {
+            if (IsActive) return;
+
+            haveTargetInRange =false;
+            foreach (var col in checkRange.Overlap(asset.atkMask))
+            {
+                if(CanKick(col.gameObject))
+                    haveTargetInRange = true;
+            }
+
+            bool canActivate = CanActivate();
+            if (canActivate != lastCanActivate)
+            {
+                if (canActivate)
+                    HUDManager.GetHUD<PlayerHUD>()?.SetTip("按 'F' 键 近战");
+                else
+                    HUDManager.GetHUD<PlayerHUD>()?.SetTip(null);
+            }
+            lastCanActivate = canActivate;
+        }
+        private bool CanKick(GameObject target)
+        {
+            if (EventManager.Instance.TryTrigerFunc("GetABS" + target.GetInstanceID(), out AbilitySystemComponent abs) &&
+                abs.HasTag("LoseBanlance"))
+                return true;
+            return false;
+
+        }
+        protected override bool CheckOtherCondition()
+        {
+            return haveTargetInRange;
+        }
+        #endregion
     }
 }

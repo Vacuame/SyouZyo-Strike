@@ -258,8 +258,7 @@ public class Enemy : Character
         //∑¢œ÷ÕÊº“
         if (hitInfo.source!=null && hitInfo.source.CompareTag("Player") && bt.GetVariable("Target").GetValue() == null)
         {
-            bt.Restart();
-            bt.SetVariableValue("Target", hitInfo.source);
+            EnterBattle(hitInfo.source, true);
         }
     }
     private void OnBodyPartToughnessPost(AttributeBase toughness, float old, float now)
