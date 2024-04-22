@@ -27,8 +27,6 @@ public class SetSlotPanel : BasePanel
     {
         base.OnEnter(context);
 
-        Debug.Log(slotItems.Length);
-
        for(int i=0;i<slotItems.Length;i++) 
         {
             Image img = btns[i].transform.Find("SimpleIcon").GetComponent<Image>();
