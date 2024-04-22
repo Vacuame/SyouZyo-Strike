@@ -100,6 +100,7 @@ public class Climb : AbstractAbility<Climb_SO>
 
             //使动作贴合地形，使可以爬上去
             MatchTargetWeightMask weightMask = new MatchTargetWeightMask(Vector3.one, 0);
+            if(anim.GetCurrentAnimatorStateInfo(0).IsTag("Climb")&& !anim.IsInTransition(0))
             switch (climbType)
             {
                 case 1:
