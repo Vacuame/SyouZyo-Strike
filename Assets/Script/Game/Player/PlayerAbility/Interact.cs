@@ -37,9 +37,14 @@ public class Interact : AbstractAbility<Interact_SO>
             camTrans = ability.binds[1] as Transform;
         }
 
+        protected override bool CheckOtherCondition()
+        {
+            return selectedInteractable != null;
+        }
+
         public override void ActivateAbility(params object[] args)
         {
-            selectedInteractable?.BeInteracted(args[0] as PlayerCharacter,EndSelf);
+            selectedInteractable.BeInteracted(args[0] as PlayerCharacter, EndSelf);
             selectedInteractable = null;
         }
 

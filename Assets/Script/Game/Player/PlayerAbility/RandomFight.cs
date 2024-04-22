@@ -80,7 +80,6 @@ public class RandomFight : AbstractAbility<RandomFightAsset>
 
         public override void EndAbility()
         {
-            Debug.Log("End");
             anim.SetLayerWeight(armAnimLayerIndex, 1);
         }
 
@@ -126,7 +125,7 @@ public class RandomFight : AbstractAbility<RandomFightAsset>
         {
             if (IsActive) return;
 
-            haveTargetInRange =false;
+            haveTargetInRange = false;
             foreach (var col in checkRange.Overlap(asset.atkMask))
             {
                 if(CanKick(col.gameObject))

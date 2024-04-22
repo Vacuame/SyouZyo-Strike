@@ -24,4 +24,5 @@ MonoBehaviour:
   activationRequiredTags: []
   activationBlockedTags:
   - LoseBanlance
+  - HandAction
   interactDistance: 1
