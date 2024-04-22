@@ -19,7 +19,7 @@ public class PlayerController : Controller
         itemSaveData = new ItemSaveData(11,7,new List<ItemSave>());
         ItemSave testGun = new ItemSave(1, new Vector2Int(2, 4), InventoryStatic.Dir.Down, new EquipedItemSave(24, false));
         itemSaveData.AddItem(testGun);
-        shortCutSlot[0] = testGun;
+        //shortCutSlot[0] = testGun;
         itemSaveData.AddItem(new ItemSave(2, new Vector2Int(0, 0), InventoryStatic.Dir.Down,new ExtraSave(1)));
         itemSaveData.AddItem(new ItemSave(3, new Vector2Int(2, 0), InventoryStatic.Dir.Down, new EquipedItemSave(50,false)));
         itemSaveData.AddItem(new ItemSave(4, new Vector2Int(8, 6), InventoryStatic.Dir.Down, new ExtraSave(37)));

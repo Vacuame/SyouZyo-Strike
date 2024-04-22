@@ -10,7 +10,7 @@ public class TetrisItemPanelContext : PanelContext
 {
     public Vector3 rectPos;
     public TetrisItem tetrisItem;
-    public TetrisItemPanelContext(UIType viewType, Vector3 rectPos,TetrisItem tetrisItem) : base(viewType)
+    public TetrisItemPanelContext(UIType uiType, Vector3 rectPos,TetrisItem tetrisItem) : base(uiType)
     {
         this.rectPos = rectPos;
         this.tetrisItem = tetrisItem;
@@ -48,6 +48,10 @@ public class TetrisItemPanel : BasePanel
                 EquipedItemSave gunSave = itemSave.extra as EquipedItemSave;
                 string txtUse = gunSave.equiped ? "卸下" : "装备";
                 btnEquip.GetComponentInChildren<Text>().text = txtUse;
+
+                Button btnSlot = GameObject.Instantiate(btnPrefab, transform);
+                btnSlot.onClick.AddListener(ToSetSlot);
+                btnSlot.GetComponentInChildren<Text>().text = "快捷键";
                 break;
         }
     }
@@ -72,6 +76,12 @@ public class TetrisItemPanel : BasePanel
         }
         UIManager.Instance.Pop();
     }
+    private void ToSetSlot()
+    {
+        UIManager.Instance.Pop();
+        UIManager.Instance.Push(new SetSlotPanelContext(SetSlotPanel.uiType, controller, itemSave));
+    }
+
     private void UseItem()
     {
         UseableItemInfo useInfo = itemInfo as UseableItemInfo;
@@ -82,6 +92,7 @@ public class TetrisItemPanel : BasePanel
         itemSave.extra.num--;
         UIManager.Instance.Pop();
     }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(1))

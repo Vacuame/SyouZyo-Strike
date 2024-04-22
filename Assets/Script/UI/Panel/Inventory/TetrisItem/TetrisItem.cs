@@ -163,25 +163,12 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         UIExtend.SetSize(rect, new Vector2(itemInfo.width, itemInfo.height) * _imgCellSize);
 
         img.sprite = itemInfo.icon;
-        float spriteWidth = img.sprite.rect.width;
-        float spriteHeight = img.sprite.rect.height;
-        float blockWidthHeightRatio = (float)itemInfo.width / itemInfo.height;
-        float spriteWidthHeightRatio = spriteWidth / spriteHeight;
-        if (blockWidthHeightRatio > spriteWidthHeightRatio)//¿ò¸ü¿í
-        {
-            spriteHeight = itemInfo.height * _imgCellSize;
-            spriteWidth = spriteHeight * spriteWidthHeightRatio;
-        }
-        else
-        {
-            spriteWidth = itemInfo.width * _imgCellSize;
-            spriteHeight = spriteWidth / spriteWidthHeightRatio;
-        }
-        RectTransform imgRect = img.transform as RectTransform;
-        UIExtend.SetSize(imgRect, new Vector2(spriteWidth, spriteHeight));
+        float cellWidth = itemInfo.width * _imgCellSize;
+        float cellHeight = itemInfo.height * _imgCellSize;
+        UIExtend.FitImgSize(img, cellWidth, cellHeight);
 
-        onUseTip.transform.localPosition = new Vector2(spriteWidth, spriteHeight) / 2;
-        numTip.transform.localPosition = new Vector2(spriteWidth, -spriteHeight) / 2;
+        onUseTip.transform.localPosition = new Vector2(cellWidth, cellHeight) / 2;
+        numTip.transform.localPosition = new Vector2(cellWidth, -cellHeight) / 2;
     }
 
     #endregion

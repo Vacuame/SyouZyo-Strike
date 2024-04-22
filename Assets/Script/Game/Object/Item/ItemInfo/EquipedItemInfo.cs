@@ -7,4 +7,5 @@ using UnityEngine;
 public class EquipedItemInfo : ItemInfo
 {
     public EquipedItem equipedItemPrefab;
+    public Sprite simpleIcon;
 }
