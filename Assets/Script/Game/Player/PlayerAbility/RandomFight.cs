@@ -1,5 +1,6 @@
 using MoleMole;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using static Melee;
 using static RandomFightAsset;
@@ -82,14 +83,18 @@ public class RandomFight : AbstractAbility<RandomFightAsset>
                 foreach (var col in colList)
                 {
                     Transform colTrans = col.transform;
-                    GameObject colRootObj = TransformExtension.FindRootParent(colTrans).gameObject;
-                    if (!dmgedObject.Contains(colRootObj))
+                    GameObject colObj = col.gameObject;
+                    if (!dmgedObject.Contains(colObj))
                     {
-                        Vector3 hitDir = (colRootObj.transform.position - character.transform.position).normalized;
+                        Vector3 hitDir = (colTrans.position - character.transform.position).normalized;
                         EventManager.Instance.TriggerEvent(Consts.Event.Hit + col.gameObject.GetInstanceID(),
                             new HitInfo(HitType.Impulse, curFightConfig.atkConfig.damage,
                             character.gameObject, col.gameObject, hitDire: hitDir));
-                        dmgedObject.Add(colRootObj);
+
+                        CueKnockedAway knock = Resources.Load<CueKnockedAway>("ScriptObjectData/Cue/KnockedAway");
+                        knock.ApplyFrom(this, col.gameObject, hitDir * asset.knockAwayForce);
+
+                        dmgedObject.Add(colObj);
                     }
                 }
             }

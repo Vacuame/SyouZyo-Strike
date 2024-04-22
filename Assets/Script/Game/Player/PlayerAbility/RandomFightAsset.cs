@@ -8,13 +8,13 @@ public class RandomFightAsset : AbilityAsset
     public List<FightConfig> fightActions;
     public string animSpeedParamName;
     public LayerMask atkMask;
+    public float knockAwayForce;
 
     [System.Serializable]
     public struct FightConfig
     {
         [Header("攻击信息")]
         public AttackConfig atkConfig;
-        
 
         [Header("动画信息")]
         public AnimPlayConfig animPara;

@@ -40,6 +40,7 @@ public class Enemy : Character
     protected override void Awake()
     {
         base.Awake();
+
         bt = GetComponent<BehaviorTree>();
         nav = GetComponent<NavMeshAgent>();
 
@@ -48,13 +49,12 @@ public class Enemy : Character
             patrolPoints.Add(patrolPointList.GetChild(i));
         }
     }
-    private void Start()
+    protected void Start()
     {
         RegistBodyPart();
 
         RegistSense();
     }
-
     protected virtual void RegistSense()
     {
         //根据alertSetting设置事件
@@ -114,7 +114,6 @@ public class Enemy : Character
             }
         });
     }
-
     private void RegistBodyPart()
     {
         //给每个部位添加受击事件
@@ -227,6 +226,7 @@ public class Enemy : Character
         if (bDead) return;
 
         string partName = "";
+
         //计算伤害
         float dmgMul = 1;
         if(hitInfo.target!=null && partDict.ContainsKey(hitInfo.target))
@@ -237,22 +237,27 @@ public class Enemy : Character
         }
         float dmg = hitInfo.damage * dmgMul;
 
-        //可能导致失衡状态的行为
+        //各种Debuff情况
         if(!ABS.HasTag("LoseBanlance"))
         {
             if (partName != "")//打在部位上才会减少部位韧性
                 ABS.AttrSet<BodyAttr>()[partName].SetValueRelative(dmg, Tags.Calc.Sub);
         }
+        if(hitInfo.type == HitType.Impulse)
+        {
+            GameplayEffectAsset asset = Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/KnockedAway_Enemy");
+            ABS.ApplyGameplayEffectToSelf(new GameplayEffect(asset));
+        }
 
+        //减血
         ABS.AttrSet<CharaAttr>().health.SetValueRelative(dmg, Tags.Calc.Sub);
 
         //发现玩家
-        if (hitInfo.source!=null && bt.GetVariable("Target").GetValue() == null)
+        if (hitInfo.source!=null && hitInfo.source.CompareTag("Player") && bt.GetVariable("Target").GetValue() == null)
         {
             bt.Restart();
             bt.SetVariableValue("Target", hitInfo.source);
         }
-        
     }
     private void OnBodyPartToughnessPost(AttributeBase toughness, float old, float now)
     {
@@ -279,6 +284,7 @@ public class Enemy : Character
             ABS.ApplyGameplayEffectToSelf(new GameplayEffect(asset));
         }
     }
+
     #endregion
 
     #region 死亡
