@@ -18,6 +18,7 @@ namespace MoleMole
         {
             this.context = context;
             transform.PanelAppearance(true);
+            enabled = true;
             transform.SetSiblingIndex(transform.parent.childCount - 1);
             if(!inited) 
             {
@@ -31,7 +32,11 @@ namespace MoleMole
             if (trueDestroy)
                 UIManager.Instance.DestroyView(context.uiType);
             else
+            {
                 transform.PanelAppearance(false);
+                enabled = false;
+            }
+                
         }
 
         public virtual void OnPause()

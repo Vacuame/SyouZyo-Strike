@@ -127,13 +127,15 @@ public class PlayerCharacter : Character
     private void OnSlotPressed(CallbackContext context)
     {
         int index = (int)context.ReadValue<float>() - 1;
-        Debug.Log(index);
         if (playerController.shortCutSlot[index]!=null)
         {
             ItemSave itemSave = playerController.shortCutSlot[index];
             ItemInfo itemInfo = ItemManager.Instance.GetItemInfo(itemSave.id);
             ABS.TryActivateAbility("EquipItem", itemInfo, itemSave);
         }
+        
+        HUDManager.GetHUD<SlotHUD>().DisplayEquipSlot(playerController.shortCutSlot, playerController.equipingItem);
+
     }
     private void Start()
     {

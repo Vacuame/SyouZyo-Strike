@@ -1,4 +1,5 @@
 using MoleMole;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +26,8 @@ public class SetSlotPanel : BasePanel
     public override void OnEnter(PanelContext context)
     {
         base.OnEnter(context);
+
+        Debug.Log(slotItems.Length);
 
        for(int i=0;i<slotItems.Length;i++) 
         {
@@ -54,6 +57,11 @@ public class SetSlotPanel : BasePanel
 
     public void SetSlot(int index,ItemSave itemSave)
     {
+        for(int i=0; i < controller.shortCutSlot.Length; i++)
+        {
+            if (controller.shortCutSlot[i]==itemSave)
+                controller.shortCutSlot[i] = null;
+        }
         controller.shortCutSlot[index] = itemSave;
         UIManager.Instance.Pop();
     }

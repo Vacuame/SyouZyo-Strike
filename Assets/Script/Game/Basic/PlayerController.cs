@@ -16,9 +16,7 @@ public class PlayerController : Controller
     public void SetEquipingItem(ItemSave item)
     {
         equipingItem = item;
-        onEquipingItemSet?.Invoke();
     }
-    public UnityAction onEquipingItemSet;
     public ItemSave[] shortCutSlot = new ItemSave[4];
 
     protected override void Start()

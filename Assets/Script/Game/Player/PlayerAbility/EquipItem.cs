@@ -17,6 +17,7 @@ public class EquipItem : AbstractAbility
         //EquipItem equip;
         //EquipItemAsset equipAsset => equip.AbilityAsset;
         PlayerCharacter character;
+        PlayerController controller => character.controller as PlayerController;
         //Rig chestRig;
 
         EquipedItem equipedItem;
@@ -58,11 +59,12 @@ public class EquipItem : AbstractAbility
             itemSave = save;
             equipedItem = GameObject.Instantiate(((EquipedItemInfo)info).equipedItemPrefab,character.RightHandTransform);
             equipedItem.TakeOut(character,save.extra);
-
+            controller.SetEquipingItem(itemSave);//告诉Controller，以处理一些UI相关的东西
         }
         private void UnEquipItem()
         {
             equipedItem.PutIn();
+            controller.SetEquipingItem(null);
             itemSave =null;
         }
 
