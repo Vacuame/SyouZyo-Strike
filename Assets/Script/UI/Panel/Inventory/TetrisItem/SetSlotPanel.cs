@@ -1,4 +1,5 @@
 using MoleMole;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 public class SetSlotPanelContext : PanelContext
@@ -17,13 +18,13 @@ public class SetSlotPanel : BasePanel
     public static readonly UIType uiType = new UIType("Inventory/TetrisItem/SetSlotPanel");
 
     public Button[] btns;
+    public RectTransform selectedTip;
     protected SetSlotPanelContext slotContext => context as SetSlotPanelContext;
     protected PlayerController controller => slotContext.playerController;
+    protected ItemSave[] slotItems => controller.shortCutSlot;
     public override void OnEnter(PanelContext context)
     {
         base.OnEnter(context);
-
-        var slotItems = controller.shortCutSlot;
 
        for(int i=0;i<slotItems.Length;i++) 
         {
@@ -43,6 +44,8 @@ public class SetSlotPanel : BasePanel
             }
         }
 
+        SetEquipTipDisplay();
+
         btns[0].onClick.AddListener(() => { SetSlot(0, slotContext.itemSave); });
         btns[1].onClick.AddListener(() => { SetSlot(1, slotContext.itemSave); });
         btns[2].onClick.AddListener(() => { SetSlot(2, slotContext.itemSave); });
@@ -54,7 +57,28 @@ public class SetSlotPanel : BasePanel
         controller.shortCutSlot[index] = itemSave;
         UIManager.Instance.Pop();
     }
-
+    protected void SetEquipTipDisplay()
+    {
+        bool equipInSlot = false;
+        if (controller.equipingItem != null)
+        {
+            for (int i = 0; i < slotItems.Length; i++)
+            {
+                if (slotItems[i] == controller.equipingItem)
+                {
+                    selectedTip.transform.PanelAppearance(true);
+                    selectedTip.transform.position = btns[i].transform.position;
+                    equipInSlot = true;
+                    break;
+                }
+            }
+        }
+        if(!equipInSlot)
+        {
+            selectedTip.transform.PanelAppearance(false);
+        }
+        
+    }
     private void Update()
     {
         if (Input.GetMouseButtonDown(1))

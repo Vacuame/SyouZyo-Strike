@@ -41,7 +41,7 @@ namespace MoleMole
         }
 
         //TODO 这个方法应该放到UIExtendsion
-        public static void PanelAppearance(this Transform t, bool on_off, bool active = false)
+        public static void PanelAppearance(this Transform t, bool on_off)
         {
             CanvasGroup group = t.GetOrAddComponent<CanvasGroup>();
             int value = on_off == true ? 1 : 0;
@@ -53,7 +53,7 @@ namespace MoleMole
             //透明度
             group.alpha = value;
 
-            t.gameObject.SetActive(on_off || active);
+            //t.gameObject.SetActive(on_off || active);
         }
     }
 }

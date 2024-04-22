@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameBasic;
 using MoleMole;
+using UnityEngine.Events;
 
 /// <summary>
 /// 实际的玩家，不仅控制角色，还有背包等其他功能
@@ -11,6 +12,13 @@ public class PlayerController : Controller
 {
     public ItemSaveData itemSaveData;
 
+    public ItemSave equipingItem { get; private set; }
+    public void SetEquipingItem(ItemSave item)
+    {
+        equipingItem = item;
+        onEquipingItemSet?.Invoke();
+    }
+    public UnityAction onEquipingItemSet;
     public ItemSave[] shortCutSlot = new ItemSave[4];
 
     protected override void Start()
