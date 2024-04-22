@@ -73,11 +73,15 @@ public class GunTower : ControllableInteract
     {
         HUDManager.GetHUD<GunTowerHUD>().SetVisiable(true);
         base.SetController(controller);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     public override void RemoveController()
     {
         HUDManager.GetHUD<GunTowerHUD>().SetVisiable(false);
         base.RemoveController();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
 }

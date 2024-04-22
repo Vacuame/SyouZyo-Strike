@@ -65,12 +65,12 @@ public class CueLoseBanlance_Enemy : GameplayCueDurational
 
         public override void OnRemove()
         {
-            //Debug.Log("LoseBanlance OnRemove");
+/*            //Debug.Log("LoseBanlance OnRemove");
             if (enemy != null)
             {
                 enemy.nav.isStopped = false;
                 enemy.bt.SetVariableValue("LoseBanlance", false);
-            }
+            }*/
                 
         }
 

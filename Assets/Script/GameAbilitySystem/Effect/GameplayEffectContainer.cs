@@ -39,8 +39,8 @@ public class GameplayEffectContainer
 
         _gameplayEffectSpecs.Add(spec);
         spec.TriggerOnAdd();
-
         _owner.GameplayTagAggregator.ApplyGameplayEffectTags(spec);
+
         RemoveGameplayEffectWithAnyTags(spec.GameplayEffect.TagContainer.RemoveGameplayEffectsWithTags);
 
         return true;

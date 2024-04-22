@@ -51,6 +51,9 @@ public class InventoryPanel : BasePanel
         delTetris.Init(this, inventoryContext.delTetrisData);
 
         inventoryContext.controller.control.Player.Disable();
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public override void OnExit(bool trueDestroy)
@@ -60,6 +63,9 @@ public class InventoryPanel : BasePanel
         foreach (var a in inventoryTetrisList)
             a.RemoveAllItem();
         inventoryContext.controller.control.Player.Enable();
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()

@@ -15,15 +15,17 @@ MonoBehaviour:
   period: 0
   duration: 2.1
   durationPolicy: 3
-  assetTags: []
+  assetTags:
+  - Disable
   grantedTags:
-  - LoseBanlance
+  - Disable
   applicationRequiredTags: []
   removeGameplayEffectsWithTags: []
   applicationImmunityTags:
   - LoseBanlance
   CueOnExecute: []
-  CueOnRemove: []
+  CueOnRemove:
+  - {fileID: 11400000, guid: 4f9f75dca5e655a41b456fe4a70e4f2b, type: 2}
   CueOnAdd: []
   CueDurational:
   - {fileID: 11400000, guid: 9d947239eebe46343b1fa06dc309b7fe, type: 2}

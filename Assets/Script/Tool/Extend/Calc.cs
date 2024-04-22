@@ -35,6 +35,7 @@ public static class Calc
             res.y = Random.Range(-radius, radius);
         }
         while (res.sqrMagnitude > radius * radius);
+
         return res+pos;
     }
     public static int SelectRandom(List<float> arr)

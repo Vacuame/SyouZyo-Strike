@@ -11,9 +11,9 @@ public class Chest : InteractableObj
 
     public string playerAnimName;
    
-    public float interactTime;
     public float openAnimStartTime;
     public float objInstanceTime;
+    public float interactTime;
 
     private AbilityTimeLine timeline = new AbilityTimeLine();
     private PlayerCharacter player;
@@ -28,19 +28,21 @@ public class Chest : InteractableObj
     public override void BeInteracted(PlayerCharacter character, UnityAction onInteractOver)
     {
         player = character;
+        player.anim.SetLayerWeight(player.anim.GetLayerIndex("Arm"), 0);
         player.anim.Play(playerAnimName);
 
-        timeline.AddEvent(interactTime, () =>
-        {
-            onInteractOver?.Invoke();
-            timeline.bPause = true;
-        });
         timeline.AddEvent(openAnimStartTime, () => anim.Play());
         timeline.AddEvent(objInstanceTime, () =>
         {
             GameObject itemPrefab = Resources.Load<GameObject>(PickableObj.prefabPath + prefabName);
             if (itemPrefab != null)
                 GameObject.Instantiate(itemPrefab, objectRespawnPoint.position, Quaternion.identity);
+        });
+        timeline.AddEvent(interactTime, () =>
+        {
+            player.anim.SetLayerWeight(player.anim.GetLayerIndex("Arm"), 1);
+            onInteractOver?.Invoke();
+            timeline.bPause = true;
         });
         timeline.Start();
 

@@ -15,7 +15,8 @@ MonoBehaviour:
   period: 0
   duration: 1.47
   durationPolicy: 3
-  assetTags: []
+  assetTags:
+  - GetUp
   grantedTags:
   - GetUp
   applicationRequiredTags: []

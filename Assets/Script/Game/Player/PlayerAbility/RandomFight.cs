@@ -31,6 +31,7 @@ public class RandomFight : AbstractAbility<RandomFightAsset>
 
         Character character;
         Animator anim => character.anim;
+        int armAnimLayerIndex;
         HashSet<GameObject> dmgedObject = new HashSet<GameObject>();
         List<Collider> atkRanges;
         Collider checkRange;
@@ -45,6 +46,7 @@ public class RandomFight : AbstractAbility<RandomFightAsset>
             character = randomFight.binds[0] as Character;
             checkRange = randomFight.binds[1] as Collider;
             atkRanges = randomFight.binds[2] as List<Collider>;
+            armAnimLayerIndex = anim.GetLayerIndex("Arm");
         }
 
         public override void ActivateAbility(params object[] args)
@@ -54,6 +56,7 @@ public class RandomFight : AbstractAbility<RandomFightAsset>
             curFightIndex = Random.Range(0, fightConfigs.Count);
             curFightConfig.animPara.PlayAnim(character.anim);
             anim.SetFloat(asset.animSpeedParamName, curFightConfig.animSpeed);
+            anim.SetLayerWeight(armAnimLayerIndex, 0);
 
             InitTimeLine();
             base.ActivateAbility(args);
@@ -73,6 +76,12 @@ public class RandomFight : AbstractAbility<RandomFightAsset>
             base.AbilityTick();
 
             AtkCheck();
+        }
+
+        public override void EndAbility()
+        {
+            Debug.Log("End");
+            anim.SetLayerWeight(armAnimLayerIndex, 1);
         }
 
         #region ¹¥»÷Âß¼­

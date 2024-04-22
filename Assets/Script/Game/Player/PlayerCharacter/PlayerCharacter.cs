@@ -89,11 +89,17 @@ public class PlayerCharacter : Character
 
         HUDManager.GetHUD<PlayerHUD>().SetVisiable(true);
         HUDManager.GetHUD<AimHUD>().SetVisiable(true);
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     public override void RemoveController()
     {
         //应该要把controller设为null的，但是一开始没有设计这个，可能会报错（很多地方都读了它），不弄了
         controller.control.Player.Disable();
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
         HUDManager.GetHUD<PlayerHUD>().SetVisiable(false);
         HUDManager.GetHUD<AimHUD>().SetVisiable(false);

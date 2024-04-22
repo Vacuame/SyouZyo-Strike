@@ -26,7 +26,7 @@ MonoBehaviour:
       damage: 30
       atkStartFrame: 36
       atkEndFrame: 42
-      colliderIndex: 0200000003000000
+      colliderIndex: 020000000300000004000000
     animPara:
       animName: Drop Kick
       layerName: 
@@ -37,7 +37,7 @@ MonoBehaviour:
       damage: 30
       atkStartFrame: 40
       atkEndFrame: 48
-      colliderIndex: 0200000003000000
+      colliderIndex: 020000000300000004000000
     animPara:
       animName: Inside Crescent Kick
       layerName: 
@@ -48,7 +48,7 @@ MonoBehaviour:
       damage: 30
       atkStartFrame: 14
       atkEndFrame: 22
-      colliderIndex: 0000000001000000
+      colliderIndex: 000000000100000004000000
     animPara:
       animName: Meia Lua De Compasso
       layerName: 
@@ -59,7 +59,7 @@ MonoBehaviour:
       damage: 30
       atkStartFrame: 13
       atkEndFrame: 18
-      colliderIndex: 0200000003000000
+      colliderIndex: 020000000300000004000000
     animPara:
       animName: Mma Kick
       layerName: 

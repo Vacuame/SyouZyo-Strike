@@ -15,11 +15,13 @@ MonoBehaviour:
   period: 0
   duration: 5
   durationPolicy: 3
-  assetTags: []
+  assetTags:
+  - LayDown
   grantedTags:
   - LayDown
   applicationRequiredTags: []
-  removeGameplayEffectsWithTags: []
+  removeGameplayEffectsWithTags:
+  - LoseBanlance
   applicationImmunityTags:
   - LayDown
   CueOnExecute: []

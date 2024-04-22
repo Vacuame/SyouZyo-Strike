@@ -15,7 +15,8 @@ MonoBehaviour:
   period: 0
   duration: 2.5
   durationPolicy: 3
-  assetTags: []
+  assetTags:
+  - LoseBanlance
   grantedTags:
   - LoseBanlance
   applicationRequiredTags: []
@@ -23,7 +24,8 @@ MonoBehaviour:
   applicationImmunityTags:
   - LoseBanlance
   CueOnExecute: []
-  CueOnRemove: []
+  CueOnRemove:
+  - {fileID: 11400000, guid: 4f9f75dca5e655a41b456fe4a70e4f2b, type: 2}
   CueOnAdd:
   - {fileID: 11400000, guid: 3e3b080c309df144b9d8dc6f0238f6ca, type: 2}
   CueDurational:
