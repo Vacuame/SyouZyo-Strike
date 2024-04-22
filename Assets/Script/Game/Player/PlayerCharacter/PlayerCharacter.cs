@@ -5,6 +5,7 @@ using static UnityEngine.InputSystem.InputAction;
 using GameBasic;
 using MoleMole;
 using System.Collections.Generic;
+using UnityEngine.TextCore.Text;
 
 public class PlayerCharacter : Character
 {
@@ -18,6 +19,8 @@ public class PlayerCharacter : Character
     [SerializeField] public Collider assasinRange;
     [SerializeField] private Collider checkFightRange;
     [SerializeField] private List<Collider> fightAttackRange;
+
+    [HideInInspector]public PlayerController playerController => controller as PlayerController;
 
     #region 输入
     private PlayerActions input;
@@ -73,11 +76,12 @@ public class PlayerCharacter : Character
         controller.SetRotateLimit(CamTopClamp, CamBottomClamp, 360);
 
         controller.control.Player.Enable();
-
+        
         if(!setControlled)//一开始想做多个控制器的，还写SetControll，后来东西多了各种绑定实在很麻烦
         {
             controller.control.Player.Interact.started += OnInteractPressed;
             controller.control.Player.Squat.started += OnCrouchPressed;
+            controller.control.Player.Slot.started += OnSlotPressed;
 
             //手部Rig绑定为跟随相机前方
             chestRig.GetComponent<MultiAimConstraint>().data.sourceObjects =
@@ -120,7 +124,17 @@ public class PlayerCharacter : Character
         if (ABS.TryActivateAbility("Climb", anim, cc, transform))
             return;
     }
-
+    private void OnSlotPressed(CallbackContext context)
+    {
+        int index = (int)context.ReadValue<float>() - 1;
+        Debug.Log(index);
+        if (playerController.shortCutSlot[index]!=null)
+        {
+            ItemSave itemSave = playerController.shortCutSlot[index];
+            ItemInfo itemInfo = ItemManager.Instance.GetItemInfo(itemSave.id);
+            ABS.TryActivateAbility("EquipItem", itemInfo, itemSave);
+        }
+    }
     private void Start()
     {
         Climb_SO climbAsset = Resources.Load<Climb_SO>("ScriptObjectData/ClimbData");
