@@ -27,6 +27,10 @@ MonoBehaviour:
     value:
       loseBanlanceDuration: 1.7
       animName: BePushBack
+  - key: RightLeg
+    value:
+      loseBanlanceDuration: 1.5
+      animName: LegHurt_R
   defaultPartSet:
     loseBanlanceDuration: 1.5
-    animName: LegHurt
+    animName: LegHurt_L
