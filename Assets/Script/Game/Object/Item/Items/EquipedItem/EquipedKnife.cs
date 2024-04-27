@@ -1,11 +1,4 @@
-using RootMotion.FinalIK;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
-using static UnityEngine.EventSystems.EventTrigger;
 using static UnityEngine.InputSystem.InputAction;
 
 [RequireComponent(typeof(BoxCollider))]
