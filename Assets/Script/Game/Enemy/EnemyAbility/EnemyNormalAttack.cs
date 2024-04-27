@@ -70,7 +70,8 @@ public class EnemyNormalAttack : AbstractAbility<EnemyNormalAttackAsset>
             }
 
             if(dmgObj != null)
-                EventManager.Instance.TriggerEvent("Hit" + dmgObj.gameObject.GetInstanceID(), new HitInfo(dmg));
+                EventManager.Instance.TriggerEvent("Hit" + dmgObj.gameObject.GetInstanceID(), 
+                    new HitInfo(HitType.Cut,dmg,owner.gameObject,dmgObj));
         }
 
     }

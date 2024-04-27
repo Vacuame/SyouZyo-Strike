@@ -232,7 +232,7 @@ public class Enemy : Character
         string partName = "";
 
         //º∆À„…À∫¶
-        float dmgMul = 1;
+        float dmgMul = 1f;
         if(hitInfo.target!=null && partDict.ContainsKey(hitInfo.target))
         {
             partName = partDict[hitInfo.target];
@@ -250,6 +250,11 @@ public class Enemy : Character
         if(hitInfo.type == HitType.Impulse)
         {
             GameplayEffectAsset asset = Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/KnockedAway_Enemy");
+            ABS.ApplyGameplayEffectToSelf(new GameplayEffect(asset));
+        }
+        else if(hitInfo.type == HitType.Parry)
+        {
+            GameplayEffectAsset asset = Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/Enemy/LoseBanlance_Parried");
             ABS.ApplyGameplayEffectToSelf(new GameplayEffect(asset));
         }
 

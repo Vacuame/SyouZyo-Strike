@@ -7,7 +7,7 @@ public class ParryAsset : AbilityAsset
 {
     public Collider parryColPrefab;
 
-    public float parrySuccessDmg;
+    public float perfectParryDmg;
 
     public float perfectParryStTime;
     public float perfectParryEdTime;

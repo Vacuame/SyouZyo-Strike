@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 613107353928881532}
   - component: {fileID: 2908256477686332632}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: ParryRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}

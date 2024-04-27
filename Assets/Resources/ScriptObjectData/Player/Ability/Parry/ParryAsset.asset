@@ -15,14 +15,16 @@ MonoBehaviour:
   abilityName: Parry
   assetTags:
   - Parry
-  cancelAbilityTags: []
-  blockAbilityTags: []
+  cancelAbilityTags:
+  - Crouch
+  blockAbilityTags:
+  - Crouch
   activationOwnedTag: []
   activationRequiredTags: []
   activationBlockedTags:
   - LoseBanlance
   parryColPrefab: {fileID: 2908256477686332632, guid: 65e6572dd66ef4d418bfaa26fc5a6bc7,
     type: 3}
-  parrySuccessDmg: 30
+  perfectParryDmg: 0
   perfectParryStTime: 0
   perfectParryEdTime: 0.3
