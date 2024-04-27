@@ -20,7 +20,7 @@ public class GameplayEffectSpec
 
     public event Action<AbilitySystemComponent, GameplayEffectSpec> onImmunity;
 
-    protected float duration;
+    public float duration;
     public GameplayEffectSpec(
             GameplayEffect gameplayEffect,
             AbilitySystemComponent source,

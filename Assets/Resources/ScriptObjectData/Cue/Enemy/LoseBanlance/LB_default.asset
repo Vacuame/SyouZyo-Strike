@@ -10,27 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0471ffd90b00d0443b538d4a77be1d4d, type: 3}
-  m_Name: LoseBanlance_Enemy
+  m_Name: LB_default
   m_EditorClassIdentifier: 
   RequiredTags: []
   ImmunityTags: []
-  partSets:
-  - key: Head
-    value:
-      loseBanlanceDuration: 2.5
-      animName: HeadHurt
-  - key: Body
-    value:
-      loseBanlanceDuration: 1.7
-      animName: BackHurt
-  - key: Run
-    value:
-      loseBanlanceDuration: 1.7
-      animName: BePushBack
-  - key: RightLeg
-    value:
-      loseBanlanceDuration: 1.5
-      animName: LegHurt_R
+  applyTarget: 0
   defaultPartSet:
     loseBanlanceDuration: 1.5
     animName: LegHurt_L

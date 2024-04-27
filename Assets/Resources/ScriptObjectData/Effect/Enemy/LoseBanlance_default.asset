@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a5b96ca076f1ca408152999eb1e8934, type: 3}
+  m_Name: LoseBanlance_default
+  m_EditorClassIdentifier: 
+  period: 0
+  duration: 0
+  durationPolicy: 3
+  assetTags:
+  - LoseBanlance
+  grantedTags:
+  - LoseBanlance
+  applicationRequiredTags: []
+  removeGameplayEffectsWithTags: []
+  applicationImmunityTags:
+  - LoseBanlance
+  CueOnExecute: []
+  CueOnRemove:
+  - {fileID: 11400000, guid: 4f9f75dca5e655a41b456fe4a70e4f2b, type: 2}
+  CueOnAdd:
+  - {fileID: 11400000, guid: 65bd468b6e80b80488032de7ff0d869b, type: 2}
+  - {fileID: 11400000, guid: 0e46baa0983ec3544ae4a0f546ec2fd9, type: 2}
+  CueDurational: []
+  Modifiers: []

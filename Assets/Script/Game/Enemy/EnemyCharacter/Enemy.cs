@@ -1,10 +1,8 @@
 using BehaviorDesigner.Runtime;
 using MoleMole;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using static RootMotion.Demos.Turret;
 
 public enum PatrolType
 {
@@ -26,9 +24,12 @@ public class Enemy : Character
     [SerializeField] private Transform alertTipPos;
     [SerializeField] private ConeDetector eye;
 
-    [Header("身体部位设置"), SerializeField] private List<Pair<string, List<Collider>>> parts;
+    [Header("身体部位设置"), SerializeField] 
+    //部位划分
+    private List<Pair<string, List<Collider>>> parts;
     private Dictionary<GameObject, string> partDict = new Dictionary<GameObject, string>();
 
+    //伤害倍率
     [SerializeField] private BodyPartSet partSetting;
     private Dictionary<string, WeaknessData> weakDict = new Dictionary<string, WeaknessData>();
 
@@ -268,21 +269,15 @@ public class Enemy : Character
         {
             toughness.RefreshCurValue();
             //获得Buff 失衡
-            GameplayEffectAsset asset = Instantiate(Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/LoseBanlance"));
-
-            //通过cueLoseBanlance 计算debuff时间和动画
-            asset.CueOnAdd[0] = Instantiate(asset.CueOnAdd[0]);
-            CuePlayAnim cuePlayAnim = asset.CueOnAdd[0] as CuePlayAnim;
-            CueLoseBanlance_Enemy cueLoseBanlance = asset.CueDurational[0] as CueLoseBanlance_Enemy;
             string loseBanlanceName;
             if (toughness.ShortName == "Body" && nav.velocity.sqrMagnitude >= 4)
                 loseBanlanceName = "Run";
             else
                 loseBanlanceName = toughness.ShortName;
-            CueLoseBanlance_Enemy.PartBalanceSet partBalanceSet = cueLoseBanlance.GetPartBanlanceSet(loseBanlanceName);
-            asset.duration = partBalanceSet.loseBanlanceDuration;
-            cuePlayAnim.animConfig = new AnimPlayConfig(partBalanceSet.animName);
 
+            GameplayEffectAsset asset = Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/Enemy/LoseBanlance_" + loseBanlanceName);
+            if(asset == null)
+                asset = Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/Enemy/LoseBanlance_default");
             ABS.ApplyGameplayEffectToSelf(new GameplayEffect(asset));
         }
     }
