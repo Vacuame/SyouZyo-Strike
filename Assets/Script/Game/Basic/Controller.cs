@@ -7,6 +7,9 @@ namespace GameBasic
         [SerializeField] private Pawn presetPawn;
         [HideInInspector] public Pawn controlledPawn;
         [HideInInspector] public PlayCamera playCamera;
+
+        //设计失误了，不应该把Control写这的。因为不同角色的控制不同，所以应该放到角色那里
+        //不过反正我就一个角色，这次就懒得改了
         public Control control;
 
         [SerializeField] private float CamTopClamp ;
