@@ -2,6 +2,7 @@ using RootMotion.FinalIK;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using static UnityEngine.EventSystems.EventTrigger;
@@ -28,7 +29,12 @@ public class EquipedKnife : EquipedItem
         owner.GrandAbility(new Assassination(Resources.Load<AssassinationAsset>
         (user.abilityRootPath + "AssassinationAsset"), user, user.assasinRange));
 
+        owner.GrandAbility(new Parry(Resources.Load<ParryAsset>
+        (user.abilityRootPath + "Parry/ParryAsset"), user));
+
         user.controller.control.Player.Fire.started += UseKnife;
+        user.controller.control.Player.Block.started += TryStartParry;
+        user.controller.control.Player.Block.canceled += TryEndParry;
     }
     public override void PutIn()
     {
@@ -36,7 +42,12 @@ public class EquipedKnife : EquipedItem
         data.equiped = false;
 
         user.controller.control.Player.Fire.started -= UseKnife;
+        user.controller.control.Player.Block.started -= TryStartParry;
+        user.controller.control.Player.Block.canceled -= TryEndParry;
+
         owner.RemoveAbility("Melee");
+        owner.RemoveAbility("Assassination");
+        owner.RemoveAbility("Parry");
 
         GameObject.Destroy(gameObject);
     }
@@ -46,7 +57,15 @@ public class EquipedKnife : EquipedItem
             return;
         owner.TryActivateAbility("Melee");
     }
-        
+
+    private void TryStartParry(CallbackContext context)
+    {
+        owner.TryActivateAbility("Parry");
+    }
+    private void TryEndParry(CallbackContext context)
+    {
+        owner.TryEndAbility("Parry");
+    }
 
     private void Awake()
     {

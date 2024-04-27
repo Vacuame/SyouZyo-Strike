@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5313893b4fee96249b3aa347672621cc, type: 3}
+  m_Name: ParryAsset
+  m_EditorClassIdentifier: 
+  abilityName: Parry
+  assetTags:
+  - Parry
+  cancelAbilityTags: []
+  blockAbilityTags: []
+  activationOwnedTag: []
+  activationRequiredTags: []
+  activationBlockedTags:
+  - LoseBanlance
+  parryColPrefab: {fileID: 2908256477686332632, guid: 65e6572dd66ef4d418bfaa26fc5a6bc7,
+    type: 3}
+  parrySuccessDmg: 30
+  perfectParryStTime: 0
+  perfectParryEdTime: 0.3

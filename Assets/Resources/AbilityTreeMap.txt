@@ -1,8 +1,11 @@
 Action
 	HandAction
-		Aim
-		Reload
-		Melee
+		Gun
+			Aim
+			Reload
+		Knife
+			Melee
+			Parry
 	FullBodyAction
 		Climb
 		Interact

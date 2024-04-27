@@ -54,10 +54,23 @@ public class EnemyNormalAttack : AbstractAbility<EnemyNormalAttackAsset>
         public void MakeDamage(float dmg)
         {
             Collider[] list = collider.Overlap(asset.targetMask);
+            GameObject dmgObj = null;
+            float closestDistance = 999f;
+
             foreach (var a in list)
             {
-                EventManager.Instance.TriggerEvent("Hit" + a.gameObject.GetInstanceID(), new HitInfo(dmg));
+                float distance = Vector2.Distance(
+                    new Vector2(owner.transform.position.x, owner.transform.position.z),
+                    new Vector2(a.transform.position.x, a.transform.position.z));
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    dmgObj = a.gameObject;
+                }
             }
+
+            if(dmgObj != null)
+                EventManager.Instance.TriggerEvent("Hit" + dmgObj.gameObject.GetInstanceID(), new HitInfo(dmg));
         }
 
     }
