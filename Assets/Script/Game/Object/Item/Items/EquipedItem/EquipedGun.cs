@@ -253,7 +253,7 @@ public class EquipedGun : EquipedItem
     {
         if (!aiming && pullTriger) return false;
 
-        if (pullTriger)
+        if (pullTriger && shootTimer <= 0)
         {
             if (curAmmo <= 0)
                 return false;

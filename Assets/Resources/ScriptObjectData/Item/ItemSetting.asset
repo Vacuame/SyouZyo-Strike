@@ -32,3 +32,8 @@ MonoBehaviour:
         itemInfo: {fileID: 11400000, guid: f1c9803095beb0044a38982d244ebbc4, type: 2}
         pickablePrefab: {fileID: 3226988916142625348, guid: c188b0e9359169f4498d126e747d93c1,
           type: 3}
+    - key: 5
+      value:
+        itemInfo: {fileID: 11400000, guid: 44e8d15b046c70241a51d90e31da2a70, type: 2}
+        pickablePrefab: {fileID: 260691875663906282, guid: 9b0de3ecf996adb43bbf83555b2b1372,
+          type: 3}
