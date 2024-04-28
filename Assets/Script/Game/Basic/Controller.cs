@@ -23,6 +23,7 @@ namespace GameBasic
 
         #region 控制Controller自身的变量
         [SerializeField, Header("输入")] protected float mouseSpeed = 1.5f;
+        [HideInInspector] public float mouseSpeedMul = 1f;
         protected float mouseLockTimer;
         protected float yaw;
         protected float pitch;
@@ -103,7 +104,7 @@ namespace GameBasic
             Vector2 look = control.Controller.Look.ReadValue<Vector2>();
             if (mouseLockTimer <= 0 && look.sqrMagnitude >= 10)
             {
-                float deltaTimeMove = Time.deltaTime * mouseSpeed;
+                float deltaTimeMove = Time.deltaTime * mouseSpeed * mouseSpeedMul;
                 yaw += look.x * deltaTimeMove;
                 pitch += look.y * deltaTimeMove;
             }

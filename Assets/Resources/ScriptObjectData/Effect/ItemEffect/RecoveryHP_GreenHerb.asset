@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a5b96ca076f1ca408152999eb1e8934, type: 3}
-  m_Name: RecoveryHP
+  m_Name: RecoveryHP_GreenHerb
   m_EditorClassIdentifier: 
   period: 0
   duration: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
   Modifiers:
   - AttributeSetName: CharaAttr
     AttributeShortName: health
-    ModiferMagnitude: 30
+    ModiferMagnitude: 50
     Operation: 0
     ValueType: 1
     MMC: {fileID: 0}

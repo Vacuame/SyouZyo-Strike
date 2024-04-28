@@ -51,6 +51,7 @@ public class InventoryPanel : BasePanel
         delTetris.Init(this, inventoryContext.delTetrisData);
 
         inventoryContext.controller.control.Player.Disable();
+        inventoryContext.controller.mouseSpeedMul = 0f;
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -63,6 +64,7 @@ public class InventoryPanel : BasePanel
         foreach (var a in inventoryTetrisList)
             a.RemoveAllItem();
         inventoryContext.controller.control.Player.Enable();
+        inventoryContext.controller.mouseSpeedMul = 1f;
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;

@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewEquip", menuName = "Item/EquipedInfo")]
 public class EquipedItemInfo : ItemInfo
 {
+    [Header("装备设定")]
     public EquipedItem equipedItemPrefab;
     public Sprite simpleIcon;
 }

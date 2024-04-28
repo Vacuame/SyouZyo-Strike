@@ -103,6 +103,10 @@ public class InventoryTetris : MonoBehaviour
             {
                 return DragState.Stackable;
             }
+            if(false)//可以合成
+            {
+                return DragState.Compositable;
+            }
         }
 
         List<Vector2Int> gridPositionList = GetGridPositionList(gridPos, dir, item.itemInfo);

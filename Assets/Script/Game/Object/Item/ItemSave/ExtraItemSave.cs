@@ -9,19 +9,20 @@ public class ExtraSave
     public ItemSave itemSave;
     [SerializeField]private int _num = 1;
     public int num { get { return _num; }
-        set { _num = value; onNumChanged?.Invoke(_num); }
+        set 
+        { 
+            _num = value; 
+            onNumChanged?.Invoke(_num);
+            if (_num <= 0)
+            {
+                itemSave.RemoveSelf();
+            }
+        }
     }
     public Action<int> onNumChanged;
 
     public ExtraSave(int num) 
     {
-        onNumChanged += (int num) => 
-        {
-            if(num <= 0)
-            {
-                itemSave.RemoveSelf();
-            }
-        };
         this.num = num;
     }
 }
