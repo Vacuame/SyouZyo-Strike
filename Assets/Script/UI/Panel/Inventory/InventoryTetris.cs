@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEditor.VersionControl;
 using UnityEngine;
 using static InventoryStatic;
+using static TetrisItem;
+using static Unity.Collections.AllocatorManager;
 
 public class InventoryTetris : MonoBehaviour
 {
@@ -91,20 +93,31 @@ public class InventoryTetris : MonoBehaviour
         }
         return true;
     }
-    public bool CanDragTo(TetrisItem item, Vector2Int gridPos, Dir dir)
+    public DragState GetDragStateAt(TetrisItem item, Vector2Int gridPos, Dir dir)
     {
+        //¼ì²é½»µþ
+        ItemBlock posBlock = GetItemBlock(gridPos);
+        if (!posBlock.Empty() && posBlock.GetItem() != item)
+        {
+            if (posBlock.GetItem().itemSave.id == item.itemSave.id)
+            {
+                return DragState.Stackable;
+            }
+        }
+
         List<Vector2Int> gridPositionList = GetGridPositionList(gridPos, dir, item.itemInfo);
+
         foreach (Vector2Int gridPosition in gridPositionList)
         {
             bool isValidPosition = grid.IsValidGridPosition(gridPosition);
             if (!isValidPosition)
-                return false;
+                return DragState.Blocked;
 
             ItemBlock block = grid.GetGridObject(gridPosition.x, gridPosition.y);
             if (!block.Empty() && block.GetItem() != item)
-                return false;
+                return DragState.Blocked;
         }
-        return true;
+        return DragState.Placeable;
     }
     public void RemoveItemAt(Vector2Int gridPos)
     {
@@ -141,6 +154,10 @@ public class InventoryTetris : MonoBehaviour
     #endregion
 
     #region Grid
+    public ItemBlock GetItemBlock(Vector2Int gridPos)
+    {
+        return grid.GetGridObject(gridPos.x, gridPos.y);
+    }
     public void SetGridByItem(TetrisItem item, Vector2Int gridPos, Dir dir)
     {
         foreach (Vector2Int gridPosition in GetGridPositionList(gridPos, dir, item.itemInfo))

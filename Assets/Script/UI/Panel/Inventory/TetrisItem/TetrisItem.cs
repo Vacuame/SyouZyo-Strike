@@ -77,6 +77,8 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     }
     public void OnNumChanged(int num)
     {
+        txtNum.text = num.ToString();
+
         if (num <= 0)
             inventoryTetris.RemoveItemAt(gridPos);
     }
@@ -175,6 +177,6 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 
     public enum DragState
     {
-        Placed,Placeable,Blocked
+        Placed,Placeable,Blocked,Stackable, Compositable
     }
 }

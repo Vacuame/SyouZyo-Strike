@@ -21,7 +21,6 @@ public class ExtraSave
             {
                 itemSave.RemoveSelf();
             }
-                
         };
         this.num = num;
     }

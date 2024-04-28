@@ -52,10 +52,8 @@ public class InventoryDrager
                    ((Vector3)GetRotationOffset(draggingItem.itemInfo, dragDir) +Vector3.one * 0.5f) * grid.GetCellSize() / 2;
             draggingItem.transform.position = rectPostion + draggingTetris.GetItemContainer().transform.position;
 
-            if (draggingTetris.CanDragTo(draggingItem, selectedGridPos, dragDir))
-                dragState = DragState.Placeable;
-            else
-                dragState = DragState.Blocked;
+            //预测drag结果
+            dragState = draggingTetris.GetDragStateAt(draggingItem, selectedGridPos, dragDir);
             draggingItem.SetBlockColor(dragState);
 
             //旋转
@@ -93,6 +91,23 @@ public class InventoryDrager
             fromInventoryTetris.ClearGridByItem(draggingItem);
             draggingTetris.SetGridByItem(draggingItem, selectedGridPos, dragDir);
             draggingItem.SetTetris(selectedGridPos, dragDir, draggingTetris);
+        }
+        else if(dragState == DragState.Stackable)
+        {
+            ItemBlock posBlock = draggingTetris.GetItemBlock(selectedGridPos);
+            int targetItemNum = posBlock.GetItem().itemSave.extra.num;
+            int draggingItemNum = draggingItem.itemSave.extra.num;
+            int maxStack = draggingItem.itemInfo.maxStackNum;
+
+            int sumNum = targetItemNum + draggingItemNum;
+            int remain = sumNum - maxStack;
+            posBlock.GetItem().itemSave.extra.num = Mathf.Min(sumNum,maxStack);
+            draggingItem.itemSave.extra.num = Mathf.Max(remain, 0);
+
+            if(remain > 0)//返回原位
+            {
+                draggingItem.SetTetris(draggingItem.gridPos, draggingItem.dir, draggingItem.inventoryTetris);
+            }
         }
         else//返回原位
         {
