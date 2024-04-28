@@ -11,6 +11,7 @@ public class EquipedGun : EquipedItem
     [Header("Œª÷√")]
     public Transform muzzle;
     public Transform handGuard;
+    [SerializeField] private int animWeaponType;
 
     private Camera playerCamera;
 
@@ -91,7 +92,7 @@ public class EquipedGun : EquipedItem
         user.leftFollow = handGuard;
         playerCamera = user.controller.playCamera.cameraComponent;
 
-        user.anim.SetInteger("weaponType", 1);
+        user.anim.SetInteger("weaponType", animWeaponType);
 
         Aim_SO aimSo = Resources.Load<Aim_SO>("ScriptObjectData/Aim");
         owner.GrandAbility(new Aim(aimSo));

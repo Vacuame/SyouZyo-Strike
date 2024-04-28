@@ -135,6 +135,7 @@ MonoBehaviour:
   user: {fileID: 0}
   muzzle: {fileID: 1357446710297266478}
   handGuard: {fileID: 8972094195130711397}
+  animWeaponType: 1
   shootMask:
     serializedVersion: 2
     m_Bits: 785

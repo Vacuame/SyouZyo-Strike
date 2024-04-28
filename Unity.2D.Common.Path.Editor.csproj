@@ -81,8 +81,8 @@
     <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.2\Path\Editor\IMGUI\GUIFramework\GenericDefaultControl.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.2\Path\Editor\EditablePath\IUndoObject.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.2\Path\Editor\Shapes\Polygon.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.2\Path\Editor\EditablePath\MultipleEditablePathController.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.2\Path\Editor\Selection\IndexedSelection.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.2\Path\Editor\EditablePath\MultipleEditablePathController.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.2\Path\Editor\Selection\ISelection.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.2\Path\Editor\EditorTool\PathEditorToolExtensions.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.2\Path\Editor\EditablePath\ControlPoint.cs" />

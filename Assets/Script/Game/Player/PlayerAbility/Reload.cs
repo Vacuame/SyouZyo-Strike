@@ -44,8 +44,8 @@ public class Reload : AbstractAbility
                 return;
             }
                 
-            int layerIndex = anim.GetLayerIndex("Arm");
-            anim.Play("Reload", layerIndex);
+            //int layerIndex = anim.GetLayerIndex("Arm");
+            anim.SetTrigger("reload");
             endTimer = 1.9f;
         }
 
