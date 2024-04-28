@@ -344,8 +344,10 @@ public class EquipedGun : EquipedItem
         switch (hitType)
         {
             case HitType.HG:
-            case HitType.SMG:
                 res = 4;
+                break;
+            case HitType.SMG:
+                res = 6;
                 break;
         }
         return res;
