@@ -47,8 +47,10 @@ public class InventoryPanel : BasePanel
     {
         base.OnEnter(context);
         itemSave = inventoryContext.itemSave;
+
         mainTetris.Init(this, itemSave);
         delTetris.Init(this, inventoryContext.delTetrisData);
+
         inventoryContext.controller.itemSaveData.onItemAdded += OnItemAdded;
         inventoryContext.controller.itemSaveData.onItemRemoved += OnItemRemoved;
 
@@ -62,9 +64,11 @@ public class InventoryPanel : BasePanel
     public override void OnExit(bool trueDestroy)
     {
         base.OnExit(trueDestroy);
-        //TODO 移除在delTetris的东西
+        RemoveItemInDelTetris();
+
         foreach (var a in inventoryTetrisList)
             a.RemoveAllItem();
+
         inventoryContext.controller.itemSaveData.onItemAdded -= OnItemAdded;
         inventoryContext.controller.itemSaveData.onItemRemoved -= OnItemRemoved;
 
@@ -90,5 +94,19 @@ public class InventoryPanel : BasePanel
     private void OnItemRemoved(ItemSave item)
     { 
         mainTetris.RemoveItemAt(item.pos);
+    }
+    private void RemoveItemInDelTetris()
+    {
+        var grid = delTetris.GetGrid();
+        for (int x = 0; x < grid.GetWidth(); x++)
+            for (int y = 0; y < grid.GetHeight(); y++)
+            {
+                TetrisItem item = grid.GetGridObject(x,y).GetItem();
+
+                if (item != null)
+                {
+                    item.itemSave.extra.num = 0;
+                }
+            }
     }
 }

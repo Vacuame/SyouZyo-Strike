@@ -54,6 +54,10 @@ public class TetrisItemPanel : BasePanel
                 btnSlot.GetComponentInChildren<Text>().text = "¿ì½Ý¼ü";
                 break;
         }
+
+        Button btnDel = GameObject.Instantiate(btnPrefab, transform);
+        btnDel.onClick.AddListener(() => { itemSave.extra.num = 0; UIManager.Instance.Pop(); });
+        btnDel.GetComponentInChildren<Text>().text = "¶ªÆú";
     }
 
     public override void OnExit(bool trueDestroy)
