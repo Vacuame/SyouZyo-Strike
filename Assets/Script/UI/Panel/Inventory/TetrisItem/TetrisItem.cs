@@ -78,9 +78,6 @@ public class TetrisItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     public void OnNumChanged(int num)
     {
         txtNum.text = num.ToString();
-
-        if (num <= 0)
-            inventoryTetris.RemoveItemAt(gridPos);
     }
     #endregion
 

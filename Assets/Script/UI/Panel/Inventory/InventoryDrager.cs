@@ -94,20 +94,30 @@ public class InventoryDrager
         }
         else if(dragState == DragState.Stackable)
         {
-            ItemBlock posBlock = draggingTetris.GetItemBlock(selectedGridPos);
-            int targetItemNum = posBlock.GetItem().itemSave.extra.num;
+            TetrisItem targetItem = draggingTetris.GetItemBlock(selectedGridPos).GetItem();
+            int targetItemNum = targetItem.itemSave.extra.num;
             int draggingItemNum = draggingItem.itemSave.extra.num;
             int maxStack = draggingItem.itemInfo.maxStackNum;
 
             int sumNum = targetItemNum + draggingItemNum;
             int remain = sumNum - maxStack;
-            posBlock.GetItem().itemSave.extra.num = Mathf.Min(sumNum,maxStack);
+            targetItem.itemSave.extra.num = Mathf.Min(sumNum,maxStack);
             draggingItem.itemSave.extra.num = Mathf.Max(remain, 0);
 
             if(remain > 0)//返回原位
             {
                 draggingItem.SetTetris(draggingItem.gridPos, draggingItem.dir, draggingItem.inventoryTetris);
             }
+        }
+        else if(dragState == DragState.Compositable)
+        {
+            ItemSave targetItemSave = draggingTetris.GetItemBlock(selectedGridPos).GetItem().itemSave;
+            int resultId = draggingItem.itemInfo.compositeList.Find(a => a.key == targetItemSave.id).value;
+            draggingItem.itemSave.extra.num = 0;
+            targetItemSave.extra.num = 0;
+
+            ItemSave newItemSave = new ItemSave(resultId, targetItemSave.pos, targetItemSave.dir, new ExtraSave(1));
+            draggingItem.itemSave.container.AddItem(newItemSave);
         }
         else//返回原位
         {

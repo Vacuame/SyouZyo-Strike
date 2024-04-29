@@ -14,19 +14,21 @@ public class ItemSaveData
         items.Add(save);
         save.container = this;
         itemDict.Add(save.id, save);
-        if(onItemAdded.TryGetValue(save.id,out var action))
+        if(onSpecificIDAdded.TryGetValue(save.id,out var action))
         {
             action.Invoke(save);
         }
+        onItemAdded?.Invoke(save);
     }
     public void RemoveItem(ItemSave save)
     {
         items.Remove(save);
         itemDict.Remove(save.id, save);
-        if (onItemRemoved.TryGetValue(save.id, out var action))
+        if (onSpecificIDRemoved.TryGetValue(save.id, out var action))
         {
             action.Invoke(save);
         }
+        onItemRemoved?.Invoke(save);
     }
     public List<ItemSave> GetItems()
     {
@@ -65,8 +67,10 @@ public class ItemSaveData
     }
     #endregion
 
-    public Dictionary<int, UnityAction<ItemSave>> onItemAdded = new Dictionary<int, UnityAction<ItemSave>>();
-    public Dictionary<int, UnityAction<ItemSave>> onItemRemoved=new Dictionary<int, UnityAction<ItemSave>>();
+    public UnityAction<ItemSave> onItemRemoved;
+    public UnityAction<ItemSave> onItemAdded;
+    public Dictionary<int, UnityAction<ItemSave>> onSpecificIDAdded = new Dictionary<int, UnityAction<ItemSave>>();
+    public Dictionary<int, UnityAction<ItemSave>> onSpecificIDRemoved=new Dictionary<int, UnityAction<ItemSave>>();
 
     public int bagWidth, bagHeight;
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.VersionControl;
 using UnityEngine;
 using static InventoryStatic;
@@ -103,7 +104,7 @@ public class InventoryTetris : MonoBehaviour
             {
                 return DragState.Stackable;
             }
-            if(false)//可以合成
+            if (item.itemInfo.compositeList.Any(a => a.key == posBlock.GetItem().itemSave.id))//可以合成
             {
                 return DragState.Compositable;
             }

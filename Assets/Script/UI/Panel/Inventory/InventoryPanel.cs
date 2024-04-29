@@ -49,6 +49,8 @@ public class InventoryPanel : BasePanel
         itemSave = inventoryContext.itemSave;
         mainTetris.Init(this, itemSave);
         delTetris.Init(this, inventoryContext.delTetrisData);
+        inventoryContext.controller.itemSaveData.onItemAdded += OnItemAdded;
+        inventoryContext.controller.itemSaveData.onItemRemoved += OnItemRemoved;
 
         inventoryContext.controller.control.Player.Disable();
         inventoryContext.controller.mouseSpeedMul = 0f;
@@ -63,6 +65,9 @@ public class InventoryPanel : BasePanel
         //TODO 移除在delTetris的东西
         foreach (var a in inventoryTetrisList)
             a.RemoveAllItem();
+        inventoryContext.controller.itemSaveData.onItemAdded -= OnItemAdded;
+        inventoryContext.controller.itemSaveData.onItemRemoved -= OnItemRemoved;
+
         inventoryContext.controller.control.Player.Enable();
         inventoryContext.controller.mouseSpeedMul = 1f;
 
@@ -75,5 +80,15 @@ public class InventoryPanel : BasePanel
         inventoryDrager.Tick();
         if (Input.GetMouseButtonDown(1))
             UIManager.Instance.Pop();
+    }
+
+
+    private void OnItemAdded(ItemSave item)
+    {
+        mainTetris.TryPlaceNewItem(item, item.pos, item.dir);
+    }
+    private void OnItemRemoved(ItemSave item)
+    { 
+        mainTetris.RemoveItemAt(item.pos);
     }
 }

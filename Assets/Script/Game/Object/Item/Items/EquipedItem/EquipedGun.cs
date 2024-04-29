@@ -109,7 +109,7 @@ public class EquipedGun : EquipedItem
 
         ammoId = GetAmmoId();
         PlayerController player = user.controller as PlayerController;
-        player.itemSaveData.onItemAdded.AddOrReplace(ammoId, ShowAmmoOnAdd);
+        player.itemSaveData.onSpecificIDAdded.AddOrReplace(ammoId, ShowAmmoOnAdd);
         bagAmmo = GetAmmoInBag();
         
         HUDManager.GetHUD<AimHUD>()?.SetAmmo(curAmmo, fullAmmo,bagAmmo);
@@ -131,7 +131,7 @@ public class EquipedGun : EquipedItem
         owner.RemoveAbility("Reload");
 
         PlayerController player = user.controller as PlayerController;
-        player.itemSaveData.onItemAdded.Remove(ammoId);
+        player.itemSaveData.onSpecificIDAdded.Remove(ammoId);
 
         HUDManager.GetHUD<AimHUD>()?.SetAmmo(-1, -1,-1);
 
