@@ -43,6 +43,7 @@ public abstract class Character : Pawn
         ABS.AttrSet<CharaAttr>().health.onPostCurrentValueChange += OnHealthPost;
 
     }
+
     protected virtual void OnHealthPost(AttributeBase health, float old, float now)
     {
         if (old > 0 && now <= 0)

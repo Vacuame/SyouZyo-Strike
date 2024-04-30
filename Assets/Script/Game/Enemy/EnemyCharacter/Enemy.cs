@@ -222,12 +222,15 @@ public class Enemy : Character
     #endregion
 
     #region 伤害计算
+    HitType lastHitType;
     protected override void OnHit(HitInfo hitInfo)
     {
         if (bDead) return;
 
         if (hitInfo.type == HitType.Impulse && ABS.HasTag("Lay"))
             return;
+
+        lastHitType = hitInfo.type;
 
         string partName = "";
 
@@ -295,7 +298,6 @@ public class Enemy : Character
         HUDManager.GetHUD<EnemyAlertHUD>(true).RemoveAlertTip(gameObject);
 
         ABS.GameplayTagAggregator.AddFixTag("Dead");
-        bool layDownDead = ABS.HasTag("Lay");
 
         foreach (var a in ABS.AbilityContainer.AbilitySpecs.Keys)
             ABS.TryEndAbility(a);
@@ -306,7 +308,11 @@ public class Enemy : Character
         bt.SetVariableValue("LoseBanlance", true);
         bt.DisableBehavior();
 
-        if(layDownDead)
+        if (lastHitType == HitType.Impulse)
+        {
+            //直接死了就不需要摆动作了
+        }
+        else if(ABS.HasTag("Lay"))
         {
             anim.Play("LayDownDead");
         }
