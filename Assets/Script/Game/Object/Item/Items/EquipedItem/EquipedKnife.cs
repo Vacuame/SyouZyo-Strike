@@ -20,7 +20,7 @@ public class EquipedKnife : EquipedItem
         owner.GrandAbility(new Melee(meleeAsset,user,this));
 
         owner.GrandAbility(new Assassination(Resources.Load<AssassinationAsset>
-        (user.abilityRootPath + "AssassinationAsset"), user, user.assasinRange));
+        (user.abilityRootPath + "AssassinationAsset"), user, user.assasinRange,transform));
 
         owner.GrandAbility(new Parry(Resources.Load<ParryAsset>
         (user.abilityRootPath + "Parry/ParryAsset"), user));

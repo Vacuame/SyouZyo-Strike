@@ -24,6 +24,7 @@ public class Chest : InteractableObj
     }
 
     [SerializeField] private Transform objectRespawnPoint;
+    [SerializeField] private Transform playerTransformOnOpen;
 
     public override void BeInteracted(PlayerCharacter character, UnityAction onInteractOver)
     {
@@ -47,6 +48,10 @@ public class Chest : InteractableObj
         timeline.Start();
 
         interacted = true;
+
+        player.cc.enabled = false;
+        TransformAlignmenter.GetOrCreateInstance()?.AddAlignRequest(new TransformAlignmenter.AlignInfo
+            (player.transform, playerTransformOnOpen.position, playerTransformOnOpen.rotation, 0.5f,()=>player.cc.enabled = true));
 
         HUDManager.GetHUD<PlayerHUD>().SetTip(null);
     }

@@ -136,7 +136,7 @@ public class RandomFight : AbstractAbility<RandomFightAsset>
             if (canActivate != lastCanActivate)
             {
                 if (canActivate)
-                    HUDManager.GetHUD<PlayerHUD>()?.SetTip("按 'F' 键 近战");
+                    HUDManager.GetHUD<PlayerHUD>()?.SetTip("按 'F' 键 体术攻击");
                 else
                     HUDManager.GetHUD<PlayerHUD>()?.SetTip(null);
             }

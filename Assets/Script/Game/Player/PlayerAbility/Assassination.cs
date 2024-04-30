@@ -18,10 +18,11 @@ public class Assassination : AbstractAbility<AssassinationAsset>
 
     public class AssassinationSpec : TimeLineAbilitySpec
     {
+        AssassinationAsset asset;
         Character character;
         Animator anim => character.anim;
         Collider atkRange;
-        AssassinationAsset asset;
+        Transform knifeTransform;
 
         GameObject target;
 
@@ -30,6 +31,7 @@ public class Assassination : AbstractAbility<AssassinationAsset>
             asset = (ability as Assassination).AbilityAsset;
             character = ability.binds[0] as Character;
             atkRange = ability.binds[1] as Collider;
+            knifeTransform = ability.binds[2] as Transform;
 
             InitTimeLine();
         }
@@ -43,15 +45,25 @@ public class Assassination : AbstractAbility<AssassinationAsset>
             anim.Play("Assassination");
             HUDManager.GetHUD<PlayerHUD>()?.SetTip(null);
 
+            //反手持刀
+            Vector3 knifeEuler = knifeTransform.rotation.eulerAngles;
+            knifeEuler.x += 180;
+            knifeTransform.rotation = Quaternion.Euler(knifeEuler);
+
+            //切换相机
             character.controller.playCamera.SwitchCamera(Tags.Camera.Assassination);
             character.centerTransform.rotation = character.transform.rotation;
 
-            //只是让敌人站定在原地
+            //让敌人强制发呆
             if(target.TryGetComponent<AbilitySystemComponent>(out var tarABS))
             {
                 GameplayEffectAsset asset = Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/BeAssassinated");
                 owner.ApplyGameplayEffectTo(new GameplayEffect(asset), tarABS);
             }
+
+            //敌人对齐角色
+            TransformAlignmenter.GetOrCreateInstance()?.AddAlignRequest(new TransformAlignmenter.AlignInfo
+                (target.transform, owner.transform.position + owner.transform.forward * 0.4f, owner.transform.rotation, 0.2f));
 
             base.ActivateAbility(args);
         }
@@ -73,7 +85,7 @@ public class Assassination : AbstractAbility<AssassinationAsset>
             if (canActivate != lastCanActivate)
             {
                 if (canActivate)
-                    HUDManager.GetHUD<PlayerHUD>()?.SetTip("左键刺杀");
+                    HUDManager.GetHUD<PlayerHUD>()?.SetTip("'左键' 刺杀");
                 else
                     HUDManager.GetHUD<PlayerHUD>()?.SetTip(null);
             }
@@ -97,6 +109,12 @@ public class Assassination : AbstractAbility<AssassinationAsset>
         public override void EndAbility()
         {
             character.controller.playCamera.SwitchCamera(Tags.Camera.Normal);
+
+            //取消反手持刀
+            Vector3 knifeEuler = knifeTransform.rotation.eulerAngles;
+            knifeEuler.x -= 180;
+            knifeTransform.rotation = Quaternion.Euler(knifeEuler);
+
             base.EndAbility();
         }
 

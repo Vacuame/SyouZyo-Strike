@@ -64,6 +64,7 @@ Transform:
   m_Children:
   - {fileID: 4803989649567946699}
   - {fileID: 4362401698203710563}
+  - {fileID: 8404611141543900377}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6862487385660009019
@@ -80,10 +81,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabName: UMP45
   playerAnimName: OpenChest
-  interactTime: 2.13
   openAnimStartTime: 0.5
   objInstanceTime: 1
+  interactTime: 2.13
   objectRespawnPoint: {fileID: 4362401698203710563}
+  playerTransformOnOpen: {fileID: 8404611141543900377}
 --- !u!65 &7097817789262981046
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -105,6 +107,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9265692, y: 0.7635479, z: 1.249068}
   m_Center: {x: 0.4744817, y: 0.0869112, z: 0.017906547}
+--- !u!1 &7933755857859986750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8404611141543900377}
+  m_Layer: 10
+  m_Name: PlayerTransformOnOpen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8404611141543900377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7933755857859986750}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: 0.64, y: -0.419, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8412171593528309146}
+  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!1001 &4803989649567550795
 PrefabInstance:
   m_ObjectHideFlags: 0
