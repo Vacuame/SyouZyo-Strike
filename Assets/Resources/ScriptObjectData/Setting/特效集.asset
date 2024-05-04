@@ -27,6 +27,12 @@ MonoBehaviour:
     maxLifeTime: 1.5
     defaultMaxNum: 2
   - name: GunFire
-    particle: {fileID: 19800006, guid: c888f0c922d622147bbdbe2ca794142b, type: 3}
-    maxLifeTime: 0
+    particle: {fileID: 685691043716355487, guid: b0a34e99386417c49baa6ebac536d170,
+      type: 3}
+    maxLifeTime: 0.1
+    defaultMaxNum: 1
+  - name: BulletTrail_OneShot
+    particle: {fileID: 2997157095311986507, guid: 8196636ed97142a4883da8111d1f810c,
+      type: 3}
+    maxLifeTime: 0.1
     defaultMaxNum: 1

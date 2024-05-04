@@ -175,7 +175,7 @@ public class EquipedGun : EquipedItem
         if (shooting)
         {
             Shooting();
-            UpdateShootingParticle();
+            //UpdateShootingParticle();
         }
     }
     private void LateUpdate()//更新UI
@@ -259,17 +259,14 @@ public class EquipedGun : EquipedItem
                 return false;
             
             Shoot();
-            PlayShootingParticle();
 
             if (automatic)
                 shooting = true;
-            else
-                EndShootingParticle();
         }
         else
         {
             shooting = false;
-            EndShootingParticle();
+            //EndShootingParticle();
         }
 
         return true;
@@ -278,7 +275,7 @@ public class EquipedGun : EquipedItem
     {
         if (shootTimer <= 0) 
             Shoot();
-        UpdateShootingParticle();
+        //UpdateShootingParticle();
     }
     private void Shoot()
     {
@@ -305,12 +302,11 @@ public class EquipedGun : EquipedItem
     {
         Ray shootRay = playerCamera.ScreenPointToRay(aimPoint);
 
-        SoundMaker.Instance.MakeSound(transform.position, fireSoundConfig, new SoundInfo(SoundType.Sound));
-
         if (Physics.Raycast(shootRay, out RaycastHit hit, maxDistance, shootMask))
         {
             Vector3 hitDir = (hit.point - muzzle.position).normalized;
             bulletEffectVector = hitDir;
+            bulletEffectDistance = hit.distance;
 
             GameObject hitObj = hit.collider.gameObject;
 
@@ -325,11 +321,19 @@ public class EquipedGun : EquipedItem
         else
         {
             bulletEffectVector = (playerCamera.transform.position + shootRay.direction * maxDistance - muzzle.position).normalized;
+            bulletEffectDistance = maxDistance;
         }
 
-        Vector3 shakeVector = cameraShakeSource.m_DefaultVelocity;
-        shakeVector.x = Random.Range(-0.1f, 0.1f);
-        cameraShakeSource.GenerateImpulse(shakeVector * 0.1f);
+        //各种效果
+        {
+            Vector3 shakeVector = cameraShakeSource.m_DefaultVelocity;
+            shakeVector.x = Random.Range(-0.1f, 0.1f);
+            cameraShakeSource.GenerateImpulse(shakeVector * 0.1f);
+
+            SoundMaker.Instance.MakeSound(transform.position, fireSoundConfig, new SoundInfo(SoundType.Sound));
+
+            PlayShootParticle();
+        }
     }
     #endregion
 
@@ -372,26 +376,16 @@ public class EquipedGun : EquipedItem
     #region 效果
     private CinemachineImpulseSource cameraShakeSource;
     private Vector3 bulletEffectVector;
-    private int gunFireId, bulletTrailId;
+    private float bulletEffectDistance;
 
-    private void PlayShootingParticle()
+    private void PlayShootParticle()
     {
-        gunFireId = ParticleManager.Instance.GetKeepId();
-        bulletTrailId = ParticleManager.Instance.GetKeepId();
-        ParticleManager.Instance.PlayEffect("GunFire", muzzle.position, 
-            muzzle.rotation, keep: true, keepId: gunFireId);
-        ParticleManager.Instance.PlayEffect("BulletTrail", muzzle.position, 
-            Quaternion.LookRotation(bulletEffectVector), keep: true, keepId: bulletTrailId);
-    }
-    private void UpdateShootingParticle()
-    {
-        ParticleManager.Instance.SetKeep(gunFireId, muzzle.position, muzzle.rotation);
-        ParticleManager.Instance.SetKeep(bulletTrailId, muzzle.position, Quaternion.LookRotation(bulletEffectVector));
-    }
-    private void EndShootingParticle()
-    {
-        ParticleManager.Instance.CloseKeep(gunFireId, true);
-        ParticleManager.Instance.CloseKeep(bulletTrailId);
+        ParticleManager.Instance.PlayEffect("GunFire", muzzle.position, muzzle.rotation);
+
+        ParticleManager.Instance.PlayEffect("BulletTrail_OneShot", muzzle.position,
+            Quaternion.LookRotation(bulletEffectVector), lifeTime:bulletEffectDistance / 100f);
+
+        //Debug.Log(bulletEffectDistance / 100f);
     }
     private void PlayHitDefaultParticle(Vector3 hitPoint,Vector3 hitDir)
     {

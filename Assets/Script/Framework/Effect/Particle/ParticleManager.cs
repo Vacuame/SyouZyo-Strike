@@ -44,7 +44,7 @@ public class ParticleManager : SingletonMono<ParticleManager>
             group.Value.Update();
     }
 
-    public void PlayEffect(string name,Vector3 pos,Quaternion rotation,bool keep=false,int keepId=-1)
+    public void PlayEffect(string name,Vector3 pos,Quaternion rotation,float lifeTime = -1,bool keep=false,int keepId=-1)
     {
         if (particleDic.ContainsKey(name))
         {
@@ -56,7 +56,7 @@ public class ParticleManager : SingletonMono<ParticleManager>
             p.particle.gameObject.SetActive(true);
             p.particle.transform.position = pos;
             p.particle.transform.rotation = rotation;
-            p.lifetime = group.info.maxLifeTime;
+            p.lifetime = lifeTime==-1?group.info.maxLifeTime:lifeTime;
             p.particle.Play();
             if (!keep)
                 activeParticle.AddLast(p);
