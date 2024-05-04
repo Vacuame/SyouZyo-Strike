@@ -145,7 +145,6 @@
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\Legacy\MMFeedbackAudioSourcePitch.cs" />
     <Compile Include="Assets\Plugins\Feel\FeelDemos\Brass\Scripts\FeelBrassGroundGenerator.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\MMF_Animation.cs" />
-    <Compile Include="Assets\Plugins\Feel\MMFeedbacks\Demos\MMFeedbacksDemo\Scripts\DemoPackageTester.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\Legacy\MMFeedbackCanvasGroupBlocksRaycasts.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\MMF_TextureScale.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Core\Legacy\MMFeedbacksEnabler.cs" />
@@ -155,7 +154,6 @@
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\MMF_Light.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\Legacy\MMFeedbackLooperStart.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\Legacy\MMFeedbackImageRaycastTarget.cs" />
-    <Compile Include="Assets\Plugins\Feel\MMFeedbacks\Demos\MMFeedbacksDemo\Scripts\DemoGhost.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\Legacy\MMFeedbackFeedbacks.cs" />
     <Compile Include="Assets\Plugins\Feel\FeelDemosURP\Strike\Scripts\StrikeBall.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\Legacy\MMFeedbackPause.cs" />
@@ -229,7 +227,6 @@
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Shakers\MMAudioSourceStereoPanShaker.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\Legacy\MMFeedbackFlicker.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\Legacy\MMFeedbackFlash.cs" />
-    <Compile Include="Assets\Plugins\Feel\MMFeedbacks\Demos\MMFeedbacksDemo\Scripts\DemoButton.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Core\ObjectPool\MMMiniPoolableObject.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\MMF_CameraShake.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Shakers\MMSpriteRendererShaker.cs" />
@@ -237,7 +234,6 @@
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\MMF_Destroy.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\MMF_HoldingPause.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Core\MMShaker.cs" />
-    <Compile Include="Assets\Plugins\Feel\MMFeedbacks\Demos\MMFeedbacksDemo\Scripts\MMFDependencyInstaller.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Core\Legacy\MMFeedback.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Sequencing\Scripts\MMSequencer.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\MMF_GraphicCrossFade.cs" />
@@ -260,7 +256,6 @@
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\Legacy\MMFeedbackAudioSource.cs" />
     <Compile Include="Assets\Plugins\Feel\FeelDemos\Blob\Scripts\Blob.cs" />
     <Compile Include="Assets\Plugins\Feel\FeelDemos\Bounce\Scripts\BounceFeedbacks.cs" />
-    <Compile Include="Assets\Plugins\Feel\MMFeedbacks\Demos\MMFeedbacksDemo\Scripts\DemoBall.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\Legacy\MMFeedbackTextColor.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\MMF_Collider2D.cs" />
     <Compile Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\Feedbacks\Legacy\MMFeedbackPosition.cs" />
@@ -271,7 +266,6 @@
     <None Include="Assets\Plugins\Feel\MMFeedbacks\MMFeedbacks\MoreMountains.Feedbacks.asmdef" />
     <None Include="Assets\Plugins\Feel\FeelDemos\MoreMountains.Feel.Demos.asmref" />
     <None Include="Assets\Plugins\Feel\FeelDemosURP\MoreMountains.Feel.Demos.URP.asmref" />
-    <None Include="Assets\Plugins\Feel\MMFeedbacks\Demos\MoreMountains.Feedbacks.Demos.asmref" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

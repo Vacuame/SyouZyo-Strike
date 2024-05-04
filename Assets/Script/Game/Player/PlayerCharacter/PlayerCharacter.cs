@@ -5,7 +5,8 @@ using static UnityEngine.InputSystem.InputAction;
 using GameBasic;
 using MoleMole;
 using System.Collections.Generic;
-using UnityEngine.TextCore.Text;
+using UnityEngine.Rendering.Universal;
+using MoreMountains.Feedbacks;
 
 public class PlayerCharacter : Character
 {
@@ -21,6 +22,9 @@ public class PlayerCharacter : Character
     [SerializeField] private List<Collider> fightAttackRange;
 
     [HideInInspector]public PlayerController playerController => controller as PlayerController;
+
+    [Header("Feedback")]
+    [SerializeField] private MMF_Player fb_GetHit;
 
     #region  ‰»Î
     private PlayerActions input;
@@ -303,16 +307,33 @@ public class PlayerCharacter : Character
         float proportion = ABS.AttrSet<CharaAttr>().health.GetProportion();
         float injuryHealth = health.BaseValue * injuryProportion;
         bInjured = now <= injuryHealth;
-        if (old > injuryHealth && now <= injuryHealth)
+
+        if (bInjured && old >= now)
+        {
             anim.SetLayerWeight(anim.GetLayerIndex("Injury"), 1);
-        else if (old <= injuryHealth && now > injuryHealth)
+            if(VolumeManager.Instance.mainVolume.profile.TryGet<Vignette>(out var vig))
+            {
+                vig.intensity.Override(0.45f);
+                vig.color.Override(Color.red);
+            }
+        }
+        else if(!bInjured && old <= now)
+        {
             anim.SetLayerWeight(anim.GetLayerIndex("Injury"), 0);
+            if (VolumeManager.Instance.mainVolume.profile.TryGet<Vignette>(out var vig))
+            {
+                vig.intensity.Override(0.28f);
+                vig.color.Override(Color.black);
+            }
+        }
 
         if (now < old)
         {
             if(!ABS.HasTag("Endure"))
                 ABS.ApplyGameplayEffectToSelf(new GameplayEffect(
                     Resources.Load<GameplayEffectAsset>("ScriptObjectData/Effect/PlayerOnHit")));
+
+            fb_GetHit.PlayFeedbacks();
         }
         HUDManager.GetHUD<PlayerHUD>().SetHpValue(proportion);
 

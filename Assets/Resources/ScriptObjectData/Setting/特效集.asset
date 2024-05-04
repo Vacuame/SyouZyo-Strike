@@ -13,10 +13,6 @@ MonoBehaviour:
   m_Name: "\u7279\u6548\u96C6"
   m_EditorClassIdentifier: 
   lists:
-  - name: BulletImpact
-    particle: {fileID: 19800002, guid: 99c73c92ac40473459640b165473206f, type: 3}
-    maxLifeTime: 0.3
-    defaultMaxNum: 10
   - name: BulletTrail
     particle: {fileID: 6888221559037551921, guid: 1330bccbf4a140140893e0c2aaab8243,
       type: 3}
@@ -36,3 +32,11 @@ MonoBehaviour:
       type: 3}
     maxLifeTime: 0.1
     defaultMaxNum: 1
+  - name: BulletImpact
+    particle: {fileID: 19800002, guid: 99c73c92ac40473459640b165473206f, type: 3}
+    maxLifeTime: 0.3
+    defaultMaxNum: 10
+  - name: BulletImpact_Blood
+    particle: {fileID: 19800002, guid: ee26b50ce3e841043949dc6135015ef0, type: 3}
+    maxLifeTime: 0.3
+    defaultMaxNum: 10

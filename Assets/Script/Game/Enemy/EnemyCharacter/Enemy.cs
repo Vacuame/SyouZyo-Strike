@@ -147,7 +147,7 @@ public class Enemy : Character
 
     #region 索敌
     private GameObject watchingObj;
-    public bool bAlert,bBattle;
+    [HideInInspector]public bool bAlert,bBattle;
     private void EnterBattle(GameObject obj,bool discoverBySelf)
     {
         bt.SetVariableValue("Target", obj);
@@ -221,11 +221,13 @@ public class Enemy : Character
     }
     #endregion
 
-    #region 伤害计算
+    #region 受到伤害
     HitType lastHitType;
     protected override void OnHit(HitInfo hitInfo)
     {
         if (bDead) return;
+
+        PlayHitEffect(hitInfo);
 
         if (hitInfo.type == HitType.Impulse && ABS.HasTag("Lay"))
             return;
@@ -292,6 +294,13 @@ public class Enemy : Character
 
     #endregion
 
+    #region 视觉效果
+    protected virtual void PlayHitEffect(HitInfo hitInfo)
+    {
+
+    }
+    #endregion
+
     #region 死亡
     protected override void Dead()
     {
@@ -329,7 +338,6 @@ public class Enemy : Character
         TimerManager.Instance.AddTimer(new Timer(OnDeadEnd, 1, 0.6f));
         TimerManager.Instance.AddTimer(new Timer(() => Destroy(this.gameObject), 1, 20));
     }
-
     protected override void OnDeadEnd() //TODO 死亡动画播放完后执行，并且橡皮人
     {
         if(TryGetComponent(out ItemDroper itemDroper))
