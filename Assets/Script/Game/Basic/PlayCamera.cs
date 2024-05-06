@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameBasic;
+using MoleMole;
+
 public class PlayCamera : MonoBehaviour
 {
     public Camera cameraComponent { get; private set; }
@@ -31,6 +33,11 @@ public class PlayCamera : MonoBehaviour
 
         cameraComponent = GetComponent<Camera>();
         cameraBrain = GetComponent<CinemachineBrain>();
+    }
+
+    private void Start()
+    {
+        HUDManager.Instance._worldCanvas.GetComponent<Canvas>().worldCamera = cameraComponent;
     }
 
     public void SetCameraTarget(Transform target)

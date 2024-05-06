@@ -16,6 +16,19 @@ public class SoundManager : SingletonMono<SoundManager>
 
     [SerializeField] private AudioMixer mixer;
 
+    public new static SoundManager GetOrCreateInstance()
+    {
+        if (!avaiable)
+            return null;
+
+        if (instance == null && Application.isPlaying)
+        {
+            SoundManager prefab = Resources.Load<SoundManager>("Mgr/SoundManager");
+            instance = Instantiate(prefab);
+        }
+        return instance;
+    }
+
     protected override void Init()
     {
         soundPoolDict.Add(SoundPoolType.SFX, new SoundPool(sfxFolder, new Stack<AudioSource>(), maxSfxCount, "SFX", SoundPoolType.SFX));

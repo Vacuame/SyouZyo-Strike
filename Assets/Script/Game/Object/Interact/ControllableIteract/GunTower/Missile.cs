@@ -51,7 +51,7 @@ public class Missile : MonoBehaviour
     {
         if(lauched)
         {
-            ParticleManager.Instance.PlayEffect("Explode", transform.position, Quaternion.identity);
+            ParticleManager.GetOrCreateInstance()?.PlayEffect("Explode", transform.position, Quaternion.identity);
 
             Collider[] cols = explodeRange.Overlap(explodeMask);
             foreach (var col in cols)

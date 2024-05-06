@@ -16,6 +16,8 @@ public class ParticleManager : SingletonMono<ParticleManager>
 
     protected override void Init()
     {
+        particleSet = Resources.Load<ParticleSet>("ScriptObjectData/Setting/特效集");
+
         foreach(var a in particleSet.lists)
         {
             var home = new GameObject(a.name).transform;
@@ -66,7 +68,8 @@ public class ParticleManager : SingletonMono<ParticleManager>
         else
             Debug.LogWarning($"没有找到[{name}]特效");
     }
-    
+
+    #region 持续控制的Particle相关
     public int GetKeepId()
     {
         int res;
@@ -85,7 +88,7 @@ public class ParticleManager : SingletonMono<ParticleManager>
             keepParticle.Remove(keepId);
         }
     }
-    public void SetKeep(int keepId, Vector3 pos, Quaternion rotation)
+    public void SetKeepTrans(int keepId, Vector3 pos, Quaternion rotation)
     {
         if (keepParticle.TryGetValue(keepId, out MyParticle p))
         {
@@ -93,6 +96,7 @@ public class ParticleManager : SingletonMono<ParticleManager>
             p.particle.transform.rotation = rotation;
         }
     }
+    #endregion
 
 }
 

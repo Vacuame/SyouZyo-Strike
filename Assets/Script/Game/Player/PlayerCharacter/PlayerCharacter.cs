@@ -349,6 +349,6 @@ public class PlayerCharacter : Character
         if (!ABS.HasTag("Invincible"))
             ABS.AttrSet<CharaAttr>().health.SetValueRelative(hitInfo.damage, Tags.Calc.Sub);
 
-        SoundManager.GetOrCreateInstance()?.PlaySound(SoundPoolType.SFX, soundOnHit, hitInfo.pos,3);
+        SoundManager.GetOrCreateInstance()?.PlaySound(SoundPoolType.SFX, soundOnHit, hitInfo.pos);
     }
 }

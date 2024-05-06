@@ -10,8 +10,8 @@ namespace MoleMole
 
         private Dictionary<string, BaseHUD> _HUDDict = new Dictionary<string, BaseHUD>();
 
-        private Transform _canvas;
-        private Transform _worldCanvas;
+        public Transform _canvas;
+        public Transform _worldCanvas;
 
         public override void Init()
         {

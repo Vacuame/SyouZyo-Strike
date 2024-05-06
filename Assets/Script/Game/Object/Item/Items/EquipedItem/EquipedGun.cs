@@ -386,9 +386,9 @@ public class EquipedGun : EquipedItem
 
     private void PlayShootParticle()
     {
-        ParticleManager.Instance.PlayEffect("GunFire", muzzle.position, muzzle.rotation);
+        ParticleManager.GetOrCreateInstance()?.PlayEffect("GunFire", muzzle.position, muzzle.rotation);
 
-        ParticleManager.Instance.PlayEffect("BulletTrail_OneShot", muzzle.position,
+        ParticleManager.GetOrCreateInstance()?.PlayEffect("BulletTrail_OneShot", muzzle.position,
             Quaternion.LookRotation(bulletEffectVector), lifeTime:bulletEffectDistance / 100f);
 
         //Debug.Log(bulletEffectDistance / 100f);
@@ -398,7 +398,7 @@ public class EquipedGun : EquipedItem
         Vector3 randDir = new Vector3(Random.Range(-1, 1),
             Random.Range(-1, 1), Random.Range(-1, 1));
         Vector3 particleDir = hitDir * -1 + randDir * 0.3f;
-        ParticleManager.Instance.PlayEffect("BulletImpact", hitPoint, Quaternion.LookRotation(particleDir));
+        ParticleManager.GetOrCreateInstance()?.PlayEffect("BulletImpact", hitPoint, Quaternion.LookRotation(particleDir));
     }
     #endregion
 

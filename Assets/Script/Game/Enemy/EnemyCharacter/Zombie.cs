@@ -45,7 +45,7 @@ public class Zombie : Enemy
         }
         else
         {
-            ParticleManager.Instance.PlayEffect("BulletImpact_Blood", hitInfo.pos, Quaternion.LookRotation(hitInfo.dire * -1));
+            ParticleManager.GetOrCreateInstance()?.PlayEffect("BulletImpact_Blood", hitInfo.pos, Quaternion.LookRotation(hitInfo.dire * -1));
 
             if(type == HitType.Cut)
             {
