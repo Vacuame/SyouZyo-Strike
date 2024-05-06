@@ -306,6 +306,7 @@ public class Enemy : Character
     {
         HUDManager.GetHUD<EnemyAlertHUD>(true).RemoveAlertTip(gameObject);
 
+        bool deadOnLay = ABS.HasTag("Lay");
         ABS.GameplayTagAggregator.AddFixTag("Dead");
 
         foreach (var a in ABS.AbilityContainer.AbilitySpecs.Keys)
@@ -321,7 +322,7 @@ public class Enemy : Character
         {
             //直接死了就不需要摆动作了
         }
-        else if(ABS.HasTag("Lay"))
+        else if(deadOnLay)
         {
             anim.Play("LayDownDead");
         }

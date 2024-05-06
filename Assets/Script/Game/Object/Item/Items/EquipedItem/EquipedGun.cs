@@ -70,16 +70,17 @@ public class EquipedGun : EquipedItem
 
     //扩散倍率
     private float spreadMultiplier = 1;
-    /*    private float moveMultiplier;
-        [SerializeField]private Vector2 moveSpeedRange;
-        [SerializeField]private Vector2 moveMultiplierRange;
-        [SerializeField] private float moveMultiplierTransSpeed;*/
 
     //射程
     [Header("距离")]
     [SerializeField] private AnimationCurve distanceDamageFalloff;// 0 - 1
     private float maxDistance;
 
+    //音效
+    [Header("音效")]
+    [SerializeField] private AudioClip fireSound;
+    [SerializeField] private AudioClip reloadSound;
+    [SerializeField] private AudioClip defaultHitSound;
     #endregion
 
     #region Equiped
@@ -147,7 +148,7 @@ public class EquipedGun : EquipedItem
     private void ShootEd(CallbackContext context) =>
         owner.TryEndAbility("Shoot");
     private void Reload(CallbackContext context) =>
-        owner.TryActivateAbility("Reload", user.anim, this,user.controller);
+        owner.TryActivateAbility("Reload", user.anim, this,user.controller,reloadSound);
 
 
     #endregion
@@ -312,7 +313,11 @@ public class EquipedGun : EquipedItem
 
             //如果是这些layer就播放默认特效
             if (hitObj.layer == 0 || hitObj.layer == LayerMask.NameToLayer("Climbable"))
+            {
                 PlayHitDefaultParticle(hit.point, hitDir);
+                SoundManager.GetOrCreateInstance()?.PlaySound(SoundPoolType.SFX,defaultHitSound,hit.point);
+            }
+                
 
             EventManager.Instance.TriggerEvent("Hit" + hitObj.GetInstanceID(),
                     new HitInfo(hitType, damage * distanceDamageFalloff.Evaluate(hit.distance), 
@@ -331,6 +336,7 @@ public class EquipedGun : EquipedItem
             cameraShakeSource.GenerateImpulse(shakeVector * 0.1f);
 
             SoundMaker.Instance.MakeSound(transform.position, fireSoundConfig, new SoundInfo(SoundType.Sound));
+            SoundManager.GetOrCreateInstance()?.PlaySound(SoundPoolType.SFX, fireSound,transform.position);
 
             PlayShootParticle();
         }

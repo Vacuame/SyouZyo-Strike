@@ -30,3 +30,4 @@ MonoBehaviour:
     makeDmgFrame: 44
   animStartFrame: 0
   animEndFrame: 91
+  atkSound: {fileID: 8300000, guid: f4898ffd4607ccf41959700153a1213f, type: 3}

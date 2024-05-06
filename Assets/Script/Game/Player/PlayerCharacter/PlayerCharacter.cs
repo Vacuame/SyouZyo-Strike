@@ -23,8 +23,13 @@ public class PlayerCharacter : Character
 
     [HideInInspector]public PlayerController playerController => controller as PlayerController;
 
+    #region 效果
     [Header("Feedback")]
     [SerializeField] private MMF_Player fb_GetHit;
+
+    [Header("音效")]
+    [SerializeField] private AudioClip soundOnHit;
+    #endregion
 
     #region 输入
     private PlayerActions input;
@@ -343,5 +348,7 @@ public class PlayerCharacter : Character
     {
         if (!ABS.HasTag("Invincible"))
             ABS.AttrSet<CharaAttr>().health.SetValueRelative(hitInfo.damage, Tags.Calc.Sub);
+
+        SoundManager.GetOrCreateInstance()?.PlaySound(SoundPoolType.SFX, soundOnHit, hitInfo.pos,3);
     }
 }

@@ -27,4 +27,4 @@ MonoBehaviour:
     type: 3}
   perfectParryDmg: 0
   perfectParryStTime: 0
-  perfectParryEdTime: 0.3
+  perfectParryEdTime: 0.4

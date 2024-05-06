@@ -24,4 +24,7 @@ public class EnemyNormalAttackAsset : AbilityAsset
     public int animStartFrame;
     public int animEndFrame;
     public float animLenth => (float)(animEndFrame - animStartFrame) / 30;
+
+    [Header("“Ù–ß")]
+    public AudioClip atkSound;
 }

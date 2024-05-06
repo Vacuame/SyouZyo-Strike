@@ -2687,6 +2687,7 @@ MonoBehaviour:
   - {fileID: 2460381061485573681}
   - {fileID: 2949968481165864398}
   fb_GetHit: {fileID: 5923031235131458194}
+  soundOnHit: {fileID: 8300000, guid: 5856e4757ce464f47afe3510c1d0afeb, type: 3}
   CamTopClamp: 70
   CamBottomClamp: -30
   walkMaxSpeed: 2
@@ -2694,7 +2695,7 @@ MonoBehaviour:
   xAcc: 10
   zAcc: 10
   injury_walkMaxSpeed: 1.35
-  injury_backMaxSpeed: 1.35
+  injury_backMaxSpeed: 1
   injury_runMaxSpeed: 2.5
   rotateSpeed: 200
   twoHandRig: {fileID: 5148469605677292174}
@@ -2735,6 +2736,10 @@ MonoBehaviour:
     soundMask:
       serializedVersion: 2
       m_Bits: 128
+  footStepSounds:
+  - {fileID: 8300000, guid: 3376c0b6a8c5f4b539dbbf44b0698d59, type: 3}
+  - {fileID: 8300000, guid: d1d3cb96244b84eb8bb9acd2272505ce, type: 3}
+  - {fileID: 8300000, guid: c8ad05c7ac4804d67a9aba9617b6abcc, type: 3}
 --- !u!1 &3489230257373089807
 GameObject:
   m_ObjectHideFlags: 0

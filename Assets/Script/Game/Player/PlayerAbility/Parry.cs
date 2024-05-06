@@ -64,7 +64,9 @@ public class Parry : AbstractAbility<ParryAsset>
             {
                 anim.Play("PerfectParry");
                 EventManager.Instance.TriggerEvent("Hit" + info.source.GetInstanceID(),
-                    new HitInfo(HitType.Parry,asset.perfectParryDmg,owner.gameObject,info.source));
+                    new HitInfo(HitType.Parry,asset.perfectParryDmg,owner.gameObject,info.source,
+                    col.transform.position,
+                    (info.source.transform.position - owner.transform.position).normalized));
             }
             else
             {

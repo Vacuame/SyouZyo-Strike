@@ -34,6 +34,7 @@ public class Reload : AbstractAbility
             anim = args[0] as Animator;
             gun = args[1] as EquipedGun;
             player = args[2] as PlayerController;
+            AudioClip reloadSound = args[3] as AudioClip;
 
             int ammoId = gun.ammoId;
             bool canReload = ammoId != 0 && gun.curAmmo < gun.fullAmmo;
@@ -46,6 +47,8 @@ public class Reload : AbstractAbility
                 
             anim.SetTrigger("reload");
             endTimer = 1.9f;
+
+            SoundManager.GetOrCreateInstance()?.PlaySound(SoundPoolType.SFX, reloadSound, gun.transform.position);
         }
 
         protected override void AbilityTick()

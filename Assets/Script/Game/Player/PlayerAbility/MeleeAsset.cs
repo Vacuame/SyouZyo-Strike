@@ -27,6 +27,9 @@ public class MeleeAsset : AbilityAsset
         public float atkEndTime;
         public float canNextTime;
         public float meleeEndTime;
+
+        public AudioClip meleeSound;
+        public float soundTime;
     }
 
 }

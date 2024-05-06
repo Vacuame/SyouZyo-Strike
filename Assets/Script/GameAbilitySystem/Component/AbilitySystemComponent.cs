@@ -24,7 +24,7 @@ public class AbilitySystemComponent : MonoBehaviour
 
     private void OnEnable()
     {
-        GameAbilitySystem.GetOrCreateInstance().Register(this);
+        GameAbilitySystem.GetOrCreateInstance()?.Register(this);
     }
 
     private void OnDisable()

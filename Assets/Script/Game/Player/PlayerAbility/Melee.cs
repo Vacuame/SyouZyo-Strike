@@ -61,6 +61,7 @@ public class Melee : AbstractAbility<MeleeAsset>
                 anim.Play("MeleeInward");
             anim.SetInteger(asset.animParamName, meleeIndex+1);
             anim.SetFloat("meleeSpeed", curConfig.animSpeed);
+
             InitTimeLine();
 
             base.ActivateAbility(args);
@@ -100,6 +101,8 @@ public class Melee : AbstractAbility<MeleeAsset>
             timeLine.AddEvent(curConfig.atkEndTime/ meleeSpeed, AtkEnd);
             timeLine.AddEvent(curConfig.canNextTime / meleeSpeed, SetCanNext );
             timeLine.AddEvent(curConfig.meleeEndTime/ meleeSpeed, EndSelf);
+            timeLine.AddEvent(curConfig.soundTime / meleeSpeed, ()=>
+            SoundManager.GetOrCreateInstance()?.PlaySound(SoundPoolType.SFX, curConfig.meleeSound, knife.transform.position));
         }
 
         private void AtkStart()

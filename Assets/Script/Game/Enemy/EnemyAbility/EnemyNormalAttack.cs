@@ -34,6 +34,8 @@ public class EnemyNormalAttack : AbstractAbility<EnemyNormalAttackAsset>
         {
             collider.enabled = true;
 
+            SoundManager.GetOrCreateInstance()?.PlaySound(SoundPoolType.SFX, asset.atkSound, me.transform.position);
+
             base.ActivateAbility(args);
         }
         public override void EndAbility()
@@ -71,7 +73,9 @@ public class EnemyNormalAttack : AbstractAbility<EnemyNormalAttackAsset>
 
             if(dmgObj != null)
                 EventManager.Instance.TriggerEvent("Hit" + dmgObj.gameObject.GetInstanceID(), 
-                    new HitInfo(HitType.Cut,dmg,owner.gameObject,dmgObj));
+                    new HitInfo(HitType.Cut, dmg, owner.gameObject, dmgObj, 
+                    pos: dmgObj.transform.position,
+                    hitDire: (dmgObj.transform.position - owner.transform.position).normalized));
         }
 
     }

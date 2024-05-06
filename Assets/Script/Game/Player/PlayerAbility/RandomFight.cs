@@ -98,11 +98,7 @@ public class RandomFight : AbstractAbility<RandomFightAsset>
                         Vector3 hitDir = (colTrans.position - character.transform.position).normalized;
                         EventManager.Instance.TriggerEvent(Consts.Event.Hit + col.gameObject.GetInstanceID(),
                             new HitInfo(HitType.Impulse, curFightConfig.atkConfig.damage,
-                            character.gameObject, col.gameObject, hitDire: hitDir));
-/*
-                        CueKnockedAway knock = Resources.Load<CueKnockedAway>("ScriptObjectData/Cue/KnockedAway");
-                        knock.ApplyFrom(this, col.gameObject, hitDir * asset.knockAwayForce);
-*/
+                            character.gameObject, col.gameObject,pos:col.transform.position, hitDire: hitDir));
                         dmgedObject.Add(colObj);
                     }
                 }

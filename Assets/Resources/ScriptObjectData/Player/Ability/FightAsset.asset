@@ -23,7 +23,7 @@ MonoBehaviour:
   activationBlockedTags: []
   fightActions:
   - atkConfig:
-      damage: 300
+      damage: 30
       atkStartFrame: 36
       atkEndFrame: 42
       colliderIndex: 020000000300000004000000
@@ -34,7 +34,7 @@ MonoBehaviour:
     animEndFrame: 80
     animSpeed: 1.5
   - atkConfig:
-      damage: 300
+      damage: 30
       atkStartFrame: 40
       atkEndFrame: 48
       colliderIndex: 020000000300000004000000
@@ -45,7 +45,7 @@ MonoBehaviour:
     animEndFrame: 55
     animSpeed: 1
   - atkConfig:
-      damage: 300
+      damage: 30
       atkStartFrame: 14
       atkEndFrame: 22
       colliderIndex: 000000000100000004000000
@@ -56,7 +56,7 @@ MonoBehaviour:
     animEndFrame: 32
     animSpeed: 1
   - atkConfig:
-      damage: 300
+      damage: 30
       atkStartFrame: 13
       atkEndFrame: 18
       colliderIndex: 020000000300000004000000

@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
 {
     protected virtual bool dontDestroyOnLoad => false;
+
     protected static T instance;
     protected static bool avaiable = true;
     public static T Instance

@@ -307,6 +307,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  fireSound: {fileID: 8300000, guid: 400bfadff74d1423c93ffffb0666fa04, type: 3}
+  reloadSound: {fileID: 8300000, guid: d58a6efe3c9ea4cbc930c9fc149ecade, type: 3}
+  defaultHitSound: {fileID: 8300000, guid: 0d21bb180934c4750a88d2b5148467e9, type: 3}
 --- !u!1001 &8203372318153325849
 PrefabInstance:
   m_ObjectHideFlags: 0

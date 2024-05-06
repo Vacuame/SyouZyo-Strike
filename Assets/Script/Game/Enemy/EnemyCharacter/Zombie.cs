@@ -13,6 +13,10 @@ public class Zombie : Enemy
     [SerializeField] private MMF_Player fb_hitOnImpulse;
     [SerializeField] private MMF_Player fb_parried;
 
+    [Header("Sound")]
+    [SerializeField] private AudioClip soundOnBullet;
+    [SerializeField] private AudioClip soundOnCut, soundOnImpulse,soundOnParried;
+
     protected override void Awake()
     {
         base.Awake();
@@ -27,14 +31,17 @@ public class Zombie : Enemy
     protected override void PlayHitEffect(HitInfo hitInfo)
     {
         HitType type = hitInfo.type;
+        AudioClip audioClip;
 
         if(type == HitType.Parry)
         {
             fb_parried.PlayFeedbacks();
+            audioClip = soundOnParried;
         }
         else if(type == HitType.Impulse || type == HitType.Explode)
         {
             fb_hitOnImpulse.PlayFeedbacks();
+            audioClip = soundOnImpulse;
         }
         else
         {
@@ -43,8 +50,15 @@ public class Zombie : Enemy
             if(type == HitType.Cut)
             {
                 fb_hitOnCut.PlayFeedbacks();
+                audioClip = soundOnCut;
+            }
+            else
+            {
+                audioClip = soundOnBullet;
             }
         }
+
+        SoundManager.GetOrCreateInstance()?.PlaySound(SoundPoolType.SFX, audioClip, hitInfo.pos);
     }
 
 }

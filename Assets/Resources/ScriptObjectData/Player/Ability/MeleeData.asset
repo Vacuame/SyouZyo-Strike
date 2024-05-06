@@ -32,18 +32,24 @@ MonoBehaviour:
     atkEndTime: 0.72
     canNextTime: 0.8
     meleeEndTime: 1.6
+    meleeSound: {fileID: 8300000, guid: 74050decb28c74a43b59209364652f1c, type: 3}
+    soundTime: 0.1
   - animSpeed: 1.3
     damageMultiplier: 0.5
     atkStartTime: 0.225
     atkEndTime: 0.4
     canNextTime: 0.75
     meleeEndTime: 1.5
+    meleeSound: {fileID: 8300000, guid: 74050decb28c74a43b59209364652f1c, type: 3}
+    soundTime: 0.1
   - animSpeed: 1.5
     damageMultiplier: 2.5
     atkStartTime: 0.88
     atkEndTime: 1.19
     canNextTime: 1.26
     meleeEndTime: 2.5
+    meleeSound: {fileID: 8300000, guid: 74050decb28c74a43b59209364652f1c, type: 3}
+    soundTime: 0.83
   animParamName: meleeIndex
   nextMeleeEarlierClickTime: 0.1
   atkMask:
