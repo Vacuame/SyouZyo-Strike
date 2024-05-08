@@ -20,7 +20,7 @@ public class InventoryPanelContext : PanelContext
 public class InventoryPanel : BasePanel
 {
     public static readonly UIType uiType = new UIType("Inventory/InventoryPanel");
-    public static readonly ItemSaveData emptyDelTetrisData = new ItemSaveData(3, 7, new List<ItemSave>());
+    public static readonly ItemSaveData emptyDelTetrisData = new ItemSaveData(4, 7, new List<ItemSave>());
 
     public InventoryPanelContext inventoryContext=>context as InventoryPanelContext;
 

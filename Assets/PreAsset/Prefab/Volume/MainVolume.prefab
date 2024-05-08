@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6937787730823294565}
   - component: {fileID: 3922447365644177891}
   - component: {fileID: 626647583261450717}
+  - component: {fileID: 9099544866631929163}
   m_Layer: 0
   m_Name: MainVolume
   m_TagString: Untagged
@@ -180,3 +181,16 @@ MonoBehaviour:
     m_RotationOrder: 4
   RemapBlueZero: 0
   RemapBlueOne: 200
+--- !u!114 &9099544866631929163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989588732205279193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3855665ffbff4e48b67dc481f523f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainVolume: {fileID: 3922447365644177891}
