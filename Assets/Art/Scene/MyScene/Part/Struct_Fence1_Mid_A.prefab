@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3305368}
   - component: {fileID: 2384666}
   - component: {fileID: 7737743989906425496}
+  - component: {fileID: 867760544460972442}
   m_Layer: 8
   m_Name: Struct_Fence1_Mid_A
   m_TagString: Untagged
@@ -105,3 +106,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 6.391533, y: 1.0092071, z: 0.37106672}
   m_Center: {x: -3.1956909, y: 0.50290036, z: 0.050343405}
+--- !u!114 &867760544460972442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
