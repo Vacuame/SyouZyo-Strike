@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace SceneFramework
+namespace MyScene
 {
     /// <summary>
     /// 场景状态管理系统

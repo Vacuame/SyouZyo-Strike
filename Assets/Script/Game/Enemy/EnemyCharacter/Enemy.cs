@@ -1,5 +1,5 @@
 using BehaviorDesigner.Runtime;
-using MoleMole;
+using MyUI;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -45,16 +45,28 @@ public class Enemy : Character
         bt = GetComponent<BehaviorTree>();
         nav = GetComponent<NavMeshAgent>();
 
-        for (int i = 0; i < patrolPointList.childCount; i++)
+        if(patrolPointList != null )
         {
-            patrolPoints.Add(patrolPointList.GetChild(i));
+            for (int i = 0; i < patrolPointList.childCount; i++)
+            {
+                patrolPoints.Add(patrolPointList.GetChild(i));
+            }
         }
+        else //没有就原地不动
+        {
+            GameObject nowPosTrans = new GameObject();
+            nowPosTrans.transform.position = transform.position;
+            patrolPoints.Add(nowPosTrans.transform);
+        }
+        
     }
     protected void Start()
     {
         RegistBodyPart();
 
         RegistSense();
+
+        (GameRoot.Instance.gameMode as GameMode_Play)?.OnEnemySpawn(this);
     }
     protected virtual void RegistSense()
     {
@@ -151,16 +163,25 @@ public class Enemy : Character
     private void EnterBattle(GameObject obj,bool discoverBySelf)
     {
         bt.SetVariableValue("Target", obj);
+
+        if (bBattle) return;
+
         if(discoverBySelf)
+        {
             bt.SetVariableValue("ToEnterBattle", true);
+        }
+
         BehaviorExtension.Restart(bt);
         bBattle = true;
     }
     private void OnAlertPost(AttributeBase alert, float old, float value)
     {
         EnemyAlertHUD alertHUD = HUDManager.GetHUD<EnemyAlertHUD>();
-        alertHUD.SetAlertVisiable(gameObject,!bBattle && value > 0);
-        alertHUD.GetAlertTip(gameObject)?.SetValue(alert.GetProportion());
+        if(alertHUD!=null)
+        {
+            alertHUD.SetAlertVisiable(gameObject, !bBattle && value > 0);
+            alertHUD.GetAlertTip(gameObject)?.SetValue(alert.GetProportion());
+        }
 
         if (bBattle) return;
 
@@ -302,7 +323,7 @@ public class Enemy : Character
     #endregion
 
     #region 死亡
-    protected override void Dead()
+    public override void Dead()
     {
         HUDManager.GetHUD<EnemyAlertHUD>(true).RemoveAlertTip(gameObject);
 
@@ -335,6 +356,7 @@ public class Enemy : Character
         
         gameObject.layer = LayerMask.NameToLayer("Ignore");
         bDead = true;
+        (GameRoot.Instance.gameMode as GameMode_Play)?.OnEnemyDead(this);
 
         TimerManager.Instance.AddTimer(new Timer(OnDeadEnd, 1, 0.6f));
         TimerManager.Instance.AddTimer(new Timer(() => Destroy(this.gameObject), 1, 20));

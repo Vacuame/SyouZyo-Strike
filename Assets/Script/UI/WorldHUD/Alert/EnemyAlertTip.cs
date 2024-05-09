@@ -1,4 +1,4 @@
-using MoleMole;
+using MyUI;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.UI;

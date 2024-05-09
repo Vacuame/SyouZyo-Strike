@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-namespace MoleMole
+namespace MyUI
 {
     /// <summary>
     /// 用处是重写后可以给Panel带数据，比如确定栏显示的字

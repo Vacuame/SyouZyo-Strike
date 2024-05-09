@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using static UnityEditor.Progress;
 using UnityEngine.SceneManagement;
 
-namespace MoleMole
+namespace MyUI
 {
     public class UIManager :Singleton<UIManager>
     {

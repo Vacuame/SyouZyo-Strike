@@ -1,4 +1,4 @@
-using MoleMole;
+using MyUI;
 using System.Security.Cryptography;
 using UnityEngine;
 
@@ -122,7 +122,9 @@ public class Assassination : AbstractAbility<AssassinationAsset>
         {
             timeLine.AddEvent(asset.doAtkTime, ()=> 
             EventManager.Instance.TriggerEvent(Consts.Event.Hit + target.GetInstanceID(),
-            new HitInfo(HitType.Assassinate, asset.dmg, character.gameObject, target)));
+            new HitInfo(HitType.Assassinate, asset.dmg, character.gameObject, target,
+            knifeTransform.position,
+            (target.transform.position-character.transform.position).normalized)));
 
             timeLine.AddEvent(asset.endTime, EndSelf);
         }

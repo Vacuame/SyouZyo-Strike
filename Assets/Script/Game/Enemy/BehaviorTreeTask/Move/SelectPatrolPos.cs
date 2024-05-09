@@ -11,24 +11,37 @@ public class SelectPatrolPos : EnemyAction
 
     public override TaskStatus OnUpdate()
     {
-        movePos.Value = me.patrolPoints[curPatrolIndex].position;
-
-        if((curPatrolIndex == 0 && indexDirection == -1)||
-            (curPatrolIndex == me.patrolPoints.Count-1 && indexDirection == 1 ))
-        { 
-            switch(me.patrolType)
-            {
-                case PatrolType.ReverseOnEnd:
-                    indexDirection *= -1;
-                    break;
-                case PatrolType.Circle:
-                    curPatrolIndex = 0;
-                    break;
-            }
+        //首先先特判
+        if (me.patrolPoints == null||me.patrolPoints.Count == 0)
+        {
+            movePos.Value = me.transform.position;
         }
+        else if(me.patrolPoints.Count == 1)
+        {
+            movePos.Value = me.patrolPoints[0].position;
+        }
+        //下面才是正式选点
+        else
+        {
+            movePos.Value = me.patrolPoints[curPatrolIndex].position;
 
-        curPatrolIndex += indexDirection;
+            if ((curPatrolIndex == 0 && indexDirection == -1) ||
+                (curPatrolIndex == me.patrolPoints.Count - 1 && indexDirection == 1))
+            {
+                switch (me.patrolType)
+                {
+                    case PatrolType.ReverseOnEnd:
+                        indexDirection *= -1;
+                        break;
+                    case PatrolType.Circle:
+                        curPatrolIndex = 0;
+                        break;
+                }
+            }
 
+            curPatrolIndex += indexDirection;
+        }
+        
         return TaskStatus.Success;
     }
 

@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-namespace MoleMole
+namespace MyUI
 {
     public class HUDManager : Singleton<HUDManager>
     {
@@ -19,6 +18,7 @@ namespace MoleMole
         }
         public void OnSceneLoaded()
         {
+            _HUDDict = new Dictionary<string, BaseHUD>();
             _canvas = GameObject.Find("HUDCanvas")?.transform;
             _worldCanvas = GameObject.Find("WorldCanvas")?.transform;
             Transform[] canvases = new Transform[2] { _canvas, _worldCanvas };
@@ -34,7 +34,9 @@ namespace MoleMole
         public static T GetHUD<T>(bool inWorldHUD = false) where T : BaseHUD
         {
             if (GameRoot.ApplicationQuit)
+            {
                 return null;
+            }
 
             string name = typeof(T).Name;
             Dictionary<string, BaseHUD> HUDDict = Instance._HUDDict;

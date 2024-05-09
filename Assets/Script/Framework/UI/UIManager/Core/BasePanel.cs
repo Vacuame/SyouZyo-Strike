@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using Unity.VisualScripting;
 
-namespace MoleMole
+namespace MyUI
 {
 	public class BasePanel : MonoBehaviour
     {
@@ -30,7 +30,9 @@ namespace MoleMole
         public virtual void OnExit(bool trueDestroy)
         {
             if (trueDestroy)
+            {
                 UIManager.Instance.DestroyView(context.uiType);
+            }
             else
             {
                 transform.PanelAppearance(false);

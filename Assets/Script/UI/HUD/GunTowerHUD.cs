@@ -1,4 +1,4 @@
-using MoleMole;
+using MyUI;
 using UnityEngine;
 using UnityEngine.UI;
 

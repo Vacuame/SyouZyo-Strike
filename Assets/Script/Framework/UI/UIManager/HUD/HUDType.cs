@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace MoleMole
+namespace MyUI
 {
     public class HUDType : UIType
     {

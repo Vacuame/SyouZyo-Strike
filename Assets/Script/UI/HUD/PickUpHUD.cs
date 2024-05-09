@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MoleMole;
+using MyUI;
 using UnityEngine.UI;
 
 public class PickUpHUD : BaseHUD

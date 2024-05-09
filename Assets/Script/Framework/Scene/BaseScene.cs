@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using MoleMole;
+using MyUI;
 
-namespace SceneFramework
+namespace MyScene
 {
     /// <summary>
     /// 场景状态

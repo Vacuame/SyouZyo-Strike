@@ -26,13 +26,17 @@ public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject);//新的被Destroy，设置了全局变量，导致出了问题
             return;
         }
 
         //sceneUnloaded说明GameObject被清空了，不会有人调用了，所以设置avaiable
         //若在sceneLoaded设置就晚了，因为会在Awake之后执行，有些Mono是Awake调用的就拿不到Instance
-        SceneManager.sceneUnloaded += (Scene) => { avaiable = true; };
+        SceneManager.sceneUnloaded += (Scene) => 
+        {
+            //Debug.Log("sceneUnloaded" + gameObject);
+            avaiable = true; 
+        };
 
         if (dontDestroyOnLoad)
             DontDestroyOnLoad(gameObject);
@@ -59,9 +63,12 @@ public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
         return instance;
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()//仅在加载场景时会Destroy，所以OnDestroy代表场景加载
     {
-        avaiable = false;
+        if(instance == gameObject)
+        {
+            avaiable = false;
+        }
     }
     private void OnApplicationQuit()
     {

@@ -5,15 +5,26 @@ using UnityEngine.AI;
 
 public abstract class Move : EnemyAction
 {
-    public SharedFloat maxSpeed;
+    public SharedFloat moveSpeed;
     public SharedFloat stopDistance;
 
-    private bool SetNavDestination;
+    public SharedBool randomSpeed;
+    public SharedFloat minSpeed;
+    public SharedFloat maxSpeed;
+    //private bool SetNavDestination;
+
+    public override void OnStart()
+    {
+        if (randomSpeed.Value)
+        {
+            moveSpeed.Value = Random.Range(minSpeed.Value, maxSpeed.Value); 
+        }
+    }
 
     public override TaskStatus OnUpdate()
     {
-        if (maxSpeed.Value != 0)
-            me.nav.speed = maxSpeed.Value;
+        if (moveSpeed.Value != 0)
+            me.nav.speed = moveSpeed.Value;
         me.nav.destination = GetTargetPos();
         me.nav.stoppingDistance = GetStopDistance();
 

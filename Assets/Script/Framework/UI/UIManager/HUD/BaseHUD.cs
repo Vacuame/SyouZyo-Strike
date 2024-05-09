@@ -3,7 +3,7 @@ using System.Collections;
 using System.ComponentModel;
 using UnityEngine;
 
-namespace MoleMole
+namespace MyUI
 {
     public abstract class BaseHUD : MonoBehaviour
     {

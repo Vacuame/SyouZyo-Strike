@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameBasic;
-using MoleMole;
+using MyUI;
 
 public class PlayCamera : MonoBehaviour
 {

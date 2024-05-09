@@ -1,8 +1,5 @@
-using MoleMole;
-using SceneFramework;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using MyUI;
+using MyScene;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +8,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameRoot : SingletonMono<GameRoot>
 {
+    public bool testGame;
     public static bool ApplicationQuit => !avaiable;
     protected override bool dontDestroyOnLoad => true;
 
@@ -19,6 +17,8 @@ public class GameRoot : SingletonMono<GameRoot>
     /// </summary>
     public UnityAction beforeLoadSceneAction;
     public UnityAction afterLoadSceneAction;
+
+    public GameMode gameMode;
 
     /// <summary>
     /// 许多初始化
@@ -32,11 +32,14 @@ public class GameRoot : SingletonMono<GameRoot>
         HUDManager.Instance.Init();
         SceneSystem.Instance.Init();
 
-#if UNITY_EDITOR
-        SceneSystem.Instance.curScene = new UITestScene();
-#else
-        //SceneSystem.Instance.SetScene("MainScene")
-#endif
+        if(testGame)
+        {
+            SceneSystem.Instance.curScene = new LevelScene("Level1");
+        }
+        else
+        {
+            SceneSystem.Instance.curScene= new MainMenuScene();
+        }
     }
 
     void Update()

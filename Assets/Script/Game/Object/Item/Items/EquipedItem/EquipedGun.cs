@@ -1,5 +1,5 @@
 using Cinemachine;
-using MoleMole;
+using MyUI;
 using System.Linq;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;

@@ -1,7 +1,5 @@
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 [TaskCategory("Mine")]
 public class NotifyPlayer : EnemyAction
@@ -16,6 +14,9 @@ public class NotifyPlayer : EnemyAction
         SoundMaker.Instance.MakeSound(me.transform.position,
             new SoundConfig(soundDistance.Value, LayerMask.GetMask("Enemy")),
             new SoundInfo(SoundType.NotifyPlayer, target.Value));
+
+        (GameRoot.Instance.gameMode as GameMode_Play)?.OnNotifyPlayer(target.Value);
+
         return TaskStatus.Success;
     }
 }

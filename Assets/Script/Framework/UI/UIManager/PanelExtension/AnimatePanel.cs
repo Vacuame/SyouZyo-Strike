@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-namespace MoleMole
+namespace MyUI
 {
     [RequireComponent(typeof(Animator))]
 	public abstract class AnimatePanel : BasePanel 

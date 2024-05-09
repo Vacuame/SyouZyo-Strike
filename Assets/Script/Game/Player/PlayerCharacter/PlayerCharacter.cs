@@ -3,7 +3,7 @@ using UnityEngine.Animations.Rigging;
 using static Control;
 using static UnityEngine.InputSystem.InputAction;
 using GameBasic;
-using MoleMole;
+using MyUI;
 using System.Collections.Generic;
 using UnityEngine.Rendering.Universal;
 using MoreMountains.Feedbacks;
@@ -281,7 +281,7 @@ public class PlayerCharacter : Character
     #endregion
 
     #region DeadÖÜÆÚ
-    protected override void Dead()
+    public override void Dead()
     {
         
     }
@@ -340,7 +340,7 @@ public class PlayerCharacter : Character
 
             fb_GetHit.PlayFeedbacks();
         }
-        HUDManager.GetHUD<PlayerHUD>().SetHpValue(proportion);
+        HUDManager.GetHUD<PlayerHUD>()?.SetHpValue(proportion);
 
         base.OnHealthPost(health, old, now);
     }
