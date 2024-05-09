@@ -45,6 +45,9 @@ public class PlayCamera : MonoBehaviour
         this.target = target;
         curCamera.Follow = target;
         curCamera.LookAt = target;
+
+        curCamera.gameObject.SetActive(false);
+        curCamera.gameObject.SetActive(true);
     }
 
     public void SwitchCamera(Tags.Camera tag)
@@ -54,8 +57,7 @@ public class PlayCamera : MonoBehaviour
             curCamera.gameObject.SetActive(false);
             curCameraTag = tag;
             curCamera.gameObject.SetActive(true);
-            curCamera.Follow = target;
-            curCamera.LookAt = target;
+            SetCameraTarget(this.target);
         }
 
     }

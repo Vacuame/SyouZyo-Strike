@@ -69,9 +69,6 @@ public class GameMode_Play_Level1 : GameMode_Play
 
         //BGM
 
-        //显示任务目标HUD
-
-
     }
 
     public override void OnEnemySpawn(Enemy e)
@@ -117,8 +114,9 @@ public class GameMode_Play_Level1 : GameMode_Play
             enemy.Dead();
         }
 
-        //显示胜利Panel
+        UIManager.Instance.Push(new PanelContext(GameOverPanel.uiType));
 
+        GameRoot.Instance.GetGameMode<GameMode_Play>().playerController.ReleasePawn();
     }
 
     private void SpawnEnemy()

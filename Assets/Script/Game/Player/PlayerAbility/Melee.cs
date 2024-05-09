@@ -95,7 +95,7 @@ public class Melee : AbstractAbility<MeleeAsset>
 
         public override void InitTimeLine()
         {
-            timeLine = new AbilityTimeLine();
+            timeLine = new MyTimeLine();
             float meleeSpeed = curConfig.animSpeed;
             timeLine.AddEvent(curConfig.atkStartTime/ meleeSpeed, AtkStart);
             timeLine.AddEvent(curConfig.atkEndTime/ meleeSpeed, AtkEnd);

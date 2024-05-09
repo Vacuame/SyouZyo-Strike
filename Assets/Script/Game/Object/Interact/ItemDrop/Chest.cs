@@ -15,7 +15,7 @@ public class Chest : InteractableObj
     public float objInstanceTime;
     public float interactTime;
 
-    private AbilityTimeLine timeline = new AbilityTimeLine();
+    private MyTimeLine timeline = new MyTimeLine();
     private PlayerCharacter player;
     private Animation anim;
     private void Awake()

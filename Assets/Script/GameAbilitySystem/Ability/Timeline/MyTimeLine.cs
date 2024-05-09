@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class AbilityTimeLine
+public class MyTimeLine
 {
     private bool bStart;//是否开始
     public bool bPause;//是否暂停
@@ -9,7 +9,7 @@ public class AbilityTimeLine
     private Action reset;//重置事件
     private Action<float> update;//每帧回调
 
-    public AbilityTimeLine()
+    public MyTimeLine()
     {
         Reset();
     }

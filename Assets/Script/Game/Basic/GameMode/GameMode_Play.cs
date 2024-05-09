@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameMode_Play : GameMode
 {
     protected List<Enemy> enemyList = new List<Enemy>();
-
+    [HideInInspector] public PlayerController playerController;
     public virtual void OnEnemySpawn(Enemy e)
     {
         enemyList.Add(e);

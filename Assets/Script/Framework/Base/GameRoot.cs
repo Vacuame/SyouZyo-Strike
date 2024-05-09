@@ -20,6 +20,11 @@ public class GameRoot : SingletonMono<GameRoot>
 
     public GameMode gameMode;
 
+    public T GetGameMode<T>()where T : GameMode
+    {
+        return gameMode as T;
+    }
+
     /// <summary>
     /// 许多初始化
     /// 注意初始化顺序，Scene会调用UI，所以UI先初始化（绑定sceneLoaded先执行）
@@ -31,6 +36,7 @@ public class GameRoot : SingletonMono<GameRoot>
         UIManager.Instance.Init();
         HUDManager.Instance.Init();
         SceneSystem.Instance.Init();
+        TimerManager.Instance.Init();
 
         if(testGame)
         {

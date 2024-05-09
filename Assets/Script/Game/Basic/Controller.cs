@@ -52,10 +52,16 @@ namespace GameBasic
                 playCamera = Camera.main.GetComponent<PlayCamera>();
             }
 
-            playCamera.SetCameraTarget(transform);
-
             if (presetPawn != null)
+            {
                 ControlPawn(presetPawn);
+            }
+            else
+            {
+                transform.position = playCamera.transform.position;
+                playCamera.SetCameraTarget(transform);
+            }
+                
         }
         protected virtual void Update()
         {
@@ -71,8 +77,7 @@ namespace GameBasic
         {
             if (controlledPawn == newPawn)
                 return;
-            if (controlledPawn != null)
-                controlledPawn.RemoveController();
+            ReleasePawn();
             controlledPawn = newPawn;
             
             playCamera.SetCameraTarget(controlledPawn.centerTransform);
@@ -83,6 +88,15 @@ namespace GameBasic
             exYaw = controlledPawn.transform.eulerAngles.y;
 
             controlledPawn.SetController(this);
+        }
+
+        public virtual void ReleasePawn()
+        {
+            if (controlledPawn != null)
+            {
+                controlledPawn.RemoveController();
+            }
+            controlledPawn = null;
         }
 
         /// <summary>

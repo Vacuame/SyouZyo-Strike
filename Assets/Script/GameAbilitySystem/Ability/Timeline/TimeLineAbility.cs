@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class TimeLineAbilitySpec : AbilitySpec
 {
-    protected AbilityTimeLine timeLine = new AbilityTimeLine();
+    protected MyTimeLine timeLine = new MyTimeLine();
     public TimeLineAbilitySpec(AbstractAbility ability, AbilitySystemComponent owner) : base(ability, owner)
     {
 

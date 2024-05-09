@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MainMenuScene : BaseScene
 {
-    public MainMenuScene() : base("MainMenuScene")
+    public MainMenuScene() : base("MainMenu")
     {
 
     }

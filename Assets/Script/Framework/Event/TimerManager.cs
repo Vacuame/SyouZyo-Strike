@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,6 +8,12 @@ public class TimerManager : Singleton<TimerManager>
 {
     public Dictionary<int, Timer> timerDic = new Dictionary<int, Timer>();
     public LinkedList<Timer> timerList = new LinkedList<Timer>();
+
+    public override void Init()
+    {
+        GameRoot.Instance.beforeLoadSceneAction += RemoveAllTimers;
+    }
+
     public void Update()
     {
         List<int> removes = new List<int>();
@@ -47,6 +54,17 @@ public class TimerManager : Singleton<TimerManager>
     {
         for (int i = 0; i < keys.Length; i++)
             RemoveTimer(keys[i]);
+    }
+
+    public void RemoveAllTimers()
+    {
+        int[] keys = new int[timerDic.Count];
+        int index = 0;
+        foreach(var a in timerDic)
+        {
+            keys[index++] = a.Key;
+        }
+        RemoveTimers(keys);
     }
 
     public int AddTimer(Timer timer)

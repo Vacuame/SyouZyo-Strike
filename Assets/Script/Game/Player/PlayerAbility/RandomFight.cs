@@ -64,7 +64,7 @@ public class RandomFight : AbstractAbility<RandomFightAsset>
 
         public override void InitTimeLine()
         {
-            timeLine = new AbilityTimeLine();
+            timeLine = new MyTimeLine();
             AttackConfig atk = curFightConfig.atkConfig;
             timeLine.AddEvent(curFightConfig.FrameToTime(atk.atkStartFrame), () => AtkStart(atk.colliderIndex));
             timeLine.AddEvent(curFightConfig.FrameToTime(atk.atkEndFrame), () => AtkEnd());

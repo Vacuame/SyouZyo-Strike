@@ -53,7 +53,7 @@ namespace MyUI
             //透明度
             group.alpha = value;
 
-            //t.gameObject.SetActive(on_off || active);
+            t.gameObject.SetActive(on_off || t.gameObject.activeSelf);
         }
     }
 }

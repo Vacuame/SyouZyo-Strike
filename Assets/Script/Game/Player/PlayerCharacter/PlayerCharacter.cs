@@ -88,6 +88,9 @@ public class PlayerCharacter : Character
         
         if(!setControlled)//一开始想做多个控制器的，还写SetControll，后来东西多了各种绑定实在很麻烦
         {
+            Interact_SO interactAsset = Resources.Load<Interact_SO>(abilityRootPath + "InteractData");
+            ABS.GrandAbility(new Interact(interactAsset, centerTransform, controller.playCamera.transform));
+
             controller.control.Player.Interact.started += OnInteractPressed;
             controller.control.Player.Squat.started += OnCrouchPressed;
             controller.control.Player.Slot.started += OnSlotPressed;
@@ -153,9 +156,6 @@ public class PlayerCharacter : Character
 
         EquipItemAsset equipAsset = Resources.Load<EquipItemAsset>(abilityRootPath+"EquipData");
         ABS.GrandAbility(new EquipItem(equipAsset,this));
-
-        Interact_SO interactAsset = Resources.Load<Interact_SO>(abilityRootPath + "InteractData");
-        ABS.GrandAbility(new Interact(interactAsset, centerTransform, controller.playCamera.transform));
 
         ABS.GrandAbility(new Crouch(Resources.Load<AbilityAsset>(abilityRootPath + "CrouchAsset"),this));
 
