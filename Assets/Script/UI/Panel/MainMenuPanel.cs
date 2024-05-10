@@ -19,7 +19,7 @@ public class MainMenuPanel : BasePanel
 
     private void GameStart()
     {
-        SceneSystem.Instance.SetSceneAsync(new BaseScene("Level1"));
+        UIManager.Instance.Push(new PanelContext(DifficultySelectPanel.uiType));
     }
     private void Exit()
     {

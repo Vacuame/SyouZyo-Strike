@@ -1,5 +1,6 @@
 using MyUI;
 using MyScene;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
@@ -18,7 +19,7 @@ public class GameRoot : SingletonMono<GameRoot>
     public UnityAction beforeLoadSceneAction;
     public UnityAction afterLoadSceneAction;
 
-    public GameMode gameMode;
+    [HideInInspector]public GameMode gameMode;
 
     public T GetGameMode<T>()where T : GameMode
     {
@@ -40,7 +41,7 @@ public class GameRoot : SingletonMono<GameRoot>
 
         if(testGame)
         {
-            SceneSystem.Instance.curScene = new LevelScene("Level1");
+            SceneSystem.Instance.curScene = new LevelScene("Level1",null);
         }
         else
         {
