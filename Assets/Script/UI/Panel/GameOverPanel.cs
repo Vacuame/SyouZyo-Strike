@@ -29,7 +29,8 @@ public class GameOverPanel : BasePanel
 
 
         settlementPanelTrans.PanelAppearance(false);
-        btnReturnToMenu.onClick.AddListener(() => SceneSystem.Instance.SetSceneAsync(new MainMenuScene()));
+        btnReturnToMenu.onClick.AddListener(() => SceneSystem.Instance.SetSceneAsync(
+            new MainMenuScene(), needPressKey:false));
     }
 
 
