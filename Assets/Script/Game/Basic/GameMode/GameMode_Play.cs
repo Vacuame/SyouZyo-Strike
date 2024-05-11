@@ -6,6 +6,11 @@ public class GameMode_Play : GameMode
 {
     protected List<Enemy> enemyList = new List<Enemy>();
     [HideInInspector] public PlayerController playerController;
+
+    [HideInInspector]public GameModeInfo levelInfo;
+    public float playerInjuryMultiplier;
+    public float enemyInjuryMultiplier;
+
     public virtual void OnEnemySpawn(Enemy e)
     {
         enemyList.Add(e);
@@ -18,6 +23,13 @@ public class GameMode_Play : GameMode
     public virtual void OnNotifyPlayer(GameObject player)
     {
 
+    }
+
+    public virtual void LoadGameModeInfo(GameModeInfo info)
+    {
+        levelInfo = info;
+        playerInjuryMultiplier = info.playerInjuryMultiplier;
+        enemyInjuryMultiplier = info.enemyInjuryMultiplier;
     }
 
 }

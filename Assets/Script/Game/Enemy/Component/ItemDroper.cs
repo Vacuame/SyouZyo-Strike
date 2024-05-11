@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ItemDroper;
 
 public class ItemDroper : MonoBehaviour
 {
@@ -17,7 +18,16 @@ public class ItemDroper : MonoBehaviour
 
     private void Awake()
     {
-        foreach(var config in dropConfigs)
+        LoadDropConfigs(dropConfigs);
+    }
+
+    public void LoadDropConfigs(List<DropConfig> configs)
+    {
+        if (configs == null) return;
+        dropConfigs = configs;
+
+        weightList.Clear();
+        foreach (var config in dropConfigs)
         {
             weightList.Add(config.weight);
         }

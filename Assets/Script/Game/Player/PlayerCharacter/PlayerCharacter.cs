@@ -283,7 +283,7 @@ public class PlayerCharacter : Character
     #region Dead周期
     public override void Dead()
     {
-        
+        //懒得死了，反正演示的时候我也不死
     }
 
     protected override void OnDeadEnd()
@@ -346,8 +346,11 @@ public class PlayerCharacter : Character
     }
     protected override void OnHit(HitInfo hitInfo)
     {
+        float gameModeInjuryMultiplier = GameRoot.Instance.GetGameMode<GameMode_Play>().playerInjuryMultiplier;
+        float dmg = hitInfo.damage * gameModeInjuryMultiplier;
+
         if (!ABS.HasTag("Invincible"))
-            ABS.AttrSet<CharaAttr>().health.SetValueRelative(hitInfo.damage, Tags.Calc.Sub);
+            ABS.AttrSet<CharaAttr>().health.SetValueRelative(dmg, Tags.Calc.Sub);
 
         SoundManager.GetOrCreateInstance()?.PlaySound(SoundPoolType.SFX, soundOnHit, hitInfo.pos);
     }

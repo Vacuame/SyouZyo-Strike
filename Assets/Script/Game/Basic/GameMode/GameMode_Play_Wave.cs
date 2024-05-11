@@ -1,14 +1,13 @@
 using MyUI;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
+using static ItemDroper;
 
 
 //发现玩家会通知所有敌人
 //而且会刷怪
 //还有计时
-public class GameMode_Play_Level1 : GameMode_Play
+public class GameMode_Play_Wave : GameMode_Play
 {
     private bool bBattle,bWin;
     [SerializeField] private float timeToWin;
@@ -23,6 +22,34 @@ public class GameMode_Play_Level1 : GameMode_Play
     [SerializeField] private Enemy enemyPrefab;
 
     [HideInInspector]public GameObject enemiesTarget;
+
+    private List<DropConfig> dropConfigs;
+
+    public override void LoadGameModeInfo(GameModeInfo info)
+    {
+        base.LoadGameModeInfo(info);
+
+        if(info is WaveModeInfo)
+        {
+            WaveModeInfo waveInfo = info as WaveModeInfo;
+
+            sumEnemyNum = waveInfo.sumEnemyNum;
+            maxEnemyNumInScene = waveInfo.maxEnemyNumInScene;
+
+            dropConfigs = waveInfo.dropConfigs;
+            foreach(var e in enemyList)
+            {
+                if(e.TryGetComponent(out ItemDroper droper))
+                {
+                    droper.LoadDropConfigs(dropConfigs);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("加载了错误类型的GameModeInfo");
+        }
+    }
 
     private void Update()
     {
@@ -74,6 +101,11 @@ public class GameMode_Play_Level1 : GameMode_Play
     public override void OnEnemySpawn(Enemy e)
     {
         base.OnEnemySpawn(e);
+
+        if (dropConfigs != null && e.TryGetComponent(out ItemDroper droper))
+        {
+            droper.LoadDropConfigs(dropConfigs);
+        }
 
         if (enemiesTarget != null)
         {

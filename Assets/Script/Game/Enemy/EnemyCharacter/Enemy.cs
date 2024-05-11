@@ -265,7 +265,9 @@ public class Enemy : Character
             WeaknessData weakData = weakDict[partName];
             dmgMul = weakData.multiplyDict[hitInfo.type];
         }
-        float dmg = hitInfo.damage * dmgMul;
+
+        float gameModeInjuryMultiplier = GameRoot.Instance.GetGameMode<GameMode_Play>().enemyInjuryMultiplier;
+        float dmg = hitInfo.damage * dmgMul * gameModeInjuryMultiplier;
 
         //各种Debuff情况
         if(!ABS.HasTag("Disable"))

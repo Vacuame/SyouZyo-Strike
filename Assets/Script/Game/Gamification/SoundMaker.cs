@@ -11,10 +11,11 @@ public class SoundMaker:Singleton<SoundMaker>
         Collider[] cols = Physics.OverlapSphere(pos, sound.radious, sound.soundMask);
         foreach(var a in cols)
         {
+            //不想用寻路了，有时候听不到，所以加上true||
             NavMeshPath path = new NavMeshPath();
-            if(NavMesh.CalculatePath(a.transform.position, pos, NavMesh.AllAreas, path))
+            if(true||NavMesh.CalculatePath(a.transform.position, pos, NavMesh.AllAreas, path))
             {
-                if(NavExtension.GetPathLength(pos,path,a.transform.position)<=sound.radious)
+                if(true || NavExtension.GetPathLength(pos,path,a.transform.position)<=sound.radious)
                     EventManager.Instance.TriggerEvent("Hear"+a.gameObject.GetInstanceID(), pos, info);
             }
         }

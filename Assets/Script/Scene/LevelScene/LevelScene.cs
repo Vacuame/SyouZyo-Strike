@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class LevelScene : BaseScene
 {
-    LevelSceneInfo sceneInfo;
-    public LevelScene(string levelName,LevelSceneInfo sceneInfo) : base(levelName)
+    GameModeInfo gameModeInfo;
+    public LevelScene(string levelName, GameModeInfo gameModeInfo) : base(levelName)
     {
-        this.sceneInfo = sceneInfo;
+        this.gameModeInfo = gameModeInfo;
     }
     public override void OnSceneLoaded()
     {
-        if(sceneInfo!=null)
+        if(gameModeInfo!=null)
         {
-            Debug.Log(sceneInfo.maxEnemyNum);
+            (GameRoot.Instance.gameMode as GameMode_Play).LoadGameModeInfo(gameModeInfo);
         }
     }
 

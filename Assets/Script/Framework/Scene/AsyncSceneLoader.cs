@@ -50,7 +50,7 @@ namespace MyScene
             }
 
             slider.gameObject.SetActive(false);
-            ContiuneText.SetActive(true);
+            ContiuneText.SetActive(needPressAnyKey);
             loaded = true;
         }
 

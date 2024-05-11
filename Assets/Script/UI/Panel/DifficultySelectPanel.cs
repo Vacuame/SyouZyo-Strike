@@ -1,6 +1,5 @@
 using MyScene;
 using MyUI;
-using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -20,7 +19,7 @@ public class DifficultySelectPanel : BasePanel
         public Button btn;
         [TextArea]
         public string intro;
-        public LevelSceneInfo sceneInfo;
+        public GameModeInfo gameModeInfo;
     }
 
     protected override void Init()
@@ -30,7 +29,7 @@ public class DifficultySelectPanel : BasePanel
             Button button = difBtn.btn;
 
             button.onClick.AddListener(() => SceneSystem.Instance.SetSceneAsync(
-                new LevelScene("Level1", difBtn.sceneInfo)));
+                new LevelScene("Level1", difBtn.gameModeInfo)));
 
             EventTrigger eventTrigger = button.gameObject.GetOrAddComponent<EventTrigger>();
 

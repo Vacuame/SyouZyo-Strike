@@ -4,6 +4,8 @@ namespace GameBasic
 {
     public class Controller : MonoBehaviour
     {
+        [HideInInspector] public float pawnInjuryMultiplier = 1f;
+
         [SerializeField] private Pawn presetPawn;
         [HideInInspector] public Pawn controlledPawn;
         [HideInInspector] public PlayCamera playCamera;
