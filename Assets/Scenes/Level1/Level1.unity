@@ -4928,22 +4928,22 @@ PrefabInstance:
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.72493446
+      value: 0.7249363
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.013148817
+      value: 0.013169254
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.68855834
+      value: -0.68855566
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0135869915
+      value: 0.013602
       objectReference: {fileID: 0}
     - target: {fileID: 2924107836936789096, guid: b86bedf30e60f864d97f5bddf618a5f4,
         type: 3}
@@ -11022,16 +11022,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3990438734418231291, guid: 0dab7616cabb8074a858e9613d450e29,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5599998
-      objectReference: {fileID: 0}
-    - target: {fileID: 3990438734418231291, guid: 0dab7616cabb8074a858e9613d450e29,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.5599998
-      objectReference: {fileID: 0}
-    - target: {fileID: 3990438734418231291, guid: 0dab7616cabb8074a858e9613d450e29,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: 147.26
       objectReference: {fileID: 0}
@@ -11398,6 +11388,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 5176915916563508530, guid: 85bd9869aa6533142b51d42d1ff71190,
     type: 3}
   enemiesTarget: {fileID: 0}
+  battleBGM: {fileID: 8300000, guid: c8dcfccb5aeeeda4cb4f068b95f839dd, type: 3}
 --- !u!4 &2139947775
 Transform:
   m_ObjectHideFlags: 0

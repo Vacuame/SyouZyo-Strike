@@ -13,6 +13,8 @@ public class Missile : MonoBehaviour
     [SerializeField] private LayerMask explodeMask;
     [SerializeField] private float dmg;
 
+    [SerializeField] private AudioClip lunchSound, ExplodeSound;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -34,6 +36,8 @@ public class Missile : MonoBehaviour
         rb.velocity = dir*spd;
         launchedTimer = 5f;
         lauched= true;
+
+        SoundManager.Instance.PlaySound(SoundPoolType.SFX, lunchSound, transform.position);
     }
     private void Update()
     {
@@ -52,6 +56,8 @@ public class Missile : MonoBehaviour
         if(lauched)
         {
             ParticleManager.GetOrCreateInstance()?.PlayEffect("Explode", transform.position, Quaternion.identity);
+
+            SoundManager.Instance.PlaySound(SoundPoolType.SFX, ExplodeSound, transform.position);
 
             Collider[] cols = explodeRange.Overlap(explodeMask);
             foreach (var col in cols)

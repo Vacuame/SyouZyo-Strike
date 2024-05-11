@@ -153,3 +153,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 129
   dmg: 1000
+  lunchSound: {fileID: 8300000, guid: 140e438b22e537a43a7d0d15abe134d0, type: 3}
+  ExplodeSound: {fileID: 8300000, guid: 81dd78c2c783b734aba13028a47a138a, type: 3}

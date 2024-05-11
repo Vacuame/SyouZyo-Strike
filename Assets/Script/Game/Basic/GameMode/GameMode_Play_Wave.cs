@@ -1,6 +1,7 @@
 using MyUI;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using static ItemDroper;
 
 
@@ -24,6 +25,9 @@ public class GameMode_Play_Wave : GameMode_Play
     [HideInInspector]public GameObject enemiesTarget;
 
     private List<DropConfig> dropConfigs;
+
+    private int bgmId;
+    [SerializeField] private AudioClip battleBGM;
 
     public override void LoadGameModeInfo(GameModeInfo info)
     {
@@ -95,7 +99,7 @@ public class GameMode_Play_Wave : GameMode_Play
         winTimer = timeToWin;
 
         //BGM
-
+       bgmId = SoundManager.Instance.PlayLoop(SoundPoolType.BGM, battleBGM, 0.5f);
     }
 
     public override void OnEnemySpawn(Enemy e)
@@ -140,7 +144,9 @@ public class GameMode_Play_Wave : GameMode_Play
         bWin = true;
         bBattle = false;
 
-        for(int i = enemyList.Count-1;i>=0;i--)
+        SoundManager.Instance.EndLoop(SoundPoolType.BGM, bgmId);
+
+        for (int i = enemyList.Count-1;i>=0;i--)
         {
             Enemy enemy = enemyList[i];
             enemy.Dead();
@@ -158,4 +164,10 @@ public class GameMode_Play_Wave : GameMode_Play
         Enemy newEnemy = GameObject.Instantiate(enemyPrefab, spawnTrans.position, spawnTrans.rotation);
     }
 
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+
+        SoundManager.Instance.EndLoop(SoundPoolType.BGM, bgmId);
+    }
 }

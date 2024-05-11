@@ -16,7 +16,7 @@ public class Zombie : Enemy
     [Header("Sound")]
     [SerializeField] private AudioClip soundOnBullet;
     [SerializeField] private AudioClip soundOnCut, soundOnImpulse,soundOnParried;
-
+    [SerializeField] private AudioClip deadSound;
     protected override void Awake()
     {
         base.Awake();
@@ -59,6 +59,13 @@ public class Zombie : Enemy
         }
 
         SoundManager.GetOrCreateInstance()?.PlaySound(SoundPoolType.SFX, audioClip, hitInfo.pos);
+    }
+
+    public override void Dead()
+    {
+        base.Dead();
+
+        SoundManager.Instance.PlaySound(SoundPoolType.SFX, deadSound,transform.position);
     }
 
 }

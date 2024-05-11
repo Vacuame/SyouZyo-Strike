@@ -36,13 +36,13 @@ public class SoundManager : SingletonMono<SoundManager>
         soundPoolDict.Add(SoundPoolType.LOOP, new SoundPool(loopFolder, new Stack<AudioSource>(), maxBgmCount, "SFX", SoundPoolType.LOOP));
 
         for (int i = 1; i <= maxSfxCount; i++)
-            soundPoolDict[SoundPoolType.SFX].availables.Push(CreateAudioSource(SoundPoolType.SFX, i));
+            soundPoolDict[SoundPoolType.SFX].availables.Push(CreateAudioSource(SoundPoolType.SFX, i,1));
 
         for (int i = 1; i <= maxLoopCount; i++)
-            soundPoolDict[SoundPoolType.LOOP].availables.Push(CreateAudioSource(SoundPoolType.LOOP, i));
+            soundPoolDict[SoundPoolType.LOOP].availables.Push(CreateAudioSource(SoundPoolType.LOOP, i,1));
 
         for (int i = 1; i <= maxBgmCount; i++)
-            soundPoolDict[SoundPoolType.BGM].availables.Push(CreateAudioSource(SoundPoolType.BGM, i));
+            soundPoolDict[SoundPoolType.BGM].availables.Push(CreateAudioSource(SoundPoolType.BGM, i, 0));
     }
 
     private void Update()
@@ -55,6 +55,10 @@ public class SoundManager : SingletonMono<SoundManager>
             {
                 ActiveSound p = node.Value;
                 var nextNode = node.Next;
+
+                if(p.followTrans!=null)
+                    p.audio.transform.position = p.followTrans.position;
+
                 if (p.lifeTime.TimerTick())
                 {
                     p.audio.gameObject.SetActive(false);
@@ -81,10 +85,8 @@ public class SoundManager : SingletonMono<SoundManager>
             soundPool.activeSounds.AddLast(new ActiveSound(audio, type, lifeTime));
         }
     }
-    public int PlayLoop(SoundPoolType type, string name,float volume = 1)
+    public int PlayLoop(SoundPoolType type, AudioClip clip, float volume = 1,Transform followTrans = null)
     {
-        AudioClip clip = Resources.Load<AudioClip>("Audio/" + name);
-
         if (soundPoolDict.TryGetValue(type, out var soundPool))
         {
             AudioSource audio = GetAudioSource(soundPool);
@@ -95,7 +97,7 @@ public class SoundManager : SingletonMono<SoundManager>
             audio.Play();
             int loopId = Calc.GetUnuseIntInDic(soundPool.loopSounds);
 
-            soundPool.loopSounds.Add(loopId, new ActiveSound(audio, type));
+            soundPool.loopSounds.Add(loopId, new ActiveSound(audio, type,followTrans:followTrans));
             return loopId;
         }
         return 0;
@@ -122,18 +124,18 @@ public class SoundManager : SingletonMono<SoundManager>
         else
         {
             group.maxCount += 1;
-            return CreateAudioSource(group.type, group.maxCount);
+            return CreateAudioSource(group.type, group.maxCount,group.type == SoundPoolType.BGM?0:1);
         }
     }
 
-    private AudioSource CreateAudioSource(SoundPoolType type, int index)
+    private AudioSource CreateAudioSource(SoundPoolType type, int index,int spatialBlend)
     {
         if (soundPoolDict.TryGetValue(type, out var soundGroup))
         {
             GameObject sfx = new GameObject($"{soundGroup.mixerName} {index}");
             AudioSource audio = sfx.AddComponent<AudioSource>();
             audio.outputAudioMixerGroup = mixer.FindMatchingGroups("Master/" + soundGroup.mixerName)[0];
-            audio.spatialBlend = 1;
+            audio.spatialBlend = spatialBlend;
             audio.maxDistance = 30;
 
             sfx.SetActive(false);
@@ -168,12 +170,14 @@ public class SoundManager : SingletonMono<SoundManager>
         public AudioSource audio;
         public float lifeTime;
         public SoundPoolType type;
+        public Transform followTrans;
 
-        public ActiveSound(AudioSource audio, SoundPoolType type, float lifeTime = 0)
+        public ActiveSound(AudioSource audio, SoundPoolType type, float lifeTime = 0,Transform followTrans = null)
         {
             this.audio = audio;
             this.type = type;
             this.lifeTime = lifeTime == 0 ? audio.clip.length : lifeTime;
+            this.followTrans = followTrans;
         }
     }
 

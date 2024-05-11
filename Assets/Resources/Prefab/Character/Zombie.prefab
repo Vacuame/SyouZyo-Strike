@@ -531,6 +531,7 @@ MonoBehaviour:
   soundOnCut: {fileID: 8300000, guid: bccae2c885c58dd4f9ddd9abd92942be, type: 3}
   soundOnImpulse: {fileID: 8300000, guid: 942e3b7747709fc44a70f9a60a7ffff6, type: 3}
   soundOnParried: {fileID: 8300000, guid: d03822ced2c6d4d46bf78bf90aa20c35, type: 3}
+  deadSound: {fileID: 8300000, guid: 38b17e24938b16f42a07df73a2216a30, type: 3}
 --- !u!114 &4208110306914150461
 MonoBehaviour:
   m_ObjectHideFlags: 0
