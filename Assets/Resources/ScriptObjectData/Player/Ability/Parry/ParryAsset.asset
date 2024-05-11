@@ -28,3 +28,4 @@ MonoBehaviour:
   perfectParryDmg: 0
   perfectParryStTime: 0
   perfectParryEdTime: 0.4
+  perfectParryEffect: {fileID: 11400000, guid: 429e59dab824d564db9b78fdd00420d4, type: 2}

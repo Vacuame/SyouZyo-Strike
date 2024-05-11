@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd7341bad75e174e8b3ff599ef5c212, type: 3}
+  m_Name: ItemSetting
+  m_EditorClassIdentifier: 
+  setting:
+    Setting:
+    - key: 1
+      value:
+        itemInfo: {fileID: 11400000, guid: 0f05937ff362b2043a31db068953d85b, type: 2}
+        pickablePrefab: {fileID: 8968566408739344569, guid: dfdd3c16dc245d14c9cd99d465db500a,
+          type: 3}
+    - key: 2
+      value:
+        itemInfo: {fileID: 11400000, guid: 536327daa42eb894e8c8bda8631585ca, type: 2}
+        pickablePrefab: {fileID: 0}
+    - key: 3
+      value:
+        itemInfo: {fileID: 11400000, guid: d126b15d06375f448838a20ed4cfbc77, type: 2}
+        pickablePrefab: {fileID: 0}
+    - key: 4
+      value:
+        itemInfo: {fileID: 11400000, guid: f1c9803095beb0044a38982d244ebbc4, type: 2}
+        pickablePrefab: {fileID: 3226988916142625348, guid: c188b0e9359169f4498d126e747d93c1,
+          type: 3}
+    - key: 5
+      value:
+        itemInfo: {fileID: 11400000, guid: 44e8d15b046c70241a51d90e31da2a70, type: 2}
+        pickablePrefab: {fileID: 260691875663906282, guid: 9b0de3ecf996adb43bbf83555b2b1372,
+          type: 3}
+    - key: 6
+      value:
+        itemInfo: {fileID: 11400000, guid: b82745a879440d04badce58f524e9680, type: 2}
+        pickablePrefab: {fileID: 5939792563198437381, guid: 27634fc859e07324fa8bc12d60e253be,
+          type: 3}
+    - key: 7
+      value:
+        itemInfo: {fileID: 11400000, guid: 2d347a08218047d4fb69f218e2913e91, type: 2}
+        pickablePrefab: {fileID: 5977266820093155379, guid: 67e3016566d1ca84b9a94a77b4cb77f6,
+          type: 3}
+    - key: 8
+      value:
+        itemInfo: {fileID: 11400000, guid: 5c1cf38c1e21e334fafc735e88f44099, type: 2}
+        pickablePrefab: {fileID: 1331527269051020187, guid: 5acdaa2e8752cf0418aa70d5323c45d8,
+          type: 3}
+    - key: 9
+      value:
+        itemInfo: {fileID: 11400000, guid: 800d51437c182ae44be3009cb9e1420b, type: 2}
+        pickablePrefab: {fileID: 0}

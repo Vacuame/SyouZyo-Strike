@@ -67,6 +67,8 @@ public class Parry : AbstractAbility<ParryAsset>
                     new HitInfo(HitType.Parry,asset.perfectParryDmg,owner.gameObject,info.source,
                     col.transform.position,
                     (info.source.transform.position - owner.transform.position).normalized));
+
+                owner.ApplyGameplayEffectToSelf(new GameplayEffect(asset.perfectParryEffect));
             }
             else
             {

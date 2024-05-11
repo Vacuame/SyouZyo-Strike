@@ -21,9 +21,9 @@ public class PlayerController : Controller
     {
         base.Start();
         itemSaveData = new ItemSaveData(11,7,new List<ItemSave>());
-        ItemSave defaultGun = new ItemSave(1, new Vector2Int(2, 4), InventoryStatic.Dir.Down, new EquipedItemSave(24, false));
+        ItemSave defaultGun = new ItemSave(5, new Vector2Int(0, 5), InventoryStatic.Dir.Down, new EquipedItemSave(10, false));
         itemSaveData.AddItem(defaultGun);
-        itemSaveData.AddItem(new ItemSave(3, new Vector2Int(2, 0), InventoryStatic.Dir.Down, new EquipedItemSave(50,false)));
+        itemSaveData.AddItem(new ItemSave(3, new Vector2Int(0, 4), InventoryStatic.Dir.Down, new EquipedItemSave(50,false)));
 
         GameRoot.Instance.GetGameMode<GameMode_Play>().playerController = this;
     }

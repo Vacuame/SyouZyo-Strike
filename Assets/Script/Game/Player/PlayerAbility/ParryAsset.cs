@@ -11,4 +11,6 @@ public class ParryAsset : AbilityAsset
 
     public float perfectParryStTime;
     public float perfectParryEdTime;
+
+    public GameplayEffectAsset perfectParryEffect;
 }

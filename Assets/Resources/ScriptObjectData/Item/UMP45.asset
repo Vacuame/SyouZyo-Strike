@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7b0158cc16cc8241939b2aadc0d7e51, type: 3}
+  m_Name: UMP45
+  m_EditorClassIdentifier: 
+  id: 1
+  itemName: UMP45
+  width: 6
+  height: 2
+  maxStackNum: 1
+  icon: {fileID: 21300000, guid: f7d8101cd6474a74bb10fdd3449d0e5e, type: 3}
+  type: 2
+  equipedItemPrefab: {fileID: 4642658917480591811, guid: b091e6ac84920204693d4adbf9e63986,
+    type: 3}
+  simpleIcon: {fileID: 21300000, guid: 78400863a9768414190a7c93cd104e70, type: 3}
