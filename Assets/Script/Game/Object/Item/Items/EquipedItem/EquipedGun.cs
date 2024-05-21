@@ -94,6 +94,7 @@ public class EquipedGun : EquipedItem
         playerCamera = user.controller.playCamera.cameraComponent;
 
         user.anim.SetInteger("weaponType", animWeaponType);
+        user.anim.SetBool("equiped", true);
 
         Aim_SO aimSo = Resources.Load<Aim_SO>("ScriptObjectData/Aim");
         owner.GrandAbility(new Aim(aimSo));
@@ -119,7 +120,8 @@ public class EquipedGun : EquipedItem
     {
         data.equiped = false;
 
-        user.anim.SetInteger("weaponType", 0);
+        //user.anim.SetInteger("weaponType", 0);
+        user.anim.SetBool("equiped",false);
 
         user.controller.control.Player.Aim.started -= AimSt;
         user.controller.control.Player.Aim.canceled -= AimEd;
