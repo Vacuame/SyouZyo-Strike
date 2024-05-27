@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using static InventoryStatic;
 using static TetrisItem;
-using static Unity.Collections.AllocatorManager;
 
 public class InventoryTetris : MonoBehaviour
 {

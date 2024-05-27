@@ -36,6 +36,9 @@ public class PlayerController : Controller
         if (Input.GetKeyDown(KeyCode.Tab))
             UIManager.Instance.SwitchOnPeek(new InventoryPanelContext(InventoryPanel.uiType,this,itemSaveData,InventoryPanel.emptyDelTetrisData));
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+            UIManager.Instance.SwitchOnPeek(new PanelContext(PausePanel.uiType));
+
     }
 
     public void PickUpNewItem(ItemInfo itemInfo,ExtraSave extra)

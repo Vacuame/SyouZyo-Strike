@@ -1,7 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.FullSerializer;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewAttackData", menuName = "ABS/Ability/Attack")]

@@ -168,6 +168,6 @@ public class GameMode_Play_Wave : GameMode_Play
     {
         base.OnDestroy();
 
-        SoundManager.Instance.EndLoop(SoundPoolType.BGM, bgmId);
+        SoundManager.Instance?.EndLoop(SoundPoolType.BGM, bgmId);
     }
 }
