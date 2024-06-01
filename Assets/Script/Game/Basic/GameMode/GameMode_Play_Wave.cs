@@ -86,6 +86,9 @@ public class GameMode_Play_Wave : GameMode_Play
 
     public override void OnNotifyPlayer(GameObject playerObj)
     {
+        if (enemiesTarget != null)
+            return;
+
         enemiesTarget = playerObj;
         foreach (var e in enemyList)
         {

@@ -25,7 +25,7 @@ public class TransformAlignmenter : SingletonMono<TransformAlignmenter>
             align.trans.rotation = Quaternion.RotateTowards(align.trans.rotation, 
                 align.targetRotate, align.rotateSpeed * Time.deltaTime);
 
-            if(align.trans.position == align.targetPos && align.trans.rotation == align.targetRotate)
+            if(align.time.TimerTick())
             {
                 align.onAlignOver?.Invoke();
                 delIndexs.Add(i);
@@ -44,6 +44,7 @@ public class TransformAlignmenter : SingletonMono<TransformAlignmenter>
         public Quaternion targetRotate;
         public float moveSpeed;
         public float rotateSpeed;
+        public float time;
         public UnityAction onAlignOver;
 
         public AlignInfo(Transform trans, Vector3 targetPos, Vector3 targetForward, float time, UnityAction onAlignOver = null) :
@@ -54,6 +55,7 @@ public class TransformAlignmenter : SingletonMono<TransformAlignmenter>
 
         public AlignInfo(Transform trans, Vector3 targetPos, Quaternion targetRotate, float time ,UnityAction onAlignOver = null)
         {
+            this.time = time;
             this.trans = trans;
             this.targetPos = targetPos;
             this.targetRotate = targetRotate;

@@ -26,6 +26,7 @@ MonoBehaviour:
   CueOnExecute: []
   CueOnRemove:
   - {fileID: 11400000, guid: d0f7df40a68bbd24f99199c9ee7aaa8a, type: 2}
+  - {fileID: 11400000, guid: f15d94942bfee5748b7c3f674790decd, type: 2}
   CueOnAdd:
   - {fileID: 11400000, guid: 91ab45ecc83709048bede29c4e22e9f1, type: 2}
   CueDurational: []

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e6b0c5f972d6af41ae9e9e92aaa55dc, type: 3}
-  m_Name: Level1_Hard
+  m_Name: Level1_2Normal
   m_EditorClassIdentifier: 
   playerInjuryMultiplier: 1
   enemyInjuryMultiplier: 1
-  sumEnemyNum: 25
+  sumEnemyNum: 20
   maxEnemyNumInScene: 8
   dropConfigs:
   - id: 0
-    weight: 6
+    weight: 4
     numRange: {x: 0, y: 0}
   - id: 4
     weight: 2

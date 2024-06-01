@@ -108,8 +108,11 @@ public class SoundManager : SingletonMono<SoundManager>
         {
             if (soundPool.loopSounds.TryGetValue(loopId, out ActiveSound p))
             {
-                p.audio.gameObject.SetActive(false);
-                soundPool.availables.Push(p.audio);
+                if (p.audio != null && p.audio.gameObject != null)
+                {
+                    p.audio.gameObject.SetActive(false);
+                    soundPool.availables.Push(p.audio);
+                }
                 soundPool.loopSounds.Remove(loopId);
             }
         }

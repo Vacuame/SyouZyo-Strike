@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dd5bbfc5f6df0b4aa322aad2c3faec4, type: 3}
-  m_Name: "\u56DB\u80A2"
+  m_Script: {fileID: 11500000, guid: 7c7a2749ddeaf2240b2bc17a0dea195d, type: 3}
+  m_Name: CueSetTriger
   m_EditorClassIdentifier: 
-  data:
-    toughness: 20
-    damageMultipler:
-    - key: 1
-      value: 1.5
-    - key: 2
-      value: 1.5
+  RequiredTags: []
+  ImmunityTags: []
+  applyTarget: 0
+  isTriger: 1

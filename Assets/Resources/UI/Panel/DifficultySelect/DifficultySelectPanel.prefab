@@ -259,11 +259,11 @@ MonoBehaviour:
   - btn: {fileID: 4054941295657706122}
     intro: "\u9002\u5408\u4E00\u822C\u73A9\u5BB6\u7684\u96BE\u5EA6\n\n\t- \u9002\u91CF\u7684\u654C\u4EBA\n\t-
       \u9002\u91CF\u7684\u7269\u8D44"
-    gameModeInfo: {fileID: 11400000, guid: 6d8205ea7c37b4d4494f425f06069102, type: 2}
+    gameModeInfo: {fileID: 11400000, guid: 4b764dd180b0da0469c365e7cb2bb4be, type: 2}
   - btn: {fileID: 4934099324078387898}
     intro: "\u6BD4\u8F83\u56F0\u96BE\u7684\u96BE\u5EA6\n\n\t- \u5927\u91CF\u7684\u654C\u4EBA\n\t-
       \u6389\u843D\u5C11\u91CF\u7684\u7269\u8D44\n\t- \u65F6\u95F4\u5F88\u77ED"
-    gameModeInfo: {fileID: 11400000, guid: 4b764dd180b0da0469c365e7cb2bb4be, type: 2}
+    gameModeInfo: {fileID: 11400000, guid: 6d8205ea7c37b4d4494f425f06069102, type: 2}
   txtIntro: {fileID: 7267355543533616458}
 --- !u!1001 &3199053679837545759
 PrefabInstance:
